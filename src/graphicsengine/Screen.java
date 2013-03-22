@@ -1,7 +1,8 @@
 package graphicsengine;
 
 import java.awt.Graphics2D;
-import cs195n.*;
+
+import swinglayer.*;
 
 public interface Screen {
 	public void onDraw(Graphics2D g);

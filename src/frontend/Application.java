@@ -1,11 +1,14 @@
-package graphicsengine;
+package frontend;
+
+import graphicsengine.Screen;
 
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
 
-import cs195n.*;
+import swinglayer.*;
+
 
 public class Application extends SwingFrontEnd {
 	

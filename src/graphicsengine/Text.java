@@ -5,7 +5,8 @@ import java.awt.Font;
 import java.awt.font.FontRenderContext;
 import java.awt.font.TextLayout;
 
-import cs195n.Vec2i;
+import swinglayer.Vec2i;
+
 
 
 public class Text {

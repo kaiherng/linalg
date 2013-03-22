@@ -2,7 +2,8 @@ package graphicsengine;
 
 import java.awt.Color;
 
-import cs195n.Vec2i;
+import swinglayer.Vec2i;
+
 
 public class Circle extends GenericShape { 
 	

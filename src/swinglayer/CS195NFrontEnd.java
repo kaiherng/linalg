@@ -1,4 +1,4 @@
-package cs195n;
+package swinglayer;
 
 import java.awt.Graphics2D;
 import java.awt.event.*;

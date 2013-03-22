@@ -3,7 +3,8 @@ package graphicsengine;
 import java.awt.Color;
 import java.awt.Graphics2D;
 
-import cs195n.Vec2i;
+import swinglayer.Vec2i;
+
 
 public class Rectangle extends GenericShape {
 	protected java.awt.geom.Rectangle2D.Float _rectangle;
