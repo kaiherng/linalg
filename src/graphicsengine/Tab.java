@@ -2,7 +2,7 @@ package graphicsengine;
 
 import java.awt.Graphics2D;
 
-import swinglayer.Vec2i;
+import swinglayer.Coord;
 
 public abstract class Tab implements PhysObj {
 	
@@ -15,31 +15,31 @@ public abstract class Tab implements PhysObj {
 	}
 
 	@Override
-	public void onResize(Vec2i c) {
+	public void onResize(Coord c) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void setSize(Vec2i c) {
+	public void setSize(Coord c) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public Vec2i getSize() {
+	public Coord getSize() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public void setLocation(Vec2i c) {
+	public void setLocation(Coord c) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public Vec2i getLocation() {
+	public Coord getLocation() {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -51,13 +51,13 @@ public abstract class Tab implements PhysObj {
 	}
 
 	@Override
-	public void onMouseClick(Vec2i c) {
+	public void onMouseClick(Coord c) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void onMouseDrag(Vec2i start, Vec2i end) {
+	public void onMouseDrag(Coord start, Coord end) {
 		// TODO Auto-generated method stub
 		
 	}

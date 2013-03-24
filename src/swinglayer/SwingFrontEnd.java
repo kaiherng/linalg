@@ -43,7 +43,7 @@ public abstract class SwingFrontEnd extends CS195NFrontEnd {
 	private Point framePos;
 	private int closeOp;
 	private String title;
-	private Vec2i clientSize;
+	private Coord clientSize;
 	
 	private long[] tickTimes = new long[NUM_FRAMES_TO_AVERAGE];
 	private int tickTimesIndex = -1;
@@ -69,7 +69,7 @@ public abstract class SwingFrontEnd extends CS195NFrontEnd {
 	 * @param fullscreen	true for fullscreen, false for windowed
 	 * @param windowSize	the starting size of the window
 	 */
-	public SwingFrontEnd(String title, boolean fullscreen, Vec2i windowSize) {
+	public SwingFrontEnd(String title, boolean fullscreen, Coord windowSize) {
 		this(title, fullscreen, windowSize, JFrame.EXIT_ON_CLOSE);
 	}
 	
@@ -81,7 +81,7 @@ public abstract class SwingFrontEnd extends CS195NFrontEnd {
 	 * @param windowSize	the starting size of the window
 	 * @param closeOp   	argument to be passed to {@link JFrame#setDefaultCloseOperation(int)}. 
 	 */
-	public SwingFrontEnd(String title, boolean fullscreen, Vec2i windowSize, int closeOp) {
+	public SwingFrontEnd(String title, boolean fullscreen, Coord windowSize, int closeOp) {
 		super(fullscreen, windowSize);
 		this.title = title;
 		this.closeOp = closeOp;
@@ -270,7 +270,7 @@ public abstract class SwingFrontEnd extends CS195NFrontEnd {
 		
 		public void callOnResize(int width, int height) {
 			resizeNotCalled = false;
-			Vec2i newSize = new Vec2i(width, height);
+			Coord newSize = new Coord(width, height);
 			clientSize = newSize;
 			if (debug) {
 				updateTitle();

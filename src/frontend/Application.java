@@ -16,16 +16,16 @@ public class Application extends SwingFrontEnd {
 	private Screen _currentScreen;
 	private boolean _keyHeld;
 	private int _keyCode;
-	private Vec2i _currentSize;
+	private Coord _currentSize;
 	private int _mouseHeld;
 	
 	public Application()  {
-		super("Matrix Calculator", false, new Vec2i(1000, 600));
+		super("Matrix Calculator", false, new Coord(1000, 600));
 		_screenStack = new java.util.Stack<Screen>();
 		_keyHeld = false;
 		_mouseHeld = 0; //0 for not held, 1 for mouse first clicked, 2 for mouse being held down
 		_keyCode = 0;
-		_currentSize = new Vec2i(700, 700);
+		_currentSize = new Coord(700, 700);
 	}
 
 	@Override
@@ -70,7 +70,7 @@ public class Application extends SwingFrontEnd {
 		int clickCount = e.getClickCount();
 		int xLocation = e.getX();
 		int yLocation = e.getY();
-		_currentScreen.onMouseClicked(clickCount, new Vec2i(xLocation, yLocation));
+		_currentScreen.onMouseClicked(clickCount, new Coord(xLocation, yLocation));
 	}
 
 	@Override
@@ -84,26 +84,26 @@ public class Application extends SwingFrontEnd {
 		_currentScreen.onMouseReleased();
 		if (_mouseHeld == 2) {
 			_mouseHeld = 0;
-			_currentScreen.onDragEnd(new Vec2i(e.getX(), e.getY()));
+			_currentScreen.onDragEnd(new Coord(e.getX(), e.getY()));
 		}
 	}
 
 	@Override
 	protected void onMouseDragged(MouseEvent e) {
 		if (_mouseHeld == 1) {
-			_currentScreen.onDragStart(new Vec2i(e.getX(), e.getY()));
+			_currentScreen.onDragStart(new Coord(e.getX(), e.getY()));
 			_mouseHeld = 2;
 		}
 		if (_mouseHeld == 0) {
 			_mouseHeld = 1;
 		}
-		_currentScreen.onMouseDragged(new Vec2i(e.getX(), e.getY()));
-		_currentScreen.onMouseMoved(new Vec2i(e.getX(), e.getY()));
+		_currentScreen.onMouseDragged(new Coord(e.getX(), e.getY()));
+		_currentScreen.onMouseMoved(new Coord(e.getX(), e.getY()));
 	}
 
 	@Override
 	protected void onMouseMoved(MouseEvent e) {
-		_currentScreen.onMouseMoved(new Vec2i(e.getX(), e.getY()));
+		_currentScreen.onMouseMoved(new Coord(e.getX(), e.getY()));
 	}
 
 	@Override
@@ -118,7 +118,7 @@ public class Application extends SwingFrontEnd {
 	}
 
 	@Override
-	protected void onResize(Vec2i newSize) {
+	protected void onResize(Coord newSize) {
 		_currentScreen.onResize(newSize);
 		_currentSize = newSize;
 	}
@@ -131,7 +131,7 @@ public class Application extends SwingFrontEnd {
 		return _currentScreen = _screenStack.pop();
 	}
 	
-	public Vec2i getSize() {
+	public Coord getSize() {
 		return _currentSize;
 	}
 

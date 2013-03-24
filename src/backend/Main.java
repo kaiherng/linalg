@@ -1,14 +1,17 @@
 package backend;
 
+import frontend.Application;
+import graphicsengine.MainScreen;
+
 public class Main {
 
 	/**
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		System.out.println("hello world");
-		// TODO Auto-generated method stub
-
+		Application application = new Application();
+		application.setScreen(new MainScreen(application));
+		application.startup(); // begin processing events
 	}
 
 }

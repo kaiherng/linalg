@@ -5,7 +5,7 @@ import java.awt.Font;
 import java.awt.font.FontRenderContext;
 import java.awt.font.TextLayout;
 
-import swinglayer.Vec2i;
+import swinglayer.Coord;
 
 
 
@@ -17,11 +17,11 @@ public class Text {
 	private String _text;
 	private Color _color;
 	private String _string;
-	private Vec2i _location;
+	private Coord _location;
 	private int _type;
 
 	
-	public Text(String fontstyle, String style, int size, String text, Color color, Vec2i location) {
+	public Text(String fontstyle, String style, int size, String text, Color color, Coord location) {
 		_fontstyle = fontstyle;
 		_size = size;
 		_text = text;
@@ -43,11 +43,11 @@ public class Text {
 		this.setLocation(location);
 	}
 	
-	public void setLocation(Vec2i location) {
+	public void setLocation(Coord location) {
 		_location = location;
 	}
 	
-	public Vec2i getLocation() {
+	public Coord getLocation() {
 		return _location;
 	}
 	

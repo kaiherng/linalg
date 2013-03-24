@@ -106,7 +106,7 @@ public abstract class CS195NFrontEnd {
 	 * 
 	 * @param newSize	the new size of the drawing area.
 	 */
-	protected abstract void onResize(Vec2i newSize);
+	protected abstract void onResize(Coord newSize);
 	
 	/* --------------------------------------------------------------------------------------------
 	 * Public methods
@@ -244,18 +244,18 @@ public abstract class CS195NFrontEnd {
 	 * The default window size; should be passed to the constructor if the user does not specify a
 	 * window size.
 	 */
-	static final Vec2i DEFAULT_WINDOW_SIZE = new Vec2i(960, 540);
+	static final Coord DEFAULT_WINDOW_SIZE = new Coord(960, 540);
 	
 	/**
 	 * The minimum window size. Games are expected to work with resolutions at least this small;
 	 * smaller resolutions will not be tested or graded, and the window should not allow itself to
 	 * be resized any smaller than this.
 	 */
-	static final Vec2i MINIMUM_WINDOW_SIZE = new Vec2i(960, 540);
+	static final Coord MINIMUM_WINDOW_SIZE = new Coord(960, 540);
 	
 	// default access is intentional
 	boolean fullscreen;
-	Vec2i windowedSize;
+	Coord windowedSize;
 	volatile boolean running = false;
 	boolean debug = true;
 	
@@ -267,7 +267,7 @@ public abstract class CS195NFrontEnd {
 	 * @param fullscreen	true for starting in fullscreen, false for starting in a window
 	 * @param windowSize	the starting window size
 	 */
-	CS195NFrontEnd(boolean fullscreen, Vec2i windowSize) {
+	CS195NFrontEnd(boolean fullscreen, Coord windowSize) {
 		this.fullscreen = fullscreen;
 		this.windowedSize = windowSize;
 	}

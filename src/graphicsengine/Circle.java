@@ -2,25 +2,25 @@ package graphicsengine;
 
 import java.awt.Color;
 
-import swinglayer.Vec2i;
+import swinglayer.Coord;
 
 
 public class Circle extends GenericShape { 
 	
 	protected java.awt.geom.Ellipse2D.Float _ellipse; 
 	
-	public Circle(Vec2i location, Vec2i size, Color color) {
+	public Circle(Coord location, Coord size, Color color) {
 		_ellipse = new java.awt.geom.Ellipse2D.Float();
 		this.setFillColor(color);
 		this.setLocation(location);
 		this.setSize(size);
 	}
 	
-	public void setLocation(Vec2i location) {
+	public void setLocation(Coord location) {
 		_ellipse.setFrame(location.x, location.y, _ellipse.getWidth(), _ellipse.getHeight());
 	}
 	
-	public void setSize(Vec2i size) {
+	public void setSize(Coord size) {
 		_ellipse.setFrame(_ellipse.getX(), _ellipse.getY(), size.x, size.y);
 	}
 	

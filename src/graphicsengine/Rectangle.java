@@ -3,33 +3,33 @@ package graphicsengine;
 import java.awt.Color;
 import java.awt.Graphics2D;
 
-import swinglayer.Vec2i;
+import swinglayer.Coord;
 
 
 public class Rectangle extends GenericShape {
 	protected java.awt.geom.Rectangle2D.Float _rectangle;
 	
-	public Rectangle(Vec2i location, Vec2i size, Color color) {
+	public Rectangle(Coord location, Coord size, Color color) {
 		_rectangle = new java.awt.geom.Rectangle2D.Float();
 		this.setFillColor(color);
 		this.setLocation(location);
 		this.setSize(size);
 	}
 	
-	public void setLocation(Vec2i location) {
+	public void setLocation(Coord location) {
 		_rectangle.setFrame(location.x, location.y, _rectangle.getWidth(), _rectangle.getHeight());
 	}
 	
-	public Vec2i getLocation() {
-		return new Vec2i((int)_rectangle.getX(), (int)_rectangle.getY());
+	public Coord getLocation() {
+		return new Coord((int)_rectangle.getX(), (int)_rectangle.getY());
 	}
 	
-	public void setSize(Vec2i size) {
+	public void setSize(Coord size) {
 		_rectangle.setFrame(_rectangle.getX(), _rectangle.getY(), size.x, size.y);
 	}
 	
-	public Vec2i getSize() {
-		return new Vec2i((int)_rectangle.getWidth(), (int)_rectangle.getHeight());
+	public Coord getSize() {
+		return new Coord((int)_rectangle.getWidth(), (int)_rectangle.getHeight());
 	}
 	
 	public void draw (Graphics2D aBrush) {
