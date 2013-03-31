@@ -1,7 +1,7 @@
 package backend;
 
-import frontend.Application;
-import graphicsengine.MainScreen;
+//import frontend.Application;
+//import graphicsengine.MainScreen;
 
 public class Main {
 
@@ -9,9 +9,9 @@ public class Main {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		Application application = new Application();
-		application.setScreen(new MainScreen(application));
-		application.startup(); // begin processing events
+//		Application application = new Application();
+//		application.setScreen(new MainScreen(application));
+//		application.startup(); // begin processing events
 	}
 
 }
