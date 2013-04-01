@@ -32,7 +32,7 @@ public class Rectangle extends GenericShape {
 		return new Coord((int)_rectangle.getWidth(), (int)_rectangle.getHeight());
 	}
 	
-	public void draw (Graphics2D aBrush) {
+	public void onDraw (Graphics2D aBrush) {
 		java.awt.Color savedColor = aBrush.getColor();
 		java.awt.Stroke savedStroke = aBrush.getStroke();
 		aBrush.setColor(_fillColor);

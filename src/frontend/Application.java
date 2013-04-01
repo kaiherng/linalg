@@ -16,7 +16,6 @@ public class Application extends SwingFrontEnd {
 	private Screen _currentScreen;
 	private boolean _keyHeld;
 	private int _keyCode;
-	private Coord _currentSize;
 	private int _mouseHeld;
 	
 	public Application()  {
@@ -25,13 +24,11 @@ public class Application extends SwingFrontEnd {
 		_keyHeld = false;
 		_mouseHeld = 0; //0 for not held, 1 for mouse first clicked, 2 for mouse being held down
 		_keyCode = 0;
-		_currentSize = new Coord(700, 700);
 	}
 
 	@Override
 	protected void onTick(long nanosSincePreviousTick) {
 		_currentScreen = _screenStack.peek();
-		_currentScreen.onTick(nanosSincePreviousTick);
 	}
 
 	@Override
@@ -120,7 +117,6 @@ public class Application extends SwingFrontEnd {
 	@Override
 	protected void onResize(Coord newSize) {
 		_currentScreen.onResize(newSize);
-		_currentSize = newSize;
 	}
 	
 	public void setScreen(Screen newScreen) {
@@ -129,10 +125,6 @@ public class Application extends SwingFrontEnd {
 	
 	public Screen popScreen() {
 		return _currentScreen = _screenStack.pop();
-	}
-	
-	public Coord getSize() {
-		return _currentSize;
 	}
 
 }
