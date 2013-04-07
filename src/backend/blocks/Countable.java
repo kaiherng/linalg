@@ -1,10 +1,11 @@
 package backend.blocks;
 
-/** A number value object. This includes scalar values
+/** A number value Numerical. This includes scalar values
  *  and matrices
  */
 abstract class Countable implements Numerical{
-	private boolean _isDouble, _isFraction;
+	protected boolean _isDouble;
+	protected boolean _isFraction;
 	
 	/** Retrieves fraction status of this countable
 	 * 
