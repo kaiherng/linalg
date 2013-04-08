@@ -1,7 +1,9 @@
 package backend.operations;
 
-import backend.blocks.*;
-import java.util.*;
+import java.util.List;
+
+import backend.blocks.Countable;
+import backend.blocks.Operation.Op;
 
 /** An object that contains the answer to an Operation and the steps that 
  *  led to the answer
@@ -11,16 +13,24 @@ import java.util.*;
 public class Solution{
 	private Countable _answer;
 	private List<Step> _steps;
+	private Op _op;
+	private List<Countable> _inputs;
 
+	
 	/** Constructor for Solution object
 	 * 
+	 * @parm op the operation that resulted in this solution
+	 * @param inputs the input countables that resulted in this solution. THIS SHOULD BE ORDERED. (ex: A - B;  List {A, B})
 	 * @param answer the answer to the solution
 	 * @param steps the steps to the answer
 	 */
-	public Solution(Countable answer, List<Step> steps){
+	public Solution(Op op, List<Countable> inputs, Countable answer, List<Step> steps){
+		_op = op;
+		_inputs = inputs;
 		_answer = answer;
 		_steps = steps;
 	}
+	
 	
 	/** Gets the answer from this Solution
 	 * 
@@ -37,5 +47,21 @@ public class Solution{
 	 */
 	public List<Step> getSteps(){
 		return _steps;
+	}
+	
+
+	/**
+	 * @return the list of input arguments (will be of length 1 or 2)
+	 */
+	public List<Countable> getInputs(){
+		return _inputs;
+	}
+	
+	
+	/**
+	 * @return the operation that resulted in this solution
+	 */
+	public Op getOp(){
+		return _op;
 	}
 }
