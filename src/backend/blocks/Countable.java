@@ -4,37 +4,35 @@ package backend.blocks;
  *  and matrices
  */
 public abstract class Countable implements Numerical{
-	protected boolean _isDouble;
-	protected boolean _isFraction;
+	// Ways to display the result of this computable
+	// NOTE: When in doubt, prefer Decimal > DecimalFraction > WholeNumberFraction > WholeNumber
+	public enum DisplayType{
+		Decimal, WholeNumber,DecimalFraction, WholeNumberFraction, Custom;
+	}
+	protected DisplayType _displayType;
 	
 	/** Constructor initializes fields
 	 * 
 	 * @param isDouble true if the numbers in this countable should be displayed as decimals
 	 * @param isFraction true if the numbers in this countable should be displayed as fractions
 	 */
-	public Countable(boolean isDouble, boolean isFraction){
-		_isDouble = isDouble;
-		_isFraction = isFraction;
+	public Countable(DisplayType displayType){
+		_displayType = displayType;
 	}
 	
-	
-	/** Retrieves fraction status of this countable
-	 * 
-	 * @return true if the value(s) of this object should be represented
-	 * as fraction(s)
+	/** 
+	 * @return the DisplayType of this countable
 	 */
-	public boolean isFraction(){
-		return _isFraction;
+	public DisplayType getDisplayType(){
+		return _displayType;
 	}
 	
-	
-	/** Retrieves double status of this countable
+	/** Sets the DisplayType of this Countable
 	 * 
-	 * @return true if the value(s) of this object should be represented
-	 * as decimal(s)
+	 * @param toSet the DisplayType to set this to
 	 */
-	public boolean isDouble(){
-		return _isDouble;
+	public void setDisplayType(DisplayType toSet){
+		_displayType = toSet;
 	}
 
 }

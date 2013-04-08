@@ -5,7 +5,7 @@ package backend.blocks;
  * 
  * @author baebi
  */
-class Matrix extends Countable{
+public class Matrix extends Countable{
 	private int _numRows,_numCols;
 	
 	// multidimensional array containing double values of matrix (regardless of stated format)
@@ -13,6 +13,10 @@ class Matrix extends Countable{
 	
 	// multidimensional array containing representations of _internalValues contingent on stated format
 	private String[][] _displayValues;
+	
+	// multidimensional array containing representations of _internalValues. This is manually set
+	private String[][] _customDisplayValues;
+	
 	
 	
 	//===================================
@@ -28,8 +32,8 @@ class Matrix extends Countable{
 	 * @param values the values of this matrix. THE FIRST DIMENSION IS COLUMNS; THE
 	 * SECOND DIMENSION IS ROWS
 	 */
-	public Matrix(boolean isFraction, boolean isDouble, Double[][] values) throws IllegalArgumentException {
-		super(isDouble,isFraction);
+	public Matrix(DisplayType displayType, Double[][] values) throws IllegalArgumentException {
+		super(displayType);
 		_numCols = values.length;
 		_numRows = values[0].length;
 		_internalValues = values;
@@ -51,8 +55,8 @@ class Matrix extends Countable{
 	 * @param numRows the number of rows in this matrix
 	 * @param numCols the number of columns in this matrix
 	 */
-	public Matrix(boolean isFraction, boolean isDouble, int numRows, int numCols){
-		super(isDouble, isFraction);
+	public Matrix(DisplayType displayType, int numRows, int numCols){
+		super(displayType);
 		_numRows = numRows;
 		_numCols = numCols;
 		_internalValues = new Double[numCols][numRows];
@@ -91,11 +95,19 @@ class Matrix extends Countable{
 	 */
 	private void setDisplayIndex(int row, int col){
 		// TODO add fraction library support
-		if (_isDouble){
-			_displayValues[col][row] = _internalValues[col][row].toString();
-		}else{
-			_displayValues[col][row] = Integer.toString((int) Math.floor(_internalValues[col][row])); // if display mode is in integers, floor any double entry
-		}
+//		switch (_displayType){
+//		
+//		}
+	}
+	
+	
+	/** Sets the index of an entry in _customDisplayValues
+	 * 
+	 * @param row the row to set
+	 * @param col the column to set
+	 */
+	public void setCustomDisplayIndex(int row, int col, String setting){
+		_customDisplayValues[col][row] = setting;
 	}
 	
 	
@@ -155,7 +167,7 @@ class Matrix extends Countable{
 		String[][] toReturn = new String[_numCols][_numRows]; // we want to return a copy
 		for (int i = 0; i < _numCols; i++){
 			for (int j =0; j<_numRows; j++){
-				if (_internalValues[i][j] == null){
+				if (_displayValues[i][j] == null){
 					toReturn[i][j] = null;
 				}else{
 					toReturn[i][j] = _displayValues[i][j];
@@ -165,5 +177,23 @@ class Matrix extends Countable{
 		return toReturn;
 	}
 	
+	
+	/** Returns a copy of the custom display strings of this matrix
+	 * 
+	 * @return a multidimensional array containing the custon display values of this matrix
+	 */
+	public String[][] getCustomDisplayValues(){
+		String[][] toReturn = new String[_numCols][_numRows]; // we want to return a copy
+		for (int i = 0; i < _numCols; i++){
+			for (int j =0; j<_numRows; j++){
+				if (_customDisplayValues[i][j] == null){
+					toReturn[i][j] = null;
+				}else{
+					toReturn[i][j] = _customDisplayValues[i][j];
+				}
+			}
+		}
+		return toReturn;
+	}
 
 }

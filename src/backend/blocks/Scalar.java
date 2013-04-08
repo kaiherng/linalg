@@ -11,10 +11,10 @@ class Scalar extends Countable{
 	 * 
 	 * @param value
 	 */
-	public Scalar (double value,boolean isFraction, boolean isDouble){
-		super(isDouble,isFraction);
+	public Scalar (double value,DisplayType displayType){
+		super(displayType);
 		_value = value;
-		_displayValue = setDisplayValue(_value);
+//		_displayValue = setDisplayValue(_value); // TODO: implement
 	}
 	
 	
@@ -36,18 +36,18 @@ class Scalar extends Countable{
 	}
 	
 	
-	/** Sets the String representation of the value depending on global display parameters
-	 * 
-	 * @param val the value to display
-	 * @return the string representing this value
-	 */
-	private String setDisplayValue(double val){
-		// TODO add fraction handling
-		if (_isDouble){
-			return Double.toString(val);
-		}else{
-			return Integer.toString((int) Math.floor(val));
-		}
-	}
+//	/** Sets the String representation of the value depending on global display parameters
+//	 * 
+//	 * @param val the value to display
+//	 * @return the string representing this value
+//	 */
+//	private String setDisplayValue(double val){
+////		// TODO add fraction handling
+////		if (_isDouble){
+////			return Double.toString(val);
+////		}else{
+////			return Integer.toString((int) Math.floor(val));
+////		}
+//	}
 	
 }
