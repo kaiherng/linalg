@@ -3,7 +3,7 @@ package backend.blocks;
 /** A number value Numerical. This includes scalar values
  *  and matrices
  */
-abstract class Countable implements Numerical{
+public abstract class Countable implements Numerical{
 	protected boolean _isDouble;
 	protected boolean _isFraction;
 	
