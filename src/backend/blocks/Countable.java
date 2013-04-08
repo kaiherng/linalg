@@ -5,9 +5,9 @@ package backend.blocks;
  */
 public abstract class Countable implements Numerical{
 	// Ways to display the result of this computable
-	// NOTE: When in doubt, prefer Decimal > DecimalFraction > WholeNumberFraction > WholeNumber
+	// NOTE: When in doubt, prefer Custom > Decimal > DecimalFraction > WholeNumberFraction > WholeNumber 
 	public enum DisplayType{
-		Decimal, WholeNumber,DecimalFraction, WholeNumberFraction, Custom;
+		DECIMAL,WHOLENUMBER,DECIMALFRACTION,WHOLENUMBERFRACTION,CUSTOM;
 	}
 	protected DisplayType _displayType;
 	
@@ -26,6 +26,7 @@ public abstract class Countable implements Numerical{
 	public DisplayType getDisplayType(){
 		return _displayType;
 	}
+	
 	
 	/** Sets the DisplayType of this Countable
 	 * 

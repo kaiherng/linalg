@@ -64,9 +64,9 @@ public class Matrix extends Countable{
 	
 	
 	
-	//========================================
-	// Setters for matrix indices and size
-	//========================================
+	//===================================================
+	// Setters for matrix indices, size, and displayType
+	//===================================================
 	
 	/** Sets the value at a specified index in this matrix
 	 * 
@@ -88,7 +88,7 @@ public class Matrix extends Countable{
 	}
 	
 	
-	/** Sets the index of the matrix as the user should see it
+	/** Sets the index of the matrix as the user should see it (bases setting on DisplayType)
 	 * 
 	 * @param row the row of the index to set
 	 * @param col the column of the index to set
@@ -108,6 +108,19 @@ public class Matrix extends Countable{
 	 */
 	public void setCustomDisplayIndex(int row, int col, String setting){
 		_customDisplayValues[col][row] = setting;
+	}
+	
+	
+	/** Sets all of the _customDisplayVals at once
+	 * 
+	 * @param displayVals the matrix of custom strings
+	 */
+	public void setCustomDisplay(String[][] displayVals){
+		if (displayVals.length != _numCols || displayVals[0].length != _numRows){
+			throw new IllegalArgumentException("ERROR (Matrix): setCustomDisplay only allows a " +
+					"multidimensional array of the same dimenions as this Matrix");
+		}
+		_customDisplayValues = displayVals;
 	}
 	
 	
@@ -132,6 +145,20 @@ public class Matrix extends Countable{
 		_internalValues = newMatrix;
 		_numCols = cols;
 		_numRows = rows;
+	}
+	
+	
+	/** Resets the DisplayType of this matrix and resets all of the _displayValues entries
+	 * 
+	 * @param displayType the DisplayType to set this matrix to
+	 */
+	public void setDisplayType(DisplayType displayType){
+		_displayType = displayType;
+		for (int i = 0; i < _numCols; i++){
+			for (int j = 0; j < _numRows; j++){
+				setDisplayIndex(j,i);
+			}
+		}
 	}
 	
 	
