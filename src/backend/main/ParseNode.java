@@ -1,7 +1,9 @@
 /**
  * 
  */
-package backend.operations;
+package backend.main;
+
+import backend.operations.Solution;
 
 /** A tree of ParseNodes is returned to the front-end after a computation. This allows the front-end to understand the order 
  *  of operations. Less preferential operations like + or - will generally appear at the top of the tree. Basically, a current node's

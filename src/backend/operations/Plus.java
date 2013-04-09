@@ -15,7 +15,7 @@ import backend.blocks.Matrix;
  * 
  * @author baebi
  */
-public class Plus implements Computable {
+public class Plus extends Computable {
 	private Solution _solution;
 	
 	@Override

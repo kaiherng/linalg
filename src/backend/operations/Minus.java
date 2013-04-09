@@ -8,7 +8,7 @@ import backend.blocks.Countable.DisplayType;
 import backend.blocks.Operation.Op;
 import backend.blocks.Matrix;
 
-public class Minus implements Computable {
+public class Minus extends Computable {
 	private Solution _solution;
 	
 	@Override
