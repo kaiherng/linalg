@@ -7,7 +7,7 @@ import backend.operations.Solution;
 
 /** A tree of ParseNodes is returned to the front-end after a computation. This allows the front-end to understand the order 
  *  of operations. Less preferential operations like + or - will generally appear at the top of the tree. Basically, a current node's
- *  children must contain solutuions that were computed before the solution contained in the current node.  
+ *  children must contain solutions that were computed before the solution contained in the current node.  
  * 
  * @author baebi
  */
@@ -20,9 +20,9 @@ public class ParseNode {
 	
 	/** Constructor
 	 * 
-	 * @param solution
-	 * @param arg1
-	 * @param arg2
+	 * @param solution the Solution of a single operation
+	 * @param arg1 the ParseNode that contains the Solution which was used as the first argument to compute <solution>
+	 * @param arg2 the ParseNode that contains the Solution which was used as the second argument to compute <solution>
 	 */
 	public ParseNode(Solution solution,ParseNode arg1, ParseNode arg2){
 		solution = _solution;

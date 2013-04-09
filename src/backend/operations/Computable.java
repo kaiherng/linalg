@@ -23,7 +23,7 @@ public abstract class Computable{
 	 * @param countables the countables with DisplayTypes
 	 * @return the dominant DisplayType (Reminder: prefer Custom > Decimal > DecimalFraction > WholeNumberFraction > WholeNumber)
 	 */
-	public static DisplayType resolve(List<Countable> countables){
+	public static DisplayType resolveDisplayType(List<Countable> countables){
 		boolean foundCustom,foundDecimal,foundDecimalFraction,foundWholeNumber,foundWholeNumberFraction;
 		foundCustom = foundDecimal = foundDecimalFraction = foundWholeNumber = foundWholeNumberFraction = false;
 		for (Countable countable : countables){
@@ -66,7 +66,7 @@ public abstract class Computable{
 		}else if (foundWholeNumber){
 			return DisplayType.WHOLENUMBER;
 		}else{
-			System.err.println("ERROR (ResolveDisplayType): Did not find any enums");
+			System.err.println("ERROR (Computable): Did not find any enums");
 			return null;
 		}
 	}

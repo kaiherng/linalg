@@ -33,7 +33,7 @@ public class Plus extends Computable {
 		List<Countable> matrixList = new ArrayList<>();
 		matrixList.add(matrixA);
 		matrixList.add(matrixB);
-		DisplayType answerDisplayType = ResolveDisplayType.resolve(matrixList); // choose DisplayType to use
+		DisplayType answerDisplayType = resolveDisplayType(matrixList); // choose DisplayType to use
 		
 		Double[][] aValues = matrixA.getValues();
 		Double[][] bValues = matrixB.getValues();

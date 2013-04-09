@@ -3,7 +3,7 @@ package backend.blocks;
 /**
  *  A container for a scalar value
  */
-class Scalar extends Countable{
+public class Scalar extends Countable{
 	private double _value;
 	private String _displayValue;
 	
