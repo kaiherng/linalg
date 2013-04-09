@@ -6,8 +6,11 @@ import backend.blocks.Countable;
 import backend.blocks.Countable.DisplayType;
 
 
-// Implementors for Computable take in 1-2 matrices, perform a specified 
-// operation on the matrices, and provide getters for the result
+/** Implementors for Computable take in 1-2 matrices, perform a specified 
+ *  operation on the matrices, and provide getters for the result
+ *  
+ * @author baebi
+ */
 public abstract class Computable{
 
 	

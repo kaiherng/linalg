@@ -18,6 +18,7 @@ public class ParseNode {
 	// Note, if the 1st or 2nd arguments to the operation that created _solution were not themselves computed in
 	// a Computable, the respective _left or _right will be null
 	
+	
 	/** Constructor
 	 * 
 	 * @param solution the Solution of a single operation
