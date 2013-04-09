@@ -1,17 +1,16 @@
 package backend.blocks;
 
-import java.util.HashMap;
 import java.util.Map;
 
 /** Mathematical operation
  * 
  * @author baebi
  */
-public class Operation implements Numerical{
-	public enum Op {PLUS, MINUS, TIMES} //TODO add more Ops
+public abstract class Operation implements Numerical{
+	
 	private int _rank;
 	private Op _type;
-	private Map<Op,Integer> rankMap; // Maps operations to a rank (think PEMDAS). Lower ranks are preferred
+	private Map<Op,Boolean> isUnary; // Specifies which Ops are unary
 
 	
 	/** Constructor for this Operation
@@ -19,10 +18,6 @@ public class Operation implements Numerical{
 	 * @param operator the type of operation this is to be
 	 */
 	public Operation(Op operator){
-		rankMap = new HashMap<>();
-		rankMap.put(Op.PLUS,2);
-		rankMap.put(Op.MINUS,2);
-		rankMap.put(Op.TIMES,1);
 		_type = operator;
 	}
 	

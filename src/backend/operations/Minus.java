@@ -5,8 +5,8 @@ import java.util.List;
 
 import backend.blocks.Countable;
 import backend.blocks.Countable.DisplayType;
-import backend.blocks.Operation.Op;
 import backend.blocks.Matrix;
+import backend.blocks.Op;
 
 public class Minus extends Computable {
 	private Solution _solution;

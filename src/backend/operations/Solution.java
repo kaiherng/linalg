@@ -3,7 +3,7 @@ package backend.operations;
 import java.util.List;
 
 import backend.blocks.Countable;
-import backend.blocks.Operation.Op;
+import backend.blocks.Op;
 
 /** An object that contains the answer to an Operation and the steps that 
  *  led to the answer

@@ -26,16 +26,22 @@ public class Multiply extends Computable {
 	}
 	
 	
-	/**
+	/** Creates the Solution to a multiplication
 	 * 
-	 * @param matrixA
-	 * @param matrixB
+	 * @param matrixA the first factor
+	 * @param matrixB the second factor
 	 */
 	public Multiply(Matrix matrixA, Matrix matrixB){
 		List<Countable> inputs = new ArrayList<>();
 		inputs.add(matrixA);
 		inputs.add(matrixB);
 		DisplayType answerDisplayType = resolveDisplayType(inputs);
+		
+		Double[][] aValues = matrixA.getValues();
+		Double[][] bValues = matrixB.getValues();
+		
+		// TODO
+		
 	}
 
 }

@@ -6,9 +6,9 @@ package backend.operations;
 import backend.blocks.Matrix;
 import backend.blocks.Scalar;
 
-/**
+/** Computes a scalare/matrix multiplication
+ * 
  * @author baebi
- *
  */
 public class ScalarMultiply extends Computable {
 	private Solution _solution;
@@ -50,4 +50,5 @@ public class ScalarMultiply extends Computable {
 	private void generateSolution(Matrix matrix, Scalar scalar){
 		// TODO
 	}
+	
 }
