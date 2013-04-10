@@ -1,5 +1,5 @@
 /**
- * 
+ * TODO: make this support brackets
  */
 package backend.main;
 
@@ -41,7 +41,25 @@ public class Parser {
 	 */
 	public static ParseNode parse(List<Numerical> input) throws IllegalArgumentException {
 		checkValidInput(input);
-		// TODO 
+		Numerical operationTree = createSortedTree(input); 
+		return compute(operationTree);
+	}
+	
+	
+	/** Computes a sequence of computations organized into a tree structure of Numericals. (See
+	 *  createSortedTree). 
+	 * 
+	 * @param root
+	 * @return
+	 */
+	private static ParseNode compute(Numerical root){
+		if (root instanceof Operation){
+			
+		}else if(root instanceof Countable){
+			
+		}
+		
+		// TODO
 		return null;
 	}
 	
@@ -52,11 +70,19 @@ public class Parser {
 	 * @throws IllegalArgumentException if input is invalid
 	 */
 	private static void checkValidInput(List<Numerical> input) throws IllegalArgumentException {
-		if (input.size() == 1 && input.get(0) instanceof Operation){ // edge case
+		if (input.size() == 0){
+			throw new IllegalArgumentException("ERROR: Require expression to compute");
+		}
+		
+		if (input.size() == 1){ // edge case
+			if (input.get(0) instanceof Operation){
 			if (((Operation) input.get(0)).isUnary()){
 				throw new IllegalArgumentException("ERROR: Unary operator requires operand");
 			}else{
 				throw new IllegalArgumentException("ERROR: Binary operator requires two operands");
+			}
+			}else{
+				throw new IllegalArgumentException("ERROR: Require expression to compute");
 			}
 		}
 		
@@ -95,15 +121,21 @@ public class Parser {
 	 *  included in the Operations with no left or right children.
 	 * 
 	 * @param input the list of Numericals making up the input equation
-	 * @return
+	 * @return  Numerical that is the root of the parsed tree of Operations
 	 */
-	private Operation createSortedTree(List<Numerical> input){
+	private static Numerical createSortedTree(List<Numerical> input){
 		// TODO
+		if (input.size() == 0){
+			return null;
+		}else if(input.size() == 1){
+			return input.get(0); //This must be a Countable, countables are 
+		}
+		
 		int prefOpIndex = findPreferentialOp(input);
+		
+		// This code should be unreachable
 		if (prefOpIndex == -1){
-			if (input.size() > 1){
-				
-			}
+				System.err.println("ERROR: createSortedTree passed invalid input");	
 		}
 		
 		List<Numerical> prev = new ArrayList<>(input.subList(0, prefOpIndex));
@@ -122,7 +154,7 @@ public class Parser {
 	 * @param input the list of numericals making up the input equation
 	 * @return
 	 */
-	private int findPreferentialOp(List<Numerical> input){
+	private static int findPreferentialOp(List<Numerical> input){
 		Numerical currentNumr;
 		int maxRank = -1;
 		int currRank;
@@ -139,6 +171,5 @@ public class Parser {
 		}
 		return toReturn;
 	}
-	
 	
 }
