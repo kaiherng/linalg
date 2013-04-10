@@ -72,4 +72,11 @@ public abstract class Operation implements Numerical{
 		return _secondArg;
 	}
 	
+	/** 
+	 * @return true if this is a unary operator
+	 */
+	public boolean isUnary(){
+		return _type.isUnary();
+	}
+	
 }
