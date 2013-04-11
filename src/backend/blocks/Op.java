@@ -8,18 +8,20 @@ package backend.blocks;
  * @author baebi
  */
 public enum Op {
-	PLUS(0,false), MINUS(0,false), TIMES(1,false), SCALAR_MULTIPLY(1,false), 
-	DETERMINANT(2,true), ROW_REDUCE(3,true);
+	PLUS(2,false,"PLUS"), MINUS(2,false,"MINUS"), TIMES(1,false,"TIMES"), SCALAR_MULTIPLY(1,false,"SCALAR-MULTIPLY"), 
+	DETERMINANT(0,true,"DETERMINANT"), ROW_REDUCE(0,true,"ROW-REDUCE"); // do not give rank below zero
 	private int _rank; // the PEMDAS rank of this operation
 	private boolean _isUnary; // true if this is a unary operation like determinant, power, or row-reduce
-	
+	private String _name;
 	
 	/** Give the Op a rank
 	 * 
 	 * @param value the PEMDAS rank of this Op
 	 */
-	private Op(int value,boolean isUnary){
+	private Op(int value,boolean isUnary,String name){
 		_rank = value;
+		_isUnary = isUnary;
+		_name = name;
 	}
 	
 	
@@ -36,5 +38,13 @@ public enum Op {
 	 */
 	public boolean isUnary(){
 		return _isUnary;
+	}
+	
+	
+	/**
+	 * @return the name of the given Op
+	 */
+	public String getName(){
+		return _name;
 	}
 }
