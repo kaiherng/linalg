@@ -3,7 +3,7 @@ package graphicsengine;
 import java.awt.Color;
 import java.awt.Graphics2D;
 
-import swinglayer.Coord;
+
 
 
 public class Rectangle extends GenericShape {

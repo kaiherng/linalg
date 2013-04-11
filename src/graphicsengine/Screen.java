@@ -2,8 +2,6 @@ package graphicsengine;
 
 import java.awt.Graphics2D;
 
-import swinglayer.*;
-
 /** 
  * An interface that defines a Screen. A screen is everything that the user sees in the program
  * We define this as an interface, and not an abstract class, because each screen implements these user interaction methods differently

@@ -2,9 +2,13 @@ package graphicsengine;
 
 import java.awt.Graphics2D;
 
-import swinglayer.Coord;
+
 
 public class Container implements PhysObj{
+	
+	public Container() {
+		
+	}
 
 	@Override
 	public void setSize(Coord c) {
