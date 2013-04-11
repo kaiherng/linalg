@@ -5,7 +5,7 @@ package backend.blocks;
  * 
  * @author baebi
  */
-public abstract class Operation implements Numerical{
+public class Operation implements Numerical{
 	
 	// this enum also specifies the rank and isUnary status of this Operation
 	private Op _type; 

@@ -6,9 +6,14 @@ package backend.main;
 import java.util.ArrayList;
 import java.util.List;
 
+import backend.blocks.Bracket;
 import backend.blocks.Countable;
+import backend.blocks.Matrix;
 import backend.blocks.Numerical;
+import backend.blocks.Op;
 import backend.blocks.Operation;
+import backend.operations.Plus;
+import backend.operations.Solution;
 
 /**
  * @author baebi
@@ -46,6 +51,7 @@ public class Parser {
 	}
 	
 	
+	
 	/** Computes a sequence of computations organized into a tree structure of Numericals. (See
 	 *  createSortedTree). 
 	 * 
@@ -53,54 +59,99 @@ public class Parser {
 	 * @return
 	 */
 	private static ParseNode compute(Numerical root){
-		if (root instanceof Operation){
-			
-		}else if(root instanceof Countable){
-			
-		}
+
+		
+//		if (root instanceof Operation){
+//			Operation rootAsOp = (Operation) root;
+//			Op op = rootAsOp.getType();
+//			switch (op){
+//				case PLUS: {
+//					if ((rootAsOp.getFirstArg() == null || (rootAsOp.getSecondArg() == null))){
+//						throw new IllegalArgumentException("ERROR: Plus requires two arguments");
+//					}
+//					
+//					if (rootAsOp.getFirstArg())
+//					ParseNode firstArg = compute(rootAsOp.getFirstArg());
+//					ParseNode secondArg= compute(rootAsOp.getSecondArg());
+//					Solution arg1Sol = firstArg.getSolution();
+//					Solution arg2Sol = secondArg.getSolution();
+//					Numerical arg1 = arg1Sol.getAnswer();
+//					Numerical arg2 = arg2Sol.getAnswer();
+//					
+//					if (!(arg1 instanceof Matrix) || !(arg2 instanceof Matrix)){
+//						throw new IllegalArgumentException("ERROR: Plus arguments must be matrices");
+//					}
+//					
+//					Plus plus = new Plus((Matrix) arg1, (Matrix) arg2);
+//					Solution sum = plus.getSolution();
+//					
+//					
+//					return new ParseNode(sum,firstArg,secondArg);
+//				}
+//				case MINUS:
+//				case SCALAR_MULTIPLY:
+//				case TIMES:
+//				case DETERMINANT:
+//				case ROW_REDUCE:
+//				default:
+//				
+//			}
+//		}else if(root instanceof Countable){
+//			
+//		}else{
+//			// should be unreachable code
+//			System.err.println("ERROR (compute): compute should not receive anything but countables or ");
+//		}
 		
 		// TODO
 		return null;
 	}
 	
 	
+	// TODO: fix to work with brackets
 	/** Checks that the input computation was valid
 	 * 
 	 * @param input the list of Numericals making up the input
 	 * @throws IllegalArgumentException if input is invalid
 	 */
-	private static void checkValidInput(List<Numerical> input) throws IllegalArgumentException {
+	protected static void checkValidInput(List<Numerical> input) throws IllegalArgumentException {
 		if (input.size() == 0){
 			throw new IllegalArgumentException("ERROR: Require expression to compute");
 		}
-		
+
 		if (input.size() == 1){ // edge case
 			if (input.get(0) instanceof Operation){
-			if (((Operation) input.get(0)).isUnary()){
-				throw new IllegalArgumentException("ERROR: Unary operator requires operand");
+				if (((Operation) input.get(0)).isUnary()){
+					throw new IllegalArgumentException("ERROR: Unary operator requires operand");
+				}else{
+					throw new IllegalArgumentException("ERROR: Binary operator requires two operands");
+				}
+			}else if(input.get(0) instanceof Bracket){
+				throw new IllegalArgumentException("ERROR: Unpaired bracket");
 			}else{
-				throw new IllegalArgumentException("ERROR: Binary operator requires two operands");
-			}
-			}else{
-				throw new IllegalArgumentException("ERROR: Require expression to compute");
+				throw new IllegalArgumentException("ERROR: Require expression to compute"); // maybe don't need to throw expection for this
 			}
 		}
+
+		checkBrackets(input); // check that brackets are valid
 		
 		Numerical last = null;
 		for (Numerical numr : input){
 			if (last != null && last instanceof Operation && numr instanceof Operation // check for two nonunary operators in a row
 					&& !((Operation) numr).isUnary()){
-				throw new IllegalArgumentException("ERROR: Binary operation requires two elements");
+				throw new IllegalArgumentException("ERROR: Binary operation requires two operands");
 			}
-			
 			if (last != null && last instanceof Countable && numr instanceof Countable){ // check for adjacent Countables
 				throw new IllegalArgumentException("ERROR: Two adjacent Countables");
 			}
-			
 			if (last != null && last instanceof Operation && ((Operation) last).isUnary() && !(numr instanceof Countable)){ // check that each unary operator has operand
-				throw new IllegalArgumentException("ERROR: Unary operator requires operand");
+				if (numr instanceof Bracket && !((Bracket) numr).isOpen()){
+					throw new IllegalArgumentException("ERROR: Unary operator requires operand");
+				}
 			}
-			
+			if (last != null && last instanceof Bracket && ((Bracket) last).isOpen() && numr instanceof Bracket && !((Bracket) numr).isOpen()){
+				throw new IllegalArgumentException("ERROR: Empty brackets");
+			}
 			last = numr;
 		}
 		
@@ -110,6 +161,41 @@ public class Parser {
 			}else{
 				throw new IllegalArgumentException("ERROR: Binary operator requires two operands");
 			}
+		}
+
+
+	}
+	
+	
+	/** Checks that an input computation properly opens and closes brackets
+	 * 
+	 * @param input A series of Numericals representing a computation
+	 * @throws IllegalArgumentException thrown if the brackets aren't valid
+	 */
+	private static void checkBrackets(List<Numerical> input) throws IllegalArgumentException {
+		boolean firstBracket = true;
+		int openBrackets,closedBrackets;
+		openBrackets = closedBrackets = 0;
+		boolean isOpen;
+		for (Numerical numr : input){
+			if (numr instanceof Bracket){
+				if (firstBracket && !((Bracket) numr).isOpen()){
+					throw new IllegalArgumentException("ERROR: Close bracket without open bracket");
+				}else{
+					firstBracket = false;
+				}
+				
+				isOpen = ((Bracket) numr).isOpen();
+				if (isOpen){
+					openBrackets++;
+				}else{
+					closedBrackets++;
+				}
+			}
+		}
+		
+		if (openBrackets != closedBrackets){
+			throw new IllegalArgumentException("ERROR: Every open bracket must have a close bracket and vice versa");
 		}
 	}
 	
@@ -124,14 +210,15 @@ public class Parser {
 	 * @return  Numerical that is the root of the parsed tree of Operations
 	 */
 	private static Numerical createSortedTree(List<Numerical> input){
-		// TODO
+		input = removeOuterBrackets(input);
+		
 		if (input.size() == 0){
 			return null;
 		}else if(input.size() == 1){
-			return input.get(0); //This must be a Countable, countables are 
+			return input.get(0); //This must be a Countable
 		}
 		
-		int prefOpIndex = findPreferentialOp(input);
+		int prefOpIndex = findLeastPreferentialOp(input);
 		
 		// This code should be unreachable
 		if (prefOpIndex == -1){
@@ -147,29 +234,67 @@ public class Parser {
 	}
 	
 	
-	/** Returns the index of the operation that must be performed first among the operations present
+	/** Returns the index of the operation that must be performed last among the operations present
 	 *  in the computation. If there is no preference due to Operator rank, preference is 
-	 *  set by list order. (ex: A + B + C -> A + B comes first)
+	 *  set by list order. (ex: A + B + C -> B + C comes last). EXPECTS A SEQUENCE OF NUMERICALS
+	 *  THAT IS NOT IN ITS ENTIRETY SURROUNDED BY A PAIR OF PARENS
 	 * 
 	 * @param input the list of numericals making up the input equation
-	 * @return
+	 * @return the index in the list of the operation that should be computed last
 	 */
-	private static int findPreferentialOp(List<Numerical> input){
+	protected static int findLeastPreferentialOp(List<Numerical> input){
 		Numerical currentNumr;
 		int maxRank = -1;
 		int currRank;
 		int toReturn = -1; // index to return
+		int openBrackets = 0;
 		for (int i = 0; i < input.size(); i++){
 			currentNumr = input.get(i);
-			if (currentNumr instanceof Operation){
-				currRank = ((Operation) currentNumr).getRank();
-				if (currRank > maxRank){
-					maxRank = currRank;
-					toReturn = i;
+			if (currentNumr instanceof Bracket){
+				if(((Bracket) currentNumr).isOpen()){
+					openBrackets++;
+				}else{
+					openBrackets--;
 				}
-			} 
+			}else{
+				if (currentNumr instanceof Operation && openBrackets == 0){
+					currRank = ((Operation) currentNumr).getRank();
+					if (currRank > maxRank){
+						maxRank = currRank;
+						toReturn = i;
+					}
+				} 
+			}
 		}
 		return toReturn;
+	}
+	
+	
+	/** If the input is begun by a bracket that is closed by a bracket at the end of the input, this removes
+	 *  those outer brackets. EXPECTS VALID PARENTHESES, THAT IS EACH OPEN PARENS SHOULD HAVE A CLOSED PARENS
+	 * 
+	 * @param input the list of Numericals representing a computation
+	 * @return the same list except without first and last brackets if they existed as a pair
+	 */
+	protected static List<Numerical> removeOuterBrackets(List<Numerical> input){
+		if (!(input.get(0) instanceof Bracket)){ // computation not begun by a bracket
+			return input;
+		}else{
+			int unclosedBrackets = 1;
+			for (int i = 1; i < input.size()-1; i++){
+				if (input.get(i) instanceof Bracket){
+					if (((Bracket) input.get(i)).isOpen()){
+						unclosedBrackets++;
+					}else{
+						unclosedBrackets--;
+						if (unclosedBrackets == 0){
+							return input;
+						}
+					}
+				}
+			}
+			return new ArrayList<Numerical>(input.subList(1, input.size()-1));
+		}
 	}
 	
 }
