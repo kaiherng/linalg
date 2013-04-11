@@ -1,10 +1,11 @@
 package graphicsengine;
 
+import java.awt.Color;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
 import java.util.List;
 
-import swinglayer.Coord;
+
 
 /**
  * A frame is something that contains tabs - it represents a space on the screen that contains tabs, and it is the tab manager for that space
@@ -15,6 +16,7 @@ public class Frame implements PhysObj {
 	
 	private Coord _location;
 	private Coord _size;
+	private Rectangle _background;
 	
 	/**
 	 * A list of all the tabs that are contained in the frame
@@ -39,8 +41,10 @@ public class Frame implements PhysObj {
 		_location = location;
 		_size = size;
 		_tabs = new ArrayList<Tab>();
-		addTab(t);
+		_tabs.add(t);
 		_currTab = t;
+		_currTab.onFocus();
+		_background = new Rectangle(location, size, Color.RED);
 	}
 
 	
@@ -73,8 +77,14 @@ public class Frame implements PhysObj {
 	 * @param g
 	 */
 	public void onDraw(Graphics2D g) {
+		System.out.println("ondraw in frame");
+		_background.onDraw(g);
 		int size = _tabs.size();
 		for (int i=size-1; i>-1; i--) {
+			Tab tab = _tabs.get(i);
+			tab.setLocation(_location);
+			tab.setSize(_size);
+			
 			_tabs.get(i).onDraw(g); //draws all the tabs, where the rightmost tab is drawn first
 		}
 		_currTab.onDraw(g); //draw the current tab over all the other tabs
@@ -83,6 +93,7 @@ public class Frame implements PhysObj {
 
 	@Override
 	public void setSize(Coord c) {
+		System.out.println("setsize in frame: " + c);
 		_size = c;
 	}
 

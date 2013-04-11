@@ -1,5 +1,7 @@
 package frontend;
 
+import graphicsengine.Coord;
+import graphicsengine.FrontEnd;
 import graphicsengine.Screen;
 
 import java.awt.Graphics2D;
@@ -7,10 +9,8 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
 
-import swinglayer.*;
 
-
-public class Application extends SwingFrontEnd {
+public class Application extends FrontEnd {
 	
 	private java.util.Stack<Screen> _screenStack;
 	private Screen _currentScreen;
@@ -18,17 +18,15 @@ public class Application extends SwingFrontEnd {
 	private int _keyCode;
 	private int _mouseHeld;
 	
-	public Application()  {
-		super("Matrix Calculator", false, new Coord(1000, 600));
+	public Application(Coord initialSize)  {
+		super(initialSize);
 		_screenStack = new java.util.Stack<Screen>();
 		_keyHeld = false;
 		_mouseHeld = 0; //0 for not held, 1 for mouse first clicked, 2 for mouse being held down
 		_keyCode = 0;
-	}
-
-	@Override
-	protected void onTick(long nanosSincePreviousTick) {
-		_currentScreen = _screenStack.peek();
+		_loaded = true;
+		_currentScreen = new MainScreen(this);
+		initialSetup();
 	}
 
 	@Override

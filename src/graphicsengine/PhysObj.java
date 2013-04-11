@@ -2,7 +2,7 @@ package graphicsengine;
 
 import java.awt.Graphics2D;
 
-import swinglayer.Coord;
+
 
 public interface PhysObj {
 

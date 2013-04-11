@@ -3,7 +3,9 @@ package graphicsengine;
 import java.awt.Color;
 import java.awt.Graphics2D;
 
-import swinglayer.Coord;
+import frontend.Constants;
+
+
 
 public class Tab implements PhysObj {
 	
@@ -33,10 +35,10 @@ public class Tab implements PhysObj {
 	 * @param title the title of the tab
 	 * @param color the color of the tab
 	 */
-	public Tab(Container c, String title, Coord location, Coord size, Color color) {
+	public Tab(Container c, String title) {
 		_main = c;
-		_mainBackground = new Rectangle(location.plus(0,20), size.minus(0,20), color);
-		_header = new TabHeader(location, new Coord(50,20), title);
+		_mainBackground = new Rectangle(new Coord(0,0), new Coord(0,0), Constants.TAB_MAINBG_COLOR); //just create an empty rectangle for now, the size will be set when the onDraw is called by frame
+		_header = new TabHeader(new Coord(0,0), new Coord(Constants.TABHEADER_WIDTH, Constants.TABHEADER_WIDTH), title);
 	}
 	
 	public void onBlur() {
@@ -53,32 +55,23 @@ public class Tab implements PhysObj {
 	}
 
 	@Override
-	public void onResize(Coord c) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
 	public void setSize(Coord c) {
-		// TODO Auto-generated method stub
-		
+		_mainBackground.setSize(c.minus(0, Constants.TABHEADER_HEIGHT));
 	}
 
 	@Override
 	public Coord getSize() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public void setLocation(Coord c) {
-		// TODO Auto-generated method stub
-		
+		_header.setLocation(c);
+		_mainBackground.setLocation(c.plus(0, Constants.TABHEADER_HEIGHT));
 	}
 
 	@Override
 	public Coord getLocation() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
@@ -91,22 +84,5 @@ public class Tab implements PhysObj {
 		}
 	}
 
-	@Override
-	public void onMouseClick(Coord c) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void onMouseDrag(Coord start, Coord end) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void onKeyPress(int key) {
-		// TODO Auto-generated method stub
-		
-	}
 
 }

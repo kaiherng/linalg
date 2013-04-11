@@ -2,7 +2,7 @@ package graphicsengine;
 
 import java.awt.Color;
 
-import swinglayer.Coord;
+
 
 public class Square extends Rectangle {
 
