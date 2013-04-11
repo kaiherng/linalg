@@ -24,13 +24,13 @@ public class TabHeader extends GenericShape {
 	private Coord _location; 
 	private Coord _size;
 	private Polygon _polygon;
-	private String _title;
+	private Text _title;
 	
 	public TabHeader(Coord location, Coord size, String title) {
 		_location = location;
 		_size = size;
-		_title = title;
 		adjustPolygon();
+		_title = new Text(Constants.TEXT_FONTSTYLE, "bold", 12, title.toUpperCase(), Constants.TABHEADER_TEXT_ACTIVE_COLOR, location.plus(new Coord(20,3)));
 	}
 	
 	public void adjustPolygon() {
@@ -54,12 +54,20 @@ public class TabHeader extends GenericShape {
 	
 	public void setLocation(Coord location) {
 		_location = location;
+		_title.setLocation(_location); //centralizes the title
+		int xOffset = (_size.x - _title.getBoundingBoxSize().x)/2;
+		int yOffset = (_size.y - _title.getBoundingBoxSize().y)/4;
+		_title.setLocation(_location.plus(new Coord(xOffset, yOffset))); //centralizes the title
 		adjustPolygon();
 	}
 	
 	public void setSize(Coord size) {
 		_size = size;
 		adjustPolygon();
+		_title.setLocation(_location); //centralizes the title
+		int xOffset = (_size.x - _title.getBoundingBoxSize().x)/2;
+		int yOffset = (_size.y - _title.getBoundingBoxSize().y)/4;
+		_title.setLocation(_location.plus(new Coord(xOffset, yOffset))); //centralizes the title
 	}
 	
 	public void onDraw(Graphics2D g, boolean focus) {
@@ -72,8 +80,9 @@ public class TabHeader extends GenericShape {
 			g.setColor(Constants.TAB_HEADERBG_INACTIVE_COLOR);
 		}
 		g.fillPolygon(_polygon);
+		g.setColor(savedColor);
 		g.setStroke(savedStroke);
-		
+		_title.draw(g);
 	}
 	
 

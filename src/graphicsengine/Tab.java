@@ -66,8 +66,12 @@ public class Tab implements PhysObj {
 
 	@Override
 	public void setLocation(Coord c) {
+		_mainBackground.setLocation(c);
+	}
+	
+	
+	public void setHeaderLocation(Coord c) {
 		_header.setLocation(c);
-		_mainBackground.setLocation(c.plus(0, Constants.TABHEADER_HEIGHT));
 	}
 
 	@Override

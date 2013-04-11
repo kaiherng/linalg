@@ -4,10 +4,12 @@ import graphicsengine.Coord;
 import graphicsengine.FrontEnd;
 import graphicsengine.Screen;
 
+import java.awt.FontFormatException;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
+import java.io.IOException;
 
 
 public class Application extends FrontEnd {
@@ -26,6 +28,7 @@ public class Application extends FrontEnd {
 		_keyCode = 0;
 		_loaded = true;
 		_currentScreen = new MainScreen(this);
+		
 		initialSetup();
 	}
 
@@ -114,7 +117,9 @@ public class Application extends FrontEnd {
 
 	@Override
 	protected void onResize(Coord newSize) {
-		_currentScreen.onResize(newSize);
+		if (_currentScreen != null) {
+			_currentScreen.onResize(newSize);
+		}
 	}
 	
 	public void setScreen(Screen newScreen) {
