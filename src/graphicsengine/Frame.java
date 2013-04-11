@@ -5,6 +5,8 @@ import java.awt.Graphics2D;
 import java.util.ArrayList;
 import java.util.List;
 
+import frontend.Constants;
+
 
 
 /**
@@ -44,7 +46,7 @@ public class Frame implements PhysObj {
 		_tabs.add(t);
 		_currTab = t;
 		_currTab.onFocus();
-		_background = new Rectangle(location, size, Color.RED);
+		_background = new Rectangle(location, size, Constants.FRAME_BG_COLOR);
 	}
 
 	
@@ -54,8 +56,8 @@ public class Frame implements PhysObj {
 	 */
 	public void addTab(Tab t) {
 		_tabs.add(t);
-		t.setLocation(_location);
-		t.setSize(_size);
+		t.setLocation(_location.plus(new Coord(Constants.TAB_LEFT_OFFSET, Constants.TAB_TOP_OFFSET)));
+		t.setSize(_size.minus(new Coord(Constants.TAB_LEFT_OFFSET+Constants.TAB_RIGHT_OFFSET, Constants.TAB_TOP_OFFSET+Constants.TAB_BOTTOM_OFFSET)));
 	}
 	
 	/**
@@ -82,8 +84,8 @@ public class Frame implements PhysObj {
 		int size = _tabs.size();
 		for (int i=size-1; i>-1; i--) {
 			Tab tab = _tabs.get(i);
-			tab.setLocation(_location);
-			tab.setSize(_size);
+			tab.setLocation(_location.plus(new Coord(Constants.TAB_LEFT_OFFSET, Constants.TAB_TOP_OFFSET)));
+			tab.setSize(_size.minus(new Coord(Constants.TAB_LEFT_OFFSET+Constants.TAB_RIGHT_OFFSET, Constants.TAB_TOP_OFFSET+Constants.TAB_BOTTOM_OFFSET)));
 			
 			_tabs.get(i).onDraw(g); //draws all the tabs, where the rightmost tab is drawn first
 		}
@@ -95,6 +97,7 @@ public class Frame implements PhysObj {
 	public void setSize(Coord c) {
 		System.out.println("setsize in frame: " + c);
 		_size = c;
+		_background.setSize(c);
 	}
 
 
@@ -107,6 +110,7 @@ public class Frame implements PhysObj {
 	@Override
 	public void setLocation(Coord c) {
 		_location = c;
+		_background.setLocation(c);
 	}
 
 

@@ -34,33 +34,22 @@ public class TabHeader extends GenericShape {
 	}
 	
 	public void adjustPolygon() {
-		
-
 		int[] xpoints = new int[4];
 		int[] ypoints = new int[4];
-		xpoints[0] = _location.x + Constants.TABHEADER_LEFT_RIGHT_OFFSET;
-		System.out.println(xpoints[0]);
-		ypoints[0] = _location.y;
-		System.out.println(ypoints[0]);
-		xpoints[1] = _location.x + _size.x - Constants.TABHEADER_LEFT_RIGHT_OFFSET;
-		System.out.println(xpoints[1]);
-		ypoints[1] = _location.y;
-		System.out.println(ypoints[1]);
-		xpoints[2] = _location.x;
-		System.out.println(xpoints[2]);
-		ypoints[2] = _location.y + _size.y;
-		System.out.println(ypoints[2]);
-		xpoints[3] = _location.x + _size.x;
-		System.out.println(xpoints[3]);
-		ypoints[3] = _location.y + _size.y;
-		System.out.println(ypoints[3]);
 		
-		_polygon = new Polygon();
-		_polygon.addPoint(xpoints[0], ypoints[0]);
-		_polygon.addPoint(xpoints[1], ypoints[1]);
-		_polygon.addPoint(xpoints[2], ypoints[2]);
-		_polygon.addPoint(xpoints[3], ypoints[3]);
-//		_polygon = new Polygon(xpoints, ypoints, 4);
+		xpoints[0] = _location.x + Constants.TABHEADER_LEFT_RIGHT_OFFSET;
+		ypoints[0] = _location.y;
+		
+		xpoints[1] = _location.x + _size.x - Constants.TABHEADER_LEFT_RIGHT_OFFSET;
+		ypoints[1] = _location.y;
+		
+		xpoints[2] = _location.x + _size.x;
+		ypoints[2] = _location.y + _size.y;
+		
+		xpoints[3] = _location.x;
+		ypoints[3] = _location.y + _size.y;
+		
+		_polygon = new Polygon(xpoints, ypoints, 4);
 	}
 	
 	public void setLocation(Coord location) {
@@ -73,8 +62,18 @@ public class TabHeader extends GenericShape {
 		adjustPolygon();
 	}
 	
-	public void onDraw(Graphics2D g) {
+	public void onDraw(Graphics2D g, boolean focus) {
+		java.awt.Color savedColor = g.getColor();
+		java.awt.Stroke savedStroke = g.getStroke();
+		if (focus) {
+			g.setColor(Constants.TAB_HEADERBG_ACTIVE_COLOR);
+		} 
+		else {
+			g.setColor(Constants.TAB_HEADERBG_INACTIVE_COLOR);
+		}
 		g.fillPolygon(_polygon);
+		g.setStroke(savedStroke);
+		
 	}
 	
 

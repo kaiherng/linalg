@@ -38,7 +38,7 @@ public class Tab implements PhysObj {
 	public Tab(Container c, String title) {
 		_main = c;
 		_mainBackground = new Rectangle(new Coord(0,0), new Coord(0,0), Constants.TAB_MAINBG_COLOR); //just create an empty rectangle for now, the size will be set when the onDraw is called by frame
-		_header = new TabHeader(new Coord(0,0), new Coord(Constants.TABHEADER_WIDTH, Constants.TABHEADER_WIDTH), title);
+		_header = new TabHeader(new Coord(0,0), new Coord(Constants.TABHEADER_WIDTH, Constants.TABHEADER_HEIGHT), title);
 	}
 	
 	public void onBlur() {
@@ -77,7 +77,7 @@ public class Tab implements PhysObj {
 
 	@Override
 	public void onDraw(Graphics2D g) {
-		_header.onDraw(g); 	
+		_header.onDraw(g, _focus); 	
 		if (_focus) {
 			_mainBackground.onDraw(g);
 			_main.onDraw(g);
