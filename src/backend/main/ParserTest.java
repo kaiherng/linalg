@@ -246,6 +246,81 @@ public class ParserTest {
 	
 	
 	//================================
+	// Test checkBrackets
+	//================================
+	
+	@Test
+	// no brackets
+	public void noBracketsTest(){
+		List<Numerical> l = new ArrayList<>();
+		l.add(matrixA);
+		l.add(plus);
+		l.add(matrixA);
+		Parser.checkBrackets(l);
+	}
+	
+	@Test
+	// legal brackets
+	public void legalBracketsTest(){
+		List<Numerical> l = new ArrayList<>();
+		l.add(openBracket);
+		l.add(openBracket);
+		l.add(matrixA);
+		l.add(plus);
+		l.add(matrixA);
+		l.add(closeBracket);
+		l.add(plus);
+		l.add(matrixA);
+		l.add(closeBracket);
+		Parser.checkBrackets(l);
+	}
+	
+	@Test
+	// equal number of open and close brackets, but the first bracket
+	// is closed
+	public void firstBracketClosedTest(){
+		List<Numerical> l = new ArrayList<>();
+		l.add(closeBracket);
+		l.add(openBracket);
+		l.add(openBracket);
+		l.add(matrixA);
+		l.add(plus);
+		l.add(matrixA);
+		l.add(closeBracket);
+		l.add(plus);
+		l.add(matrixA);
+		l.add(closeBracket);
+		l.add(openBracket);
+		try{
+			Parser.checkBrackets(l);
+		}catch(IllegalArgumentException e){
+			e.getMessage().equals("ERROR: Close bracket without open bracket");
+		}
+	}
+	
+	@Test
+	// unequal number of open and close brackets
+	public void unequalBracketsTest(){
+		List<Numerical> l = new ArrayList<>();
+		l.add(openBracket);
+		l.add(openBracket);
+		l.add(matrixA);
+		l.add(plus);
+		l.add(matrixA);
+		l.add(closeBracket);
+		l.add(plus);
+		l.add(matrixA);
+		l.add(closeBracket);
+		l.add(openBracket);
+		try{
+			Parser.checkBrackets(l);
+		}catch(IllegalArgumentException e){
+			e.getMessage().equals("ERROR: Every open bracket must have a close bracket and vice versa");
+		}
+	}
+	
+	
+	//================================
 	// Test validInput // TODO
 	//================================
 	
@@ -260,6 +335,122 @@ public class ParserTest {
 			assertTrue(e.getMessage().equals("ERROR: Require expression to compute"));
 		}
 	}
+	
+	@Test
+	// error one Numerical size computation containing unary operator without operand
+	public void unaryOpWithoutOperandTest(){
+		List<Numerical> l = new ArrayList<>();
+		l.add(new Operation(Op.DETERMINANT));
+		try{
+			Parser.checkValidInput(l);
+			fail();
+		}catch(IllegalArgumentException e){
+			assertTrue(e.getMessage().equals("ERROR: Unary operator requires operand"));
+		}
+	}
+	
+	@Test
+	// error  unary operator without operand
+	public void unaryOpWithoutOperandTest2(){
+		List<Numerical> l = new ArrayList<>();
+		l.add(matrixA);
+		l.add(plus);
+		l.add(new Operation(Op.DETERMINANT));
+		try{
+			Parser.checkValidInput(l);
+			fail();
+		}catch(IllegalArgumentException e){
+			assertTrue(e.getMessage().equals("ERROR: Unary operator requires operand"));
+		}
+	}
+	
+	@Test
+	// error one Numerical size computation containing unary operator without operand
+	public void binaryOpWithoutOperandTest(){
+		List<Numerical> l = new ArrayList<>();
+		l.add(new Operation(Op.PLUS));
+		try{
+			Parser.checkValidInput(l);
+			fail();
+		}catch(IllegalArgumentException e){
+			assertTrue(e.getMessage().equals("ERROR: Binary operator requires two operands"));
+		}
+	}
+	
+	@Test
+	// error one Numerical size computation containing unary operator without operand
+	public void noExpressionTest(){
+		List<Numerical> l = new ArrayList<>();
+		l.add(matrixA);
+		try{
+			Parser.checkValidInput(l);
+			fail();
+		}catch(IllegalArgumentException e){
+			assertTrue(e.getMessage().equals("ERROR: Require expression to compute"));
+		}
+	}
+	
+	@Test
+	// error one Numerical size computation containing unary operator without operand
+	public void oneBracketTest(){
+		List<Numerical> l = new ArrayList<>();
+		l.add(new Bracket(true));
+		try{
+			Parser.checkValidInput(l);
+			fail();
+		}catch(IllegalArgumentException e){
+			assertTrue(e.getMessage().equals("ERROR: Every open bracket must have a close bracket and vice versa"));
+		}
+	}
+	
+	@Test
+	// error on binary op without second arg
+	public void binaryOpWithoutSecondArgTest(){
+		List<Numerical> l = new ArrayList<>();
+		l.add(matrixA);
+		l.add(plus);
+		try{
+			Parser.checkValidInput(l);
+			fail();
+		}catch(IllegalArgumentException e){
+			assertTrue(e.getMessage().equals("ERROR: Binary operator requires two operands"));
+		}
+	}
+	
+	@Test
+	// error on two binary op's in row
+	public void twoConsecutiveBinaryOpsTest(){
+		List<Numerical> l = new ArrayList<>();
+		l.add(matrixA);
+		l.add(plus);
+		l.add(plus);
+		l.add(matrixA);
+		try{
+			Parser.checkValidInput(l);
+			fail();
+		}catch(IllegalArgumentException e){
+			assertTrue(e.getMessage().equals("ERROR: Binary operation requires two operands"));
+		}
+	}
+	
+	@Test
+	// Error on binary op without first arg
+	public void binaryOpWithoutFirstArg(){
+		List<Numerical> l = new ArrayList<>();
+		l.add(plus);
+		l.add(matrixA);
+		try{
+			Parser.checkValidInput(l);
+			fail();
+		}catch(IllegalArgumentException e){
+			assertTrue(e.getMessage().equals("ERROR: Binary operation requires two operands"));
+		}
+	}
+	
+	// Test that brackets don't screw stuff up
+	
+	//@Test 
+	// No error on two unary op's in a row
 	
 	
 }

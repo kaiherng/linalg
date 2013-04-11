@@ -118,6 +118,8 @@ public class Parser {
 		if (input.size() == 0){
 			throw new IllegalArgumentException("ERROR: Require expression to compute");
 		}
+		
+		checkBrackets(input); // check that brackets are valid
 
 		if (input.size() == 1){ // edge case
 			if (input.get(0) instanceof Operation){
@@ -132,8 +134,10 @@ public class Parser {
 				throw new IllegalArgumentException("ERROR: Require expression to compute"); // maybe don't need to throw expection for this
 			}
 		}
-
-		checkBrackets(input); // check that brackets are valid
+		
+		if (input.get(0) instanceof Operation && !((Operation) input.get(0)).isUnary()){
+			throw new IllegalArgumentException("ERROR: Binary operation requires two operands");
+		}
 		
 		Numerical last = null;
 		for (Numerical numr : input){
@@ -162,8 +166,6 @@ public class Parser {
 				throw new IllegalArgumentException("ERROR: Binary operator requires two operands");
 			}
 		}
-
-
 	}
 	
 	
@@ -172,7 +174,7 @@ public class Parser {
 	 * @param input A series of Numericals representing a computation
 	 * @throws IllegalArgumentException thrown if the brackets aren't valid
 	 */
-	private static void checkBrackets(List<Numerical> input) throws IllegalArgumentException {
+	protected static void checkBrackets(List<Numerical> input) throws IllegalArgumentException {
 		boolean firstBracket = true;
 		int openBrackets,closedBrackets;
 		openBrackets = closedBrackets = 0;
