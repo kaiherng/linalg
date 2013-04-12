@@ -68,20 +68,18 @@ public class Determinant extends Computable
 		//if it is just a 1x1 matrix
 		if (values.length==1)
 		{
-			Specification spec = new Specification(); // TODO
 			List<Step> steps=new ArrayList<>();
-			steps.add(new Step(new Scalar(values[0][0],distype),spec));
+			steps.add(new Step(new Scalar(values[0][0],distype)));
 			return steps;
 		}
 
 		//a 2x2 matrix
 		if (values.length==2)
 		{
-			Specification spec = new Specification(); // TODO
 			List<Step> steps=new ArrayList<>();
 			//the determinant
 			double det=values[0][0]*values[1][1]-values[0][1]*values[1][0];
-			steps.add(new Step(new Scalar(det,distype),spec));
+			steps.add(new Step(new Scalar(det,distype)));
 			return steps;
 		}
 
@@ -91,7 +89,6 @@ public class Determinant extends Computable
 		double det=0;
 		for (int i=0;i<values.length;i++)
 		{
-			Specification spec = new Specification(); // TODO
 			//the matrix without the first row, and the i-th column
 			Double[][] m=new Double[values.length-1][values.length-1];
 			for (int j=0;j<values.length-1;j++)
@@ -121,16 +118,15 @@ public class Determinant extends Computable
 
 			double subDet=sign*values[i][0]*((Scalar)c).getValue();
 			det+=subDet;
-			Step s=new Step(new Scalar (subDet,distype),spec);
+			Step s=new Step(new Scalar (subDet,distype));
 
 			//include all the substeps
 			steps.addAll(intSteps);
 			steps.add(s);
 		}
 
-		Specification spec = new Specification(); // TODO
 		//final answer
-		Step answer=new Step(new Scalar(det,distype),spec);
+		Step answer=new Step(new Scalar(det,distype));
 		steps.add(answer);
 		return steps;
 	}

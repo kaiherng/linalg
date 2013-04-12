@@ -48,12 +48,10 @@ public class Minus extends Computable {
 		
 		Matrix step1Matrix = new Matrix(DisplayType.CUSTOM, result); // this will show the addition in each index, for instance ("1 - 2")
 		step1Matrix.setCustomDisplay(subtractionStep);
-		Specification step1Specification = new Specification(); // TODO
-		Step step1 = new Step(step1Matrix,step1Specification);
+		Step step1 = new Step(step1Matrix);
 		
 		Matrix step2Matrix = new Matrix(answerDisplayType,result);
-		Specification step2Specification = new Specification(); // TODO
-		Step step2 = new Step(step2Matrix, step2Specification);
+		Step step2 = new Step(step2Matrix);
 		
 		List<Step> steps = new ArrayList<>();
 		steps.add(step1);

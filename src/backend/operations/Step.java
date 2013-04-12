@@ -7,7 +7,6 @@ import backend.blocks.Countable;
  * @author baebi
  */
 class Step{
-	private Specification _spec;
 	private Countable _countable;
 	
 	
@@ -16,9 +15,8 @@ class Step{
 	 * @param countable the Countable for this step
 	 * @param specification the Specification explaining how to display the Countable
 	 */
-	public Step(Countable countable, Specification specification){
+	public Step(Countable countable){
 		_countable = countable;
-		_spec = specification;
 	}
 	
 	
@@ -29,11 +27,4 @@ class Step{
 		return _countable;
 	}
 	
-	
-	/**
-	 * @return the Specification associated with this step
-	 */
-	public Specification getSpec(){
-		return _spec;
-	}
 }

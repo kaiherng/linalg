@@ -1,6 +1,4 @@
-/**
- * TODO: make this support brackets
- */
+
 package backend.main;
 
 import java.util.ArrayList;
@@ -12,12 +10,14 @@ import backend.blocks.Matrix;
 import backend.blocks.Numerical;
 import backend.blocks.Op;
 import backend.blocks.Operation;
+import backend.operations.Minus;
 import backend.operations.Plus;
 import backend.operations.Solution;
 
-/**
+/** Processes a sequence of Numericals representing a computation and generates a tree structure of solutions
+ *  that allows the caller to understand how the computation was computed
+ *  
  * @author baebi
- *
  */
 public class Parser {
 	
@@ -51,7 +51,6 @@ public class Parser {
 	}
 	
 	
-	
 	/** Computes a sequence of computations organized into a tree structure of ParseNodes. (See
 	 *  createSortedTree). EXPECTS ONLY VALID EXPRESSIONS AT THE BLOCK LEVEL (ie matrices can still have wrong
 	 *  dimensions or have null entries, etc. But if for instance, the arguments to a matrix multiply will 
@@ -66,16 +65,41 @@ public class Parser {
 			Operation rootAsOp = (Operation) root;
 			Op op = rootAsOp.getType();
 			switch (op){
+				// addition
 				case PLUS: {
-					return computePlus(rootAsOp); // recursive call to compute in here
+					return computePlusMinus(rootAsOp,true); // recursive call to compute in here
 				}
-				case MINUS:
-				case SCALAR_MULTIPLY:
-				case TIMES:
-				case DETERMINANT:
-				case ROW_REDUCE:
-				default:
 				
+				// subtraction
+				case MINUS: {
+					return computePlusMinus(rootAsOp,false);
+				}
+				
+				// scalar-multiply
+				case SCALAR_MULTIPLY: {
+					return null; // TODO	
+				}
+				
+				// multiplication
+				case TIMES: {
+					return null; // TODO
+				}
+				
+				// determinant
+				case DETERMINANT: {
+					return null; //TODO
+				}
+				
+				// row-reduction
+				case ROW_REDUCE: {
+					return null; // TODO
+				}
+				
+				// unrecognized operation
+				default: {
+					System.err.println("ERROR: Unrecognized operation"); // Should be unreachable code
+					return null;
+				}
 			}
 		}else if(root instanceof Countable){
 			return null;
@@ -84,9 +108,6 @@ public class Parser {
 			System.err.println("ERROR (compute): compute should not receive anything but countables or operations");
 			return null;
 		}
-		
-		// TODO: remove
-		return null;
 	}
 	
 	
@@ -111,9 +132,10 @@ public class Parser {
 	/** Given a plus operator that includes its arguments, returns a ParseNode containing the Solution
 	 * 
 	 * @param op the plus operator
+	 * @param isPlus true iff this is a plus operation. false iff this is a minus operation
 	 * @return the ParseNode containing the solution and arguments to <op>
 	 */
-	private static ParseNode computePlus(Operation op){
+	private static ParseNode computePlusMinus(Operation op,boolean isPlus){
 		if ((op.getFirstArg() == null || (op.getSecondArg() == null))){
 			throw new IllegalArgumentException("ERROR: Plus requires two arguments"); // should be unreachable code
 		}
@@ -131,10 +153,15 @@ public class Parser {
 			throw new IllegalArgumentException("ERROR: Plus arguments must be matrices"); // should be unreachable code
 		}
 		
-		Plus plus = new Plus((Matrix) arg1, (Matrix) arg2); // calculate solution
-		Solution sum = plus.getSolution();					// get solution
-		
-		return new ParseNode(sum,firstArg,secondArg);
+		Solution answer;
+		if (isPlus){
+			Plus plus = new Plus((Matrix) arg1, (Matrix) arg2); // calculate solution
+			answer = plus.getSolution();					// get solution
+		}else{ // is a minus
+			Minus minus = new Minus((Matrix) arg1, (Matrix) arg2);
+			answer = minus.getSolution();
+		}
+		return new ParseNode(answer,firstArg,secondArg);
 	}
 	
 	
@@ -241,12 +268,6 @@ public class Parser {
 	 * @return  Numerical that is the root of the parsed tree of Operations
 	 */
 	protected static Numerical createSortedTree(List<Numerical> input){
-//		System.out.println("called");
-//		System.out.println(input.size());
-//		for (Numerical n : input){
-//			System.out.print(n.getName() + " ");
-//		}
-//		System.out.println();
 		input = removeOuterBrackets(input);
 		
 		if (input.size() == 0){
@@ -264,8 +285,6 @@ public class Parser {
 		
 		List<Numerical> prev = new ArrayList<>(input.subList(0, prefOpIndex));
 		List<Numerical> next = new ArrayList<>(input.subList(prefOpIndex+1, input.size()));
-//		System.out.println("prev " + prev.size());
-//		System.out.println("next "+next.size());
 		Operation root = (Operation) input.get(prefOpIndex);
 		root.setFirstArg(createSortedTree(prev));
 		root.setSecondArg(createSortedTree(next));
