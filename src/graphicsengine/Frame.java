@@ -5,7 +5,7 @@ import java.awt.Graphics2D;
 import java.util.ArrayList;
 import java.util.List;
 
-
+import frontend.Constants;
 
 /**
  * A frame is something that contains tabs - it represents a space on the screen that contains tabs, and it is the tab manager for that space
@@ -44,7 +44,7 @@ public class Frame implements PhysObj {
 		_tabs.add(t);
 		_currTab = t;
 		_currTab.onFocus();
-		_background = new Rectangle(location, size, Color.RED);
+		_background = new Rectangle(location, size, Constants.FRAME_BG_COLOR);
 	}
 
 	
@@ -54,8 +54,6 @@ public class Frame implements PhysObj {
 	 */
 	public void addTab(Tab t) {
 		_tabs.add(t);
-		t.setLocation(_location);
-		t.setSize(_size);
 	}
 	
 	/**
@@ -77,15 +75,10 @@ public class Frame implements PhysObj {
 	 * @param g
 	 */
 	public void onDraw(Graphics2D g) {
-		System.out.println("ondraw in frame");
 		_background.onDraw(g);
-		int size = _tabs.size();
-		for (int i=size-1; i>-1; i--) {
-			Tab tab = _tabs.get(i);
-			tab.setLocation(_location);
-			tab.setSize(_size);
-			
-			_tabs.get(i).onDraw(g); //draws all the tabs, where the rightmost tab is drawn first
+		for (int i=_tabs.size()-1; i>-1; i--) {
+			Tab tab = _tabs.get(i);			
+			tab.onDraw(g); //draws all the tabs, where the rightmost tab is drawn first
 		}
 		_currTab.onDraw(g); //draw the current tab over all the other tabs
 	}
@@ -93,8 +86,10 @@ public class Frame implements PhysObj {
 
 	@Override
 	public void setSize(Coord c) {
-		System.out.println("setsize in frame: " + c);
 		_size = c;
+		_background.setSize(c);
+		Tab t = _tabs.get(0);
+		t.setSize(_size.minus(new Coord(Constants.TAB_LEFT_OFFSET+Constants.TAB_RIGHT_OFFSET, Constants.TAB_TOP_OFFSET+Constants.TAB_BOTTOM_OFFSET)));
 	}
 
 
@@ -107,12 +102,24 @@ public class Frame implements PhysObj {
 	@Override
 	public void setLocation(Coord c) {
 		_location = c;
+		_background.setLocation(c);
+		for (int i=0; i<_tabs.size(); i++) {
+			Tab t = _tabs.get(i);
+			Coord locationOffset = new Coord(Constants.TAB_LEFT_OFFSET + i*Constants.TABHEADER_WIDTH, Constants.TAB_TOP_OFFSET);
+			t.setHeaderLocation(c.plus(locationOffset));
+			Coord newLocation = c.plus(new Coord(Constants.TAB_LEFT_OFFSET, Constants.TAB_TOP_OFFSET+Constants.TABHEADER_HEIGHT));
+			t.setLocation(newLocation);
+		}
 	}
 
 
 	@Override
 	public Coord getLocation() {
 		return _location;
+	}
+	
+	public void onMouseClicked(int clickCount, Coord location) {
+		
 	}
 
 }

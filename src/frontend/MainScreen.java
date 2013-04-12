@@ -3,6 +3,7 @@ package frontend;
 import graphicsengine.Container;
 import graphicsengine.Coord;
 import graphicsengine.Frame;
+import graphicsengine.Rectangle;
 import graphicsengine.Screen;
 import graphicsengine.Tab;
 
@@ -17,8 +18,9 @@ import java.awt.Graphics2D;
 public class MainScreen implements Screen {
 	
 	private Frame _topLeftFrame;
-	private Frame _bottomLeftFrame;
-	private Frame _rightFrame;
+//	private Frame _bottomLeftFrame;
+//	private Frame _rightFrame;
+	private Rectangle _background;
 	
 	/**
 	 * Screen needs to maintain a reference to application because it needs to tell the application to switch to the next screen when the correct trigger event is fired
@@ -27,22 +29,28 @@ public class MainScreen implements Screen {
 	
 	public MainScreen(Application application) {
 		_application = application;
-				
-		Tab constructTab = new Tab(new Container(), "Construct");
-//		Tab savedTab = new Tab(new Container(), "Saved");
-//		Tab solutionTab = new Tab(new Container(), "Solution");
 		
+		_background = new Rectangle(new Coord(0,0), new Coord(0,0), Constants.SCREEN_BG_COLOR);
+		
+		Tab constructTab = new Tab(new Container(), "Construct");
 		_topLeftFrame = new Frame(new Coord(0,0), new Coord(0,0), constructTab);
+		Tab computeTab = new Tab(new Container(), "Compute");
+		_topLeftFrame.addTab(computeTab);
+		
+//		Tab savedTab = new Tab(new Container(), "Saved");
 //		_bottomLeftFrame = new Frame(new Coord(0,0), new Coord(0,0), savedTab);
+//		
+//		Tab solutionTab = new Tab(new Container(), "Solution");
 //		_rightFrame = new Frame(new Coord(0,0), new Coord(0,0), solutionTab);
 		
-				
+		
+		
 	}
 	
 
 	@Override
 	public void onDraw(Graphics2D g) {
-		System.out.println("on draw in main screen");
+		_background.onDraw(g);
 		_topLeftFrame.onDraw(g);
 //		_bottomLeftFrame.onDraw(g);
 //		_rightFrame.onDraw(g);
@@ -66,7 +74,8 @@ public class MainScreen implements Screen {
 
 	@Override
 	public void onResize(Coord newSize) {
-		System.out.println("on resize called in main screen, size: " + newSize);
+		_background.setSize(newSize);
+		
 		Coord topLeftLocation = new Coord(Constants.FRAME_X_OFFSET,Constants.FRAME_Y_OFFSET);
 		Coord topLeftSize = new Coord((newSize.x - Constants.FRAME_X_OFFSET*3)/2,(newSize.y - Constants.FRAME_Y_OFFSET*3)/2);
 //		Coord bottomLeftLocation = new Coord(topLeftLocation.x, topLeftLocation.y + topLeftSize.y + Constants.FRAME_Y_OFFSET);
@@ -85,6 +94,9 @@ public class MainScreen implements Screen {
 
 	@Override
 	public void onMouseClicked(int clickCount, Coord location) {
+		if (location.x > _topLeftFrame.getLocation().x && location.x < _topLeftFrame.getLocation().x + _topLeftFrame.getSize().x && location.y > _topLeftFrame.getLocation().y && location.y < _topLeftFrame.getLocation().y + _topLeftFrame.getSize().y) {
+			_topLeftFrame.onMouseClicked(clickCount, location);
+		}
 	}
 
 	@Override

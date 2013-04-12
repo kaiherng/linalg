@@ -56,7 +56,6 @@ public abstract class FrontEnd {
 	 */
 	public void initialSetup() {
 		if (_loaded) {
-			System.out.println("loaded, initial setup in front end");
 			_drawingPanel.setPreferredSize(new Dimension(_size.x,_size.y));
 			_jFrame.pack();
 			_drawingPanel.repaint();
@@ -100,7 +99,6 @@ public abstract class FrontEnd {
 
 		@Override
 		public void paintComponent(Graphics g) {
-			System.out.println("paint component in drawing panel");
 			super.paintComponent(g);
 			Graphics2D aBrush = (Graphics2D) g;
 			onDraw(aBrush);
