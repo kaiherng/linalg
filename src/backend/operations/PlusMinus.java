@@ -1,5 +1,5 @@
 /**
- * 
+ * TODO: test this class
  */
 package backend.operations;
 
@@ -15,7 +15,7 @@ import backend.blocks.Op;
  * 
  * @author baebi
  */
-public class Plus extends Computable {
+public class PlusMinus extends Computable {
 	private Solution _solution;
 	
 	@Override
@@ -28,8 +28,9 @@ public class Plus extends Computable {
 	 * 
 	 * @param matrixA the first matrix to add
 	 * @param matrixB the second matrix to add
+	 * @param isPlus true iff this is a plus operation. false iff this is a minus operation
 	 */
-	public Plus(Matrix matrixA, Matrix matrixB) throws IllegalArgumentException {
+	public PlusMinus(Matrix matrixA, Matrix matrixB, boolean isPlus) throws IllegalArgumentException {
 		List<Countable> matrixList = new ArrayList<>();
 		matrixList.add(matrixA);
 		matrixList.add(matrixB);
@@ -48,8 +49,13 @@ public class Plus extends Computable {
 				if (aValues[i][j] == null || bValues[i][j] == null){
 					throw new IllegalArgumentException("ERROR: Each index must contain a non-null entry");
 				}
-				result[i][j] = aValues[i][j] + bValues[i][j];
-				additionStep[i][j] = Double.toString(aValues[i][j])+" + "+Double.toString(bValues[i][j]);
+				if (isPlus){
+					result[i][j] = aValues[i][j] + bValues[i][j];
+					additionStep[i][j] = Double.toString(aValues[i][j])+" + "+Double.toString(bValues[i][j]);
+				}else{
+					result[i][j] = aValues[i][j] - bValues[i][j];
+					additionStep[i][j] = Double.toString(aValues[i][j])+" - "+Double.toString(bValues[i][j]);
+				}
 			}
 		}
 		
@@ -67,7 +73,11 @@ public class Plus extends Computable {
 		List<Countable> inputs = new ArrayList<>();
 		inputs.add(matrixA);
 		inputs.add(matrixB);
-		_solution = new Solution(Op.PLUS,inputs, step2Matrix, steps);
+		if (isPlus){
+			_solution = new Solution(Op.PLUS,inputs, step2Matrix, steps);
+		}else{
+			_solution = new Solution(Op.MINUS,inputs, step2Matrix, steps);
+		}
 	}
 	
 }
