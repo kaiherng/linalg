@@ -7,6 +7,7 @@ package backend.blocks;
  */
 public class Bracket implements Numerical {
 	private boolean _isOpen;
+	private String _name;
 	
 	/** Constructor for bracket
 	 * 
@@ -23,5 +24,11 @@ public class Bracket implements Numerical {
 	 */
 	public boolean isOpen(){
 		return _isOpen;
+	}
+
+
+	@Override
+	public String getName() {
+		return _name;
 	}
 }

@@ -108,7 +108,6 @@ public class Parser {
 	}
 	
 	
-	// TODO: fix to work with brackets
 	/** Checks that the input computation was valid
 	 * 
 	 * @param input the list of Numericals making up the input
@@ -211,7 +210,13 @@ public class Parser {
 	 * @param input the list of Numericals making up the input equation
 	 * @return  Numerical that is the root of the parsed tree of Operations
 	 */
-	private static Numerical createSortedTree(List<Numerical> input){
+	protected static Numerical createSortedTree(List<Numerical> input){
+//		System.out.println("called");
+//		System.out.println(input.size());
+//		for (Numerical n : input){
+//			System.out.print(n.getName() + " ");
+//		}
+//		System.out.println();
 		input = removeOuterBrackets(input);
 		
 		if (input.size() == 0){
@@ -221,14 +226,16 @@ public class Parser {
 		}
 		
 		int prefOpIndex = findLeastPreferentialOp(input);
-		
+
 		// This code should be unreachable
 		if (prefOpIndex == -1){
 				System.err.println("ERROR: createSortedTree passed invalid input");	
 		}
 		
 		List<Numerical> prev = new ArrayList<>(input.subList(0, prefOpIndex));
-		List<Numerical> next = new ArrayList<>(input.subList(prefOpIndex, input.size()));
+		List<Numerical> next = new ArrayList<>(input.subList(prefOpIndex+1, input.size()));
+//		System.out.println("prev " + prev.size());
+//		System.out.println("next "+next.size());
 		Operation root = (Operation) input.get(prefOpIndex);
 		root.setFirstArg(createSortedTree(prev));
 		root.setSecondArg(createSortedTree(next));
@@ -261,7 +268,7 @@ public class Parser {
 			}else{
 				if (currentNumr instanceof Operation && openBrackets == 0){
 					currRank = ((Operation) currentNumr).getRank();
-					if (currRank > maxRank){
+					if (currRank >= maxRank){
 						maxRank = currRank;
 						toReturn = i;
 					}
@@ -279,6 +286,9 @@ public class Parser {
 	 * @return the same list except without first and last brackets if they existed as a pair
 	 */
 	protected static List<Numerical> removeOuterBrackets(List<Numerical> input){
+		if (input.size() == 0){
+			return input;
+		}
 		if (!(input.get(0) instanceof Bracket)){ // computation not begun by a bracket
 			return input;
 		}else{

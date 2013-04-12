@@ -17,6 +17,8 @@ import backend.blocks.Operation;
 
 public class ParserTest {
 	private Matrix matrixA = new Matrix(DisplayType.DECIMAL, new Double[][]{{1.0,1.0},{1.0,1.0}});
+	private Matrix matrixB = new Matrix(DisplayType.DECIMAL, new Double[][]{{2.0,2.0},{2.0,2.0}});
+	private Matrix matrixC = new Matrix(DisplayType.DECIMAL, new Double[][]{{2.0,2.0},{2.0,2.0}});
 	private Bracket openBracket = new Bracket(true);
 	private Bracket closeBracket = new Bracket(false);
 	private Operation plus = new Operation(Op.PLUS);
@@ -227,7 +229,7 @@ public class ParserTest {
 	
 	@Test
 	// chooses first + over second +
-	// A * A + A
+	// A + A + A
 	public void leftToRightTest(){
 		List<Numerical> l = new ArrayList<>();
 		l.add(matrixA);
@@ -235,15 +237,19 @@ public class ParserTest {
 		l.add(matrixA);
 		l.add(plus);
 		l.add(matrixA);
-		assertTrue(Parser.findLeastPreferentialOp(l)==1);
+		assertTrue(Parser.findLeastPreferentialOp(l)==3);
 	}
 	
 	
+	@Test
+	// test for when no operation
+	public void noOpTest(){
+		List<Numerical> l = new ArrayList<>();
+		l.add(matrixA);
+		assertTrue(Parser.findLeastPreferentialOp(l)==-1);
+	}
 	
-	//================================
-	// Test createSortedTree // TODO
-	//================================
-	
+
 	
 	//================================
 	// Test checkBrackets
@@ -321,7 +327,7 @@ public class ParserTest {
 	
 	
 	//================================
-	// Test validInput // TODO
+	// Test validInput
 	//================================
 	
 	@Test
@@ -447,10 +453,164 @@ public class ParserTest {
 		}
 	}
 	
-	// Test that brackets don't screw stuff up
+	@Test
+	// tests that brackets after operations don't break anything
+	// det(A+(A+A))
+	public void randomBracketsTest(){
+		List<Numerical> l = new ArrayList<>();
+		l.add(new Operation(Op.DETERMINANT));
+		l.add(openBracket);
+		l.add(matrixA);
+		l.add(plus);
+		l.add(openBracket);
+		l.add(matrixA);
+		l.add(plus);
+		l.add(matrixA);
+		l.add(closeBracket);
+		l.add(closeBracket);
+		Parser.checkValidInput(l);
+	}
 	
-	//@Test 
+	@Test 
 	// No error on two unary op's in a row
+	public void doubleUnaryTest(){
+		List<Numerical> l = new ArrayList<>();
+		l.add(new Operation(Op.DETERMINANT));
+		l.add(new Operation(Op.DETERMINANT));
+		l.add(matrixA);
+		Parser.checkValidInput(l);
+	}
+	
+	@Test
+	// error on adjacent countables
+	public void doubleCountables(){
+		List<Numerical> l = new ArrayList<>();
+		l.add(matrixA);
+		l.add(plus);
+		l.add(matrixA);
+		l.add(matrixA);
+		try{
+			Parser.checkValidInput(l);
+			fail();
+		}catch(IllegalArgumentException e){
+			assertTrue(e.getMessage().equals("ERROR: Two adjacent Countables"));
+		}
+	}
+	
+	@Test
+	// tests binary operation that comes before unary operation
+	public void binaryUnaryTest(){
+		List<Numerical> l = new ArrayList<>();
+		l.add(matrixA);
+		l.add(plus);
+		l.add(new Operation(Op.DETERMINANT));
+		l.add(matrixA);
+	}
 	
 	
+	
+	
+	//================================
+	// Test createSortedTree // TODO
+	//================================
+	
+	@Test
+	// tests an empty list
+	public void emptyExpressionTest(){
+		List<Numerical> l = new ArrayList<>();
+		Numerical res = Parser.createSortedTree(l);
+		assertTrue(res == null);
+	}
+	
+	@Test
+	// tests a list of length 1
+	public void singleCountableTest(){
+		List<Numerical> l = new ArrayList<>();
+		l.add(matrixA);
+		Numerical res = Parser.createSortedTree(l);
+		assertTrue(res.equals(matrixA));
+	}
+	
+	@Test
+	// tests a single operator
+	// A + B
+	// ->  +
+	//    / \
+	//   A   B
+	public void singleOpSortedTreeTest(){
+		List<Numerical> l = new ArrayList<>();
+		l.add(matrixA);
+		l.add(plus);
+		l.add(matrixB);
+		Numerical res = Parser.createSortedTree(l);
+		assertTrue(res instanceof Operation);
+		assertTrue(((Operation) res).getFirstArg().equals(matrixA));
+		assertTrue(((Operation) res).getSecondArg().equals(matrixB));
+	}
+	
+	@Test
+	// tests 2 operators
+	//     A + C + B
+	//  ->    +
+	//       / \
+	//	    +   B
+	//     / \   
+	//    A   C
+	//
+	public void doubleOpSortedTreeTest(){
+		List<Numerical> l = new ArrayList<>();
+		Operation plus2 = new Operation(Op.PLUS);
+		l.add(matrixA);
+		l.add(plus);
+		l.add(matrixC);
+		l.add(plus2);
+		l.add(matrixB);
+		Numerical res = Parser.createSortedTree(l);
+		assertTrue(res instanceof Operation);
+		assertTrue(((Operation) res).equals(plus2));
+		assertTrue(((Operation) res).getFirstArg().equals(plus));
+		assertTrue(((Operation) res).getSecondArg().equals(matrixB));
+		Operation subRes = (Operation) ((Operation) res).getFirstArg();
+		assertTrue(subRes.getFirstArg().equals(matrixA));
+		assertTrue(subRes.getSecondArg().equals(matrixC));
+	}
+	
+	@Test
+	// tests single unary operator
+	// det A
+	public void singleUnaryOperatorTest(){
+		List<Numerical> l = new ArrayList<>();
+		Operation det = new Operation(Op.DETERMINANT);
+		l.add(det);
+		l.add(matrixA);
+		Numerical res = Parser.createSortedTree(l);
+		assertTrue(res.equals(det));
+		assertTrue(((Operation) res).getFirstArg() == null);
+		assertTrue(((Operation) res).getSecondArg().equals(matrixA));
+	}
+	
+	@Test
+	// tests double unary operator
+	// det det A
+	public void doubleUnaryOperatorTest(){
+		List<Numerical> l = new ArrayList<>();
+		Operation det = new Operation(Op.DETERMINANT);
+		Operation det2 = new Operation(Op.DETERMINANT);
+		l.add(det);
+		l.add(det2);
+		l.add(matrixA);
+		Numerical res = Parser.createSortedTree(l);
+		assertTrue(res.equals(det));
+		assertTrue(((Operation) res).getFirstArg() == null);
+		assertTrue(((Operation) res).getSecondArg().equals(det2));
+		Operation subRes = (Operation) ((Operation) res).getFirstArg();
+		assertTrue(subRes.getFirstArg() == null);
+		assertTrue(subRes.getSecondArg().equals(matrixA));
+	}
+	
+	@Test
+	// tests unary operator and brackets
+	public void unaryOperatorAndBracketTest(){
+		
+	}
 }
