@@ -5,6 +5,10 @@ import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.Polygon;
 
+import shapes.Coord;
+import shapes.GenericShape;
+import shapes.Text;
+
 import frontend.Constants;
 
 

@@ -1,13 +1,14 @@
 package frontend;
 
 import graphicsengine.Container;
-import graphicsengine.Coord;
 import graphicsengine.Frame;
-import graphicsengine.Rectangle;
 import graphicsengine.Screen;
 import graphicsengine.Tab;
 
 import java.awt.Graphics2D;
+
+import shapes.Coord;
+import shapes.Rectangle;
 
 /**
  * Formerly called "Window" in the design specs

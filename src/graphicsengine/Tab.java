@@ -3,6 +3,9 @@ package graphicsengine;
 import java.awt.Color;
 import java.awt.Graphics2D;
 
+import shapes.Coord;
+import shapes.Rectangle;
+
 import frontend.Constants;
 
 
