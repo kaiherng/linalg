@@ -5,8 +5,8 @@ import java.awt.Graphics2D;
 
 
 
-
 public class Rectangle extends GenericShape {
+	
 	protected java.awt.geom.Rectangle2D.Float _rectangle;
 	
 	public Rectangle(Coord location, Coord size, Color color) {
@@ -14,6 +14,15 @@ public class Rectangle extends GenericShape {
 		this.setFillColor(color);
 		this.setLocation(location);
 		this.setSize(size);
+	}
+	
+	public Rectangle(Coord location, Coord size, Color color, int strokeWidth, Color borderColor) {
+		_rectangle = new java.awt.geom.Rectangle2D.Float();
+		this.setFillColor(color);
+		this.setLocation(location);
+		this.setSize(size);
+		this.setStrokeWidth(strokeWidth);
+		this.setBorderColor(borderColor);
 	}
 	
 	public void setLocation(Coord location) {

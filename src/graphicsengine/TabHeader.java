@@ -1,6 +1,8 @@
 package graphicsengine;
 
+import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.Point;
 import java.awt.Polygon;
 
 import frontend.Constants;
@@ -25,8 +27,10 @@ public class TabHeader extends GenericShape {
 	private Coord _size;
 	private Polygon _polygon;
 	private Text _title;
+	private Color _bgColor;
 	
 	public TabHeader(Coord location, Coord size, String title) {
+		_bgColor = Constants.TAB_HEADERBG_INACTIVE_COLOR;
 		_location = location;
 		_size = size;
 		adjustPolygon();
@@ -52,6 +56,16 @@ public class TabHeader extends GenericShape {
 		_polygon = new Polygon(xpoints, ypoints, 4);
 	}
 	
+	public void onFocus() {
+		_bgColor = Constants.TAB_HEADERBG_ACTIVE_COLOR;
+		_title.setColor(Constants.TABHEADER_TEXT_ACTIVE_COLOR); 
+	}
+	
+	public void onBlur() {
+		_bgColor = Constants.TAB_HEADERBG_INACTIVE_COLOR;
+		_title.setColor(Constants.TABHEADER_TEXT_INACTIVE_COLOR);
+	}
+	
 	public void setLocation(Coord location) {
 		_location = location;
 		_title.setLocation(_location); //centralizes the title
@@ -59,6 +73,10 @@ public class TabHeader extends GenericShape {
 		int yOffset = (_size.y - _title.getBoundingBoxSize().y)/4;
 		_title.setLocation(_location.plus(new Coord(xOffset, yOffset))); //centralizes the title
 		adjustPolygon();
+	}
+	
+	public Coord getLocation() {
+		return _location;
 	}
 	
 	public void setSize(Coord size) {
@@ -70,15 +88,18 @@ public class TabHeader extends GenericShape {
 		_title.setLocation(_location.plus(new Coord(xOffset, yOffset))); //centralizes the title
 	}
 	
+	public Coord getSize() {
+		return _size;
+	}
+	
+	public boolean containsPoint(Coord c) {
+		return _polygon.contains(new Point(c.x, c.y));
+	}
+	
 	public void onDraw(Graphics2D g, boolean focus) {
 		java.awt.Color savedColor = g.getColor();
 		java.awt.Stroke savedStroke = g.getStroke();
-		if (focus) {
-			g.setColor(Constants.TAB_HEADERBG_ACTIVE_COLOR);
-		} 
-		else {
-			g.setColor(Constants.TAB_HEADERBG_INACTIVE_COLOR);
-		}
+		g.setColor(_bgColor);
 		g.fillPolygon(_polygon);
 		g.setColor(savedColor);
 		g.setStroke(savedStroke);

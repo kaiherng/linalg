@@ -18,8 +18,8 @@ import java.awt.Graphics2D;
 public class MainScreen implements Screen {
 	
 	private Frame _topLeftFrame;
-//	private Frame _bottomLeftFrame;
-//	private Frame _rightFrame;
+	private Frame _bottomLeftFrame;
+	private Frame _rightFrame;
 	private Rectangle _background;
 	
 	/**
@@ -37,11 +37,11 @@ public class MainScreen implements Screen {
 		Tab computeTab = new Tab(new Container(), "Compute");
 		_topLeftFrame.addTab(computeTab);
 		
-//		Tab savedTab = new Tab(new Container(), "Saved");
-//		_bottomLeftFrame = new Frame(new Coord(0,0), new Coord(0,0), savedTab);
-//		
-//		Tab solutionTab = new Tab(new Container(), "Solution");
-//		_rightFrame = new Frame(new Coord(0,0), new Coord(0,0), solutionTab);
+		Tab savedTab = new Tab(new Container(), "Saved");
+		_bottomLeftFrame = new Frame(new Coord(0,0), new Coord(0,0), savedTab);
+		
+		Tab solutionTab = new Tab(new Container(), "Solution");
+		_rightFrame = new Frame(new Coord(0,0), new Coord(0,0), solutionTab);
 		
 		
 		
@@ -52,8 +52,8 @@ public class MainScreen implements Screen {
 	public void onDraw(Graphics2D g) {
 		_background.onDraw(g);
 		_topLeftFrame.onDraw(g);
-//		_bottomLeftFrame.onDraw(g);
-//		_rightFrame.onDraw(g);
+		_bottomLeftFrame.onDraw(g);
+		_rightFrame.onDraw(g);
 	}
 
 	@Override
@@ -78,17 +78,17 @@ public class MainScreen implements Screen {
 		
 		Coord topLeftLocation = new Coord(Constants.FRAME_X_OFFSET,Constants.FRAME_Y_OFFSET);
 		Coord topLeftSize = new Coord((newSize.x - Constants.FRAME_X_OFFSET*3)/2,(newSize.y - Constants.FRAME_Y_OFFSET*3)/2);
-//		Coord bottomLeftLocation = new Coord(topLeftLocation.x, topLeftLocation.y + topLeftSize.y + Constants.FRAME_Y_OFFSET);
-//		Coord bottomLeftSize = topLeftSize;
-//		Coord rightLocation = new Coord(topLeftLocation.x + topLeftSize.x + Constants.FRAME_X_OFFSET, topLeftLocation.y);
-//		Coord rightSize = new Coord((newSize.x - Constants.FRAME_X_OFFSET*3)/2,newSize.y - Constants.FRAME_Y_OFFSET*2);
+		Coord bottomLeftLocation = new Coord(topLeftLocation.x, topLeftLocation.y + topLeftSize.y + Constants.FRAME_Y_OFFSET);
+		Coord bottomLeftSize = topLeftSize;
+		Coord rightLocation = new Coord(topLeftLocation.x + topLeftSize.x + Constants.FRAME_X_OFFSET, topLeftLocation.y);
+		Coord rightSize = new Coord((newSize.x - Constants.FRAME_X_OFFSET*3)/2,newSize.y - Constants.FRAME_Y_OFFSET*2);
 		
 		_topLeftFrame.setLocation(topLeftLocation);
 		_topLeftFrame.setSize(topLeftSize);
-//		_bottomLeftFrame.setLocation(bottomLeftLocation);
-//		_bottomLeftFrame.setSize(bottomLeftSize);
-//		_rightFrame.setLocation(rightLocation);
-//		_rightFrame.setSize(rightSize);
+		_bottomLeftFrame.setLocation(bottomLeftLocation);
+		_bottomLeftFrame.setSize(bottomLeftSize);
+		_rightFrame.setLocation(rightLocation);
+		_rightFrame.setSize(rightSize);
 		
 	}
 

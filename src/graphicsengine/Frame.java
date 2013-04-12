@@ -67,7 +67,6 @@ public class Frame implements PhysObj {
 		_currTab.onBlur(); //blurs out the previous currTab
 		_currTab = t; //updates the currTab 
 		_currTab.onFocus(); //focuses this new currTab
-		
 	}
 	
 	/**
@@ -77,8 +76,7 @@ public class Frame implements PhysObj {
 	public void onDraw(Graphics2D g) {
 		_background.onDraw(g);
 		for (int i=_tabs.size()-1; i>-1; i--) {
-			Tab tab = _tabs.get(i);			
-			tab.onDraw(g); //draws all the tabs, where the rightmost tab is drawn first
+			_tabs.get(i).onDraw(g); //draws all the tabs, where the rightmost tab is drawn first
 		}
 		_currTab.onDraw(g); //draw the current tab over all the other tabs
 	}
@@ -88,8 +86,9 @@ public class Frame implements PhysObj {
 	public void setSize(Coord c) {
 		_size = c;
 		_background.setSize(c);
-		Tab t = _tabs.get(0);
-		t.setSize(_size.minus(new Coord(Constants.TAB_LEFT_OFFSET+Constants.TAB_RIGHT_OFFSET, Constants.TAB_TOP_OFFSET+Constants.TAB_BOTTOM_OFFSET)));
+		for (int i=0; i<_tabs.size(); i++) {
+			_tabs.get(i).setMainSize(_size.minus(new Coord(Constants.TAB_LEFT_OFFSET+Constants.TAB_RIGHT_OFFSET, Constants.TAB_TOP_OFFSET+Constants.TAB_BOTTOM_OFFSET)));
+		}
 	}
 
 
@@ -105,10 +104,10 @@ public class Frame implements PhysObj {
 		_background.setLocation(c);
 		for (int i=0; i<_tabs.size(); i++) {
 			Tab t = _tabs.get(i);
-			Coord locationOffset = new Coord(Constants.TAB_LEFT_OFFSET + i*Constants.TABHEADER_WIDTH, Constants.TAB_TOP_OFFSET);
-			t.setHeaderLocation(c.plus(locationOffset));
+			Coord headerLocationOffset = new Coord(Constants.TAB_LEFT_OFFSET + i*Constants.TABHEADER_WIDTH + Math.min(i,1)*-Constants.TABHEADER_OVERLAP, Constants.TAB_TOP_OFFSET);
+			t.setHeaderLocation(c.plus(headerLocationOffset));
 			Coord newLocation = c.plus(new Coord(Constants.TAB_LEFT_OFFSET, Constants.TAB_TOP_OFFSET+Constants.TABHEADER_HEIGHT));
-			t.setLocation(newLocation);
+			t.setMainLocation(newLocation);
 		}
 	}
 
@@ -119,7 +118,12 @@ public class Frame implements PhysObj {
 	}
 	
 	public void onMouseClicked(int clickCount, Coord location) {
-		
+		for (int i=0; i<_tabs.size(); i++) {
+			Tab t = _tabs.get(i);
+			if (t.headerContainsPoint(location)) {
+				switchTab(t);
+			}
+		}
 	}
 
 }

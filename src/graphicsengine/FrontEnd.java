@@ -189,13 +189,13 @@ public abstract class FrontEnd {
 		@Override
 		public void mouseClicked(MouseEvent e) {
 			onMouseClicked(e);
-			//repaint();
+			repaint();
 		}
 
 		@Override
 		public void mousePressed(MouseEvent e) {
 			onMousePressed(e);
-			//repaint();
+			repaint();
 		}
 
 		@Override
