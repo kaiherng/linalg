@@ -14,7 +14,7 @@ import backend.blocks.Matrix;
  * 
  * @author baebi
  */
-public class Multiply extends Computable {
+public class MM_Multiply extends Computable {
 	private Solution _solution;
 	
 	/* (non-Javadoc)
@@ -31,7 +31,7 @@ public class Multiply extends Computable {
 	 * @param matrixA the first factor
 	 * @param matrixB the second factor
 	 */
-	public Multiply(Matrix matrixA, Matrix matrixB){
+	public MM_Multiply(Matrix matrixA, Matrix matrixB){
 		List<Countable> inputs = new ArrayList<>();
 		inputs.add(matrixA);
 		inputs.add(matrixB);

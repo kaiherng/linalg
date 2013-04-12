@@ -10,7 +10,7 @@ import backend.blocks.Matrix;
 import backend.blocks.Numerical;
 import backend.blocks.Op;
 import backend.blocks.Operation;
-import backend.operations.PlusMinus;
+import backend.operations.MM_PlusMinus;
 import backend.operations.Solution;
 
 /** Processes a sequence of Numericals representing a computation and generates a tree structure of solutions
@@ -154,10 +154,10 @@ public class Parser {
 		
 		Solution answer;
 		if (isPlus){
-			PlusMinus plus = new PlusMinus((Matrix) arg1, (Matrix) arg2,true); // calculate solution
+			MM_PlusMinus plus = new MM_PlusMinus((Matrix) arg1, (Matrix) arg2,true); // calculate solution
 			answer = plus.getSolution();					// get solution
 		}else{ // is a minus
-			PlusMinus minus = new PlusMinus((Matrix) arg1, (Matrix) arg2,false);
+			MM_PlusMinus minus = new MM_PlusMinus((Matrix) arg1, (Matrix) arg2,false);
 			answer = minus.getSolution();
 		}
 		return new ParseNode(answer,firstArg,secondArg);

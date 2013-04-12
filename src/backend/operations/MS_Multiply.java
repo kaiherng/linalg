@@ -16,7 +16,7 @@ import backend.blocks.Scalar;
  * 
  * @author baebi
  */
-public class ScalarMatrixMultiply extends Computable {
+public class MS_Multiply extends Computable {
 	private Solution _solution;
 	
 	/* (non-Javadoc)
@@ -33,7 +33,7 @@ public class ScalarMatrixMultiply extends Computable {
 	 * @param matrix the matrix to multiply
 	 * @param scalar the scalar to multiply by
 	 */
-	public ScalarMatrixMultiply(Matrix matrix, Scalar scalar){
+	public MS_Multiply(Matrix matrix, Scalar scalar){
 		generateSolution(matrix,scalar);
 	}
 	
@@ -43,7 +43,7 @@ public class ScalarMatrixMultiply extends Computable {
 	 * @param scalar the scalar to multiply by
 	 * @param matrix the matrix to multiply
 	 */
-	public ScalarMatrixMultiply(Scalar scalar, Matrix matrix){
+	public MS_Multiply(Scalar scalar, Matrix matrix){
 		generateSolution(matrix,scalar);
 	}
 

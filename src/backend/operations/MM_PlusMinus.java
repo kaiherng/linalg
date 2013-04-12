@@ -15,7 +15,7 @@ import backend.blocks.Op;
  * 
  * @author baebi
  */
-public class PlusMinus extends Computable {
+public class MM_PlusMinus extends Computable {
 	private Solution _solution;
 	
 	@Override
@@ -30,7 +30,7 @@ public class PlusMinus extends Computable {
 	 * @param matrixB the second matrix to add
 	 * @param isPlus true iff this is a plus operation. false iff this is a minus operation
 	 */
-	public PlusMinus(Matrix matrixA, Matrix matrixB, boolean isPlus) throws IllegalArgumentException {
+	public MM_PlusMinus(Matrix matrixA, Matrix matrixB, boolean isPlus) throws IllegalArgumentException {
 		List<Countable> matrixList = new ArrayList<>();
 		matrixList.add(matrixA);
 		matrixList.add(matrixB);

@@ -7,7 +7,7 @@ package backend.operations;
  * @author baebi
  *
  */
-public class ScalarPlus extends Computable {
+public class S_Power extends Computable {
 
 	/* (non-Javadoc)
 	 * @see backend.operations.Computable#getSolution()
