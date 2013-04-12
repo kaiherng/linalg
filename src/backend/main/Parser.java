@@ -52,40 +52,22 @@ public class Parser {
 	
 	
 	
-	/** Computes a sequence of computations organized into a tree structure of Numericals. (See
-	 *  createSortedTree). 
+	/** Computes a sequence of computations organized into a tree structure of ParseNodes. (See
+	 *  createSortedTree). EXPECTS ONLY VALID EXPRESSIONS AT THE BLOCK LEVEL (ie matrices can still have wrong
+	 *  dimensions or have null entries, etc. But if for instance, the arguments to a matrix multiply will 
+	 *  be matrices). 
 	 * 
 	 * @param root
 	 * @return
 	 */
-	private static ParseNode compute(Numerical root){
+	protected static ParseNode compute(Numerical root) throws IllegalArgumentException{
 
-		
 		if (root instanceof Operation){
 			Operation rootAsOp = (Operation) root;
 			Op op = rootAsOp.getType();
 			switch (op){
 				case PLUS: {
-					if ((rootAsOp.getFirstArg() == null || (rootAsOp.getSecondArg() == null))){
-						throw new IllegalArgumentException("ERROR: Plus requires two arguments");
-					}
-					
-					ParseNode firstArg = compute(rootAsOp.getFirstArg());
-					ParseNode secondArg= compute(rootAsOp.getSecondArg());
-					Solution arg1Sol = firstArg.getSolution();
-					Solution arg2Sol = secondArg.getSolution();
-					Numerical arg1 = arg1Sol.getAnswer();
-					Numerical arg2 = arg2Sol.getAnswer();
-					
-					if (!(arg1 instanceof Matrix) || !(arg2 instanceof Matrix)){
-						throw new IllegalArgumentException("ERROR: Plus arguments must be matrices");
-					}
-					
-					Plus plus = new Plus((Matrix) arg1, (Matrix) arg2);
-					Solution sum = plus.getSolution();
-					
-					
-					return new ParseNode(sum,firstArg,secondArg);
+					return computePlus(rootAsOp); // recursive call to compute in here
 				}
 				case MINUS:
 				case SCALAR_MULTIPLY:
@@ -103,8 +85,56 @@ public class Parser {
 			return null;
 		}
 		
-		// TODO
+		// TODO: remove
 		return null;
+	}
+	
+	
+	/** Gets the Numerical that served as the argument to an Operation
+	 * 
+	 * @param arg the result of a call to compute with <childOfOp> as an argument
+	 * @param childOfOp the result of call to get[...]Arg() from an Operation 
+	 * @return the Numerical that served as an argument to an Operation
+	 */
+	private static Numerical getNextArg(ParseNode arg,Numerical childOfOp){
+		Numerical toReturn;
+		if (arg ==null){
+			toReturn = childOfOp;
+		}else{
+			Solution arg1Sol = arg.getSolution();
+			toReturn = arg1Sol.getAnswer();
+		}
+		return toReturn;
+	}
+	
+	
+	/** Given a plus operator that includes its arguments, returns a ParseNode containing the Solution
+	 * 
+	 * @param op the plus operator
+	 * @return the ParseNode containing the solution and arguments to <op>
+	 */
+	private static ParseNode computePlus(Operation op){
+		if ((op.getFirstArg() == null || (op.getSecondArg() == null))){
+			throw new IllegalArgumentException("ERROR: Plus requires two arguments"); // should be unreachable code
+		}
+		
+		Numerical first = op.getFirstArg();     // this could return an Operation or a Countable
+		Numerical second = op.getSecondArg();
+		
+		ParseNode firstArg = compute(first);          // this will return null if passed a Countable
+		ParseNode secondArg= compute(second);
+		
+		Numerical arg1 = getNextArg(firstArg,first);  // b/c we need to actually compute, gets the Countable arguments
+		Numerical arg2 = getNextArg(secondArg,first);
+		
+		if (!(arg1 instanceof Matrix) || !(arg2 instanceof Matrix)){
+			throw new IllegalArgumentException("ERROR: Plus arguments must be matrices"); // should be unreachable code
+		}
+		
+		Plus plus = new Plus((Matrix) arg1, (Matrix) arg2); // calculate solution
+		Solution sum = plus.getSolution();					// get solution
+		
+		return new ParseNode(sum,firstArg,secondArg);
 	}
 	
 	

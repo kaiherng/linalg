@@ -134,7 +134,7 @@ public class ParserTest {
 	}
 	
 	@Test
-	// Multibracket test
+	// Multi-bracket test
 	// ((A+(A+B)) + A)
 	public void multiBracketTest(){
 		List<Numerical> l = new ArrayList<>();
@@ -507,7 +507,7 @@ public class ParserTest {
 	
 	
 	//================================
-	// Test createSortedTree // TODO
+	// Test createSortedTree
 	//================================
 	
 	@Test
@@ -679,5 +679,13 @@ public class ParserTest {
 		assertTrue(subRes.getFirstArg().equals(matrixA));
 		assertTrue(subRes.getSecondArg().equals(matrixB));
 	}
+	
+	
+	
+	//================================
+	// compute Tests
+	//================================
+	
+	
 	
 }
