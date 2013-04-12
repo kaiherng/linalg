@@ -4,7 +4,7 @@
 package backend.operations;
 
 /**
- * @author baebi
+ * @author
  *
  */
 public class S_Power extends Computable {

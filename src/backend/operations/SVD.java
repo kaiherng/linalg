@@ -7,7 +7,7 @@ package backend.operations;
  * @author
  *
  */
-public class M_Inverse extends Computable {
+public class SVD extends Computable {
 
 	/* (non-Javadoc)
 	 * @see backend.operations.Computable#getSolution()

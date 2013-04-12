@@ -74,9 +74,9 @@ public class MM_PlusMinus extends Computable {
 		inputs.add(matrixA);
 		inputs.add(matrixB);
 		if (isPlus){
-			_solution = new Solution(Op.PLUS,inputs, step2Matrix, steps);
+			_solution = new Solution(Op.MM_PLUS,inputs, step2Matrix, steps);
 		}else{
-			_solution = new Solution(Op.MINUS,inputs, step2Matrix, steps);
+			_solution = new Solution(Op.MM_MINUS,inputs, step2Matrix, steps);
 		}
 	}
 	

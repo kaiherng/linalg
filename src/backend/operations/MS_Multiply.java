@@ -12,7 +12,7 @@ import backend.blocks.Matrix;
 import backend.blocks.Op;
 import backend.blocks.Scalar;
 
-/** Computes a scalare/matrix multiplication
+/** Computes a scalar/matrix multiplication
  * 
  * @author baebi
  */
@@ -90,7 +90,7 @@ public class MS_Multiply extends Computable {
 		List<Countable> inputs = new ArrayList<>();
 		inputs.add(matrix);
 		inputs.add(scalar);
-		_solution = new Solution(Op.SCALAR_MULTIPLY,inputs,step2Matrix,steps);
+		_solution = new Solution(Op.SM_MULTIPLY,inputs,step2Matrix,steps);
 	}
 	
 }

@@ -41,6 +41,15 @@ public class Scalar extends Countable{
 	public String getName() {
 		return _name;
 	}
+
+
+	/** Sets the display value to a string
+	 * 
+	 * @param operatorStep the value to set 
+	 */
+	public void setDisplayValue(String operatorStep) {
+		_displayValue = operatorStep;
+	}
 	
 	
 //	/** Sets the String representation of the value depending on global display parameters

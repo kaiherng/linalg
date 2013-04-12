@@ -1,6 +1,4 @@
-/**
- * 
- */
+
 package backend.blocks;
 
 /** Enumerates types of Operators
@@ -8,11 +6,23 @@ package backend.blocks;
  * @author baebi
  */
 public enum Op {
-	PLUS(2,false,"PLUS"), MINUS(2,false,"MINUS"), TIMES(1,false,"TIMES"), SCALAR_MULTIPLY(1,false,"SCALAR-MULTIPLY"), 
-	DETERMINANT(0,true,"DETERMINANT"), ROW_REDUCE(0,true,"ROW-REDUCE"); // do not give rank below zero
+	// rank 2 operations
+	SS_PLUS(2,false,"SS_PLUS"),   MM_PLUS(2,false,"MM_PLUS"),
+	SS_MINUS(2,false,"SS_MINUS"), MM_MINUS(2,false,"MM_MINUS"),
+	
+	//rank 1 operations
+	SS_MULTIPLY(1,false,"SS_TIMES"), MM_MULTIPLY(1,false,"MM_TIMES"), SM_MULTIPLY(1,false,"SM_MULTIPLY"),
+	
+	//rank 0 (unary) operations
+	DETERMINANT(0,true,"DETERMINANT"),
+	ROW_REDUCE(0,true,"ROW-REDUCE"); 
+	
+	// do not give rank below zero
+	
 	private int _rank; // the PEMDAS rank of this operation
 	private boolean _isUnary; // true if this is a unary operation like determinant, power, or row-reduce
 	private String _name;
+	
 	
 	/** Give the Op a rank
 	 * 

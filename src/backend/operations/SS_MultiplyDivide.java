@@ -4,7 +4,7 @@
 package backend.operations;
 
 /**
- * @author baebi
+ * @author
  *
  */
 public class SS_MultiplyDivide extends Computable {

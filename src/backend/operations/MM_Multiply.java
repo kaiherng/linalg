@@ -1,5 +1,5 @@
 /**
- * 
+ * TODO: complete and test
  */
 package backend.operations;
 
@@ -40,7 +40,11 @@ public class MM_Multiply extends Computable {
 		Double[][] aValues = matrixA.getValues();
 		Double[][] bValues = matrixB.getValues();
 		
-		// TODO
+		if(aValues.length != bValues[0].length){
+			throw new IllegalArgumentException("ERROR: Number of columns of first matrix must equal number of columns of second matrix");
+		}
+		
+		//for (int ) TODO
 		
 	}
 

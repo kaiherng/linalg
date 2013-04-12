@@ -21,8 +21,8 @@ public class ParserTest {
 	private Matrix matrixC = new Matrix(DisplayType.DECIMAL, new Double[][]{{2.0,2.0},{2.0,2.0}});
 	private Bracket openBracket = new Bracket(true);
 	private Bracket closeBracket = new Bracket(false);
-	private Operation plus = new Operation(Op.PLUS);
-	private Operation times = new Operation(Op.TIMES);
+	private Operation plus = new Operation(Op.MM_PLUS);
+	private Operation times = new Operation(Op.MM_MULTIPLY);
 	
 	
 	//====================================
@@ -35,7 +35,7 @@ public class ParserTest {
 	public void noBracketTest() {
 		List<Numerical> l = new ArrayList<>();
 		l.add(matrixA);
-		Operation o = new Operation(Op.PLUS);
+		Operation o = new Operation(Op.MM_PLUS);
 		l.add(o);
 		l.add(matrixA);
 		Parser.removeOuterBrackets(l);
@@ -49,7 +49,7 @@ public class ParserTest {
 		List<Numerical> l = new ArrayList<>();
 		l.add(new Bracket(true));
 		l.add(matrixA);
-		Operation o = new Operation(Op.PLUS);
+		Operation o = new Operation(Op.MM_PLUS);
 		l.add(o);
 		l.add(matrixA);
 		l.add(new Bracket(false));
@@ -370,7 +370,7 @@ public class ParserTest {
 	// error one Numerical size computation containing unary operator without operand
 	public void binaryOpWithoutOperandTest(){
 		List<Numerical> l = new ArrayList<>();
-		l.add(new Operation(Op.PLUS));
+		l.add(new Operation(Op.MM_PLUS));
 		try{
 			Parser.checkValidInput(l);
 			fail();
@@ -555,7 +555,7 @@ public class ParserTest {
 	//
 	public void doubleOpSortedTreeTest(){
 		List<Numerical> l = new ArrayList<>();
-		Operation plus2 = new Operation(Op.PLUS);
+		Operation plus2 = new Operation(Op.MM_PLUS);
 		l.add(matrixA);
 		l.add(plus);
 		l.add(matrixC);
@@ -637,7 +637,7 @@ public class ParserTest {
 	//         B 
 	public void bunchaThangsTest(){
 		List<Numerical> l = new ArrayList<>();
-		Operation plus2 = new Operation(Op.PLUS);
+		Operation plus2 = new Operation(Op.MM_PLUS);
 		Operation det = new Operation(Op.DETERMINANT);
 		l.add(matrixA);
 		l.add(plus);

@@ -65,22 +65,22 @@ public class Parser {
 			Op op = rootAsOp.getType();
 			switch (op){
 				// addition
-				case PLUS: {
+				case MM_PLUS: {
 					return computePlusMinus(rootAsOp,true); // recursive call to compute in here
 				}
 				
 				// subtraction
-				case MINUS: {
+				case MM_MINUS: {
 					return computePlusMinus(rootAsOp,false);
 				}
 				
 				// scalar-multiply
-				case SCALAR_MULTIPLY: {
+				case SM_MULTIPLY: {
 					return null; // TODO	
 				}
 				
 				// multiplication
-				case TIMES: {
+				case MM_MULTIPLY: {
 					return null; // TODO
 				}
 				
