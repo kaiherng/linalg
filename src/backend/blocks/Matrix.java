@@ -7,6 +7,8 @@ package backend.blocks;
  */
 public class Matrix extends Countable{
 	private int _numRows,_numCols;
+	private static String _name = "MATRIX";
+	private String _id;
 	
 	// multidimensional array containing double values of matrix (regardless of stated format)
 	private Double[][] _internalValues;
@@ -222,5 +224,25 @@ public class Matrix extends Countable{
 		}
 		return toReturn;
 	}
+	
+	/**
+	 * @return the name of this class
+	 */
+	public String getName(){
+		return _name;
+	}
+	
+	/**
+	 * @param id sets the id of this matrix. Used for testing
+	 */
+	public void setID(String id){
+		_id = id;
+	}
 
+	/**
+	 * @return returns the id of this matrix. Used for testing
+	 */
+	public String getID(){
+		return _id;
+	}
 }

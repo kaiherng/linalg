@@ -6,6 +6,7 @@ package backend.blocks;
 public class Scalar extends Countable{
 	private double _value;
 	private String _displayValue;
+	private static String _name = "SCALAR";
 	
 	/** Constructor for 
 	 * 
@@ -33,6 +34,12 @@ public class Scalar extends Countable{
 	 */
 	public String getDisplayValue(){
 		return _displayValue;
+	}
+
+
+	@Override
+	public String getName() {
+		return _name;
 	}
 	
 	

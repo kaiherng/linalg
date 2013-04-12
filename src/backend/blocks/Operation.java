@@ -78,5 +78,11 @@ public class Operation implements Numerical{
 	public boolean isUnary(){
 		return _type.isUnary();
 	}
+
+
+	@Override
+	public String getName() {
+		return _type.getName();
+	}
 	
 }
