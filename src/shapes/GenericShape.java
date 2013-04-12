@@ -1,4 +1,4 @@
-package graphicsengine;
+package shapes;
 
 public abstract class GenericShape {
 	

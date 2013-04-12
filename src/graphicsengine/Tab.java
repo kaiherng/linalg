@@ -3,11 +3,14 @@ package graphicsengine;
 import java.awt.Color;
 import java.awt.Graphics2D;
 
+import shapes.Coord;
+import shapes.Rectangle;
+
 import frontend.Constants;
 
 
 
-public class Tab implements PhysObj {
+public class Tab {
 	
 	/**
 	 * Whether or not this tab is in focus
@@ -29,6 +32,8 @@ public class Tab implements PhysObj {
 	 */
 	private TabHeader _header;
 	
+	private String _title;
+	
 	/**
 	 * Constructs a new tab
 	 * @param c the container that the tab holds
@@ -37,16 +42,24 @@ public class Tab implements PhysObj {
 	 */
 	public Tab(Container c, String title) {
 		_main = c;
-		_mainBackground = new Rectangle(new Coord(0,0), new Coord(0,0), Constants.TAB_MAINBG_COLOR); //just create an empty rectangle for now, the size will be set when the onDraw is called by frame
+		_mainBackground = new Rectangle(new Coord(0,0), new Coord(0,0), Constants.TAB_MAINBG_COLOR, Constants.TABMAIN_BORDER_WIDTH, Constants.TABMAIN_BORDER_COLOR); //just create an empty rectangle for now, the size will be set when the onDraw is called by frame
 		_header = new TabHeader(new Coord(0,0), new Coord(Constants.TABHEADER_WIDTH, Constants.TABHEADER_HEIGHT), title);
+		_title = title;
 	}
 	
 	public void onBlur() {
 		_focus = false;
+		_header.onBlur();
 	}
 	
+	@Override
+	public String toString() {
+		return "Tab [_title=" + _title + ", _focus=" + _focus + "]";
+	}
+
 	public void onFocus() {
 		_focus = true;
+		_header.onFocus();
 	}
 	
 	public void setColor(Color c) {
@@ -54,32 +67,30 @@ public class Tab implements PhysObj {
 		_mainBackground.setFillColor(c);
 	}
 
-	@Override
-	public void setSize(Coord c) {
+	public void setMainSize(Coord c) {
 		_mainBackground.setSize(c.minus(0, Constants.TABHEADER_HEIGHT));
 	}
 
-	@Override
-	public Coord getSize() {
-		return null;
+	public Coord getMainSize() {
+		return _mainBackground.getSize();
 	}
 
-	@Override
-	public void setLocation(Coord c) {
+	public void setMainLocation(Coord c) {
 		_mainBackground.setLocation(c);
 	}
 	
+	public Coord getMainLocation() {
+		return _mainBackground.getLocation();
+	}
 	
 	public void setHeaderLocation(Coord c) {
 		_header.setLocation(c);
 	}
-
-	@Override
-	public Coord getLocation() {
-		return null;
+	
+	public boolean headerContainsPoint(Coord c) {
+		return _header.containsPoint(c);
 	}
 
-	@Override
 	public void onDraw(Graphics2D g) {
 		_header.onDraw(g, _focus); 	
 		if (_focus) {

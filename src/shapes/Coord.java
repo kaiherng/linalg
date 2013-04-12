@@ -1,4 +1,4 @@
-package graphicsengine;
+package shapes;
 
 /**
  * A 2D screen coordinate

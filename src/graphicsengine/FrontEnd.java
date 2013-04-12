@@ -23,6 +23,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
+import shapes.Coord;
+
 
 /**
  * Front end that processes drawing panel events, like uniting key presses and mouse clicks into custom drag events, etc.
@@ -189,13 +191,13 @@ public abstract class FrontEnd {
 		@Override
 		public void mouseClicked(MouseEvent e) {
 			onMouseClicked(e);
-			//repaint();
+			repaint();
 		}
 
 		@Override
 		public void mousePressed(MouseEvent e) {
 			onMousePressed(e);
-			//repaint();
+			repaint();
 		}
 
 		@Override

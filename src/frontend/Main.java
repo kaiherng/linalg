@@ -6,7 +6,8 @@ import java.awt.GraphicsEnvironment;
 import java.io.File;
 import java.io.IOException;
 
-import graphicsengine.Coord;
+import shapes.Coord;
+
 
 
 public class Main {

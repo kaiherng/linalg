@@ -1,6 +1,5 @@
 package frontend;
 
-import graphicsengine.Coord;
 import graphicsengine.FrontEnd;
 import graphicsengine.Screen;
 
@@ -10,6 +9,8 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
 import java.io.IOException;
+
+import shapes.Coord;
 
 
 public class Application extends FrontEnd {
