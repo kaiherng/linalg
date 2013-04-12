@@ -61,47 +61,47 @@ public class Parser {
 	private static ParseNode compute(Numerical root){
 
 		
-//		if (root instanceof Operation){
-//			Operation rootAsOp = (Operation) root;
-//			Op op = rootAsOp.getType();
-//			switch (op){
-//				case PLUS: {
-//					if ((rootAsOp.getFirstArg() == null || (rootAsOp.getSecondArg() == null))){
-//						throw new IllegalArgumentException("ERROR: Plus requires two arguments");
-//					}
-//					
-//					if (rootAsOp.getFirstArg())
-//					ParseNode firstArg = compute(rootAsOp.getFirstArg());
-//					ParseNode secondArg= compute(rootAsOp.getSecondArg());
-//					Solution arg1Sol = firstArg.getSolution();
-//					Solution arg2Sol = secondArg.getSolution();
-//					Numerical arg1 = arg1Sol.getAnswer();
-//					Numerical arg2 = arg2Sol.getAnswer();
-//					
-//					if (!(arg1 instanceof Matrix) || !(arg2 instanceof Matrix)){
-//						throw new IllegalArgumentException("ERROR: Plus arguments must be matrices");
-//					}
-//					
-//					Plus plus = new Plus((Matrix) arg1, (Matrix) arg2);
-//					Solution sum = plus.getSolution();
-//					
-//					
-//					return new ParseNode(sum,firstArg,secondArg);
-//				}
-//				case MINUS:
-//				case SCALAR_MULTIPLY:
-//				case TIMES:
-//				case DETERMINANT:
-//				case ROW_REDUCE:
-//				default:
-//				
-//			}
-//		}else if(root instanceof Countable){
-//			
-//		}else{
-//			// should be unreachable code
-//			System.err.println("ERROR (compute): compute should not receive anything but countables or ");
-//		}
+		if (root instanceof Operation){
+			Operation rootAsOp = (Operation) root;
+			Op op = rootAsOp.getType();
+			switch (op){
+				case PLUS: {
+					if ((rootAsOp.getFirstArg() == null || (rootAsOp.getSecondArg() == null))){
+						throw new IllegalArgumentException("ERROR: Plus requires two arguments");
+					}
+					
+					ParseNode firstArg = compute(rootAsOp.getFirstArg());
+					ParseNode secondArg= compute(rootAsOp.getSecondArg());
+					Solution arg1Sol = firstArg.getSolution();
+					Solution arg2Sol = secondArg.getSolution();
+					Numerical arg1 = arg1Sol.getAnswer();
+					Numerical arg2 = arg2Sol.getAnswer();
+					
+					if (!(arg1 instanceof Matrix) || !(arg2 instanceof Matrix)){
+						throw new IllegalArgumentException("ERROR: Plus arguments must be matrices");
+					}
+					
+					Plus plus = new Plus((Matrix) arg1, (Matrix) arg2);
+					Solution sum = plus.getSolution();
+					
+					
+					return new ParseNode(sum,firstArg,secondArg);
+				}
+				case MINUS:
+				case SCALAR_MULTIPLY:
+				case TIMES:
+				case DETERMINANT:
+				case ROW_REDUCE:
+				default:
+				
+			}
+		}else if(root instanceof Countable){
+			return null;
+		}else{
+			// should be unreachable code
+			System.err.println("ERROR (compute): compute should not receive anything but countables or operations");
+			return null;
+		}
 		
 		// TODO
 		return null;
@@ -229,7 +229,7 @@ public class Parser {
 
 		// This code should be unreachable
 		if (prefOpIndex == -1){
-				System.err.println("ERROR: createSortedTree passed invalid input");	
+			System.err.println("ERROR: createSortedTree passed invalid input");	
 		}
 		
 		List<Numerical> prev = new ArrayList<>(input.subList(0, prefOpIndex));
@@ -247,6 +247,9 @@ public class Parser {
 	 *  in the computation. If there is no preference due to Operator rank, preference is 
 	 *  set by list order. (ex: A + B + C -> B + C comes last). EXPECTS A SEQUENCE OF NUMERICALS
 	 *  THAT IS NOT IN ITS ENTIRETY SURROUNDED BY A PAIR OF PARENS
+	 *  
+	 *  ALSO NOTE: this function assumes unary operators to be more preferential to binary operators,
+	 *  and equally preferential to each other
 	 * 
 	 * @param input the list of numericals making up the input equation
 	 * @return the index in the list of the operation that should be computed last
@@ -257,6 +260,7 @@ public class Parser {
 		int currRank;
 		int toReturn = -1; // index to return
 		int openBrackets = 0;
+		boolean unaryHasMaxRank = false;
 		for (int i = 0; i < input.size(); i++){
 			currentNumr = input.get(i);
 			if (currentNumr instanceof Bracket){
@@ -269,8 +273,20 @@ public class Parser {
 				if (currentNumr instanceof Operation && openBrackets == 0){
 					currRank = ((Operation) currentNumr).getRank();
 					if (currRank >= maxRank){
-						maxRank = currRank;
-						toReturn = i;
+						if (((Operation) currentNumr).isUnary()){
+							
+							// basically, we are saying that if only unary ops are found, the 1st one found is least preferential
+							if (!unaryHasMaxRank){ 
+								maxRank = currRank;
+								toReturn = i;
+							}
+							
+							unaryHasMaxRank = true;
+						}else{
+							unaryHasMaxRank = false;
+							maxRank = currRank;
+							toReturn = i;
+						}
 					}
 				} 
 			}

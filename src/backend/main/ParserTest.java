@@ -196,7 +196,6 @@ public class ParserTest {
 		assertTrue(Parser.findLeastPreferentialOp(l)==1);
 	}
 	
-	
 	@Test
 	// chooses + over *
 	// A * A + A
@@ -209,7 +208,6 @@ public class ParserTest {
 		l.add(matrixA);
 		assertTrue(Parser.findLeastPreferentialOp(l)==3);
 	}
-	
 	
 	@Test
 	// chooses * over + when + surrounded by brackets
@@ -226,7 +224,6 @@ public class ParserTest {
 		assertTrue(Parser.findLeastPreferentialOp(l)==1);
 	}
 	
-	
 	@Test
 	// chooses first + over second +
 	// A + A + A
@@ -239,7 +236,6 @@ public class ParserTest {
 		l.add(matrixA);
 		assertTrue(Parser.findLeastPreferentialOp(l)==3);
 	}
-	
 	
 	@Test
 	// test for when no operation
@@ -592,6 +588,11 @@ public class ParserTest {
 	@Test
 	// tests double unary operator
 	// det det A
+	// ->   det
+	//        \
+	//         det
+	//			 \
+	//			  A
 	public void doubleUnaryOperatorTest(){
 		List<Numerical> l = new ArrayList<>();
 		Operation det = new Operation(Op.DETERMINANT);
@@ -603,14 +604,80 @@ public class ParserTest {
 		assertTrue(res.equals(det));
 		assertTrue(((Operation) res).getFirstArg() == null);
 		assertTrue(((Operation) res).getSecondArg().equals(det2));
-		Operation subRes = (Operation) ((Operation) res).getFirstArg();
+		Operation subRes = (Operation) ((Operation) res).getSecondArg();
 		assertTrue(subRes.getFirstArg() == null);
 		assertTrue(subRes.getSecondArg().equals(matrixA));
 	}
 	
 	@Test
 	// tests unary operator and brackets
+	// det (A)
 	public void unaryOperatorAndBracketTest(){
-		
+		List<Numerical> l = new ArrayList<>();
+		Operation det = new Operation(Op.DETERMINANT);
+		l.add(det);
+		l.add(openBracket);
+		l.add(matrixA);
+		l.add(closeBracket);	
+		Numerical res = Parser.createSortedTree(l);
+		assertTrue(res.equals(det));
+		assertTrue(((Operation) res).getFirstArg() == null);
+		assertTrue(((Operation) res).getSecondArg().equals(matrixA));
 	}
+	
+	@Test
+	// Test a bunch of things
+	// A + det B + C
+	// ->   +
+	//     / \
+	//    +   C
+	//   / \
+	//  A   det
+	//        \
+	//         B 
+	public void bunchaThangsTest(){
+		List<Numerical> l = new ArrayList<>();
+		Operation plus2 = new Operation(Op.PLUS);
+		Operation det = new Operation(Op.DETERMINANT);
+		l.add(matrixA);
+		l.add(plus);
+		l.add(det);
+		l.add(matrixB);
+		l.add(plus2);
+		l.add(matrixC);
+		Numerical res = Parser.createSortedTree(l);
+		assertTrue(res.equals(plus2));
+		assertTrue(((Operation) res).getFirstArg().equals(plus));
+		assertTrue(((Operation) res).getSecondArg().equals(matrixC));
+		Operation subRes = (Operation) ((Operation) res).getFirstArg();
+		assertTrue(subRes.getFirstArg().equals(matrixA));
+		assertTrue(subRes.getSecondArg().equals(det));
+	}
+	
+	@Test
+	// Test parentheses with binary operators
+	// (A + B) * C
+	// ->       *
+	//		   / \
+	//        +   C
+	//       / \
+	//      A   B
+	public void bracketsAndBinaryOpsTest(){
+		List<Numerical> l = new ArrayList<>();
+		l.add(openBracket);
+		l.add(matrixA);
+		l.add(plus);
+		l.add(matrixB);
+		l.add(closeBracket);
+		l.add(times);
+		l.add(matrixC);
+		Numerical res = Parser.createSortedTree(l);
+		assertTrue(res.equals(times));
+		assertTrue(((Operation) res).getFirstArg().equals(plus));
+		assertTrue(((Operation) res).getSecondArg().equals(matrixC));
+		Operation subRes = (Operation) ((Operation) res).getFirstArg();
+		assertTrue(subRes.getFirstArg().equals(matrixA));
+		assertTrue(subRes.getSecondArg().equals(matrixB));
+	}
+	
 }
