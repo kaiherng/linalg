@@ -55,6 +55,29 @@ public class Determinant extends Computable
 		_solution = new Solution(Op.DETERMINANT, inputs, answer, steps);
 	}
 
+	/**returns the matrix without the y-th row, and the x-th column*/
+	private Double[][] removeRowColumn(Double[][] m, int x, int y) throws Exception
+	{
+		if (x<0 || y<0 || x>=m.length || y>=m[0].length)
+			throw new IllegalArgumentException("ERROR (Det): removing row "+x+" and column "+y+" is illegal in a "+m.length+"x"+
+				m[0].length+" matrix.");
+
+		Double[][] m2=new Double[m.length-1][m.length-1];
+		for (int j=0;j<m.length-1;j++)
+		{
+			for (int k=0;k<m[0].length-1;k++)
+			{
+				int x2=j,y2=k;
+				if (x2>=x)
+					x2++;
+				if (y2>=y)
+					y2++;
+				m2[j][k]=m[x2][y2];
+			}
+		}
+		return m2;
+	}
+
 	/**returns the list of steps to find the determinant of the matrix
 	 *the final step contains the determinant*/
 	private List<Step> calcDet(Double[][] values, DisplayType distype) throws Exception
@@ -90,17 +113,8 @@ public class Determinant extends Computable
 		for (int i=0;i<values.length;i++)
 		{
 			//the matrix without the first row, and the i-th column
-			Double[][] m=new Double[values.length-1][values.length-1];
-			for (int j=0;j<values.length-1;j++)
-			{
-				for (int k=0;k<values.length-1;k++)
-				{
-					if (j<i)
-						m[j][k]=values[j][k+1];
-					else
-						m[j][k]=values[j+1][k+1];
-				}
-			}
+			Double[][] m=removeRowColumn(values,i,0);
+
 			//calculate m's determinant
 			List<Step> intSteps=calcDet(m,distype);
 
