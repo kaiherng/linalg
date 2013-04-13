@@ -49,8 +49,6 @@ public class MainScreen implements Screen {
 		Tab solutionTab = new Tab(new Solution(), "Solution", 0);
 		_rightFrame = new Frame(new Coord(0,0), new Coord(0,0), solutionTab);
 		
-		
-		
 	}
 	
 
