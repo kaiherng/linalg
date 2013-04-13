@@ -131,8 +131,10 @@ public class Frame implements Displayable {
 			Tab t = _tabs.get(i);
 			if (t.headerContainsPoint(location)) {
 				switchTab(t);
+				return;
 			}
 		}
+		_currTab.onMouseClicked(clickCount, location);		
 	}
 
 }

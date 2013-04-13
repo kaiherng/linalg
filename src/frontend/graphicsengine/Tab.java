@@ -157,7 +157,7 @@ public class Tab implements Displayable {
 	@Override
 	public void onMouseClicked(int clickCount, Coord c) {
 		// TODO Auto-generated method stub
-		
+		_container.onMouseClicked(clickCount, c);
 	}
 
 
