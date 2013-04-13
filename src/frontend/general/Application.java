@@ -1,7 +1,8 @@
-package frontend;
+package frontend.general;
 
-import graphicsengine.FrontEnd;
-import graphicsengine.Screen;
+import frontend.graphicsengine.FrontEnd;
+import frontend.graphicsengine.Screen;
+import frontend.shapes.Coord;
 
 import java.awt.FontFormatException;
 import java.awt.Graphics2D;
@@ -10,16 +11,17 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
 import java.io.IOException;
 
-import shapes.Coord;
 
 
 public class Application extends FrontEnd {
 	
-	private java.util.Stack<Screen> _screenStack;
+	private java.util.Stack<Screen> _screenStack; 
 	private Screen _currentScreen;
-	private boolean _keyHeld;
-	private int _keyCode;
-	private int _mouseHeld;
+	
+	//to unite awt events so that they make more sense
+	private boolean _keyHeld; 
+	private int _keyCode; 
+	private int _mouseHeld; 
 	
 	public Application(Coord initialSize)  {
 		super(initialSize);
@@ -27,10 +29,7 @@ public class Application extends FrontEnd {
 		_keyHeld = false;
 		_mouseHeld = 0; //0 for not held, 1 for mouse first clicked, 2 for mouse being held down
 		_keyCode = 0;
-		_loaded = true;
 		_currentScreen = new MainScreen(this);
-		
-		initialSetup();
 	}
 
 	@Override

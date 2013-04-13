@@ -1,14 +1,18 @@
-package frontend;
-
-import graphicsengine.Container;
-import graphicsengine.Frame;
-import graphicsengine.Screen;
-import graphicsengine.Tab;
+package frontend.general;
 
 import java.awt.Graphics2D;
 
-import shapes.Coord;
-import shapes.Rectangle;
+import frontend.containers.Compute;
+import frontend.containers.Construct;
+import frontend.containers.Saved;
+import frontend.containers.Solution;
+import frontend.graphicsengine.Frame;
+import frontend.graphicsengine.Screen;
+import frontend.graphicsengine.Tab;
+import frontend.shapes.Coord;
+import frontend.shapes.Rectangle;
+
+
 
 /**
  * Formerly called "Window" in the design specs
@@ -33,15 +37,16 @@ public class MainScreen implements Screen {
 		
 		_background = new Rectangle(new Coord(0,0), new Coord(0,0), Constants.SCREEN_BG_COLOR);
 		
-		Tab constructTab = new Tab(new Container(), "Construct");
+		Tab constructTab = new Tab(new Construct(), "Construct", 0);
 		_topLeftFrame = new Frame(new Coord(0,0), new Coord(0,0), constructTab);
-		Tab computeTab = new Tab(new Container(), "Compute");
+		
+		Tab computeTab = new Tab(new Compute(), "Compute", 1);
 		_topLeftFrame.addTab(computeTab);
 		
-		Tab savedTab = new Tab(new Container(), "Saved");
+		Tab savedTab = new Tab(new Saved(), "Saved", 0);
 		_bottomLeftFrame = new Frame(new Coord(0,0), new Coord(0,0), savedTab);
 		
-		Tab solutionTab = new Tab(new Container(), "Solution");
+		Tab solutionTab = new Tab(new Solution(), "Solution", 0);
 		_rightFrame = new Frame(new Coord(0,0), new Coord(0,0), solutionTab);
 		
 		
@@ -77,6 +82,7 @@ public class MainScreen implements Screen {
 	public void onResize(Coord newSize) {
 		_background.setSize(newSize);
 		
+		//calculates the new locations and sizes for the frames and sets them to these values
 		Coord topLeftLocation = new Coord(Constants.FRAME_X_OFFSET,Constants.FRAME_Y_OFFSET);
 		Coord topLeftSize = new Coord((newSize.x - Constants.FRAME_X_OFFSET*3)/2,(newSize.y - Constants.FRAME_Y_OFFSET*3)/2);
 		Coord bottomLeftLocation = new Coord(topLeftLocation.x, topLeftLocation.y + topLeftSize.y + Constants.FRAME_Y_OFFSET);
@@ -93,6 +99,9 @@ public class MainScreen implements Screen {
 		
 	}
 
+	/**
+	 * Checks if mouseclick location is within locations of frames contained in this screen, and passes click events to the correct frames
+	 */
 	@Override
 	public void onMouseClicked(int clickCount, Coord location) {
 		if (location.x > _topLeftFrame.getLocation().x && location.x < _topLeftFrame.getLocation().x + _topLeftFrame.getSize().x && location.y > _topLeftFrame.getLocation().y && location.y < _topLeftFrame.getLocation().y + _topLeftFrame.getSize().y) {

@@ -1,4 +1,4 @@
-package shapes;
+package frontend.shapes;
 
 import java.awt.Color;
 

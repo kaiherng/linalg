@@ -1,23 +1,25 @@
-package graphicsengine;
+package frontend.graphicsengine;
 
 import java.awt.Graphics2D;
 import java.util.ArrayList;
 import java.util.List;
 
-import shapes.Coord;
-import shapes.Rectangle;
 
-import frontend.Constants;
+import frontend.general.Constants;
+import frontend.shapes.Coord;
+import frontend.shapes.Rectangle;
 
 /**
  * A frame is something that contains tabs - it represents a space on the screen that contains tabs, and it is the tab manager for that space
  * @author Kai
  *
  */
-public class Frame implements PhysObj {
+public class Frame implements Displayable {
 	
 	private Coord _location;
+	
 	private Coord _size;
+	
 	private Rectangle _background;
 	
 	/**
@@ -72,8 +74,10 @@ public class Frame implements PhysObj {
 	}
 	
 	/**
-	 * Draws all the tabs
-	 * @param g
+	 * Draws:
+	 * (1) the background of the frame
+	 * (2) all the tabs contained in the frame, in the correct order
+	 * @param g the brush to draw with
 	 */
 	public void onDraw(Graphics2D g) {
 		_background.onDraw(g);
@@ -83,17 +87,22 @@ public class Frame implements PhysObj {
 		_currTab.onDraw(g); //draw the current tab over all the other tabs
 	}
 
-
+	/**
+	 * Sets the size of the background, and sets the size of all the tabs in this frame
+	 */
 	@Override
 	public void setSize(Coord c) {
 		_size = c;
 		_background.setSize(c);
 		for (int i=0; i<_tabs.size(); i++) {
-			_tabs.get(i).setMainSize(_size.minus(new Coord(Constants.TAB_LEFT_OFFSET+Constants.TAB_RIGHT_OFFSET, Constants.TAB_TOP_OFFSET+Constants.TAB_BOTTOM_OFFSET)));
+			_tabs.get(i).setSize(_size.minus(new Coord(Constants.TAB_LEFT_OFFSET+Constants.TAB_RIGHT_OFFSET, Constants.TAB_TOP_OFFSET+Constants.TAB_BOTTOM_OFFSET)));
 		}
 	}
 
-
+	/**
+	 * Gets the size of this frame
+	 * @return the size of the frame
+	 */
 	@Override
 	public Coord getSize() {
 		return _size;
@@ -106,10 +115,7 @@ public class Frame implements PhysObj {
 		_background.setLocation(c);
 		for (int i=0; i<_tabs.size(); i++) {
 			Tab t = _tabs.get(i);
-			Coord headerLocationOffset = new Coord(Constants.TAB_LEFT_OFFSET + i*Constants.TABHEADER_WIDTH + Math.min(i,1)*-Constants.TABHEADER_OVERLAP, Constants.TAB_TOP_OFFSET);
-			t.setHeaderLocation(c.plus(headerLocationOffset));
-			Coord newLocation = c.plus(new Coord(Constants.TAB_LEFT_OFFSET, Constants.TAB_TOP_OFFSET+Constants.TABHEADER_HEIGHT));
-			t.setMainLocation(newLocation);
+			t.setLocation(c.plus(Constants.TAB_LEFT_OFFSET, Constants.TAB_TOP_OFFSET));
 		}
 	}
 
@@ -119,6 +125,7 @@ public class Frame implements PhysObj {
 		return _location;
 	}
 	
+	@Override
 	public void onMouseClicked(int clickCount, Coord location) {
 		for (int i=0; i<_tabs.size(); i++) {
 			Tab t = _tabs.get(i);

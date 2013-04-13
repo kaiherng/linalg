@@ -1,8 +1,9 @@
-package graphicsengine;
+package frontend.graphicsengine;
 
 import java.awt.Graphics2D;
 
-import shapes.Coord;
+import frontend.shapes.Coord;
+
 
 /** 
  * An interface that defines a Screen. A screen is everything that the user sees in the program
@@ -45,13 +46,19 @@ public interface Screen {
 	 */
 	public void onMouseClicked(int clickCount, Coord location);
 	
-	
 	public void onMousePressed();
+	
 	public void onMouseReleased();
+	
 	public void onMouseDragged(Coord location);
+	
 	public void onMouseMoved(Coord location);
+	
 	public void onMouseWheelForward();
+	
 	public void onMouseWheelBackward();
+	
 	public void onDragStart(Coord location);
+	
 	public void onDragEnd(Coord location);
 }
