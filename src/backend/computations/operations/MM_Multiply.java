@@ -1,7 +1,7 @@
 /**
  * TODO: complete and test
  */
-package backend.operations;
+package backend.computations.operations;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,6 +9,8 @@ import java.util.List;
 import backend.blocks.Countable;
 import backend.blocks.Countable.DisplayType;
 import backend.blocks.Matrix;
+import backend.computations.infrastructure.Computable;
+import backend.computations.infrastructure.Solution;
 
 /** Performs a matrix multiplication operation
  * 

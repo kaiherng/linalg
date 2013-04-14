@@ -14,7 +14,7 @@ import backend.blocks.Matrix;
 import backend.blocks.Numerical;
 import backend.blocks.Op;
 import backend.blocks.Operation;
-import backend.operations.Solution;
+import backend.computations.infrastructure.Solution;
 
 public class ParserTest {
 	private Matrix matrixA = new Matrix(DisplayType.DECIMAL, new Double[][]{{1.0,1.0},{1.0,1.0}});

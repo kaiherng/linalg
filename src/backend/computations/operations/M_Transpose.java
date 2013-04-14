@@ -1,7 +1,11 @@
-package backend.operations;
+package backend.computations.operations;
 
 import backend.blocks.*;
 import backend.blocks.Countable.DisplayType;
+import backend.computations.infrastructure.Computable;
+import backend.computations.infrastructure.Solution;
+import backend.computations.infrastructure.Step;
+
 import java.util.*;
 
 /** Matrix Transpose Operation

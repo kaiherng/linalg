@@ -1,7 +1,7 @@
 /**
  * TODO: Test this class
  */
-package backend.operations;
+package backend.computations.operations;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,6 +10,9 @@ import backend.blocks.Countable;
 import backend.blocks.Countable.DisplayType;
 import backend.blocks.Op;
 import backend.blocks.Scalar;
+import backend.computations.infrastructure.Computable;
+import backend.computations.infrastructure.Solution;
+import backend.computations.infrastructure.Step;
 
 /** Scalar addition and subtraction operations
  * 

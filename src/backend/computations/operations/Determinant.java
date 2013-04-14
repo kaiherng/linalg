@@ -1,9 +1,12 @@
-package backend.operations;
+package backend.computations.operations;
 
 import java.util.*;
 
 import backend.blocks.*;
 import backend.blocks.Countable.DisplayType;
+import backend.computations.infrastructure.Computable;
+import backend.computations.infrastructure.Solution;
+import backend.computations.infrastructure.Step;
 
 /** Determinant Operation
  *

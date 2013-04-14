@@ -10,8 +10,8 @@ import backend.blocks.Matrix;
 import backend.blocks.Numerical;
 import backend.blocks.Op;
 import backend.blocks.Operation;
-import backend.operations.MM_PlusMinus;
-import backend.operations.Solution;
+import backend.computations.infrastructure.Solution;
+import backend.computations.operations.MM_PlusMinus;
 
 /** Processes a sequence of Numericals representing a computation and generates a tree structure of solutions
  *  that allows the caller to understand how the computation was computed

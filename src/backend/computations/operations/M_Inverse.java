@@ -1,7 +1,10 @@
 /**
  * 
  */
-package backend.operations;
+package backend.computations.operations;
+
+import backend.computations.infrastructure.Computable;
+import backend.computations.infrastructure.Solution;
 
 /**
  * @author

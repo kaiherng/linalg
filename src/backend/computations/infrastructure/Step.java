@@ -1,4 +1,4 @@
-package backend.operations;
+package backend.computations.infrastructure;
 
 import backend.blocks.Countable;
 
@@ -6,7 +6,7 @@ import backend.blocks.Countable;
  * 
  * @author baebi
  */
-class Step{
+public class Step{
 	private Countable _countable;
 	
 	

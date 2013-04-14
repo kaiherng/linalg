@@ -1,13 +1,16 @@
 /**
  * 
  */
-package backend.operations;
+package backend.computations.operations;
+
+import backend.computations.infrastructure.Computable;
+import backend.computations.infrastructure.Solution;
 
 /**
  * @author
  *
  */
-public class SS_MultiplyDivide extends Computable {
+public class S_Power extends Computable {
 
 	/* (non-Javadoc)
 	 * @see backend.operations.Computable#getSolution()
