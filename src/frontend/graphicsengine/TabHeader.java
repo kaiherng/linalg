@@ -37,7 +37,7 @@ public class TabHeader extends GenericShape {
 		_location = location;
 		_size = size;
 		adjustPolygon();
-		_title = new Text(Constants.TEXT_FONTSTYLE, "bold", 12, title.toUpperCase(), Constants.TABHEADER_TEXT_ACTIVE_COLOR, location.plus(new Coord(20,3)));
+		_title = new Text(Constants.TEXT_FONTSTYLE, "bold", 12, title.toUpperCase(), Constants.TABHEADER_TEXT_INACTIVE_COLOR, location.plus(new Coord(20,3)));
 	}
 	
 	public void adjustPolygon() {

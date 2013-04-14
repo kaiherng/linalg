@@ -17,17 +17,24 @@ public class ComputeOps extends Container {
 	
 	public ComputeOps(int weight) {
 		super(false, weight);
-		
-		_basic = new TextRectangleButton(Constants.TEXT_FONTSTYLE, "plain", 12, "BASIC", Constants.COMPUTE_OPS_HEADER_TEXT_COLOR, Constants.COMPUTE_OPS_HEADER_BG_COLOR, this.getLocation(), new Coord(100, 50),3, Color.BLACK);
-		_advanced = new TextRectangleButton(Constants.TEXT_FONTSTYLE, "plain", 12, "ADVANCED", Constants.COMPUTE_OPS_HEADER_TEXT_COLOR, Constants.COMPUTE_OPS_HEADER_BG_COLOR, this.getLocation().plus(new Coord(0, 50)), new Coord(100, 50),3, Color.BLACK);
+		Coord basicLocation = this.getLocation();
+		Coord advancedLocation = this.getLocation().plus(new Coord(0, 50));
+//		System.out.println("Basic location set to: " + basicLocation);
+//		System.out.println("Advanced location set to: " + advancedLocation);
+		_basic = new TextRectangleButton(Constants.TEXT_FONTSTYLE, "bold", 12, "BASIC", Constants.COMPUTE_OPS_HEADER_TEXT_COLOR, Constants.COMPUTE_OPS_HEADER_BG_COLOR, this.getLocation(), new Coord(100, 50),3, Color.BLACK);
+		_advanced = new TextRectangleButton(Constants.TEXT_FONTSTYLE, "bold", 12, "ADVANCED", Constants.COMPUTE_OPS_HEADER_TEXT_COLOR, Constants.COMPUTE_OPS_HEADER_BG_COLOR, this.getLocation().plus(new Coord(0, 50)), new Coord(100, 50),3, Color.BLACK);
 
 	}
 	
 	@Override
 	public void setLocation(Coord c) {
 		super.setLocation(c);
-		_basic.setLocation(c);
-		_advanced.setLocation(c.plus(new Coord(0,50)));
+		Coord basicLocation = c;
+		Coord advancedLocation = c.plus(new Coord(0,50));
+//		System.out.println("Basic location set to: " + basicLocation);
+//		System.out.println("Advanced location set to: " + advancedLocation);
+		_basic.setLocation(basicLocation);
+		_advanced.setLocation(advancedLocation);
 	}
 	
 	@Override

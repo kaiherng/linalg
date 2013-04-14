@@ -121,6 +121,7 @@ public abstract class FrontEnd {
 		@Override
 		public boolean dispatchKeyEvent(KeyEvent e) {
 			//TODO: FOCUS
+			System.out.println("dispatch key event front end: " + e);
 			if (!e.isConsumed() && KeyboardFocusManager.getCurrentKeyboardFocusManager().getFocusOwner() == this) {
 				switch (e.getID()) {
 				case KeyEvent.KEY_PRESSED:
@@ -174,6 +175,7 @@ public abstract class FrontEnd {
 
 		@Override
 		public void keyPressed(KeyEvent e) {
+			System.out.println("keypressed frontend dp " + e);
 			if (_loaded) {
 				onKeyPressed(e);
 				repaint();

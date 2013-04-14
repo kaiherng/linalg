@@ -12,7 +12,6 @@ public class ConstructConstructor extends Container {
 	
 	public void onMouseClicked(int clickCount, Coord c){
 		super.onMouseClicked(clickCount, c);
-		System.out.println(c);
 	}
 
 }

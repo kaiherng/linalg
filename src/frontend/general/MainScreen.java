@@ -38,9 +38,8 @@ public class MainScreen implements Screen {
 		_background = new Rectangle(new Coord(0,0), new Coord(0,0), Constants.SCREEN_BG_COLOR);
 		
 		Tab constructTab = new Tab(new Construct(), "Construct", 0);
-		_topLeftFrame = new Frame(new Coord(0,0), new Coord(0,0), constructTab);
-		
 		Tab computeTab = new Tab(new Compute(), "Compute", 1);
+		_topLeftFrame = new Frame(new Coord(0,0), new Coord(0,0), constructTab);
 		_topLeftFrame.addTab(computeTab);
 		
 		Tab savedTab = new Tab(new Saved(), "Saved", 0);
@@ -62,6 +61,11 @@ public class MainScreen implements Screen {
 
 	@Override
 	public void onDown(int keycode) {
+		System.out.println("keycode: " + keycode);
+
+		if (keycode == 27) {
+			_application.setScreen(new DebugScreen(_application));
+		}
 	}
 
 	@Override

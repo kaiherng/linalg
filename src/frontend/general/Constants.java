@@ -14,16 +14,18 @@ public class Constants {
 	public static final String TEXT_FONTSTYLE = "Arial";
 	
 	/** COLOR SCHEME **/
-	public static final Color TAB_MAINBG_COLOR = new Color(0x1047A9);
-	public static final Color TAB_HEADERBG_ACTIVE_COLOR = new Color(0x052A6E);
-	public static final Color TAB_HEADERBG_INACTIVE_COLOR = new Color(0x29477F);
-	public static final Color FRAME_BG_COLOR = new Color(0x6B90D4); //0x4577D4
+	public static final Color FRAME_BG_COLOR = new Color(0x6B90D4); 
 	public static final Color SCREEN_BG_COLOR = new Color(0x6B90D4);
-	public static final Color TABHEADER_TEXT_ACTIVE_COLOR = new Color(0x6B90D4);
-	public static final Color TABHEADER_TEXT_INACTIVE_COLOR = Color.BLACK;
+	
+	public static final Color TAB_MAINBG_COLOR = new Color(0xE4E7F2);
 	public static final Color TABMAIN_BORDER_COLOR = new Color(0x052A6E);
-	public static final Color CONSTRUCTCONTAINER_TEXT_COLOR = Color.WHITE;
-	public static final Color COMPUTE_OPS_HEADER_BG_COLOR = Color.RED;
+	public static final Color TAB_HEADERBG_ACTIVE_COLOR = new Color(0x2A3A6E);
+	public static final Color TABHEADER_TEXT_ACTIVE_COLOR = Color.WHITE;
+	public static final Color TAB_HEADERBG_INACTIVE_COLOR = new Color(0x29477F);	
+	public static final Color TABHEADER_TEXT_INACTIVE_COLOR = new Color(0x95A1C9);
+
+	public static final Color CONTAINER_TEXT_COLOR = Color.BLACK;
+	public static final Color COMPUTE_OPS_HEADER_BG_COLOR = new Color(0x42538A);
 	public static final Color COMPUTE_OPS_HEADER_TEXT_COLOR = Color.WHITE;
 	
 	/** FRAMES **/

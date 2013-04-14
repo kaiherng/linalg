@@ -7,16 +7,17 @@ import frontend.graphicsengine.Container;
 import frontend.shapes.Coord;
 import frontend.shapes.Text;
 
-public class ComputeInstructions extends Container {
+public class ComputeBar extends Container {
 	
 	private Text _instruction;
 
-	public ComputeInstructions(int weight) {
+	public ComputeBar(int weight) {
 		super(true, weight);
-		_instruction = new Text(Constants.TEXT_FONTSTYLE, "plain", 12, "Click on computations to use them", Constants.CONSTRUCTCONTAINER_TEXT_COLOR, new Coord(0,0));
+		_instruction = new Text(Constants.TEXT_FONTSTYLE, "plain", 12, "Compute Bar", Constants.CONTAINER_TEXT_COLOR, new Coord(0,0));
 	}
 	
 	@Override
+	
 	public void setLocation(Coord c) {
 		super.setLocation(c);
 		_instruction.setLocation(c.plus(new Coord(5,5)));

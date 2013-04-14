@@ -44,6 +44,7 @@ public class Application extends FrontEnd {
 
 	@Override
 	protected void onKeyPressed(KeyEvent e) {
+		System.out.println(e);
 		if (!_keyHeld) {
 			_currentScreen.onDown(e.getKeyCode());
 			_keyCode = e.getKeyCode();

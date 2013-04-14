@@ -9,8 +9,8 @@ public class Compute extends Container {
 
 	public Compute() {
 		super(false, 1);
-		_containers.add(new ComputeInstructions(1));
 		_containers.add(new ComputeOps(4));
+		_containers.add(new ComputeBar(1));
 	}
 	
 	@Override

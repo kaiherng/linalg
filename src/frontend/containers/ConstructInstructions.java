@@ -13,10 +13,11 @@ public class ConstructInstructions extends Container {
 
 	public ConstructInstructions(int weight) {
 		super(true, weight);
-		_instruction = new Text(Constants.TEXT_FONTSTYLE, "plain", 12, "Drag and drop to construct a matrix.", Constants.CONSTRUCTCONTAINER_TEXT_COLOR, new Coord(0,0));
+		_instruction = new Text(Constants.TEXT_FONTSTYLE, "plain", 12, "Drag and drop to construct a matrix.", Constants.CONTAINER_TEXT_COLOR, new Coord(0,0));
 	}
 	
 	@Override
+	
 	public void setLocation(Coord c) {
 		super.setLocation(c);
 		_instruction.setLocation(c.plus(new Coord(5,5)));
