@@ -14,6 +14,7 @@ import backend.blocks.Matrix;
 import backend.blocks.Numerical;
 import backend.blocks.Op;
 import backend.blocks.Operation;
+import backend.operations.Solution;
 
 public class ParserTest {
 	private Matrix matrixA = new Matrix(DisplayType.DECIMAL, new Double[][]{{1.0,1.0},{1.0,1.0}});
@@ -683,8 +684,45 @@ public class ParserTest {
 	
 	
 	//================================
-	// compute Tests
+	// parse Tests
 	//================================
+	
+	@Test
+	// Test a matrix addition
+	public void matrixAddTest(){
+		List<Numerical> comp = new ArrayList<>();
+		comp.add(matrixA);
+		comp.add(plus);
+		comp.add(matrixB);
+		ParseNode result = Parser.parse(comp);
+		Solution sol = result.getSolution();
+		Matrix answer = (Matrix) sol.getAnswer();
+		Double[][] indices = answer.getValues();
+		assertTrue(indices[0][0]==3.0);
+		assertTrue(indices[0][1]==3.0);
+		assertTrue(indices[1][1]==3.0);
+		assertTrue(indices[1][0]==3.0);
+	}
+	
+	@Test
+	// Test a matrix double addition
+	public void matrixAddTwiceTest(){
+		List<Numerical> comp = new ArrayList<>();
+		comp.add(matrixA);
+		comp.add(plus);
+		comp.add(matrixB);
+		comp.add(new Operation(Op.MM_PLUS));
+		comp.add(matrixA);
+		ParseNode result = Parser.parse(comp);
+		Solution sol = result.getSolution();
+		Matrix answer = (Matrix) sol.getAnswer();
+		Double[][] indices = answer.getValues();
+		assertTrue(indices[0][0]==4.0);
+		assertTrue(indices[0][1]==4.0);
+		assertTrue(indices[1][1]==4.0);
+		assertTrue(indices[1][0]==4.0);
+	}
+	
 	
 	
 	

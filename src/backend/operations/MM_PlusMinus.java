@@ -52,6 +52,7 @@ public class MM_PlusMinus extends Computable {
 				if (isPlus){
 					result[i][j] = aValues[i][j] + bValues[i][j];
 					additionStep[i][j] = Double.toString(aValues[i][j])+" + "+Double.toString(bValues[i][j]);
+					System.out.println(additionStep[i][j]);
 				}else{
 					result[i][j] = aValues[i][j] - bValues[i][j];
 					additionStep[i][j] = Double.toString(aValues[i][j])+" - "+Double.toString(bValues[i][j]);

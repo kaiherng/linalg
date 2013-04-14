@@ -26,7 +26,7 @@ public class ParseNode {
 	 * @param arg2 the ParseNode that contains the Solution which was used as the second argument to compute <solution>
 	 */
 	public ParseNode(Solution solution,ParseNode arg1, ParseNode arg2){
-		solution = _solution;
+		_solution = solution;
 		_left = arg1;
 		_right = arg2;
 	}

@@ -146,7 +146,7 @@ public class Parser {
 		ParseNode secondArg= compute(second);
 		
 		Numerical arg1 = getNextArg(firstArg,first);  // b/c we need to actually compute, gets the Countable arguments
-		Numerical arg2 = getNextArg(secondArg,first);
+		Numerical arg2 = getNextArg(secondArg,second);
 		
 		if (!(arg1 instanceof Matrix) || !(arg2 instanceof Matrix)){
 			throw new IllegalArgumentException("ERROR: Plus arguments must be matrices"); // should be unreachable code

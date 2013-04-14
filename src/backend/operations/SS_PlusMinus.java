@@ -53,7 +53,6 @@ public class SS_PlusMinus extends Computable {
 		List<Step> steps = new ArrayList<>();
 		steps.add(step1);
 		steps.add(step2);
-		
 		if (isPlus){
 			_solution = new Solution(Op.SS_PLUS,args,answerStep,steps);
 		}else{
