@@ -63,7 +63,14 @@ public abstract class FrontEnd {
 	}
 	
 	public void refresh() {
-		try { Thread.sleep(300); } catch (InterruptedException e) {}
+		try { 
+			Thread.sleep(1000);
+			_jFrame.setSize(new Dimension(1000,700));
+			_jFrame.pack();
+			_drawingPanel.repaint();
+		} catch (InterruptedException e) {
+			
+		}
 		initialSetup();
 	}
 	

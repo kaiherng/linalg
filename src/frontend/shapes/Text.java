@@ -67,7 +67,7 @@ public class Text {
 		_color = color;
 	}
 	
-	public void draw(java.awt.Graphics2D aBrush) {
+	public void onDraw(java.awt.Graphics2D aBrush) {
 		FontRenderContext frc = aBrush.getFontRenderContext();
 		TextLayout tl = new TextLayout(_string, _font, frc);
 		aBrush.setColor(_color);

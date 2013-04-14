@@ -25,7 +25,7 @@ public class ComputeInstructions extends Container {
 	@Override
 	public void onDraw(Graphics2D g) {
 		super.onDraw(g);
-		_instruction.draw(g);
+		_instruction.onDraw(g);
 	}
 
 }

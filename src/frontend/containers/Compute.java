@@ -1,17 +1,16 @@
 package frontend.containers;
 
-import frontend.general.Constants;
+import java.awt.Graphics2D;
+
 import frontend.graphicsengine.Container;
 import frontend.shapes.Coord;
-import frontend.shapes.Text;
-
-import java.awt.Graphics2D;
 
 public class Compute extends Container {
 
 	public Compute() {
 		super(false, 1);
 		_containers.add(new ComputeInstructions(1));
+		_containers.add(new ComputeOps(4));
 	}
 	
 	@Override

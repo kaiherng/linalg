@@ -106,7 +106,7 @@ public class TabHeader extends GenericShape {
 		g.fillPolygon(_polygon);
 		g.setColor(savedColor);
 		g.setStroke(savedStroke);
-		_title.draw(g);
+		_title.onDraw(g);
 	}
 	
 
