@@ -1,4 +1,4 @@
-package shapes;
+package frontend.shapes;
 
 public class Image {
 

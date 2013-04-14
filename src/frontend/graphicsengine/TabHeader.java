@@ -1,16 +1,15 @@
-package graphicsengine;
+package frontend.graphicsengine;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.Polygon;
 
-import shapes.Coord;
-import shapes.GenericShape;
-import shapes.Text;
 
-import frontend.Constants;
-
+import frontend.general.Constants;
+import frontend.shapes.Coord;
+import frontend.shapes.GenericShape;
+import frontend.shapes.Text;
 
 
 /**
@@ -107,7 +106,7 @@ public class TabHeader extends GenericShape {
 		g.fillPolygon(_polygon);
 		g.setColor(savedColor);
 		g.setStroke(savedStroke);
-		_title.draw(g);
+		_title.onDraw(g);
 	}
 	
 

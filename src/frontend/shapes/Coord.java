@@ -1,4 +1,4 @@
-package shapes;
+package frontend.shapes;
 
 /**
  * A 2D screen coordinate

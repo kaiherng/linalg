@@ -1,9 +1,12 @@
-package frontend;
+package frontend.general;
 
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.GraphicsEnvironment;
 import java.io.File;
+
+import frontend.shapes.Coord;
+
 
 public class Constants {
 	
@@ -19,8 +22,10 @@ public class Constants {
 	public static final Color TABHEADER_TEXT_ACTIVE_COLOR = new Color(0x6B90D4);
 	public static final Color TABHEADER_TEXT_INACTIVE_COLOR = Color.BLACK;
 	public static final Color TABMAIN_BORDER_COLOR = new Color(0x052A6E);
-
-
+	public static final Color CONSTRUCTCONTAINER_TEXT_COLOR = Color.WHITE;
+	public static final Color COMPUTE_OPS_HEADER_BG_COLOR = Color.RED;
+	public static final Color COMPUTE_OPS_HEADER_TEXT_COLOR = Color.WHITE;
+	
 	/** FRAMES **/
 	public static final int FRAME_X_OFFSET = 20; //offset from the topleft corner
 	public static final int FRAME_Y_OFFSET = 20; //offset from the topleft corner

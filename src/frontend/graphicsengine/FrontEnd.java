@@ -1,4 +1,4 @@
-package graphicsengine;
+package frontend.graphicsengine;
 
 
 import java.awt.Dimension;
@@ -23,14 +23,13 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
-import shapes.Coord;
+import frontend.shapes.Coord;
+
 
 
 /**
  * Front end that processes drawing panel events, like uniting key presses and mouse clicks into custom drag events, etc.
- * Also contains screen 
  * @author kloh
- *
  */
 public abstract class FrontEnd {
 
@@ -57,11 +56,22 @@ public abstract class FrontEnd {
 	 * Once everything is loaded, sets the size of the drawing panel and repaints it, because we didnt set the size earlier
 	 */
 	public void initialSetup() {
-		if (_loaded) {
-			_drawingPanel.setPreferredSize(new Dimension(_size.x,_size.y));
+		_drawingPanel.setPreferredSize(new Dimension(_size.x,_size.y));
+		_jFrame.pack();
+		_drawingPanel.repaint();
+		_loaded = true;
+	}
+	
+	public void refresh() {
+		try { 
+			Thread.sleep(1000);
+			_jFrame.setSize(new Dimension(1000,700));
 			_jFrame.pack();
 			_drawingPanel.repaint();
+		} catch (InterruptedException e) {
+			
 		}
+		initialSetup();
 	}
 	
 	protected abstract void onDraw(Graphics2D g);
@@ -103,7 +113,9 @@ public abstract class FrontEnd {
 		public void paintComponent(Graphics g) {
 			super.paintComponent(g);
 			Graphics2D aBrush = (Graphics2D) g;
-			onDraw(aBrush);
+			if (_loaded) {	
+				onDraw(aBrush);
+			}
 		}
 
 		@Override
@@ -154,56 +166,74 @@ public abstract class FrontEnd {
 
 		@Override
 		public void keyTyped(KeyEvent e) {
-			onKeyTyped(e);
-			//repaint();
+			if (_loaded) {
+				onKeyTyped(e);
+				repaint();
+			}
 		}
 
 		@Override
 		public void keyPressed(KeyEvent e) {
-			onKeyPressed(e);
-			//repaint();
+			if (_loaded) {
+				onKeyPressed(e);
+				repaint();
+			}
 		}
 
 		@Override
 		public void keyReleased(KeyEvent e) {
-			onKeyReleased(e);
-			//repaint();
+			if (_loaded) {
+				onKeyReleased(e);
+				repaint();
+			}		
 		}
 
 		@Override
 		public void mouseWheelMoved(MouseWheelEvent e) {
-			onMouseWheelMoved(e);
-			//repaint();
+			if (_loaded) {
+				onMouseWheelMoved(e);
+				repaint();
+			}			
 		}
 
 		@Override
 		public void mouseDragged(MouseEvent e) {
-			onMouseDragged(e);
-			//repaint();
+			if (_loaded) {
+				onMouseDragged(e);
+				repaint();
+			}
 		}
 
 		@Override
 		public void mouseMoved(MouseEvent e) {
-			onMouseMoved(e);
-			//repaint();
+			if (_loaded) {
+				onMouseMoved(e);
+				repaint();
+			}
 		}
 
 		@Override
 		public void mouseClicked(MouseEvent e) {
-			onMouseClicked(e);
-			repaint();
+			if (_loaded) {
+				onMouseClicked(e);
+				repaint();
+			}
 		}
 
 		@Override
 		public void mousePressed(MouseEvent e) {
-			onMousePressed(e);
-			repaint();
+			if (_loaded) {
+				onMousePressed(e);
+				repaint();
+			}
 		}
 
 		@Override
 		public void mouseReleased(MouseEvent e) {
-			onMouseReleased(e);
-			//repaint();
+			if (_loaded) {
+				onMouseReleased(e);
+				repaint();
+			}
 		}
 
 		@Override
