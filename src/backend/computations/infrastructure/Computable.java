@@ -12,7 +12,6 @@ import backend.blocks.Countable.DisplayType;
  * @author baebi
  */
 public abstract class Computable{
-
 	
 	/** Returns the solution computed in the constructor of this Computable
 	 * 
@@ -73,4 +72,37 @@ public abstract class Computable{
 			return null;
 		}
 	}
+	
+	
+	/** Converts the double value to the proper display-type
+	 * 
+	 * @param input the double value to convert
+	 * @return the same value as a string in the correct format
+	 */
+	public String getDisplayValue(double input,DisplayType type){
+		switch (type){
+			case DECIMAL:{
+				return Double.toString(input);
+			}
+			case WHOLENUMBERFRACTION:{
+				// TODO implement
+				return null;
+			}
+			case WHOLENUMBER:{
+				return Integer.toString((int) Math.floor(input));
+			}
+			case DECIMALFRACTION:{
+				// TODO implement
+				return null;
+			}
+			case CUSTOM:{
+				return null;
+			}
+			default:{
+				System.err.println("ERROR: uncaught display value");
+				return null;
+			}
+		}
+	}
+	
 }

@@ -44,6 +44,8 @@ public class Matrix extends Countable{
 				setDisplayIndex(j,i);
 			}
 		}
+		_displayValues = new String[_numCols][_numRows];
+		_customDisplayValues = new String[_numCols][_numRows];
 	}
 	
 	

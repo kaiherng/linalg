@@ -1,5 +1,6 @@
 /**
  * TODO: test this class
+ * TODO: adjust displayMatrix to take into account displayType
  */
 package backend.computations.operations;
 
@@ -54,11 +55,10 @@ public class MM_PlusMinus extends Computable {
 				}
 				if (isPlus){
 					result[i][j] = aValues[i][j] + bValues[i][j];
-					additionStep[i][j] = Double.toString(aValues[i][j])+" + "+Double.toString(bValues[i][j]);
-					System.out.println(additionStep[i][j]);
+					additionStep[i][j] = getDisplayValue(aValues[i][j],answerDisplayType)+" + "+getDisplayValue(bValues[i][j],answerDisplayType);
 				}else{
 					result[i][j] = aValues[i][j] - bValues[i][j];
-					additionStep[i][j] = Double.toString(aValues[i][j])+" - "+Double.toString(bValues[i][j]);
+					additionStep[i][j] = getDisplayValue(aValues[i][j],answerDisplayType)+" - "+getDisplayValue(bValues[i][j],answerDisplayType);
 				}
 			}
 		}
