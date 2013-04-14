@@ -1,10 +1,11 @@
-package backend.operations;
+package backend.computations.operations;
 
 import backend.blocks.*;
 import java.util.*;
-import backend.operations.*;
 import static org.junit.Assert.*;
 import org.junit.*;
+
+import backend.computations.infrastructure.*;
 
 public class M_InverseTest
 {
