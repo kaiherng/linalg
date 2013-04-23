@@ -14,14 +14,16 @@ import backend.computations.infrastructure.Computable;
 import backend.computations.infrastructure.Solution;
 import backend.computations.infrastructure.Step;
 
-/** Scalar addition and subtraction operations
+/** 
+ * Scalar addition and subtraction operations
  * 
  * @author baebi
  */
 public class SS_PlusMinus extends Computable {
 	private Solution _solution;
 	
-	/** Computes the solution to an addition or subtraction operation
+	/** 
+	 * Computes the solution to an addition or subtraction operation. Expects non-null inputs
 	 * 
 	 * @param a the first number
 	 * @param b the second number
@@ -35,10 +37,6 @@ public class SS_PlusMinus extends Computable {
 		Double aVal = a.getValue();
 		Double bVal = b.getValue();
 		
-		if (aVal == null || bVal == null){
-			throw new IllegalArgumentException("ERROR: Scalars should be real-valued numbers");
-		}
-		
 		String operatorStep; Double answer;
 		if (isPlus){
 			operatorStep = aVal + " + " + bVal;
@@ -49,8 +47,8 @@ public class SS_PlusMinus extends Computable {
 		}
 		
 		Scalar opStep = new Scalar(answer,DisplayType.CUSTOM);
-		opStep.setDisplayValue(operatorStep);
-		Step step1 = new Step(new Scalar(answer,DisplayType.CUSTOM));
+		opStep.setCustomDisplayValue(operatorStep);
+		Step step1 = new Step(opStep);
 		Scalar answerStep = new Scalar(answer,answerDisplayType);
 		Step step2 = new Step(answerStep);
 		List<Step> steps = new ArrayList<>();
