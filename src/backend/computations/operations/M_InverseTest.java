@@ -1,7 +1,6 @@
 package backend.computations.operations;
 
 import backend.blocks.*;
-import java.util.*;
 import static org.junit.Assert.*;
 import org.junit.*;
 
@@ -101,7 +100,7 @@ public class M_InverseTest
 		{
 			M_Inverse t=new M_Inverse(m);
 			Solution s=t.getSolution();
-			Double[][] d=((Matrix)(s.getAnswer())).getValues();
+			((Matrix)(s.getAnswer())).getValues();
 			assertTrue(false);
 		}
 		catch (Exception e)

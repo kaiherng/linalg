@@ -1,12 +1,16 @@
 package backend.computations.operations;
 
 import backend.blocks.*;
-import java.util.*;
 import static org.junit.Assert.*;
 import org.junit.*;
 
 import backend.computations.infrastructure.*;
 
+/**
+ * Tests for matrix transpose operation
+ * 
+ * @author dzee
+ */
 public class M_TransposeTest
 {
   @Test
