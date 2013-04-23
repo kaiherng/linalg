@@ -23,7 +23,7 @@ public class SS_PlusMinus extends Computable {
 	private Solution _solution;
 	
 	/** 
-	 * Computes the solution to an addition or subtraction operation. Expects non-null inputs
+	 * Computes the solution to a scalar addition or subtraction operation. Expects non-null inputs
 	 * 
 	 * @param a the first number
 	 * @param b the second number
