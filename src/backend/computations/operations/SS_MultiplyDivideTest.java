@@ -11,6 +11,11 @@ import backend.blocks.Countable.DisplayType;
 import backend.computations.infrastructure.Solution;
 import backend.computations.infrastructure.Step;
 
+/**
+ * Tests for scalar multiplication and division
+ * 
+ * @author baebi
+ */
 public class SS_MultiplyDivideTest {
 	private Scalar s1 = new Scalar(1, DisplayType.DECIMAL);
 	private Scalar s2 = new Scalar(2, DisplayType.DECIMAL);
