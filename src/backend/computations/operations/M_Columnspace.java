@@ -65,7 +65,7 @@ public class M_Columnspace extends Computable
 			{
 				isPivot.add(i);
 				//get to bottom of non-zero
-				while (fzr<refv[0].length && refv[i][fzr]!=0)
+				while (fzr<refv[0].length && !refv[i][fzr].equals(0.0))
 				{
 					fzr++;
 				}
