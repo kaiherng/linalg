@@ -43,11 +43,36 @@ public class MM_Multiply extends Computable {
 		Double[][] bValues = matrixB.getValues();
 		
 		if(aValues.length != bValues[0].length){
-			throw new IllegalArgumentException("ERROR: Number of columns of first matrix must equal number of columns of second matrix");
+			throw new IllegalArgumentException("ERROR: Number of columns of first matrix must equal number of rows of second matrix");
 		}
 		
-		//for (int ) TODO
+		// we will end up with two steps: an answer, and a matrix of strings showing how each index was calculated
+		double[][] result = new double[matrixB.getNumCols()][matrixA.getNumRows()];
+		String[][] multStep = new String[matrixB.getNumCols()][matrixA.getNumRows()];
+		
+		// for each index in the result matrix
+		for (int col = 0; col < result.length; col++){
+			for (int row = 0; row < result[0].length; row++){
+				String expanded = "";
+				double res = 0;
+				for (int i = 0; i < matrixA.getNumCols(); i++){
+					res += aValues[i][row] * bValues[col][i];
+					expanded += "("+aValues[i][row]+" * "+bValues[col][i]+") ";
+				}
+				result[col][row] = res; 
+				multStep[col][row] = expanded;
+			}
+		}
 		
 	}
-
 }
+
+
+
+
+
+
+
+
+
+
