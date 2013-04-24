@@ -8,7 +8,7 @@ import backend.computations.infrastructure.Step;
 
 import java.util.*;
 
-/** Matrix Transpose Operation
+/** Matrix Column Space Operation
  *
  * @author dzee
  */
