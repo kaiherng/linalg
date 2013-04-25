@@ -45,15 +45,11 @@ public class M_Columnspace extends Computable
 
 		List<Step> steps = new ArrayList<Step>();
 
-		//TODO
 		/**the reduced matrix*/
-//		Solution refsol=(new M_RowReduce(matrix)).getSolution();
-//		Matrix ref=(Matrix)(refsol.getAnswer());
-//		Double[][] refv=ref.getValues();
-//		steps.addAll(refsol.getSteps());
-
-		//stub
-		Double[][] refv=values;
+		Solution refsol=(new M_RowReduce(matrix)).getSolution();
+		Matrix ref=(Matrix)(refsol.getAnswer());
+		Double[][] refv=ref.getValues();
+		steps.addAll(refsol.getSteps());
 		List<Integer> isPivot=new ArrayList<>();
 		//first zero row
 		int fzr=0;
