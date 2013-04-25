@@ -1,5 +1,7 @@
 package frontend.shapes;
 
+import java.awt.Dimension;
+
 /**
  * A 2D screen coordinate
  * @author Kai
@@ -20,6 +22,15 @@ public final class Coord {
 	public Coord(int x, int y) {
 		this.x = x;
 		this.y = y;
+	}
+	
+	/**
+	 * Creates a new vector from a Dimension object
+	 * @param dim the dimension to create the vector from
+	 */
+	public Coord(Dimension dim) {
+		this.x = (int) dim.getWidth();
+		this.y = (int) dim.getHeight();
 	}
 	
 

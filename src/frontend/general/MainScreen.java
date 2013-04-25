@@ -23,8 +23,8 @@ import frontend.shapes.Rectangle;
 public class MainScreen implements Screen {
 	
 	private Frame _topLeftFrame;
-	private Frame _bottomLeftFrame;
-	private Frame _rightFrame;
+//	private Frame _bottomLeftFrame;
+//	private Frame _rightFrame;
 	private Rectangle _background;
 	
 	/**
@@ -34,19 +34,23 @@ public class MainScreen implements Screen {
 	
 	public MainScreen(Application application) {
 		_application = application;
+		_background = new Rectangle(new Coord(0,0), new Coord(application.getSize()), Constants.SCREEN_BG_COLOR);
+		System.out.println("Press ESC for Debug Mode");
 		
-		_background = new Rectangle(new Coord(0,0), new Coord(0,0), Constants.SCREEN_BG_COLOR);
+		Coord topLeftLocation = new Coord(Constants.FRAME_X_OFFSET,Constants.FRAME_Y_OFFSET);
+		Coord topLeftSize = new Coord((application.getSize().width - Constants.FRAME_X_OFFSET*3)/2,(application.getSize().height - Constants.FRAME_Y_OFFSET*3)/2);
+
+		Tab constructTab = new Tab(new Construct(), "Construct", 0, topLeftLocation, topLeftSize);
+		Tab computeTab = new Tab(new Compute(), "Compute", 1, topLeftLocation, topLeftSize);
 		
-		Tab constructTab = new Tab(new Construct(), "Construct", 0);
-		Tab computeTab = new Tab(new Compute(), "Compute", 1);
-		_topLeftFrame = new Frame(new Coord(0,0), new Coord(0,0), constructTab);
+		_topLeftFrame = new Frame(topLeftLocation, topLeftSize, constructTab);
 		_topLeftFrame.addTab(computeTab);
 		
-		Tab savedTab = new Tab(new Saved(), "Saved", 0);
-		_bottomLeftFrame = new Frame(new Coord(0,0), new Coord(0,0), savedTab);
-		
-		Tab solutionTab = new Tab(new Solution(), "Solution", 0);
-		_rightFrame = new Frame(new Coord(0,0), new Coord(0,0), solutionTab);
+//		Tab savedTab = new Tab(new Saved(), "Saved", 0);
+//		_bottomLeftFrame = new Frame(new Coord(0,0), new Coord(0,0), savedTab);
+//		
+//		Tab solutionTab = new Tab(new Solution(), "Solution", 0);
+//		_rightFrame = new Frame(new Coord(0,0), new Coord(0,0), solutionTab);
 		
 	}
 	
@@ -55,14 +59,12 @@ public class MainScreen implements Screen {
 	public void onDraw(Graphics2D g) {
 		_background.onDraw(g);
 		_topLeftFrame.onDraw(g);
-		_bottomLeftFrame.onDraw(g);
-		_rightFrame.onDraw(g);
+//		_bottomLeftFrame.onDraw(g);
+//		_rightFrame.onDraw(g);
 	}
 
 	@Override
 	public void onDown(int keycode) {
-		System.out.println("keycode: " + keycode);
-
 		if (keycode == 27) {
 			_application.setScreen(new DebugScreen(_application));
 		}
@@ -84,20 +86,20 @@ public class MainScreen implements Screen {
 	public void onResize(Coord newSize) {
 		_background.setSize(newSize);
 		
-		//calculates the new locations and sizes for the frames and sets them to these values
+//		//calculates the new locations and sizes for the frames and sets them to these values
 		Coord topLeftLocation = new Coord(Constants.FRAME_X_OFFSET,Constants.FRAME_Y_OFFSET);
 		Coord topLeftSize = new Coord((newSize.x - Constants.FRAME_X_OFFSET*3)/2,(newSize.y - Constants.FRAME_Y_OFFSET*3)/2);
-		Coord bottomLeftLocation = new Coord(topLeftLocation.x, topLeftLocation.y + topLeftSize.y + Constants.FRAME_Y_OFFSET);
-		Coord bottomLeftSize = topLeftSize;
-		Coord rightLocation = new Coord(topLeftLocation.x + topLeftSize.x + Constants.FRAME_X_OFFSET, topLeftLocation.y);
-		Coord rightSize = new Coord((newSize.x - Constants.FRAME_X_OFFSET*3)/2,newSize.y - Constants.FRAME_Y_OFFSET*2);
+//		Coord bottomLeftLocation = new Coord(topLeftLocation.x, topLeftLocation.y + topLeftSize.y + Constants.FRAME_Y_OFFSET);
+//		Coord bottomLeftSize = topLeftSize;
+//		Coord rightLocation = new Coord(topLeftLocation.x + topLeftSize.x + Constants.FRAME_X_OFFSET, topLeftLocation.y);
+//		Coord rightSize = new Coord((newSize.x - Constants.FRAME_X_OFFSET*3)/2,newSize.y - Constants.FRAME_Y_OFFSET*2);
 		
 		_topLeftFrame.setLocation(topLeftLocation);
 		_topLeftFrame.setSize(topLeftSize);
-		_bottomLeftFrame.setLocation(bottomLeftLocation);
-		_bottomLeftFrame.setSize(bottomLeftSize);
-		_rightFrame.setLocation(rightLocation);
-		_rightFrame.setSize(rightSize);
+//		_bottomLeftFrame.setLocation(bottomLeftLocation);
+//		_bottomLeftFrame.setSize(bottomLeftSize);
+//		_rightFrame.setLocation(rightLocation);
+//		_rightFrame.setSize(rightSize);
 		
 	}
 

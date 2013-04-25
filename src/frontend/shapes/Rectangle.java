@@ -3,57 +3,61 @@ package frontend.shapes;
 import java.awt.Color;
 import java.awt.Graphics2D;
 
-
-
-
 public class Rectangle extends GenericShape {
 	
-	protected java.awt.geom.Rectangle2D.Float _rectangle;
+	private java.awt.geom.Rectangle2D.Float _rectangle;
 	
-	public Rectangle(Coord location, Coord size, Color color) {
+	/**
+	 * Constructs a rectangle with no border
+	 * @param location
+	 * @param size
+	 * @param fillColor
+	 */
+	public Rectangle(Coord location, Coord size, Color fillColor) {
+		super(location, size, fillColor);
 		_rectangle = new java.awt.geom.Rectangle2D.Float();
-		this.setFillColor(color);
-		this.setLocation(location);
-		this.setSize(size);
+		_rectangle.setFrame(location.x, location.y, size.x, size.y);
 	}
 	
-	public Rectangle(Coord location, Coord size, Color color, int strokeWidth, Color borderColor) {
+	/**
+	 * Constructs a rectangle with a border
+	 * @param location
+	 * @param size
+	 * @param fillColor
+	 * @param strokeWidth
+	 * @param borderColor
+	 */
+	public Rectangle(Coord location, Coord size, Color fillColor, int strokeWidth, Color borderColor) {
+		super(location, size, fillColor, strokeWidth, borderColor);
 		_rectangle = new java.awt.geom.Rectangle2D.Float();
-		this.setFillColor(color);
-		this.setLocation(location);
-		this.setSize(size);
-		this.setStrokeWidth(strokeWidth);
-		this.setBorderColor(borderColor);
+		_rectangle.setFrame(location.x, location.y, size.x, size.y);
 	}
 	
+	@Override
 	public void setLocation(Coord location) {
+		super.setLocation(location);
 		_rectangle.setFrame(location.x, location.y, _rectangle.getWidth(), _rectangle.getHeight());
 	}
 	
-	public Coord getLocation() {
-		return new Coord((int)_rectangle.getX(), (int)_rectangle.getY());
-	}
-	
+	@Override
 	public void setSize(Coord size) {
+		super.setSize(size);
 		_rectangle.setFrame(_rectangle.getX(), _rectangle.getY(), size.x, size.y);
 	}
 	
-	public Coord getSize() {
-		return new Coord((int)_rectangle.getWidth(), (int)_rectangle.getHeight());
-	}
-	
-	public void onDraw (Graphics2D aBrush) {
-		java.awt.Color savedColor = aBrush.getColor();
-		java.awt.Stroke savedStroke = aBrush.getStroke();
-		aBrush.setColor(_fillColor);
-		aBrush.fill(_rectangle);
-		aBrush.setColor(savedColor);
-		aBrush.setStroke(new java.awt.BasicStroke(_strokeWidth));
-		if (_strokeWidth != 0) {
-			aBrush.setColor(_borderColor);
-			aBrush.draw(_rectangle);
-			aBrush.setColor(savedColor);
-			aBrush.setStroke(savedStroke);
+	@Override
+	public void onDraw (Graphics2D g) {
+		java.awt.Color savedColor = g.getColor();
+		java.awt.Stroke savedStroke = g.getStroke();
+		g.setColor(getFillColor());
+		g.fill(_rectangle);
+		g.setColor(savedColor);
+		g.setStroke(new java.awt.BasicStroke(getStrokeWidth()));
+		if (getStrokeWidth() != 0) {
+			g.setColor(getBorderColor());
+			g.draw(_rectangle);
+			g.setColor(savedColor);
+			g.setStroke(savedStroke);
 		}
 	}
 

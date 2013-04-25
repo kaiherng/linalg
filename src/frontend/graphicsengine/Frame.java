@@ -14,7 +14,7 @@ import frontend.shapes.Rectangle;
  * @author Kai
  *
  */
-public class Frame implements Displayable {
+public class Frame implements Displayable, Interactable {
 	
 	private Coord _location;
 	

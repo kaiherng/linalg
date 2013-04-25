@@ -1,19 +1,16 @@
 package frontend.general;
 
-import frontend.graphicsengine.FrontEnd;
-import frontend.graphicsengine.Screen;
-import frontend.shapes.Coord;
-
-import java.awt.FontFormatException;
+import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
-import java.io.IOException;
 
+import frontend.graphicsengine.Screen;
+import frontend.shapes.Coord;
 
-
-public class Application extends FrontEnd {
+@SuppressWarnings("serial")
+public class Application extends WorkingFrontEnd {
 	
 	private java.util.Stack<Screen> _screenStack; 
 	private Screen _currentScreen;
@@ -23,13 +20,14 @@ public class Application extends FrontEnd {
 	private int _keyCode; 
 	private int _mouseHeld; 
 	
-	public Application(Coord initialSize)  {
-		super(initialSize);
+	public Application(Coord initialSize, Coord minimumSize)  {
+		super(new Dimension(initialSize.x, initialSize.y), new Dimension(minimumSize.x, minimumSize.y));
 		_screenStack = new java.util.Stack<Screen>();
 		_keyHeld = false;
 		_mouseHeld = 0; //0 for not held, 1 for mouse first clicked, 2 for mouse being held down
 		_keyCode = 0;
-		_currentScreen = new MainScreen(this);
+		_currentScreen = new DebugScreen(this);
+		setVisible(true);
 	}
 
 	@Override
@@ -44,7 +42,6 @@ public class Application extends FrontEnd {
 
 	@Override
 	protected void onKeyPressed(KeyEvent e) {
-		System.out.println(e);
 		if (!_keyHeld) {
 			_currentScreen.onDown(e.getKeyCode());
 			_keyCode = e.getKeyCode();
@@ -105,16 +102,6 @@ public class Application extends FrontEnd {
 		_currentScreen.onMouseMoved(new Coord(e.getX(), e.getY()));
 	}
 
-	@Override
-	protected void onMouseWheelMoved(MouseWheelEvent e) {
-		if (e.getUnitsToScroll() < 0) {
-			_currentScreen.onMouseWheelForward();
-		}
-		if (e.getUnitsToScroll() > 0) {
-			_currentScreen.onMouseWheelBackward();
-		}
-		
-	}
 
 	@Override
 	protected void onResize(Coord newSize) {
