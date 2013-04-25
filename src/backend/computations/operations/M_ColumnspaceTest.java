@@ -158,8 +158,8 @@ public class M_ColumnspaceTest
 		v[1][1]=new Double(1);
 		v[2][1]=new Double(4);
 		v[0][2]=new Double(0);
-		v[1][2]=new Double(50);
-		v[2][2]=new Double(-9);
+		v[1][2]=new Double(1);
+		v[2][2]=new Double(4);
 		Matrix m=new Matrix(null,v);
 		M_Columnspace d=new M_Columnspace(m);
 		Solution s=d.getSolution();
