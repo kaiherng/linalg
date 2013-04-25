@@ -45,15 +45,11 @@ public class M_Rank extends Computable
 
 		List<Step> steps = new ArrayList<Step>();
 
-		//TODO
 		/**the reduced matrix*/
-//		Solution refsol=(new M_RowReduce(matrix)).getSolution();
-//		Matrix ref=(Matrix)(refsol.getAnswer());
-//		Double[][] refv=ref.getValues();
-//		steps.addAll(refsol.getSteps());
-
-		//stub
-		Double[][] refv=values;
+		Solution refsol=(new M_RowReduce(matrix)).getSolution();
+		Matrix ref=(Matrix)(refsol.getAnswer());
+		Double[][] refv=ref.getValues();
+		steps.addAll(refsol.getSteps());
 		//whether a column is pivot or not
 		Matrix isPivot=new Matrix(DisplayType.CUSTOM,1,refv.length);
 		//first zero row
