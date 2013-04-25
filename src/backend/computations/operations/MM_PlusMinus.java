@@ -74,13 +74,11 @@ public class MM_PlusMinus extends Computable {
 		steps.add(step1);
 		steps.add(step2);
 		
-		List<Countable> inputs = new ArrayList<>();
-		inputs.add(matrixA);
-		inputs.add(matrixB);
+
 		if (isPlus){
-			_solution = new Solution(Op.MM_PLUS,inputs, step2Matrix, steps);
+			_solution = new Solution(Op.MM_PLUS,matrixList, step2Matrix, steps);
 		}else{
-			_solution = new Solution(Op.MM_MINUS,inputs, step2Matrix, steps);
+			_solution = new Solution(Op.MM_MINUS,matrixList, step2Matrix, steps);
 		}
 	}
 	

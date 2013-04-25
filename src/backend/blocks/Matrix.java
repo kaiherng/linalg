@@ -1,7 +1,8 @@
 package backend.blocks;
 
 
-/** The primary matrix datastructure for this project
+/** 
+ * The primary matrix datastructure for this project
  * 
  * @author baebi
  */
@@ -25,7 +26,8 @@ public class Matrix extends Countable{
 	// Matrix Constructors
 	//===================================
 	
-	/** Constructor 1 for Matrix (This is if you have all the values you want for the matrix)
+	/** 
+	 * Constructor 1 for Matrix (This is if you have all the values you want for the matrix)
 	 * 
 	 * @param isFraction boolean indicating if the values of the matrix should be displayed
 	 * in fraction format
@@ -39,17 +41,19 @@ public class Matrix extends Countable{
 		_numCols = values.length;
 		_numRows = values[0].length;
 		_internalValues = values;
+		_displayValues = new String[_numCols][_numRows];
 		for (int i = 0; i < _numCols; i++){
 			for (int j = 0; j < _numRows; j++){
 				setDisplayIndex(j,i);
 			}
 		}
-		_displayValues = new String[_numCols][_numRows];
+
 		_customDisplayValues = new String[_numCols][_numRows];
 	}
 	
 	
-	/** Constructor 2 for Matrix (This is if you know the size of the matrix, but have
+	/** 
+	 *  Constructor 2 for Matrix (This is if you know the size of the matrix, but have
 	 *  not determined the values to enter)
 	 * 
 	 * @param isFraction boolean indicating if the values of the matrix should be displayed
@@ -65,6 +69,7 @@ public class Matrix extends Countable{
 		_numCols = numCols;
 		_internalValues = new Double[numCols][numRows];
 		_customDisplayValues = new String[_numCols][_numRows];
+		_displayValues = new String[_numCols][_numRows];
 	}
 	
 	
@@ -92,21 +97,47 @@ public class Matrix extends Countable{
 		setDisplayIndex(row,col);
 	}
 	
-	
-	/** Sets the index of the matrix as the user should see it (bases setting on DisplayType)
+
+	/** 
+	 * Sets the index of the matrix as the user should see it (bases setting on DisplayType)
 	 * 
 	 * @param row the row of the index to set
 	 * @param col the column of the index to set
 	 */
 	private void setDisplayIndex(int row, int col){
-		// TODO add fraction library support
-//		switch (_displayType){
-//		
-//		}
+		if (_internalValues[col][row] != null){
+			switch (_displayType){
+				case DECIMAL:{
+					_displayValues[col][row] = Double.toString(_internalValues[col][row]);
+					break;
+				}
+				case DECIMALFRACTION:{
+					// TODO
+					break;
+				}
+				case WHOLENUMBERFRACTION:{
+					// TODO
+					break;
+				}
+				case WHOLENUMBER:{
+					_displayValues[col][row] = Integer.toString((int) Math.floor(_internalValues[col][row]));
+					break;
+				}
+				case CUSTOM:{
+					// do nothing
+					break;
+				}
+				default:{
+					System.out.println(_displayType);
+					System.err.println("ERROR: Unrecognized display type");
+				}
+			}
+		}
 	}
 	
 	
-	/** Sets the index of an entry in _customDisplayValues
+	/** 
+	 * Sets the index of an entry in _customDisplayValues
 	 * 
 	 * @param row the row to set
 	 * @param col the column to set
@@ -116,7 +147,8 @@ public class Matrix extends Countable{
 	}
 	
 	
-	/** Sets all of the _customDisplayVals at once
+	/** 
+	 * Sets all of the _customDisplayVals at once
 	 * 
 	 * @param displayVals the matrix of custom strings
 	 */
@@ -129,7 +161,8 @@ public class Matrix extends Countable{
 	}
 	
 	
-	/** Changes the dimension of the matrix. If the dimensions shrink, the values in the higher row or columns are removed.
+	/** 
+	 *  Changes the dimension of the matrix. If the dimensions shrink, the values in the higher row or columns are removed.
 	 *  If the dimensions increase, additional rows and columns will be initialized to null. Columns will be appended to the
 	 *  right of the matrix and rows will be appended to the bottom of the matrix.
 	 * 
@@ -153,7 +186,8 @@ public class Matrix extends Countable{
 	}
 	
 	
-	/** Resets the DisplayType of this matrix and resets all of the _displayValues entries
+	/** 
+	 * Resets the DisplayType of this matrix and resets all of the _displayValues entries
 	 * 
 	 * @param displayType the DisplayType to set this matrix to
 	 */
@@ -172,7 +206,8 @@ public class Matrix extends Countable{
 	// Getters for matrix values
 	//==========================================
 	
-	/** Returns a copy of the values in this matrix
+	/** 
+	 * Returns a copy of the values in this matrix
 	 * 
 	 * @return a multidimensional array containing the value of this matrix
 	 */
@@ -191,7 +226,8 @@ public class Matrix extends Countable{
 	}
 	
 	
-	/** Returns a copy of the display strings of this matrix
+	/** 
+	 * Returns a copy of the display strings of this matrix
 	 * 
 	 * @return a multidimensional array containing the display values of this matrix
 	 */
@@ -210,7 +246,8 @@ public class Matrix extends Countable{
 	}
 	
 	
-	/** Returns a copy of the custom display strings of this matrix
+	/** 
+	 * Returns a copy of the custom display strings of this matrix
 	 * 
 	 * @return a multidimensional array containing the custon display values of this matrix
 	 */
