@@ -61,7 +61,7 @@ public class MConstructor extends JPanel{
 		super.paint(g);
 		Graphics2D g2 = (Graphics2D) g;
 		if(_drawing){
-			g2.setColor(Color.gray);
+			g2.setColor(Color.decode("#CCCCCC"));
 			for(int i = 0; i < _grid.length; i++){
 				for(int j = 0 ; j < _grid[0].length; j++){
 					_grid[i][j].setLocation((i*_size) + _offset.get(0), (j*_size) + _offset.get(1));
@@ -194,7 +194,7 @@ public class MConstructor extends JPanel{
 					sb = new StringBuilder();
 				}
 				//numbers
-				if(arg0.getKeyCode() >= 96 && arg0.getKeyCode() <= 105){
+				if(arg0.getKeyChar() >= 48 && arg0.getKeyChar() <= 57){
 					sb.append(arg0.getKeyChar());
 				//period
 				} else if(arg0.getKeyCode() == 110){

@@ -64,6 +64,7 @@ public class Matrix extends Countable{
 		_numRows = numRows;
 		_numCols = numCols;
 		_internalValues = new Double[numCols][numRows];
+		_customDisplayValues = new String[_numCols][_numRows];
 	}
 	
 	
@@ -247,4 +248,19 @@ public class Matrix extends Countable{
 	public String getID(){
 		return _id;
 	}
+	
+	/**
+	 * @return the number of rows in this matrix
+	 */
+	public int getNumRows(){
+		return _numRows;
+	}
+	
+	/**
+	 * @return the number of columns in this matrix
+	 */
+	public int getNumCols(){
+		return _numCols;
+	}
+
 }

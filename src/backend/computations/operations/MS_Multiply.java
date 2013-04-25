@@ -64,10 +64,8 @@ public class MS_Multiply extends Computable {
 		
 		Double[][] matrixVals = matrix.getValues();
 		Double scalarVal = scalar.getValue();
-		if (scalarVal == null){
-			throw new IllegalArgumentException("ERROR: Scalar must have a real-number value");
-		}
 		String[][] multiplicationStep = new String[matrixVals.length][matrixVals[0].length];
+		
 		Double[][] result = new Double[matrixVals.length][matrixVals[0].length];
 		for (int i = 0; i < matrixVals.length; i++){
 			for (int j = 0; j < matrixVals[0].length; j++){
@@ -83,7 +81,7 @@ public class MS_Multiply extends Computable {
 		step1Matrix.setCustomDisplay(multiplicationStep);
 		Step step1 = new Step(step1Matrix);
 		
-		Matrix step2Matrix = new Matrix(answerDisplayType, matrixVals);
+		Matrix step2Matrix = new Matrix(answerDisplayType, result);
 		Step step2 = new Step(step2Matrix);
 		
 		List<Step> steps = new ArrayList<>();

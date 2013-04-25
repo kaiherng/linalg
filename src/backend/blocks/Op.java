@@ -1,4 +1,3 @@
-
 package backend.blocks;
 
 /** Enumerates types of Operators
@@ -15,7 +14,10 @@ public enum Op {
 	
 	//rank 0 (unary) operations
 	DETERMINANT(0,true,"DETERMINANT"),
-	ROW_REDUCE(0,true,"ROW-REDUCE"); 
+	ROW_REDUCE(0,true,"ROW-REDUCE"),
+	COLUMNSPACE(0,true,"COLUMN-SPACE"),
+	NULLSPACE(0,true,"NULL-SPACE"),
+	RANK(0,true,"RANK");
 	
 	// do not give rank below zero
 	

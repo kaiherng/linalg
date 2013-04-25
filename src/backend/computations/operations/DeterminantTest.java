@@ -1,7 +1,6 @@
 package backend.computations.operations;
 
 import backend.blocks.*;
-import java.util.*;
 import static org.junit.Assert.*;
 import org.junit.*;
 
@@ -157,7 +156,7 @@ public class DeterminantTest
 		Matrix m=new Matrix(null,v);
 		try
 		{
-			Determinant d=new Determinant(m);
+			new Determinant(m);
 			assertTrue(false);
 		}
 		catch (Exception e)
@@ -175,7 +174,7 @@ public class DeterminantTest
 		Matrix m=new Matrix(null,v);
 		try
 		{
-			Determinant d=new Determinant(m);
+			new Determinant(m);
 			assertTrue(false);
 		}
 		catch (Exception e)
@@ -193,7 +192,7 @@ public class DeterminantTest
 		Matrix m=new Matrix(null,v);
 		try
 		{
-			Determinant d=new Determinant(m);
+			new Determinant(m);
 			assertTrue(false);
 		}
 		catch (Exception e)
@@ -213,7 +212,7 @@ public class DeterminantTest
 		Matrix m=new Matrix(null,v);
 		try
 		{
-			Determinant d=new Determinant(m);
+			new Determinant(m);
 			assertTrue(false);
 		}
 		catch (Exception e)

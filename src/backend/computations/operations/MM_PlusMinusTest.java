@@ -1,6 +1,4 @@
-/**
- * 
- */
+
 package backend.computations.operations;
 
 import static org.junit.Assert.*;
