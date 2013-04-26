@@ -43,6 +43,7 @@ public abstract class WorkingFrontEnd extends JFrame {
 		this.add(_drawingPanel);
 		_drawingPanel.setFocusable(true);
     } 
+   
     
 	protected abstract void onDraw(Graphics2D g);
 
