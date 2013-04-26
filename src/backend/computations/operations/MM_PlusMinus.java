@@ -7,6 +7,8 @@ package backend.computations.operations;
 import java.util.ArrayList;
 import java.util.List;
 
+import matrixDraw.MatrixDraw;
+
 import backend.blocks.Countable;
 import backend.blocks.Countable.DisplayType;
 import backend.blocks.Matrix;
@@ -15,12 +17,14 @@ import backend.computations.infrastructure.Computable;
 import backend.computations.infrastructure.Solution;
 import backend.computations.infrastructure.Step;
 
-/** Addition Operation
+/** 
+ * Addition Operation
  * 
  * @author baebi
  */
 public class MM_PlusMinus extends Computable {
 	private Solution _solution;
+	private Matrix _matrix1, _matrix2;
 	
 	@Override
 	public Solution getSolution() {
@@ -28,7 +32,8 @@ public class MM_PlusMinus extends Computable {
 	}
 	
 
-	/** Sums two matrices
+	/** 
+	 * Sums two matrices
 	 * 
 	 * @param matrixA the first matrix to add
 	 * @param matrixB the second matrix to add
@@ -39,6 +44,10 @@ public class MM_PlusMinus extends Computable {
 		matrixList.add(matrixA);
 		matrixList.add(matrixB);
 		DisplayType answerDisplayType = resolveDisplayType(matrixList); // choose DisplayType to use
+		
+		// set the display type of the matrices to the same type
+		matrixA.setDisplayType(answerDisplayType);
+		matrixB.setDisplayType(answerDisplayType);
 		
 		Double[][] aValues = matrixA.getValues();
 		Double[][] bValues = matrixB.getValues();
@@ -85,8 +94,13 @@ public class MM_PlusMinus extends Computable {
 
 	@Override
 	public List<String> toLatex() {
-		// TODO Auto-generated method stub
+		MatrixDraw m1 = new MatrixDraw(_matrix1);
+		MatrixDraw m2 = new MatrixDraw(_matrix2);
+		
 		return null;
 	}
 	
 }
+
+
+

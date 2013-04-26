@@ -30,6 +30,8 @@ public class SS_MultiplyDivideTest {
 		List<Step> l = sol.getSteps();
 		assertTrue(l.get(0).getCountable() instanceof Scalar);
 		assertTrue("1.0 * 2.0".equals(((Scalar) l.get(0).getCountable()).getCustomDisplayValue()));
+		System.out.println();
+		assertTrue("$1.0 * 2.0 = 2.0$".equals(s.toLatex().get(0)));
 	}
 	
 	@Test
@@ -42,6 +44,7 @@ public class SS_MultiplyDivideTest {
 		List<Step> l = sol.getSteps();
 		assertTrue(l.get(0).getCountable() instanceof Scalar);
 		assertTrue("1.0 / 2.0".equals(((Scalar) l.get(0).getCountable()).getCustomDisplayValue()));
+		assertTrue("$1.0 / 2.0 = 0.5$".equals(s.toLatex().get(0)));
 	}
 
 }

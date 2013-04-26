@@ -40,6 +40,7 @@ public class MM_PlusMinusTest {
 		assertTrue(addStep.getCustomDisplayValues()[0][1].equals("2.0 + 4.0"));
 		assertTrue(addStep.getCustomDisplayValues()[1][0].equals("1.0 + 3.0"));
 		assertTrue(addStep.getCustomDisplayValues()[1][1].equals("2.0 + 4.0"));
+		
 	}
 	
 	@Test

@@ -15,11 +15,14 @@ import backend.computations.infrastructure.Solution;
 import backend.computations.infrastructure.Step;
 
 /**
- * @author
- *
+ * Operation for multiplication or division of scalars
+ * 
+ * @author baebi
  */
 public class SS_MultiplyDivide extends Computable {
 	private Solution _solution;
+	private String _operatorStep;
+	
 	
 	/** 
 	 * Computes the solution to a scalar multiplication or division operation. Expects non-null inputs
@@ -35,18 +38,22 @@ public class SS_MultiplyDivide extends Computable {
 		DisplayType answerDisplayType = resolveDisplayType(args);
 		Double aVal = a.getValue();
 		Double bVal = b.getValue();
+		a.setDisplayType(answerDisplayType);
+		b.setDisplayType(answerDisplayType);
+		String aString = a.getDisplayValue();
+		String bString = b.getDisplayValue();
 		
-		String operatorStep; Double answer;
+		Double answer;
 		if (isTimes){
-			operatorStep = aVal + " * " + bVal;
+			_operatorStep = aString + " * " + bString;
 			answer = aVal * bVal;
 		}else{
-			operatorStep = aVal + " / " + bVal;
+			_operatorStep = aString + " / " + bString;
 			answer = aVal / bVal;
 		}
 		
 		Scalar opStep = new Scalar(answer,DisplayType.CUSTOM);
-		opStep.setCustomDisplayValue(operatorStep);
+		opStep.setCustomDisplayValue(_operatorStep);
 		Step step1 = new Step(opStep);
 		Scalar answerStep = new Scalar(answer,answerDisplayType);
 		Step step2 = new Step(answerStep);
@@ -60,6 +67,7 @@ public class SS_MultiplyDivide extends Computable {
 		}
 	}
 	
+	
 	/* (non-Javadoc)
 	 * @see backend.operations.Computable#getSolution()
 	 */
@@ -68,10 +76,18 @@ public class SS_MultiplyDivide extends Computable {
 		return _solution;
 	}
 
+	
 	@Override
 	public List<String> toLatex() {
-		// TODO Auto-generated method stub
-		return null;
+		List<String> toReturn = new ArrayList<>();
+		StringBuffer b = new StringBuffer();
+		b.append("$");
+		b.append(_operatorStep);
+		b.append(" = ");
+		b.append(((Scalar) _solution.getAnswer()).getDisplayValue());
+		b.append("$");
+		toReturn.add(b.toString());
+		return toReturn;
 	}
 
 }

@@ -14,6 +14,7 @@ import org.scilab.forge.jlatexmath.TeXConstants;
 import org.scilab.forge.jlatexmath.TeXFormula;
 import org.scilab.forge.jlatexmath.TeXIcon;
 
+import backend.blocks.Countable.DisplayType;
 import backend.blocks.Matrix;
 
 public class MatrixDraw extends JPanel{
@@ -31,6 +32,35 @@ public class MatrixDraw extends JPanel{
 	public void paint(Graphics g){
 		ti_.paintIcon(new JLabel(), g, 0, 0);
 	}
+	
+	
+	/**
+	 * Given the displayType you want, returns the properly formatted LaTeX string
+	 *  
+	 * @param displayType the display type you want for the latex matrix
+	 */
+	public String getCorrectLatex(DisplayType displayType){
+		switch(displayType){
+		case DECIMAL:{
+			return getLatex();
+		}
+		case WHOLENUMBER:{
+			return getLatexWhole();
+		}
+		case WHOLENUMBERFRACTION:{
+			// TODO
+			return null;
+		}
+		case CUSTOM:{
+			System.err.println("ERROR (MatrixDraw.java) : Should not be recieve request for latex string for CUSTOM display");
+			return null;
+		}
+		default:
+			System.err.println("ERROR (MatrixDraw.java) : Unrecognized display type");
+			return null;
+		}
+	}
+	
 	
 	/**
 	 * @return the LaTeX string for the matrix where the indices are in decimal format

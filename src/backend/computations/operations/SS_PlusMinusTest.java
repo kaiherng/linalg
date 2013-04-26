@@ -33,6 +33,7 @@ public class SS_PlusMinusTest {
 		List<Step> l = sol.getSteps();
 		assertTrue(l.get(0).getCountable() instanceof Scalar);
 		assertTrue("1.0 + 2.0".equals(((Scalar) l.get(0).getCountable()).getCustomDisplayValue()));
+		assertTrue("$1.0 + 2.0 = 3.0$".equals(s.toLatex().get(0)));
 	}
 	
 	@Test
@@ -45,6 +46,7 @@ public class SS_PlusMinusTest {
 		List<Step> l = sol.getSteps();
 		assertTrue(l.get(0).getCountable() instanceof Scalar);
 		assertTrue("1.0 - 2.0".equals(((Scalar) l.get(0).getCountable()).getCustomDisplayValue()));
+		assertTrue("$1.0 - 2.0 = -1.0$".equals(s.toLatex().get(0)));
 	}
 
 }
