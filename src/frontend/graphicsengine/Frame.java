@@ -116,6 +116,7 @@ public class Frame implements Displayable, Interactable {
 		for (int i=0; i<_tabs.size(); i++) {
 			Tab t = _tabs.get(i);
 			t.setLocation(c);
+			System.out.println(c);
 		}
 	}
 
@@ -123,6 +124,13 @@ public class Frame implements Displayable, Interactable {
 	@Override
 	public Coord getLocation() {
 		return _location;
+	}
+	
+	public boolean Contains(Coord c){
+		if (c.x > getLocation().x && c.x < getLocation().x + getSize().x && c.y > getLocation().y && c.y < getLocation().y + getSize().y) {
+			return true;
+		}
+		return false;
 	}
 	
 	@Override

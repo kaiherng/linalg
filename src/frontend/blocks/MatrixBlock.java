@@ -1,59 +1,59 @@
-package frontend.containers;
+package frontend.blocks;
 
 import java.awt.Color;
+import java.awt.Graphics;
 import java.awt.Graphics2D;
 
-import javax.swing.JLabel;
-
-import org.scilab.forge.jlatexmath.TeXConstants;
-import org.scilab.forge.jlatexmath.TeXFormula;
-import org.scilab.forge.jlatexmath.TeXIcon;
-
+import frontend.containers.Saved;
 import frontend.general.Constants;
-import frontend.graphicsengine.Container;
+import frontend.graphicsengine.Algorithms;
+import frontend.graphicsengine.Interactable;
 import frontend.shapes.Coord;
-import frontend.shapes.Text;
+import frontend.shapes.TextRectangle;
 
-public class Solution extends Container {
+public class MatrixBlock extends TextRectangle implements Interactable {
 	
-	private Text _text;
-	TeXIcon _ti;
 	Coord _location;
-	
-	public Solution(Coord location, Coord size) {
-		super(location,size);
-		//_text = new Text(Constants.TEXT_FONTSTYLE, Constants.CONSTRUCT_INSTRUCTIONS_TEXT_STYLE, Constants.CONSTRUCT_INSTRUCTIONS_TEXT_SIZE, "The computed solution is here.", Constants.CONSTRUCT_INSTRUCTIONS_TEXT_COLOR, location.plus(Constants.CONSTRUCT_INSTRUCTIONS_TEXT_OFFSET));
-		TeXFormula formula = new TeXFormula("\\text{Solutions will be displayed here}");
-		_ti = formula.createTeXIcon(TeXConstants.STYLE_DISPLAY, 20);
+	Coord _size;
+	String _name;
+	TextRectangle _delete;
+	Saved _sm;
+
+	public MatrixBlock(String stringToDisplay, Coord location, Saved sm) {
+		super(Constants.TEXT_FONTSTYLE, "bold", Constants.SM_TEXT_SIZE, stringToDisplay, Color.white, Constants.SM_COLOR,
+				location, Constants.SM_SIZE, Color.black, 1);
 		_location = location;
+		_size = Constants.SM_SIZE;
+		_name = stringToDisplay;
+		_delete = new TextRectangle(Constants.TEXT_FONTSTYLE, "bold", 10, "X", Color.white, Constants.SM_COLOR, new Coord(location.x+getSize().x-10, location.y), new Coord(10,10));
+		_sm = sm;
 	}
 	
-	@Override
-	public void setSize(Coord size) {
-		super.setSize(size);
+	public boolean contains(Coord c){
+		if (Algorithms.clickWithin(this, c)) {
+			return true;
+		}
+		return false;
 	}
 	
-	@Override
-	public void setLocation(Coord location) {
-		super.setLocation(location);
-//		_text.setLocation(location.plus(Constants.CONSTRUCT_INSTRUCTIONS_TEXT_OFFSET));
+	public void onDraw(Graphics2D g){
+		super.onDraw(g);
+		_delete.onDraw(g);
 	}
 	
-	public void setTex(String tex){
-		TeXFormula formula = new TeXFormula(tex);
-		_ti = formula.createTeXIcon(TeXConstants.STYLE_DISPLAY, 20);
+	public void setLocation(Coord c){
+		super.setLocation(c);
+		_delete.setLocation(new Coord(c.x+getSize().x-10, c.y));
 	}
 
 	@Override
-	public void onDraw(Graphics2D g) {
-//		_text.onDraw(g);		
-		_ti.paintIcon(new JLabel(), g, _location.x, _location.y);
-	}
-	@Override
-	
 	public void onMouseClicked(int clickCount, Coord c) {
 		// TODO Auto-generated method stub
-		
+		if(Algorithms.clickWithin(_delete, c)){
+			_sm.deleteMatrix(_name, this);
+		} else if(Algorithms.clickWithin(this, c)){
+			System.out.println("Add matrix " + _name + " to operation bar");
+		}
 	}
 
 	@Override

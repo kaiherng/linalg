@@ -5,6 +5,8 @@ import java.awt.Graphics2D;
 import frontend.containers.Compute;
 import frontend.containers.Construct;
 import frontend.containers.Saved;
+import frontend.containers.Solution;
+import frontend.containers.Saved;
 import frontend.graphicsengine.Algorithms;
 import frontend.graphicsengine.Container;
 import frontend.graphicsengine.Frame;
@@ -25,7 +27,7 @@ public class MainScreen implements Screen {
 	
 	private Frame _topLeftFrame;
 	private Frame _bottomLeftFrame;
-//	private Frame _rightFrame;
+	private Frame _rightFrame;
 	private Rectangle _background;
 	
 	/**
@@ -44,19 +46,25 @@ public class MainScreen implements Screen {
 		
 		Coord topLeftLocation = new Coord(Constants.FRAME_X_OFFSET,Constants.FRAME_Y_OFFSET);
 		Coord topLeftSize = new Coord((application.getSize().width - Constants.FRAME_X_OFFSET*3)/2,(application.getSize().height - Constants.FRAME_Y_OFFSET*3)/2);
-
+		
+		Coord botLeftLocation = new Coord(Constants.FRAME_X_OFFSET, topLeftSize.y + Constants.FRAME_Y_OFFSET);
+		Coord botLeftSize = topLeftSize;
+		
+		Coord rightLocation = new Coord(topLeftLocation.x + topLeftSize.x + Constants.FRAME_X_OFFSET, Constants.FRAME_Y_OFFSET);
+		Coord rightSize = new Coord(topLeftSize.x, application.getSize().height - Constants.FRAME_Y_OFFSET*3);
+		
 		Container compute = new Compute(topLeftLocation.plus(Constants.TABHEADER_SIZE), new Coord(400,400).minus(Constants.TABHEADER_SIZE));
 		Tab computeTab = new Tab(compute, "Compute", 1, topLeftLocation, topLeftSize);
 		
 		Container construct = new Construct(topLeftLocation.plus(Constants.TABHEADER_SIZE), new Coord(400,400).minus(Constants.TABHEADER_SIZE));
 		Tab constructTab = new Tab(construct, "Construct", 0, topLeftLocation, topLeftSize);
 		
+		Container sols = new Solution(rightLocation.plus(Constants.CONTAINER_TOP_LEFT), rightSize);
+		Tab solsTab = new Tab(sols, "Solution", 0, rightLocation, rightSize);
+		
 		_topLeftFrame = new Frame(topLeftLocation, topLeftSize, constructTab);
 		_topLeftFrame.addTab(computeTab);
 
-
-		
-		
 		Coord bottomLeftLocation = new Coord(topLeftLocation.x, topLeftLocation.y+topLeftSize.y+Constants.FRAME_Y_OFFSET);
 		Coord bottomLeftSize = topLeftSize;
 		System.out.println("bottomLeftLocation: " + bottomLeftLocation);
@@ -65,7 +73,7 @@ public class MainScreen implements Screen {
 		Tab savedTab = new Tab(saved, "Saved", 0, bottomLeftLocation, bottomLeftSize);
 		
 		_bottomLeftFrame = new Frame(bottomLeftLocation, bottomLeftSize, savedTab);
-		
+		_rightFrame = new Frame(rightLocation, rightSize, solsTab);
 		
 		
 //		Coord rightLocation = new Coord(topLeftLocation.x + topLeftSize.x + Constants.FRAME_X_OFFSET, topLeftLocation.y);
@@ -83,7 +91,7 @@ public class MainScreen implements Screen {
 		_background.onDraw(g);
 		_topLeftFrame.onDraw(g);
 		_bottomLeftFrame.onDraw(g);
-//		_rightFrame.onDraw(g);
+		_rightFrame.onDraw(g);
 	}
 
 	@Override
@@ -113,7 +121,8 @@ public class MainScreen implements Screen {
 //		//calculates the new locations and sizes for the frames and sets them to these values
 		Coord topLeftLocation = new Coord(Constants.FRAME_X_OFFSET,Constants.FRAME_Y_OFFSET);
 		Coord topLeftSize = new Coord((newSize.x - Constants.FRAME_X_OFFSET*3)/2,(newSize.y - Constants.FRAME_Y_OFFSET*3)/2);
-
+//		Coord rightLocation = new Coord(topLeftLocation.x + topLeftSize.x + Constants.FRAME_X_OFFSET, topLeftLocation.y);
+//		Coord rightSize = new Coord((newSize.x - Constants.FRAME_X_OFFSET*3)/2,newSize.y - Constants.FRAME_Y_OFFSET*2);
 		Coord bottomLeftLocation = new Coord(topLeftLocation.x, topLeftLocation.y+topLeftSize.y+Constants.FRAME_Y_OFFSET);
 		Coord bottomLeftSize = topLeftSize;
 		System.out.println("bottomLeftLocation: " + bottomLeftLocation);
@@ -136,8 +145,11 @@ public class MainScreen implements Screen {
 	 */
 	@Override
 	public void onMouseClicked(int clickCount, Coord location) {
-		if (location.x > _topLeftFrame.getLocation().x && location.x < _topLeftFrame.getLocation().x + _topLeftFrame.getSize().x && location.y > _topLeftFrame.getLocation().y && location.y < _topLeftFrame.getLocation().y + _topLeftFrame.getSize().y) {
+		if (_topLeftFrame.Contains(location)) {
 			_topLeftFrame.onMouseClicked(clickCount, location);
+		}
+		if (_bottomLeftFrame.Contains(location)){
+			_bottomLeftFrame.onMouseClicked(clickCount, location);
 		}
 	}
 

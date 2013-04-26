@@ -99,7 +99,7 @@ public class Application extends WorkingFrontEnd {
 
 	@Override
 	protected void onMouseMoved(MouseEvent e) {
-		_currentScreen.onMouseMoved(new Coord(e.getX(), e.getY()));
+		//_currentScreen.onMouseMoved(new Coord(e.getX(), e.getY()));
 	}
 	
 	@Override
