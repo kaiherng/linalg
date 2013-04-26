@@ -94,6 +94,13 @@ public class MM_Multiply extends Computable {
 		// create the solution
 		_solution = new Solution(Op.MM_MULTIPLY,inputs,step2Matrix,steps);
 	}
+
+
+	@Override
+	public List<String> toLatex() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
 
 

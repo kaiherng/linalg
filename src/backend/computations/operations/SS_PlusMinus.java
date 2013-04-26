@@ -67,4 +67,11 @@ public class SS_PlusMinus extends Computable {
 		return _solution;
 	}
 
+
+	@Override
+	public List<String> toLatex() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

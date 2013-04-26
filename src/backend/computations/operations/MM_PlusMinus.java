@@ -81,5 +81,12 @@ public class MM_PlusMinus extends Computable {
 			_solution = new Solution(Op.MM_MINUS,matrixList, step2Matrix, steps);
 		}
 	}
+
+
+	@Override
+	public List<String> toLatex() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 }

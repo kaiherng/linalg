@@ -19,6 +19,11 @@ public abstract class Computable{
 	 */
 	public abstract Solution getSolution();
 	
+	/**
+	 * @return a list of LateX strings, where each one is a step. (Or whatever at your discretion)
+	 */
+	public abstract List<String> toLatex();
+	
 	
 	/** Given multiple countables, returns the preferential DisplayType
 	 * 

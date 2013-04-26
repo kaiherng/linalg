@@ -87,4 +87,10 @@ public class M_Columnspace extends Computable
 		_solution = new Solution(Op.COLUMNSPACE, inputs, answer, steps);
 	}
 
+	@Override
+	public List<String> toLatex() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }
