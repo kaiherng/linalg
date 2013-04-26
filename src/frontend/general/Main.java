@@ -13,7 +13,7 @@ public class Main {
 	 * @throws FontFormatException 
 	 */
 	public static void main(String[] args) throws FontFormatException, IOException {
-        new Application(new Coord(1000,600), new Coord(800,500));
+        new Application(new Coord(1000,600), new Coord(1000,600));
 	}
 
 }

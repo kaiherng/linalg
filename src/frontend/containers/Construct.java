@@ -1,6 +1,5 @@
 package frontend.containers;
 
-import java.awt.Color;
 import java.awt.Graphics2D;
 
 import frontend.general.Constants;
@@ -35,6 +34,78 @@ public class Construct extends Container {
 	@Override
 	
 	public void onMouseClicked(int clickCount, Coord c) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onDown(int keycode) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onUp(int keycode) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onRepeated(int keycode) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onTyped(int keycode) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onMousePressed() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onMouseReleased() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onMouseDragged(Coord location) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onMouseMoved(Coord location) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onMouseWheelForward(Coord location) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onMouseWheelBackward(Coord location) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onDragStart(Coord location) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onDragEnd(Coord location) {
 		// TODO Auto-generated method stub
 		
 	}

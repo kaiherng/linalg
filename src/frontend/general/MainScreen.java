@@ -4,6 +4,8 @@ import java.awt.Graphics2D;
 
 import frontend.containers.Compute;
 import frontend.containers.Construct;
+import frontend.containers.Saved;
+import frontend.graphicsengine.Algorithms;
 import frontend.graphicsengine.Container;
 import frontend.graphicsengine.Frame;
 import frontend.graphicsengine.Screen;
@@ -39,15 +41,19 @@ public class MainScreen implements Screen {
 		Coord topLeftSize = new Coord((application.getSize().width - Constants.FRAME_X_OFFSET*3)/2,(application.getSize().height - Constants.FRAME_Y_OFFSET*3)/2);
 
 		Container compute = new Compute(topLeftLocation.plus(Constants.TABHEADER_SIZE), new Coord(400,400).minus(Constants.TABHEADER_SIZE));
-		Tab tab1 = new Tab(compute, "Compute", 1, topLeftLocation, topLeftSize);
+		Tab tab1 = new Tab(compute, "Compute", 0, topLeftLocation, topLeftSize);
 		
 		Container construct = new Construct(topLeftLocation.plus(Constants.TABHEADER_SIZE), new Coord(400,400).minus(Constants.TABHEADER_SIZE));
-		Tab tab2 = new Tab(construct, "Construct", 0, topLeftLocation, topLeftSize);
+		Tab tab2 = new Tab(construct, "Construct", 1, topLeftLocation, topLeftSize);
 		
-		_topLeftFrame = new Frame(topLeftLocation, topLeftSize, tab2);
-		_topLeftFrame.addTab(tab1);
+		_topLeftFrame = new Frame(topLeftLocation, topLeftSize, tab1);
+		_topLeftFrame.addTab(tab2);
 		
-		
+		Coord bottomLeftLocation = new Coord(topLeftLocation.x, topLeftLocation.y+topLeftSize.y+Constants.FRAME_Y_OFFSET);
+		Coord bottomLeftSize = new Coord((application.getSize().width - Constants.FRAME_X_OFFSET*3)/2,(application.getSize().height - Constants.FRAME_Y_OFFSET*3)/2);
+
+//		Container saved = new Saved(bottomLeftLocation.plus(Constants.TABHEADER_SIZE), new Coord(400,400).minus(Constants.TABHEADER_SIZE));
+//		Tab 
 		
 //		Tab savedTab = new Tab(new Saved(), "Saved", 0);
 //		_bottomLeftFrame = new Frame(new Coord(0,0), new Coord(0,0), savedTab);
@@ -68,7 +74,7 @@ public class MainScreen implements Screen {
 
 	@Override
 	public void onDown(int keycode) {
-		if (keycode == 27) {
+		if (keycode == 27) { //PRESSING ESC WILL BRING YOU TO DEBUGSCREEN
 			_application.setScreen(new DebugScreen(_application));
 		}
 	}
@@ -130,14 +136,23 @@ public class MainScreen implements Screen {
 
 	@Override
 	public void onMouseMoved(Coord location) {
+		if (Algorithms.clickWithin(_topLeftFrame, location)) {
+			_topLeftFrame.onMouseMoved(location);
+		}
 	}
 
 	@Override
 	public void onMouseWheelForward(Coord location) {
+		if (Algorithms.clickWithin(_topLeftFrame, location)) {
+			_topLeftFrame.onMouseWheelForward(location);
+		}
 	}
 
 	@Override
 	public void onMouseWheelBackward(Coord location) {
+		if (Algorithms.clickWithin(_topLeftFrame, location)) {
+			_topLeftFrame.onMouseWheelBackward(location);
+		}
 	}
 
 	@Override

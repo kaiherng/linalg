@@ -4,24 +4,17 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 
 import frontend.general.Constants;
-import frontend.graphicsengine.Algorithms;
 import frontend.graphicsengine.Container;
-import frontend.graphicsengine.Displayable;
-import frontend.graphicsengine.ScrollPane;
 import frontend.shapes.Coord;
-import frontend.shapes.Rectangle;
-import frontend.shapes.TextRectangle;
+import frontend.shapes.Text;
 
-public class Compute extends Container {
-
-	private ScrollPane _scrollPane;
-
-	public Compute(Coord location, Coord size) {
-		super(location, size);
-		
-//		Displayable rectangle = new Rectangle(new Coord(0,0), new Coord(200,400), new Color(0,0,0,0));
-//		_scrollPane = new ScrollPane(location.plus(0,20), new Coord(size.x,size.y-20), new Coord(0,0), new Coord(size.x,400), new Coord(300,600), rectangle);
-
+public class Saved extends Container {
+	
+	private Text _text;
+	
+	public Saved(Coord location, Coord size) {
+		super(location,size);
+		_text = new Text(Constants.TEXT_FONTSTYLE, Constants.CONSTRUCT_INSTRUCTIONS_TEXT_STYLE, Constants.CONSTRUCT_INSTRUCTIONS_TEXT_SIZE, "Your favourite saved matrices are here.", Constants.CONSTRUCT_INSTRUCTIONS_TEXT_COLOR, location.plus(Constants.CONSTRUCT_INSTRUCTIONS_TEXT_OFFSET));
 	}
 	
 	@Override
@@ -32,16 +25,18 @@ public class Compute extends Container {
 	@Override
 	public void setLocation(Coord location) {
 		super.setLocation(location);
-//		_scrollPane.setLocation(location.plus(0,20));
+		_text.setLocation(location.plus(Constants.CONSTRUCT_INSTRUCTIONS_TEXT_OFFSET));
 	}
 
 	@Override
 	public void onDraw(Graphics2D g) {
-//		_scrollPane.onDraw(g);
+		_text.onDraw(g);		
 	}
-
 	@Override
-	public void onMouseClicked(int clickCount, Coord c) {	
+	
+	public void onMouseClicked(int clickCount, Coord c) {
+		// TODO Auto-generated method stub
+		
 	}
 
 	@Override
@@ -88,23 +83,20 @@ public class Compute extends Container {
 
 	@Override
 	public void onMouseMoved(Coord location) {
-//		if (Algorithms.clickWithin(_scrollPane, location)) {
-//			_scrollPane.onMouseMoved(location);
-//		}
+		// TODO Auto-generated method stub
+		
 	}
 
 	@Override
 	public void onMouseWheelForward(Coord location) {
-//		if (Algorithms.clickWithin(_scrollPane, location)) {
-//			_scrollPane.onMouseWheelForward(location);
-//		}
+		// TODO Auto-generated method stub
+		
 	}
 
 	@Override
 	public void onMouseWheelBackward(Coord location) {
-//		if (Algorithms.clickWithin(_scrollPane, location)) {
-//			_scrollPane.onMouseWheelBackward(location);
-//		}
+		// TODO Auto-generated method stub
+		
 	}
 
 	@Override
@@ -118,6 +110,5 @@ public class Compute extends Container {
 		// TODO Auto-generated method stub
 		
 	}
-	
 
 }

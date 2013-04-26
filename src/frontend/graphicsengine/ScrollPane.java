@@ -31,8 +31,20 @@ public class ScrollPane implements Displayable, Interactable {
 		_viewportDimensions = viewportDimensions;
 		_viewableDimensions = viewableDimensions;
 		_displayable = displayable;
-		_background = new Rectangle(UITopLeft, UIDimensions, Color.BLUE);
+		_background = new Rectangle(UITopLeft, UIDimensions, Constants.SCROLL_PANE_FILL_COLOR, Constants.SCROLL_PANE_BORDER_WIDTH, Constants.SCROLL_PANE_BORDER_COLOR);
 		
+		Coord[] coordsUp = new Coord[3];
+		coordsUp[0] = new Coord(16,0);
+		coordsUp[1] = new Coord(32,10);
+		coordsUp[2] = new Coord(0,10);
+		_scrollUp = new Polygon(new Coord(_UITopLeft.x + _UIDimensions.x/2 - 16, _UITopLeft.y + 5), Constants.SCROLL_ARROW_FILL_COLOR, Constants.SCROLL_ARROW_BORDER_WIDTH, Constants.SCROLL_ARROW_BORDER_COLOR, coordsUp);
+		
+		Coord[] coordsDown = new Coord[3];
+		coordsDown[0] = new Coord(0,0);
+		coordsDown[1] = new Coord(32,0);
+		coordsDown[2] = new Coord(16,10);
+		_scrollDown = new Polygon(new Coord(_UITopLeft.x + _UIDimensions.x/2 - 16, _UITopLeft.y + _UIDimensions.y - 15), Constants.SCROLL_ARROW_FILL_COLOR, Constants.SCROLL_ARROW_BORDER_WIDTH, Constants.SCROLL_ARROW_BORDER_COLOR, coordsDown);
+
 		ActionListener taskPerformer = new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
 				if (_scrollUp.containsPoint(_mouseLocation)) move(new Coord(0,-2));
@@ -42,18 +54,6 @@ public class ScrollPane implements Displayable, Interactable {
 		
 		new Timer(20, taskPerformer).start();
 		
-		Coord[] coordsUp = new Coord[3];
-		coordsUp[0] = new Coord(16,0);
-		coordsUp[1] = new Coord(32,10);
-		coordsUp[2] = new Coord(0,10);
-		_scrollUp = new Polygon(new Coord(_UITopLeft.x + _UIDimensions.x/2 - 16, _UITopLeft.y + 5), Constants.COMPUTE_SCROLL_FILL_COLOR, Constants.COMPUTE_SCROLL_BORDER_WIDTH, Constants.COMPUTE_OPS_BORDER_COLOR, coordsUp);
-		
-		Coord[] coordsDown = new Coord[3];
-		coordsDown[0] = new Coord(0,0);
-		coordsDown[1] = new Coord(32,0);
-		coordsDown[2] = new Coord(16,10);
-		_scrollDown = new Polygon(new Coord(_UITopLeft.x + _UIDimensions.x/2 - 16, _UITopLeft.y + _UIDimensions.y - 15), Constants.COMPUTE_SCROLL_FILL_COLOR, Constants.COMPUTE_SCROLL_BORDER_WIDTH, Constants.COMPUTE_OPS_BORDER_COLOR, coordsDown);
-
 	}
 	
 	public Coord viewableToScreen(Coord viewableCoordinates) {
@@ -65,7 +65,7 @@ public class ScrollPane implements Displayable, Interactable {
 	public void move(Coord moveVector) {
 		Coord oldViewportTopLeft = _viewportTopLeft;
 		_viewportTopLeft = new Coord(_viewportTopLeft.x + moveVector.x, _viewportTopLeft.y + moveVector.y);
-		
+		System.out.println("moving: " + moveVector);
 		if (_viewportTopLeft.y < 0 && moveVector.y < 0) {
 			_viewportTopLeft = oldViewportTopLeft;
 		}
@@ -130,6 +130,60 @@ public class ScrollPane implements Displayable, Interactable {
 		g.setClip(null); //restore the clip
 		_scrollUp.onDraw(g);
 		_scrollDown.onDraw(g);
+	}
+
+	@Override
+	public void onDown(int keycode) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onUp(int keycode) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onRepeated(int keycode) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onTyped(int keycode) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onMousePressed() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onMouseReleased() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onMouseDragged(Coord location) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onDragStart(Coord location) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onDragEnd(Coord location) {
+		// TODO Auto-generated method stub
+		
 	}
 
 
