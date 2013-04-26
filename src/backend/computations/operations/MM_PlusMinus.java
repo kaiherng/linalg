@@ -1,6 +1,5 @@
 /**
- * TODO: test this class
- * TODO: adjust displayMatrix to take into account displayType
+ * TODO: test toLatex method 
  */
 package backend.computations.operations;
 
@@ -17,6 +16,7 @@ import backend.computations.infrastructure.Computable;
 import backend.computations.infrastructure.Solution;
 import backend.computations.infrastructure.Step;
 
+
 /** 
  * Addition Operation
  * 
@@ -24,7 +24,9 @@ import backend.computations.infrastructure.Step;
  */
 public class MM_PlusMinus extends Computable {
 	private Solution _solution;
-	private Matrix _matrix1, _matrix2;
+	private Matrix _matrix1,_matrix2,_step1Matrix,_step2Matrix;
+	private DisplayType _displayType;
+	private String _operation;
 	
 	@Override
 	public Solution getSolution() {
@@ -44,6 +46,7 @@ public class MM_PlusMinus extends Computable {
 		matrixList.add(matrixA);
 		matrixList.add(matrixB);
 		DisplayType answerDisplayType = resolveDisplayType(matrixList); // choose DisplayType to use
+		_displayType = answerDisplayType;
 		
 		// set the display type of the matrices to the same type
 		matrixA.setDisplayType(answerDisplayType);
@@ -64,20 +67,20 @@ public class MM_PlusMinus extends Computable {
 				}
 				if (isPlus){
 					result[i][j] = aValues[i][j] + bValues[i][j];
-					additionStep[i][j] = getDisplayValue(aValues[i][j],answerDisplayType)+" + "+getDisplayValue(bValues[i][j],answerDisplayType);
+					additionStep[i][j] = getDisplayValue(aValues[i][j],answerDisplayType)+"$\\+\\$"+getDisplayValue(bValues[i][j],answerDisplayType);
 				}else{
 					result[i][j] = aValues[i][j] - bValues[i][j];
-					additionStep[i][j] = getDisplayValue(aValues[i][j],answerDisplayType)+" - "+getDisplayValue(bValues[i][j],answerDisplayType);
+					additionStep[i][j] = getDisplayValue(aValues[i][j],answerDisplayType)+"$\\-\\$"+getDisplayValue(bValues[i][j],answerDisplayType);
 				}
 			}
 		}
 		
-		Matrix step1Matrix = new Matrix(DisplayType.CUSTOM, result); // this will show the addition in each index, for instance ("1 + 2")
-		step1Matrix.setCustomDisplay(additionStep);
-		Step step1 = new Step(step1Matrix);
+		_step1Matrix = new Matrix(DisplayType.CUSTOM, result); // this will show the addition in each index, for instance ("1 + 2")
+		_step1Matrix.setCustomDisplay(additionStep);
+		Step step1 = new Step(_step1Matrix);
 		
-		Matrix step2Matrix = new Matrix(answerDisplayType,result);
-		Step step2 = new Step(step2Matrix);
+		_step2Matrix = new Matrix(answerDisplayType,result);
+		Step step2 = new Step(_step2Matrix);
 		
 		List<Step> steps = new ArrayList<>();
 		steps.add(step1);
@@ -85,19 +88,39 @@ public class MM_PlusMinus extends Computable {
 		
 
 		if (isPlus){
-			_solution = new Solution(Op.MM_PLUS,matrixList, step2Matrix, steps);
+			_solution = new Solution(Op.MM_PLUS,matrixList, _step2Matrix, steps);
+			_operation = "+";
 		}else{
-			_solution = new Solution(Op.MM_MINUS,matrixList, step2Matrix, steps);
+			_solution = new Solution(Op.MM_MINUS,matrixList, _step2Matrix, steps);
+			_operation = "-";
 		}
 	}
 
 
 	@Override
+	/**
+	 * Three steps:
+	 *  - "m1 + m2"
+	 *  - result matrix with each index containing an operation
+	 *  - the answer matrix
+	 */
 	public List<String> toLatex() {
+		List<String> toReturn = new ArrayList<>();
 		MatrixDraw m1 = new MatrixDraw(_matrix1);
 		MatrixDraw m2 = new MatrixDraw(_matrix2);
-		
-		return null;
+		String m1String = m1.getCorrectLatex(_displayType);
+		String m2String = m2.getCorrectLatex(_displayType);
+		StringBuffer b = new StringBuffer();
+		b.append(m1String);
+		b.append("$\\"+_operation+"\\$");
+		b.append(m2String);
+		toReturn.add(b.toString()); // first step shows "m1 + m2"
+		b.delete(0, b.length()); // empty buffer
+		MatrixDraw m3 = new MatrixDraw(_step1Matrix);
+		MatrixDraw m4 = new MatrixDraw(_step2Matrix);
+		toReturn.add(m3.getCorrectLatex(DisplayType.CUSTOM));
+		toReturn.add(m4.getCorrectLatex(_displayType));
+		return toReturn;
 	}
 	
 }

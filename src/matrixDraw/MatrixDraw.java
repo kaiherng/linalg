@@ -52,7 +52,7 @@ public class MatrixDraw extends JPanel{
 			return null;
 		}
 		case CUSTOM:{
-			System.err.println("ERROR (MatrixDraw.java) : Should not be recieve request for latex string for CUSTOM display");
+			// TODO
 			return null;
 		}
 		default:
@@ -80,9 +80,10 @@ public class MatrixDraw extends JPanel{
 			}
 		}
 		b.append("\\end{pmatrix}");
-		System.out.println(b.toString());
+//		System.out.println(b.toString());
 		return b.toString();
 	}
+	
 	
 	/**
 	 * @return the LaTeX string for the matrix where the indices are in wholenumber format
@@ -102,7 +103,7 @@ public class MatrixDraw extends JPanel{
 			}
 		}
 		b.append("\\end{pmatrix}");
-		System.out.println(b.toString());
+//		System.out.println(b.toString());
 		return b.toString();
 	}
 
