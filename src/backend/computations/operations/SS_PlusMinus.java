@@ -1,5 +1,5 @@
 /**
- * TODO: Test this class
+ * TODO: test the toLatex
  */
 package backend.computations.operations;
 
@@ -21,6 +21,8 @@ import backend.computations.infrastructure.Step;
  */
 public class SS_PlusMinus extends Computable {
 	private Solution _solution;
+	private String _operatorStep;
+	
 	
 	/** 
 	 * Computes the solution to a scalar addition or subtraction operation. Expects non-null inputs
@@ -34,15 +36,19 @@ public class SS_PlusMinus extends Computable {
 		args.add(a);
 		args.add(b);
 		DisplayType answerDisplayType = resolveDisplayType(args);
+		a.setDisplayType(answerDisplayType);
+		b.setDisplayType(answerDisplayType);
+		
 		Double aVal = a.getValue();
 		Double bVal = b.getValue();
 		
+		
 		String operatorStep; Double answer;
 		if (isPlus){
-			operatorStep = aVal + " + " + bVal;
+			operatorStep = a.getDisplayValue() + " + " + b.getDisplayValue();
 			answer = aVal + bVal;
 		}else{
-			operatorStep = aVal + " - " + bVal;
+			operatorStep = a.getDisplayValue() + " - " + b.getDisplayValue();
 			answer = aVal - bVal;
 		}
 		
@@ -65,6 +71,20 @@ public class SS_PlusMinus extends Computable {
 	@Override
 	public Solution getSolution() {
 		return _solution;
+	}
+
+
+	@Override
+	public List<String> toLatex() {
+		List<String> toReturn = new ArrayList<>();
+		StringBuilder b = new StringBuilder();
+		b.append("$");
+		b.append(_operatorStep);
+		b.append(" = ");
+		b.append(((Scalar)_solution.getAnswer()).getDisplayValue());
+		b.append("$");
+		toReturn.add(b.toString());
+		return toReturn;
 	}
 
 }

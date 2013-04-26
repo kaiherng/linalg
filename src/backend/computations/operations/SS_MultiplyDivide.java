@@ -68,4 +68,10 @@ public class SS_MultiplyDivide extends Computable {
 		return _solution;
 	}
 
+	@Override
+	public List<String> toLatex() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

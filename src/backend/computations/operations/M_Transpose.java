@@ -55,4 +55,10 @@ public class M_Transpose extends Computable
 		_solution = new Solution(Op.DETERMINANT, inputs, answer, steps);
 	}
 
+	@Override
+	public List<String> toLatex() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

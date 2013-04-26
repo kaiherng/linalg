@@ -82,4 +82,10 @@ public class M_Rank extends Computable
 		_solution = new Solution(Op.RANK, inputs, answer, steps);
 	}
 
+	@Override
+	public List<String> toLatex() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

@@ -84,9 +84,6 @@ public class Scalar extends Countable{
 		case WHOLENUMBERFRACTION:{
 			return null; // TODO
 		}
-		case DECIMALFRACTION:{
-			return null; // TODO
-		}
 		case DECIMAL:{
 			return Double.toString(val);
 		}

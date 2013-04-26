@@ -148,4 +148,11 @@ public class Determinant extends Computable
 		return steps;
 	}
 
+
+	@Override
+	public List<String> toLatex() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

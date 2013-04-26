@@ -19,6 +19,11 @@ public abstract class Computable{
 	 */
 	public abstract Solution getSolution();
 	
+	/**
+	 * @return a list of LateX strings, where each one is a step. (Or whatever at your discretion)
+	 */
+	public abstract List<String> toLatex();
+	
 	
 	/** Given multiple countables, returns the preferential DisplayType
 	 * 
@@ -43,10 +48,6 @@ public abstract class Computable{
 				foundWholeNumberFraction = true;
 				break;
 			}
-			case DECIMALFRACTION:{
-				foundDecimalFraction = true;
-				break;
-			}
 			case DECIMAL:{
 				foundDecimal = true;
 				break;
@@ -61,8 +62,6 @@ public abstract class Computable{
 			return DisplayType.CUSTOM;
 		}else if(foundDecimal){
 			return DisplayType.DECIMAL;
-		}else if(foundDecimalFraction){
-			return DisplayType.DECIMALFRACTION;
 		}else if (foundWholeNumberFraction){
 			return DisplayType.WHOLENUMBERFRACTION;
 		}else if (foundWholeNumber){
@@ -90,10 +89,6 @@ public abstract class Computable{
 			}
 			case WHOLENUMBER:{
 				return Integer.toString((int) Math.floor(input));
-			}
-			case DECIMALFRACTION:{
-				// TODO implement
-				return null;
 			}
 			case CUSTOM:{
 				return null;

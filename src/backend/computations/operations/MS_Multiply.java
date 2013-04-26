@@ -93,5 +93,12 @@ public class MS_Multiply extends Computable {
 		inputs.add(scalar);
 		_solution = new Solution(Op.SM_MULTIPLY,inputs,step2Matrix,steps);
 	}
+
+
+	@Override
+	public List<String> toLatex() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 }

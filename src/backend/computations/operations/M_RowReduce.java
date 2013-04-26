@@ -171,4 +171,10 @@ public class M_RowReduce extends Computable
 		_solution = new Solution(Op.ROW_REDUCE, inputs, answer, steps);
 	}
 
+	@Override
+	public List<String> toLatex() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }
