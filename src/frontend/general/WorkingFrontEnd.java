@@ -42,6 +42,7 @@ public abstract class WorkingFrontEnd extends JFrame {
         _drawingPanel = new DrawingPanel();       
 		this.add(_drawingPanel);
 		_drawingPanel.setFocusable(true);
+		_drawingPanel.setFocusTraversalKeysEnabled(false);
     } 
    
     
