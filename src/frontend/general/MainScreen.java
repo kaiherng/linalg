@@ -29,6 +29,7 @@ public class MainScreen implements Screen {
 	private Frame _bottomLeftFrame;
 	private Frame _rightFrame;
 	private Rectangle _background;
+	private Frame _focus;
 	
 	/**
 	 * Screen needs to maintain a reference to application because it needs to tell the application to switch to the next screen when the correct trigger event is fired
@@ -40,23 +41,22 @@ public class MainScreen implements Screen {
 		System.out.println(application.getSize());
 		_background = new Rectangle(new Coord(0,0), new Coord(application.getSize()), Constants.SCREEN_BG_COLOR);
 		
-		
-		
-		
-		
 		Coord topLeftLocation = new Coord(Constants.FRAME_X_OFFSET,Constants.FRAME_Y_OFFSET);
 		Coord topLeftSize = new Coord((application.getSize().width - Constants.FRAME_X_OFFSET*3)/2,(application.getSize().height - Constants.FRAME_Y_OFFSET*3)/2);
 		
-		Coord botLeftLocation = new Coord(Constants.FRAME_X_OFFSET, topLeftSize.y + Constants.FRAME_Y_OFFSET);
-		Coord botLeftSize = topLeftSize;
+		Coord bottomLeftLocation = new Coord(topLeftLocation.x, topLeftLocation.y+topLeftSize.y+Constants.FRAME_Y_OFFSET);
+		Coord bottomLeftSize = topLeftSize;
 		
 		Coord rightLocation = new Coord(topLeftLocation.x + topLeftSize.x + Constants.FRAME_X_OFFSET, Constants.FRAME_Y_OFFSET);
 		Coord rightSize = new Coord(topLeftSize.x, application.getSize().height - Constants.FRAME_Y_OFFSET*3);
 		
-		Container compute = new Compute(topLeftLocation.plus(Constants.TABHEADER_SIZE), new Coord(400,400).minus(Constants.TABHEADER_SIZE));
+		Saved saved = new Saved(bottomLeftLocation.plus(Constants.TABHEADER_SIZE), new Coord(400,400).minus(Constants.TABHEADER_SIZE));
+		Tab savedTab = new Tab(saved, "Saved", 0, bottomLeftLocation, bottomLeftSize);
+		
+		Container compute = new Compute(topLeftLocation.plus(Constants.TABHEADER_SIZE), topLeftSize.minus(0, Constants.TABHEADER_SIZE.y));
 		Tab computeTab = new Tab(compute, "Compute", 1, topLeftLocation, topLeftSize);
 		
-		Container construct = new Construct(topLeftLocation.plus(Constants.TABHEADER_SIZE), new Coord(400,400).minus(Constants.TABHEADER_SIZE));
+		Container construct = new Construct(topLeftLocation.plus(0, Constants.TABHEADER_SIZE.y), topLeftSize.minus(0, Constants.TABHEADER_SIZE.y*2), saved);
 		Tab constructTab = new Tab(construct, "Construct", 0, topLeftLocation, topLeftSize);
 		
 		Container sols = new Solution(rightLocation.plus(Constants.CONTAINER_TOP_LEFT), rightSize);
@@ -64,13 +64,6 @@ public class MainScreen implements Screen {
 		
 		_topLeftFrame = new Frame(topLeftLocation, topLeftSize, constructTab);
 		_topLeftFrame.addTab(computeTab);
-
-		Coord bottomLeftLocation = new Coord(topLeftLocation.x, topLeftLocation.y+topLeftSize.y+Constants.FRAME_Y_OFFSET);
-		Coord bottomLeftSize = topLeftSize;
-		System.out.println("bottomLeftLocation: " + bottomLeftLocation);
-		
-		Container saved = new Saved(bottomLeftLocation.plus(Constants.TABHEADER_SIZE), new Coord(400,400).minus(Constants.TABHEADER_SIZE));
-		Tab savedTab = new Tab(saved, "Saved", 0, bottomLeftLocation, bottomLeftSize);
 		
 		_bottomLeftFrame = new Frame(bottomLeftLocation, bottomLeftSize, savedTab);
 		_rightFrame = new Frame(rightLocation, rightSize, solsTab);
@@ -98,6 +91,13 @@ public class MainScreen implements Screen {
 	public void onDown(int keycode) {
 		if (keycode == 27) { //PRESSING ESC WILL BRING YOU TO DEBUGSCREEN
 			_application.setScreen(new DebugScreen(_application));
+		}
+		if(_focus != null){
+			if(_focus.equals(_bottomLeftFrame)){
+				_bottomLeftFrame.onDown(keycode);
+			} else if(_focus.equals(_topLeftFrame)){
+				_topLeftFrame.onDown(keycode);
+			}
 		}
 	}
 
@@ -145,11 +145,14 @@ public class MainScreen implements Screen {
 	 */
 	@Override
 	public void onMouseClicked(int clickCount, Coord location) {
+		_focus = null;
 		if (_topLeftFrame.Contains(location)) {
 			_topLeftFrame.onMouseClicked(clickCount, location);
+			_focus = _topLeftFrame;
 		}
-		if (_bottomLeftFrame.Contains(location)){
+		if (Algorithms.clickWithin(_bottomLeftFrame, location)){
 			_bottomLeftFrame.onMouseClicked(clickCount, location);
+			_focus = _bottomLeftFrame;
 		}
 	}
 
@@ -163,6 +166,9 @@ public class MainScreen implements Screen {
 
 	@Override
 	public void onMouseDragged(Coord location) {
+		if(Algorithms.clickWithin(_topLeftFrame, location)){
+			_topLeftFrame.onMouseDragged(location);
+		}
 	}
 
 	@Override
@@ -188,10 +194,16 @@ public class MainScreen implements Screen {
 
 	@Override
 	public void onDragStart(Coord location) {
+		if(Algorithms.clickWithin(_topLeftFrame, location)){
+			_topLeftFrame.onDragStart(location);
+		}
 	}
 
 	@Override
 	public void onDragEnd(Coord location) {
+		if(Algorithms.clickWithin(_topLeftFrame, location)){
+			_topLeftFrame.onDragEnd(location);
+		}
 	}
 
 }

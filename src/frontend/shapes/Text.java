@@ -100,6 +100,8 @@ public class Text {
 		double oy = cy - tl.getBounds().getY();		
 		tl.draw(g, (float)ox, (float)oy);
 	}
+	
+	
 
 	
 }
