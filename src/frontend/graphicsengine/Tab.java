@@ -71,7 +71,7 @@ public class Tab implements Displayable, Interactable {
 		if (rank == 0) {
 			_focus = true;
 		}
-		_header = new TabHeader(location.plus(_rank*Constants.TABHEADER_SIZE.x + Math.min(_rank,1)*-Constants.TABHEADER_OVERLAP,0), title, _focus);
+		_header = new TabHeader(location.plus(_rank*Constants.TABHEADER_SIZE.x + _rank*-Constants.TABHEADER_OVERLAP,0), title, _focus);
 		
 		setSize(size);
 		setLocation(location);
@@ -121,7 +121,7 @@ public class Tab implements Displayable, Interactable {
 	public void setLocation(Coord c) {
 		_location = c;
 		_background.setLocation(c.plus(0,Constants.TABHEADER_SIZE.y));
-		_header.setLocation(c.plus(_rank*Constants.TABHEADER_SIZE.x + Math.min(_rank,1)*-Constants.TABHEADER_OVERLAP,0));
+		_header.setLocation(c.plus(_rank*Constants.TABHEADER_SIZE.x + _rank*-Constants.TABHEADER_OVERLAP,0));
 		_container.setLocation(c.plus(0,Constants.TABHEADER_SIZE.y));
 	}
 	
