@@ -45,10 +45,10 @@ public class SS_PlusMinus extends Computable {
 		
 		Double answer;
 		if (isPlus){
-			_operatorStep = a.getDisplayValue() + " + " + b.getDisplayValue();
+			_operatorStep = a.getDisplayValue() + " \\ + \\ " + b.getDisplayValue();
 			answer = aVal + bVal;
 		}else{
-			_operatorStep = a.getDisplayValue() + " - " + b.getDisplayValue();
+			_operatorStep = a.getDisplayValue() + " \\ - \\ " + b.getDisplayValue();
 			answer = aVal - bVal;
 		}
 		
@@ -75,12 +75,16 @@ public class SS_PlusMinus extends Computable {
 
 
 	@Override
+	/**
+	 * One Step:
+	 * - equation and answer
+	 */
 	public List<String> toLatex() {
 		List<String> toReturn = new ArrayList<>();
 		StringBuilder b = new StringBuilder();
 		b.append("$");
 		b.append(_operatorStep);
-		b.append(" = ");
+		b.append(" \\ = \\ ");
 		b.append(((Scalar)_solution.getAnswer()).getDisplayValue());
 		b.append("$");
 		toReturn.add(b.toString());
