@@ -1,6 +1,4 @@
-/**
- * 
- */
+
 package backend.computations.operations;
 
 import static org.junit.Assert.assertTrue;
@@ -48,7 +46,17 @@ public class MM_MultiplyTest {
 		assertTrue(step1.getCountable() instanceof Matrix);
 		Matrix step1Matrix = (Matrix) step1.getCountable();
 		String[][] indexSteps = step1Matrix.getCustomDisplayValues();
-		assertTrue(indexSteps[0][0].equals("(3.0 * 2.0)"));
+		assertTrue(indexSteps[0][0].equals("(3.0 \\ * \\ 2.0) \\ = \\ 6.0"));
+		
+		// use this to check LaTeX (copy and paste into LaTeX compiler)
+//		List<String> latex = testMult.toLatex();
+//		int counter = 0;
+//		for (String s : latex){
+//			System.out.println("======== List item: "+counter+ "========");
+//			counter++;
+//			System.out.println(s + "\n");
+//		}
+//		System.out.println();
 	}
 	
 	
@@ -69,8 +77,17 @@ public class MM_MultiplyTest {
 		assertTrue(step1.getCountable() instanceof Matrix);
 		Matrix step1Matrix = (Matrix) step1.getCountable();
 		String[][] indexSteps = step1Matrix.getCustomDisplayValues();
-		assertTrue(indexSteps[0][0].equals("(1.0 * 2.0) + (4.0 * 5.0) + (6.0 * 7.0)"));
-		assertTrue(indexSteps[1][0].equals("(1.0 * 3.0) + (4.0 * 8.0) + (6.0 * 9.0)"));
+		assertTrue(indexSteps[0][0].equals("(1.0 \\ * \\ 2.0) \\ + \\ (4.0 \\ * \\ 5.0) \\ + \\ (6.0 \\ * \\ 7.0) \\ = \\ 64.0"));
+		assertTrue(indexSteps[1][0].equals("(1.0 \\ * \\ 3.0) \\ + \\ (4.0 \\ * \\ 8.0) \\ + \\ (6.0 \\ * \\ 9.0) \\ = \\ 89.0"));
+		
+		// use this to check LaTeX (copy and paste into LaTeX compiler)
+//		List<String> latex = testMult.toLatex();
+//		int counter = 0;
+//		for (String s : latex){
+//			System.out.println("======== List item: "+counter+ "========");
+//			counter++;
+//			System.out.println(s+ "\n");
+//		}
 	}
 	
 	
@@ -113,8 +130,9 @@ public class MM_MultiplyTest {
 		assertTrue(step1.getCountable() instanceof Matrix);
 		Matrix step1Matrix = (Matrix) step1.getCountable();
 		String[][] indexSteps = step1Matrix.getCustomDisplayValues();
-		assertTrue(indexSteps[0][0].equals("(1 * 2) + (4 * 5) + (6 * 7)"));
-		assertTrue(indexSteps[1][0].equals("(1 * 3) + (4 * 8) + (6 * 9)"));
+
+		assertTrue(indexSteps[0][0].equals("(1 \\ * \\ 2) \\ + \\ (4 \\ * \\ 5) \\ + \\ (6 \\ * \\ 7) \\ = \\ 64"));
+		assertTrue(indexSteps[1][0].equals("(1 \\ * \\ 3) \\ + \\ (4 \\ * \\ 8) \\ + \\ (6 \\ * \\ 9) \\ = \\ 89"));
 	}
 	
 	
@@ -139,12 +157,21 @@ public class MM_MultiplyTest {
 		assertTrue(step1.getCountable() instanceof Matrix);
 		Matrix step1Matrix = (Matrix) step1.getCountable();
 		String[][] indexSteps = step1Matrix.getCustomDisplayValues();
-		assertTrue(indexSteps[0][0].equals("(6.0 * 7.0) + (3.0 * 6.0) + (0.0 * 5.0)"));
-		assertTrue(indexSteps[0][1].equals("(2.0 * 7.0) + (5.0 * 6.0) + (1.0 * 5.0)"));
-		assertTrue(indexSteps[0][2].equals("(9.0 * 7.0) + (8.0 * 6.0) + (6.0 * 5.0)"));
-		assertTrue(indexSteps[1][0].equals("(6.0 * 4.0) + (3.0 * 7.0) + (0.0 * 0.0)"));
-		assertTrue(indexSteps[1][1].equals("(2.0 * 4.0) + (5.0 * 7.0) + (1.0 * 0.0)"));
-		assertTrue(indexSteps[1][2].equals("(9.0 * 4.0) + (8.0 * 7.0) + (6.0 * 0.0)"));
+		assertTrue(indexSteps[0][0].equals("(6.0 \\ * \\ 7.0) \\ + \\ (3.0 \\ * \\ 6.0) \\ + \\ (0.0 \\ * \\ 5.0) \\ = \\ 60.0"));
+		assertTrue(indexSteps[0][1].equals("(2.0 \\ * \\ 7.0) \\ + \\ (5.0 \\ * \\ 6.0) \\ + \\ (1.0 \\ * \\ 5.0) \\ = \\ 49.0"));
+		assertTrue(indexSteps[0][2].equals("(9.0 \\ * \\ 7.0) \\ + \\ (8.0 \\ * \\ 6.0) \\ + \\ (6.0 \\ * \\ 5.0) \\ = \\ 141.0"));
+		assertTrue(indexSteps[1][0].equals("(6.0 \\ * \\ 4.0) \\ + \\ (3.0 \\ * \\ 7.0) \\ + \\ (0.0 \\ * \\ 0.0) \\ = \\ 45.0"));
+		assertTrue(indexSteps[1][1].equals("(2.0 \\ * \\ 4.0) \\ + \\ (5.0 \\ * \\ 7.0) \\ + \\ (1.0 \\ * \\ 0.0) \\ = \\ 43.0"));
+		assertTrue(indexSteps[1][2].equals("(9.0 \\ * \\ 4.0) \\ + \\ (8.0 \\ * \\ 7.0) \\ + \\ (6.0 \\ * \\ 0.0) \\ = \\ 92.0"));
+		
+		// use this to check LaTeX (copy and paste into LaTeX compiler)
+//		List<String> latex = testMult.toLatex();
+//		int counter = 0;
+//		for (String s : latex){
+//			System.out.println("======== List item: "+counter+ "========");
+//			counter++;
+//			System.out.println(s+ "\n");
+//		}
 	}
 
 }

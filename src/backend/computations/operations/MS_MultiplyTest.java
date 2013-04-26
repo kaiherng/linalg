@@ -40,10 +40,21 @@ public class MS_MultiplyTest {
 		assertTrue(((Matrix) sol.getAnswer()).getValues()[1][1] == 8);
 		Step multStep = l.get(0);
 		assertTrue(multStep.getCountable() instanceof Matrix);
-		"1.0 * 2.0".equals(((Matrix) multStep.getCountable()).getCustomDisplayValues()[0][0]);
-		"2.0 * 2.0".equals(((Matrix) multStep.getCountable()).getCustomDisplayValues()[0][1]);
-		"3.0 * 2.0".equals(((Matrix) multStep.getCountable()).getCustomDisplayValues()[1][0]);
-		"4.0 * 2.0".equals(((Matrix) multStep.getCountable()).getCustomDisplayValues()[1][1]);
+		"$1.0 \\ * \\ 2.0$".equals(((Matrix) multStep.getCountable()).getCustomDisplayValues()[0][0]);
+		"$2.0 \\ * \\ 2.0$".equals(((Matrix) multStep.getCountable()).getCustomDisplayValues()[0][1]);
+		"$3.0 \\ * \\ 2.0$".equals(((Matrix) multStep.getCountable()).getCustomDisplayValues()[1][0]);
+		"$4.0 \\ * \\ 2.0$".equals(((Matrix) multStep.getCountable()).getCustomDisplayValues()[1][1]);
+		
+		// use this to check LaTeX (copy and paste into LaTeX compiler)
+//		List<String> latex = msm.toLatex();
+//		int counter = 0;
+//		for (String s : latex){
+//			System.out.println("======== List item: "+counter+ "========");
+//			counter++;
+//			System.out.println(s + "\n");
+//		}
+//		System.out.println();
+		
 	}
 	
 	@Test // tests that the same multiplication works if the argument order is switched
@@ -58,10 +69,20 @@ public class MS_MultiplyTest {
 		assertTrue(((Matrix) sol.getAnswer()).getValues()[1][1] == 8);
 		Step multStep = l.get(0);
 		assertTrue(multStep.getCountable() instanceof Matrix);
-		"1.0 * 2.0".equals(((Matrix) multStep.getCountable()).getCustomDisplayValues()[0][0]);
-		"2.0 * 2.0".equals(((Matrix) multStep.getCountable()).getCustomDisplayValues()[0][1]);
-		"3.0 * 2.0".equals(((Matrix) multStep.getCountable()).getCustomDisplayValues()[1][0]);
-		"4.0 * 2.0".equals(((Matrix) multStep.getCountable()).getCustomDisplayValues()[1][1]);
+		"$1.0 \\ * \\ 2.0$".equals(((Matrix) multStep.getCountable()).getCustomDisplayValues()[0][0]);
+		"$2.0 \\ * \\ 2.0$".equals(((Matrix) multStep.getCountable()).getCustomDisplayValues()[0][1]);
+		"$3.0 \\ * \\ 2.0$".equals(((Matrix) multStep.getCountable()).getCustomDisplayValues()[1][0]);
+		"$4.0 \\ * \\ 2.0$".equals(((Matrix) multStep.getCountable()).getCustomDisplayValues()[1][1]);
+		
+		// use this to check LaTeX (copy and paste into LaTeX compiler)
+//		List<String> latex = msm.toLatex();
+//		int counter = 0;
+//		for (String s : latex){
+//			System.out.println("======== List item: "+counter+ "========");
+//			counter++;
+//			System.out.println(s + "\n");
+//		}
+//		System.out.println();
 	}
 	
 	@Test // tests multiplication with whole numbers
@@ -76,10 +97,20 @@ public class MS_MultiplyTest {
 		assertTrue(((Matrix) sol.getAnswer()).getValues()[1][1] == 8);
 		Step multStep = l.get(0);
 		assertTrue(multStep.getCountable() instanceof Matrix);
-		"1 * 2".equals(((Matrix) multStep.getCountable()).getCustomDisplayValues()[0][0]);
-		"2 * 2".equals(((Matrix) multStep.getCountable()).getCustomDisplayValues()[0][1]);
-		"3 * 2".equals(((Matrix) multStep.getCountable()).getCustomDisplayValues()[1][0]);
-		"4 * 2".equals(((Matrix) multStep.getCountable()).getCustomDisplayValues()[1][1]);
+		"$1 \\ * \\ 2$".equals(((Matrix) multStep.getCountable()).getCustomDisplayValues()[0][0]);
+		"$2 \\ * \\ 2$".equals(((Matrix) multStep.getCountable()).getCustomDisplayValues()[0][1]);
+		"$3 \\ * \\ 2$".equals(((Matrix) multStep.getCountable()).getCustomDisplayValues()[1][0]);
+		"$4 \\ * \\ 2$".equals(((Matrix) multStep.getCountable()).getCustomDisplayValues()[1][1]);
+		
+		// use this to check LaTeX (copy and paste into LaTeX compiler)
+//		List<String> latex = msm.toLatex();
+//		int counter = 0;
+//		for (String s : latex){
+//			System.out.println("======== List item: "+counter+ "========");
+//			counter++;
+//			System.out.println(s + "\n");
+//		}
+//		System.out.println();
 	}
 	
 	@Test // test a matrix with a null entry

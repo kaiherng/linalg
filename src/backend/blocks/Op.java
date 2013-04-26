@@ -21,7 +21,8 @@ public enum Op {
 	M_POWER(0,true,"M-POWER"),
 	M_RANK(0,true,"M-RANK"),
 	M_TRANSPOSE(0,true,"M-TRANSPOSE"),
-	NULLSPACE(0,true,"NULL-SPACE");
+	NULLSPACE(0,true,"NULL-SPACE"), 
+	S_POWER(0,true,"S-POWER");
 	
 	// do not give rank below zero
 	

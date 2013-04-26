@@ -6,6 +6,8 @@ package backend.computations.operations;
 import java.util.ArrayList;
 import java.util.List;
 
+import matrixDraw.MatrixDraw;
+
 import backend.blocks.Countable;
 import backend.blocks.Countable.DisplayType;
 import backend.blocks.Matrix;
@@ -21,6 +23,9 @@ import backend.computations.infrastructure.Step;
  */
 public class MM_Multiply extends Computable {
 	private Solution _solution;
+	private Matrix _matrixA, _matrixB,_step1Matrix;
+	private DisplayType _displayType;
+	
 	
 	/* (non-Javadoc)
 	 * @see backend.operations.Computable#getSolution()
@@ -38,13 +43,16 @@ public class MM_Multiply extends Computable {
 	 * @param matrixB the second factor
 	 */
 	public MM_Multiply(Matrix matrixA, Matrix matrixB){
+		_matrixA = matrixA;
+		_matrixB = matrixB;
 		List<Countable> inputs = new ArrayList<>();
 		inputs.add(matrixA);
 		inputs.add(matrixB);
 		DisplayType answerDisplayType = resolveDisplayType(inputs);
+		_displayType = answerDisplayType;
 		
-		matrixA.setDisplayType(answerDisplayType);
-		matrixB.setDisplayType(answerDisplayType);
+		_matrixA.setDisplayType(answerDisplayType);
+		_matrixB.setDisplayType(answerDisplayType);
 		
 		Double[][] aValues = matrixA.getValues();
 		Double[][] bValues = matrixB.getValues();
@@ -69,18 +77,19 @@ public class MM_Multiply extends Computable {
 						throw new IllegalArgumentException("ERROR: Matrix should not contain null indices");
 					}
 					res += aValues[i][row] * bValues[col][i];
-					expanded += "("+aDisplay[i][row]+" * "+bDisplay[col][i]+") + ";
+					expanded += "("+aDisplay[i][row]+" \\ * \\ "+bDisplay[col][i]+") \\ + \\ ";
 				}
-				expanded = expanded.substring(0,expanded.length()-3);
+				expanded = expanded.substring(0,expanded.length()-7);
+				expanded += " \\ = \\ "+getDisplayValue(res,answerDisplayType);
 				result[col][row] = res; 
 				multStep[col][row] = expanded;
 			}
 		}
 		
 		// first step shows computation at each index
-		Matrix step1Matrix = new Matrix(DisplayType.CUSTOM, result);
-		step1Matrix.setCustomDisplay(multStep);
-		Step step1 = new Step(step1Matrix);
+		_step1Matrix = new Matrix(DisplayType.CUSTOM, result);
+		_step1Matrix.setCustomDisplay(multStep);
+		Step step1 = new Step(_step1Matrix);
 		
 		// second step shows the resulting matrix product
 		Matrix step2Matrix = new Matrix(answerDisplayType,result);
@@ -97,9 +106,39 @@ public class MM_Multiply extends Computable {
 
 
 	@Override
+	/**
+	 * Three steps:
+	 * - "m1 + m2"
+	 * - a list of 
+	 * - the answer matrix
+	 */
 	public List<String> toLatex() {
-		// TODO Auto-generated method stub
-		return null;
+		List<String> toReturn = new ArrayList<>();
+		MatrixDraw m1 = new MatrixDraw(_matrixA);
+		MatrixDraw m2 = new MatrixDraw(_matrixB);
+		StringBuilder b = new StringBuilder();
+		String m1String = m1.getCorrectLatex(_displayType);
+		String m2String = m2.getCorrectLatex(_displayType);
+		b.append(m1String);
+		b.append(" $\\times$ ");
+		b.append(m2String);
+		toReturn.add(b.toString());
+		b.delete(0, b.length());
+		
+		// make list of equations for each index
+		b.append("\\begin{itemize} \n");
+		String[][] customEntries = _step1Matrix.getCustomDisplayValues();
+		for (int i = 0; i < customEntries.length; i++){
+			for (int j = 0; j < customEntries[0].length; j++){
+				b.append("\\item $"+customEntries[i][j]+"$ \\\\ \n");
+			}
+		}
+		b.append("\\end{itemize}");
+		toReturn.add(b.toString());
+		
+		MatrixDraw m3 = new MatrixDraw(_step1Matrix);
+		toReturn.add(m3.getCorrectLatex(_displayType));
+		return toReturn;
 	}
 }
 
