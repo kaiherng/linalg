@@ -42,6 +42,9 @@ public class MM_PlusMinus extends Computable {
 	 * @param isPlus true iff this is a plus operation. false iff this is a minus operation
 	 */
 	public MM_PlusMinus(Matrix matrixA, Matrix matrixB, boolean isPlus) throws IllegalArgumentException {
+		_matrix1 = matrixA;
+		_matrix2 = matrixB;
+		
 		List<Countable> matrixList = new ArrayList<>();
 		matrixList.add(matrixA);
 		matrixList.add(matrixB);
@@ -67,10 +70,10 @@ public class MM_PlusMinus extends Computable {
 				}
 				if (isPlus){
 					result[i][j] = aValues[i][j] + bValues[i][j];
-					additionStep[i][j] = getDisplayValue(aValues[i][j],answerDisplayType)+"$\\+\\$"+getDisplayValue(bValues[i][j],answerDisplayType);
+					additionStep[i][j] = "$"+getDisplayValue(aValues[i][j],answerDisplayType)+" \\ + \\ "+getDisplayValue(bValues[i][j],answerDisplayType) + "$";
 				}else{
 					result[i][j] = aValues[i][j] - bValues[i][j];
-					additionStep[i][j] = getDisplayValue(aValues[i][j],answerDisplayType)+"$\\-\\$"+getDisplayValue(bValues[i][j],answerDisplayType);
+					additionStep[i][j] = "$" +getDisplayValue(aValues[i][j],answerDisplayType)+" \\ - \\ "+getDisplayValue(bValues[i][j],answerDisplayType) + "$";
 				}
 			}
 		}

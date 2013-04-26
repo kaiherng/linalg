@@ -6,6 +6,7 @@ package backend.computations.operations;
 import java.util.ArrayList;
 import java.util.List;
 
+import matrixDraw.MatrixDraw;
 import backend.blocks.Countable;
 import backend.blocks.Countable.DisplayType;
 import backend.blocks.Matrix;
@@ -21,6 +22,12 @@ import backend.computations.infrastructure.Step;
  */
 public class MS_Multiply extends Computable {
 	private Solution _solution;
+	private Scalar _scalarArg;
+	private Matrix _matrixArg;
+	private boolean _scalarFirst = false;
+	private DisplayType _displayType;
+	private Matrix _answer;
+	
 	
 	/* (non-Javadoc)
 	 * @see backend.operations.Computable#getSolution()
@@ -47,6 +54,7 @@ public class MS_Multiply extends Computable {
 	 * @param matrix the matrix to multiply
 	 */
 	public MS_Multiply(Scalar scalar, Matrix matrix){
+		_scalarFirst = true;
 		generateSolution(matrix,scalar);
 	}
 
@@ -57,10 +65,16 @@ public class MS_Multiply extends Computable {
 	 * @param scalar the scalar to multiply by
 	 */
 	private void generateSolution(Matrix matrix, Scalar scalar){
+		_scalarArg = scalar;
+		_matrixArg = matrix;
 		List<Countable> argList = new ArrayList<>();
 		argList.add(matrix);
 		argList.add(scalar);
 		DisplayType answerDisplayType = resolveDisplayType(argList);
+		
+		_displayType = answerDisplayType;
+		_scalarArg.setDisplayType(answerDisplayType);
+		_matrixArg.setDisplayType(answerDisplayType);
 		
 		Double[][] matrixVals = matrix.getValues();
 		Double scalarVal = scalar.getValue();
@@ -73,13 +87,14 @@ public class MS_Multiply extends Computable {
 					throw new IllegalArgumentException("ERROR: Each matrix index must contain a non-null entry");
 				}
 				result[i][j] = matrixVals[i][j] * scalarVal;
-				multiplicationStep[i][j] = matrixVals[i][j]+" * "+scalarVal;
+				multiplicationStep[i][j] = "$"+getDisplayValue(matrixVals[i][j],_displayType)+" \\ * \\ "+getDisplayValue(scalarVal,_displayType)+"$";
 			}
 		}
 		
 		Matrix step1Matrix = new Matrix(DisplayType.CUSTOM, result);
 		step1Matrix.setCustomDisplay(multiplicationStep);
 		Step step1 = new Step(step1Matrix);
+		_answer = step1Matrix;
 		
 		Matrix step2Matrix = new Matrix(answerDisplayType, result);
 		Step step2 = new Step(step2Matrix);
@@ -87,6 +102,7 @@ public class MS_Multiply extends Computable {
 		List<Step> steps = new ArrayList<>();
 		steps.add(step1);
 		steps.add(step2);
+		
 		
 		List<Countable> inputs = new ArrayList<>();
 		inputs.add(matrix);
@@ -96,9 +112,30 @@ public class MS_Multiply extends Computable {
 
 
 	@Override
+	/**
+	 * Steps:
+	 * - s1 * m1
+	 * - answer matrix with computation at each index
+	 * - answer matrix
+	 */
 	public List<String> toLatex() {
-		// TODO Auto-generated method stub
-		return null;
+		List<String> toReturn = new ArrayList<>();
+		MatrixDraw m1 = new MatrixDraw(_matrixArg);
+		StringBuilder b = new StringBuilder();
+		if (_scalarFirst){
+			b.append(_scalarArg.getDisplayValue());
+			b.append(" $+$ ");
+			b.append(m1.getCorrectLatex(_displayType));
+		}else{
+			b.append(_scalarArg.getDisplayValue());
+			b.append(" $+$ ");
+			b.append(m1.getCorrectLatex(_displayType));
+		}
+		toReturn.add(b.toString());
+		MatrixDraw answer = new MatrixDraw(_answer);
+		toReturn.add(answer.getCorrectLatex(DisplayType.CUSTOM));
+		toReturn.add(answer.getCorrectLatex(_displayType));
+		return toReturn;
 	}
 	
 }
