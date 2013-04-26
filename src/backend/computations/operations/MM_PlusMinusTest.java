@@ -41,6 +41,16 @@ public class MM_PlusMinusTest {
 		assertTrue(addStep.getCustomDisplayValues()[1][0].equals("1.0 + 3.0"));
 		assertTrue(addStep.getCustomDisplayValues()[1][1].equals("2.0 + 4.0"));
 		
+		// use this to check LaTeX (copy and paste into LaTeX compiler)
+		List<String> latex = test.toLatex();
+		int counter = 0;
+		for (String s : latex){
+			System.out.println("======== List item: "+counter+ "========");
+			counter++;
+			System.out.println(s + "\n");
+		}
+		System.out.println();
+		
 	}
 	
 	@Test
