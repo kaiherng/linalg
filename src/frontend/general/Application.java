@@ -101,6 +101,16 @@ public class Application extends WorkingFrontEnd {
 	protected void onMouseMoved(MouseEvent e) {
 		_currentScreen.onMouseMoved(new Coord(e.getX(), e.getY()));
 	}
+	
+	@Override
+	protected void onMouseWheelMoved(MouseWheelEvent e, Coord location) {
+		if (e.getUnitsToScroll() < 0) {
+			_currentScreen.onMouseWheelBackward(location);
+		}
+		if (e.getUnitsToScroll() > 0) {
+			_currentScreen.onMouseWheelForward(location);
+		}
+	}
 
 
 	@Override

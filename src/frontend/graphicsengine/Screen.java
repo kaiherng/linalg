@@ -54,9 +54,9 @@ public interface Screen {
 	
 	public void onMouseMoved(Coord location);
 	
-	public void onMouseWheelForward();
+	public void onMouseWheelForward(Coord location);
 	
-	public void onMouseWheelBackward();
+	public void onMouseWheelBackward(Coord location);
 	
 	public void onDragStart(Coord location);
 	

@@ -2,15 +2,15 @@ package frontend.shapes;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
-import java.awt.Point;
+import java.awt.geom.Path2D;
 
 public class FourSidedPolygon extends GenericShape {
 	
-	private java.awt.Polygon _polygon;
 	private Coord _topLeftOffset;
 	private Coord _topRightOffset;
 	private Coord _bottomLeftOffset;
 	private Coord _bottomRightOffset;
+	private Coord[] _coords = new Coord[4];
 
 	public FourSidedPolygon(Coord location, Coord size, Color fillColor, Coord topLeftOffset, Coord topRightOffset, Coord bottomLeftOffset, Coord bottomRightOffset) {
 		super(location, size, fillColor);
@@ -41,39 +41,44 @@ public class FourSidedPolygon extends GenericShape {
 	}
 	
 	public boolean containsPoint(Coord c) {
-		return _polygon.contains(new Point(c.x, c.y));
+		for (int i=0; i<4; i++) {
+			Coord start = _coords[i];
+			Coord end = _coords[(i+1)%4];
+			Coord edgeVector = end.minus(start);
+			Coord pointVector = c.minus(start);
+			double crossProduct = edgeVector.cross(pointVector);
+			if (crossProduct < 0) {
+				return false;
+			}
+		}
+		return true;
 	}
 	
 	private void adjustPolygon() {
-		int[] xpoints = new int[4];
-		int[] ypoints = new int[4];
-		
-		xpoints[0] = getLocation().x + _topLeftOffset.x;
-		ypoints[0] = getLocation().y + _topLeftOffset.y;
-		
-		xpoints[1] = getLocation().x + getSize().x - + _topRightOffset.x;
-		ypoints[1] = getLocation().y + _topRightOffset.y;
-		
-		xpoints[2] = getLocation().x + getSize().x + _bottomRightOffset.x;
-		ypoints[2] = getLocation().y + getSize().y + _bottomRightOffset.y;
-		
-		xpoints[3] = getLocation().x + _bottomLeftOffset.x;
-		ypoints[3] = getLocation().y + getSize().y + _bottomLeftOffset.x;
-		
-		_polygon = new java.awt.Polygon(xpoints, ypoints, 4);
+		_coords[0] = getLocation().plus(_topLeftOffset);
+		_coords[1] = getLocation().plus(new Coord(getSize().x,0)).minus(_topRightOffset);
+		_coords[2] = getLocation().plus(getSize()).minus(_bottomRightOffset);
+		_coords[3] = getLocation().plus(new Coord(0, getSize().y)).plus(_bottomLeftOffset);
 	}
-
+	
 	@Override
 	public void onDraw(Graphics2D g) {
 		java.awt.Color savedColor = g.getColor();
 		java.awt.Stroke savedStroke = g.getStroke();
 		g.setColor(getFillColor());
-		g.fill(_polygon);
+		
+		Path2D.Double path = new Path2D.Double();
+		path.moveTo(_coords[0].x,_coords[0].y);
+		path.lineTo(_coords[1].x,_coords[1].y);
+		path.lineTo(_coords[2].x,_coords[2].y);
+		path.lineTo(_coords[3].x,_coords[3].y);
+		path.lineTo(_coords[0].x,_coords[0].y);
+		g.fill(path);
 		g.setColor(savedColor);
 		g.setStroke(new java.awt.BasicStroke(getStrokeWidth()));
 		if (getStrokeWidth() != 0) {
-			g.setColor(getFillColor());
-			g.draw(_polygon);
+			g.setColor(getBorderColor());
+			g.draw(path);
 			g.setColor(savedColor);
 			g.setStroke(savedStroke);
 		}

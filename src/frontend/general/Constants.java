@@ -18,7 +18,7 @@ public class Constants {
 	
 	public static final Color SCREEN_BG_COLOR = new Color(0x6B90D4);
 	
-	public static final Color FRAME_BG_COLOR = new Color(0x6B90D4); 
+	public static final Color FRAME_BG_COLOR = Color.BLACK; //new Color(0,0,0,0); //transparent
 	
 	public static final Color TAB_MAINBG_COLOR = new Color(0xE4E7F2);
 	public static final Color TABMAIN_BORDER_COLOR = new Color(0x052A6E);
@@ -26,12 +26,15 @@ public class Constants {
 	public static final Color TABHEADER_TEXT_ACTIVE_COLOR = Color.WHITE;
 	public static final Color TAB_HEADERBG_INACTIVE_COLOR = new Color(0x29477F);	
 	public static final Color TABHEADER_TEXT_INACTIVE_COLOR = new Color(0x95A1C9);
-	public static final Color TABHEADER_BORDER_COLOR = Color.BLACK;
+	public static final Color TABHEADER_BORDER_COLOR = new Color(0x052A6E);
 	
 	public static final Color COMPUTE_OPS_FILL_COLOR = new Color(0x42538A);
 	public static final Color COMPUTE_OPS_BORDER_COLOR = Color.WHITE;
 	public static final Color COMPUTE_OPS_TEXT_COLOR = Color.WHITE;
+	public static final Color COMPUTE_SCROLL_FILL_COLOR = Color.BLACK;
+	public static final Color COMPUTE_SCROLL_BORDER_COLOR = Color.white;
 	
+	public static final Color CONSTRUCT_INSTRUCTIONS_TEXT_COLOR = new Color(0x42538A);
 	
 	/** FRAMES **/
 	public static final int FRAME_X_OFFSET = 20; //offset from the topleft corner
@@ -60,5 +63,12 @@ public class Constants {
 	public static final int COMPUTE_OPS_TEXT_SIZE = 12;
 	public static final String COMPUTE_OPS_TEXT_STYLE = "bold";
 	public static final int COMPUTE_OPS_BORDER_WIDTH = 5;
+	
+	public static final int COMPUTE_SCROLL_BORDER_WIDTH = 2;
+	
+	/** CONSTRUCT **/
+	public static final int CONSTRUCT_INSTRUCTIONS_TEXT_SIZE = 12;
+	public static final String CONSTRUCT_INSTRUCTIONS_TEXT_STYLE = "bold";
+	public static final Coord CONSTRUCT_INSTRUCTIONS_TEXT_OFFSET = new Coord(10,10);
 	
 }

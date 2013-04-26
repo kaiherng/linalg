@@ -95,7 +95,7 @@ public class Frame implements Displayable, Interactable {
 		_size = c;
 		_background.setSize(c);
 		for (int i=0; i<_tabs.size(); i++) {
-			_tabs.get(i).setSize(_size.minus(new Coord(Constants.TAB_LEFT_OFFSET+Constants.TAB_RIGHT_OFFSET, Constants.TAB_TOP_OFFSET+Constants.TAB_BOTTOM_OFFSET)));
+			_tabs.get(i).setSize(c);
 		}
 	}
 
@@ -115,7 +115,7 @@ public class Frame implements Displayable, Interactable {
 		_background.setLocation(c);
 		for (int i=0; i<_tabs.size(); i++) {
 			Tab t = _tabs.get(i);
-			t.setLocation(c.plus(Constants.TAB_LEFT_OFFSET, Constants.TAB_TOP_OFFSET));
+			t.setLocation(c);
 		}
 	}
 
@@ -127,14 +127,20 @@ public class Frame implements Displayable, Interactable {
 	
 	@Override
 	public void onMouseClicked(int clickCount, Coord location) {
-		for (int i=0; i<_tabs.size(); i++) {
+		if (_currTab.headerContainsPoint(location)) { //if we clicked on the current header, do nothing
+			System.out.println("we clicked in the current header");
+			return;
+		}
+		for (int i=0; i<_tabs.size(); i++) { //otherwise, iterate through all the headers from left to right seeing which was clicked
 			Tab t = _tabs.get(i);
 			if (t.headerContainsPoint(location)) {
+				System.out.println("we clicked on tab: " + i);
 				switchTab(t);
 				return;
 			}
 		}
-		_currTab.onMouseClicked(clickCount, location);		
+		System.out.println("we clicked on main tab body");
+		_currTab.onMouseClicked(clickCount, location); //otherwise, we must've clicked within the tab main body itself, not the header
 	}
 
 }

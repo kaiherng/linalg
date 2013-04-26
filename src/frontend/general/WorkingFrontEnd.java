@@ -3,7 +3,8 @@ package frontend.general;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.Point;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
 import java.awt.event.KeyEvent;
@@ -11,30 +12,27 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.awt.event.MouseWheelEvent;
+import java.awt.event.MouseWheelListener;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.border.LineBorder;
+import javax.swing.Timer;
 
 import frontend.shapes.Coord;
 
 /**
- * Adapted with modifications and improvements from http://www.coderanch.com/t/415944/GUI/java/user-ve-undecorated-window-resizable
  * @author kloh
- *
+ * A lightweight Front End till NonWorkingFrontEnd proves up to task...
  */
 @SuppressWarnings("serial")
-public abstract class WorkingFrontEnd extends JFrame implements MouseMotionListener, MouseListener, KeyListener {
+public abstract class WorkingFrontEnd extends JFrame {
 	
     private DrawingPanel _drawingPanel;
     
     public WorkingFrontEnd(Dimension initialDimension, Dimension minDimension) {      
     	
     	super("Linear Algebra Calculator");
-        addMouseMotionListener(this);   
-        addMouseListener(this);      
-        addKeyListener(this);
-        
     	setMinimumSize(minDimension);
     	setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     	setSize(initialDimension);    
@@ -62,67 +60,27 @@ public abstract class WorkingFrontEnd extends JFrame implements MouseMotionListe
 	protected abstract void onMouseDragged(MouseEvent e);
 
 	protected abstract void onMouseMoved(MouseEvent e);
+	
+	protected abstract void onMouseWheelMoved(MouseWheelEvent e, Coord location);
 
 	protected abstract void onResize(Coord newSize);
-
-	public static Point getScreenLocation(MouseEvent e, JFrame frame) {
-		Point cursor = e.getPoint();
-        Point view_location = frame.getLocationOnScreen();
-        return new Point((int) (view_location.getX() + cursor.getX()), (int) (view_location.getY() + cursor.getY()));
-	}
-    
-    @Override     
-    public void mouseDragged(MouseEvent e){      
-        _drawingPanel.mouseDragged(e);
-    }      
-     
-    @Override     
-    public void mouseMoved(MouseEvent e) {      
-		_drawingPanel.mouseMoved(e);
-    }        
-          
-    @Override     
-    public void mouseClicked(MouseEvent e) {    
-    	_drawingPanel.mouseClicked(e);
-    }     
-
-       
-    @Override     
-    public void mousePressed(MouseEvent e) {      
-    	_drawingPanel.mousePressed(e);
-    }      
-          
-    @Override     
-    public void mouseEntered(MouseEvent e) {}      
-     
-    @Override     
-    public void mouseExited(MouseEvent e) {}      
-          
-    @Override     
-    public void mouseReleased(MouseEvent e) {
-    	_drawingPanel.mouseReleased(e);
-    }  
-    
-	@Override
-	public void keyTyped(KeyEvent e) {
-		onKeyTyped(e);
-	}
-
-	@Override
-	public void keyPressed(KeyEvent e) {
-		onKeyPressed(e);
-	}
-
-	@Override
-	public void keyReleased(KeyEvent e) {
-		onKeyReleased(e);
-	}
   
     
-    private class DrawingPanel extends JPanel implements ComponentListener {
+    private class DrawingPanel extends JPanel implements ComponentListener, MouseListener, MouseMotionListener, MouseWheelListener, KeyListener {
 
     	public DrawingPanel() {
     		addComponentListener(this);
+            addMouseMotionListener(this);   
+            addMouseWheelListener(this);
+            addMouseListener(this);      
+            addKeyListener(this);
+    		ActionListener taskPerformer = new ActionListener() {
+    			public void actionPerformed(ActionEvent evt) {
+    				repaint();
+    			}
+    		};
+    		
+    		new Timer(10, taskPerformer).start();
     	}
     	
     	@Override
@@ -177,6 +135,39 @@ public abstract class WorkingFrontEnd extends JFrame implements MouseMotionListe
     		onMouseReleased(e);
     		repaint();
     	}
+
+		@Override
+		public void keyTyped(KeyEvent e) {
+			System.out.println("key typed");
+			onKeyTyped(e);
+			repaint();
+		}
+
+		@Override
+		public void keyPressed(KeyEvent e) {
+			System.out.println("key pressed");
+			onKeyPressed(e);	
+			repaint();	
+		}
+
+		@Override
+		public void keyReleased(KeyEvent e) {
+			onKeyReleased(e);
+			repaint();
+		}
+
+		@Override
+		public void mouseEntered(MouseEvent e) {}
+
+		@Override
+		public void mouseExited(MouseEvent e) {}
+
+		@Override
+		public void mouseWheelMoved(MouseWheelEvent e) {
+			Coord location = new Coord(e.getX(),e.getY());
+			onMouseWheelMoved(e, location);
+			repaint();
+		}
 
 
     }

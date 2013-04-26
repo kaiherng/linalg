@@ -4,8 +4,7 @@ import java.awt.Graphics2D;
 
 import frontend.containers.Compute;
 import frontend.containers.Construct;
-import frontend.containers.Saved;
-import frontend.containers.Solution;
+import frontend.graphicsengine.Container;
 import frontend.graphicsengine.Frame;
 import frontend.graphicsengine.Screen;
 import frontend.graphicsengine.Tab;
@@ -35,16 +34,20 @@ public class MainScreen implements Screen {
 	public MainScreen(Application application) {
 		_application = application;
 		_background = new Rectangle(new Coord(0,0), new Coord(application.getSize()), Constants.SCREEN_BG_COLOR);
-		System.out.println("Press ESC for Debug Mode");
 		
 		Coord topLeftLocation = new Coord(Constants.FRAME_X_OFFSET,Constants.FRAME_Y_OFFSET);
 		Coord topLeftSize = new Coord((application.getSize().width - Constants.FRAME_X_OFFSET*3)/2,(application.getSize().height - Constants.FRAME_Y_OFFSET*3)/2);
 
-		Tab constructTab = new Tab(new Construct(), "Construct", 0, topLeftLocation, topLeftSize);
-		Tab computeTab = new Tab(new Compute(), "Compute", 1, topLeftLocation, topLeftSize);
+		Container compute = new Compute(topLeftLocation.plus(Constants.TABHEADER_SIZE), new Coord(400,400).minus(Constants.TABHEADER_SIZE));
+		Tab tab1 = new Tab(compute, "Compute", 1, topLeftLocation, topLeftSize);
 		
-		_topLeftFrame = new Frame(topLeftLocation, topLeftSize, constructTab);
-		_topLeftFrame.addTab(computeTab);
+		Container construct = new Construct(topLeftLocation.plus(Constants.TABHEADER_SIZE), new Coord(400,400).minus(Constants.TABHEADER_SIZE));
+		Tab tab2 = new Tab(construct, "Construct", 0, topLeftLocation, topLeftSize);
+		
+		_topLeftFrame = new Frame(topLeftLocation, topLeftSize, tab2);
+		_topLeftFrame.addTab(tab1);
+		
+		
 		
 //		Tab savedTab = new Tab(new Saved(), "Saved", 0);
 //		_bottomLeftFrame = new Frame(new Coord(0,0), new Coord(0,0), savedTab);
@@ -130,11 +133,11 @@ public class MainScreen implements Screen {
 	}
 
 	@Override
-	public void onMouseWheelForward() {
+	public void onMouseWheelForward(Coord location) {
 	}
 
 	@Override
-	public void onMouseWheelBackward() {
+	public void onMouseWheelBackward(Coord location) {
 	}
 
 	@Override

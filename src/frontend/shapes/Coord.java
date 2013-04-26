@@ -121,6 +121,18 @@ public final class Coord {
 		return new Coord(this.x - x, this.y - y);
 	}
 	
+	/**
+	 * Returns the two-dimensional cross product of this vector and {@code v}, 
+	 * which will be positive if the result is in the positive z-direction 
+	 * ("out of the plane") and negative if the result is in the negative z-
+	 * direction ("into the plane").
+	 * @param v		the vector with which to take the cross product
+	 * @return		the cross-product of this vector and {@code v}
+	 */
+	public final float cross(Coord v) {
+		return x*v.y - y*v.x;
+	}
+	
 	/*
 	 * Object overrides
 	 */

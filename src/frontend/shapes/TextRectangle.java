@@ -6,12 +6,14 @@ import java.awt.Font;
 import java.awt.font.FontRenderContext;
 import java.awt.font.TextLayout;
 
+import frontend.graphicsengine.Displayable;
+
 /**
  * Text centered in the middle of a rectangle
  * @author kloh
  *
  */
-public class TextRectangle {
+public class TextRectangle implements Displayable {
 	
 	private Text _text;
 	private Rectangle _rectangle;
@@ -48,19 +50,23 @@ public class TextRectangle {
 		return _text.getColor();
 	}
 	
+	@Override
 	public void setLocation(Coord location) {
 		_text.setLocation(location);
 		_rectangle.setLocation(location);
 	}
 	
+	@Override
 	public Coord getLocation() {
 		return _rectangle.getLocation();
 	}
 	
+	@Override
 	public void setSize(Coord size) {
 		_rectangle.setSize(size);
 	}
 	
+	@Override
 	public Coord getSize() {
 		return _rectangle.getSize();
 	}
