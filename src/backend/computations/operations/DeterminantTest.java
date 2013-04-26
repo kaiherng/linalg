@@ -1,6 +1,7 @@
 package backend.computations.operations;
 
 import backend.blocks.*;
+import backend.blocks.Countable.DisplayType;
 import static org.junit.Assert.*;
 import org.junit.*;
 
@@ -13,7 +14,7 @@ public class DeterminantTest
 	{
 		Double[][] v=new Double[1][1];
 		v[0][0]=new Double(5);
-		Matrix m=new Matrix(null,v);
+		Matrix m=new Matrix(DisplayType.DECIMAL,v);
 		try
 		{
 			Determinant d=new Determinant(m);
@@ -22,8 +23,9 @@ public class DeterminantTest
 		}
 		catch (Exception e)
 		{
-			assertTrue(false);
 			System.out.println(e.getMessage());
+			fail();
+
 		}
 	}
 
