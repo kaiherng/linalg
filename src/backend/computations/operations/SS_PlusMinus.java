@@ -1,6 +1,4 @@
-/**
- * TODO: Test this class
- */
+
 package backend.computations.operations;
 
 import java.util.ArrayList;
@@ -21,6 +19,7 @@ import backend.computations.infrastructure.Step;
  */
 public class SS_PlusMinus extends Computable {
 	private Solution _solution;
+	private DisplayType _displayType;
 	
 	/** 
 	 * Computes the solution to a scalar addition or subtraction operation. Expects non-null inputs
@@ -34,6 +33,7 @@ public class SS_PlusMinus extends Computable {
 		args.add(a);
 		args.add(b);
 		DisplayType answerDisplayType = resolveDisplayType(args);
+		_displayType = answerDisplayType;
 		Double aVal = a.getValue();
 		Double bVal = b.getValue();
 		
@@ -70,8 +70,44 @@ public class SS_PlusMinus extends Computable {
 
 	@Override
 	public List<String> toLatex() {
-		// TODO Auto-generated method stub
-		return null;
+		switch(_displayType){
+			case DECIMAL:{
+				return toLatexDecimal();
+			}
+			case WHOLENUMBERFRACTION:{
+				//TODO
+				return null;
+			}
+			case WHOLENUMBER:{
+				return toLatexWholeNumber();
+			}
+			case CUSTOM:{
+				System.err.println("ERROR (SS_PlusMinus.java) : display type should not have been resolved to CUSTOM");
+				return null;
+			}
+			default:{
+				System.err.println("ERROR (SS_PlusMinus.java) : Unrecognized display type");
+				return null;
+			}
+		}
+	}
+	
+	
+	/**
+	 * @return the LaTeX string for this computation if the display type is decimal
+	 */
+	private List<String> toLatexDecimal(){
+		List<String> toReturn = new ArrayList<>();
+		return toReturn;
+	}
+	
+	
+	/**
+	 * @return the LaTeX string for this computation if the display type is whole number
+	 */
+	private List<String> toLatexWholeNumber(){
+		List<String> toReturn = new ArrayList<>();
+		return toReturn;
 	}
 
 }

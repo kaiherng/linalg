@@ -32,6 +32,9 @@ public class MatrixDraw extends JPanel{
 		ti_.paintIcon(new JLabel(), g, 0, 0);
 	}
 	
+	/**
+	 * @return the LaTeX string for the matrix where the indices are in decimal format
+	 */
 	public String getLatex(){
 		StringBuilder b = new StringBuilder();
 		b.append("\\begin{pmatrix} ");
@@ -51,6 +54,9 @@ public class MatrixDraw extends JPanel{
 		return b.toString();
 	}
 	
+	/**
+	 * @return the LaTeX string for the matrix where the indices are in wholenumber format
+	 */
 	public String getLatexWhole(){
 		StringBuilder b = new StringBuilder();
 		b.append("\\begin{pmatrix} ");

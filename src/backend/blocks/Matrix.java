@@ -111,10 +111,6 @@ public class Matrix extends Countable{
 					_displayValues[col][row] = Double.toString(_internalValues[col][row]);
 					break;
 				}
-				case DECIMALFRACTION:{
-					// TODO
-					break;
-				}
 				case WHOLENUMBERFRACTION:{
 					// TODO
 					break;

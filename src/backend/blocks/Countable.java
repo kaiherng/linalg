@@ -7,7 +7,7 @@ public abstract class Countable implements Numerical{
 	// Ways to display the result of this computable
 	// NOTE: When in doubt, prefer Custom > Decimal > DecimalFraction > WholeNumberFraction > WholeNumber 
 	public enum DisplayType{
-		DECIMAL,WHOLENUMBER,DECIMALFRACTION,WHOLENUMBERFRACTION,CUSTOM;
+		DECIMAL,WHOLENUMBER,WHOLENUMBERFRACTION,CUSTOM;
 	}
 	protected DisplayType _displayType;
 	
