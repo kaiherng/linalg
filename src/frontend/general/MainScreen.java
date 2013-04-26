@@ -4,7 +4,7 @@ import java.awt.Graphics2D;
 
 import frontend.containers.Compute;
 import frontend.containers.Construct;
-import frontend.containers.SavedMatrices;
+import frontend.containers.Saved;
 import frontend.containers.Solution;
 import frontend.containers.Saved;
 import frontend.graphicsengine.Algorithms;
@@ -91,7 +91,7 @@ public class MainScreen implements Screen {
 		_background.onDraw(g);
 		_topLeftFrame.onDraw(g);
 		_bottomLeftFrame.onDraw(g);
-//		_rightFrame.onDraw(g);
+		_rightFrame.onDraw(g);
 	}
 
 	@Override

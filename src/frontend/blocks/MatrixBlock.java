@@ -4,7 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 
-import frontend.containers.SavedMatrices;
+import frontend.containers.Saved;
 import frontend.general.Constants;
 import frontend.graphicsengine.Algorithms;
 import frontend.graphicsengine.Interactable;
@@ -17,9 +17,9 @@ public class MatrixBlock extends TextRectangle implements Interactable {
 	Coord _size;
 	String _name;
 	TextRectangle _delete;
-	SavedMatrices _sm;
+	Saved _sm;
 
-	public MatrixBlock(String stringToDisplay, Coord location, SavedMatrices sm) {
+	public MatrixBlock(String stringToDisplay, Coord location, Saved sm) {
 		super(Constants.TEXT_FONTSTYLE, "bold", Constants.SM_TEXT_SIZE, stringToDisplay, Color.white, Constants.SM_COLOR,
 				location, Constants.SM_SIZE, Color.black, 1);
 		_location = location;
