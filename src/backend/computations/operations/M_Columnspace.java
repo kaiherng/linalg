@@ -84,7 +84,7 @@ public class M_Columnspace extends Computable
 		List<Countable> inputs = new ArrayList<>();
 		inputs.add(matrix);
 
-		_solution = new Solution(Op.COLUMNSPACE, inputs, answer, steps);
+		_solution = new Solution(Op.M_COLUMNSPACE, inputs, answer, steps);
 	}
 
 	@Override

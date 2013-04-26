@@ -43,17 +43,17 @@ public class SS_PlusMinus extends Computable {
 		Double bVal = b.getValue();
 		
 		
-		String operatorStep; Double answer;
+		Double answer;
 		if (isPlus){
-			operatorStep = a.getDisplayValue() + " + " + b.getDisplayValue();
+			_operatorStep = a.getDisplayValue() + " + " + b.getDisplayValue();
 			answer = aVal + bVal;
 		}else{
-			operatorStep = a.getDisplayValue() + " - " + b.getDisplayValue();
+			_operatorStep = a.getDisplayValue() + " - " + b.getDisplayValue();
 			answer = aVal - bVal;
 		}
 		
 		Scalar opStep = new Scalar(answer,DisplayType.CUSTOM);
-		opStep.setCustomDisplayValue(operatorStep);
+		opStep.setCustomDisplayValue(_operatorStep);
 		Step step1 = new Step(opStep);
 		Scalar answerStep = new Scalar(answer,answerDisplayType);
 		Step step2 = new Step(answerStep);
