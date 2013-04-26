@@ -59,16 +59,24 @@ public class Constants {
 	public static final int TAB_BOTTOM_OFFSET = 3;
 	public static final int TABMAIN_BORDER_WIDTH = 3;
 	
+	/** CONTAINERS **/
+	public static final Coord CONTAINER_TOP_LEFT = new Coord(10, 25);
+	
 	/** COMPUTE **/
 	public static final int COMPUTE_OPS_TEXT_SIZE = 12;
 	public static final String COMPUTE_OPS_TEXT_STYLE = "bold";
 	public static final int COMPUTE_OPS_BORDER_WIDTH = 5;
-	
 	public static final int COMPUTE_SCROLL_BORDER_WIDTH = 2;
 	
 	/** CONSTRUCT **/
 	public static final int CONSTRUCT_INSTRUCTIONS_TEXT_SIZE = 12;
 	public static final String CONSTRUCT_INSTRUCTIONS_TEXT_STYLE = "bold";
 	public static final Coord CONSTRUCT_INSTRUCTIONS_TEXT_OFFSET = new Coord(10,10);
+	
+	/** SAVED MATRICES **/
+	public static final Coord SM_MARGIN = new Coord(10,10);
+	public static final Coord SM_SIZE = new Coord(40,40);
+	public static final int SM_TEXT_SIZE = 18;
+	public static final Color SM_COLOR = SCREEN_BG_COLOR;
 	
 }

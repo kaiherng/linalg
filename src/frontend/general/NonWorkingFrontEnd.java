@@ -1,4 +1,4 @@
-package frontend.general;
+/*package frontend.general;
 
 import java.awt.BorderLayout;
 import java.awt.Cursor;
@@ -28,11 +28,11 @@ import javax.swing.border.LineBorder;
 
 import frontend.shapes.Coord;
 
-/**
+*//**
  * Adapted with modifications and improvements from http://www.coderanch.com/t/415944/GUI/java/user-ve-undecorated-window-resizable
  * @author kloh
  *
- */
+ *//*
 @SuppressWarnings("serial")
 public abstract class NonWorkingFrontEnd extends JFrame implements MouseMotionListener, MouseListener, KeyListener {
 	
@@ -392,4 +392,4 @@ public abstract class NonWorkingFrontEnd extends JFrame implements MouseMotionLi
 
 
 
-}
+}*/
