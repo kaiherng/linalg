@@ -5,8 +5,9 @@ import java.util.List;
 import backend.blocks.Countable;
 import backend.blocks.Op;
 
-/** An object that contains the answer to an Operation and the steps that 
- *  led to the answer
+/** 
+ * An object that contains the answer to an Operation and the steps that 
+ * led to the answer
  * 
  * @author baebi
  */
@@ -17,7 +18,8 @@ public class Solution{
 	private List<Countable> _inputs;
 
 	
-	/** Constructor for Solution object
+	/** 
+	 * Constructor for Solution object
 	 * 
 	 * @parm op the operation that resulted in this solution
 	 * @param inputs the input countables that resulted in this solution. THIS SHOULD BE ORDERED. (ex: A - B;  List {A, B})
@@ -32,16 +34,18 @@ public class Solution{
 	}
 	
 	
-	/** Gets the answer from this Solution
+	/** 
+	 * Gets the answer from this Solution
 	 * 
-	 * @return the Countable representing the answer of this Solution 
+	 * @return the Countable representing the answer of this Solution
 	 */
 	public Countable getAnswer(){
 		return _answer;
 	}
 	
 
-	/** Gets the list of steps to the answer
+	/** 
+	 * Gets the list of steps to the answer
 	 * 
 	 * @return A list of steps to the answer
 	 */

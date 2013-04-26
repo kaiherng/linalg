@@ -64,22 +64,37 @@ public class Parser {
 			Operation rootAsOp = (Operation) root;
 			Op op = rootAsOp.getType();
 			switch (op){
-				// addition
+				// matrix addition
 				case MM_PLUS: {
 					return computePlusMinus(rootAsOp,true); // recursive call to compute in here
 				}
 				
-				// subtraction
+				// matrix subtraction
 				case MM_MINUS: {
 					return computePlusMinus(rootAsOp,false);
 				}
 				
-				// scalar-multiply
+				//scalar addition
+				case SS_PLUS: {
+					return null; //TODO
+				}
+				
+				// scalar subtraction
+				case SS_MINUS: {
+					return null; // TODO
+				}
+				
+				// scalar multiplication
+				case SS_MULTIPLY:{
+					
+				}
+				
+				// scalar-matrix multiply
 				case SM_MULTIPLY: {
 					return null; // TODO	
 				}
 				
-				// multiplication
+				// matrix multiplication
 				case MM_MULTIPLY: {
 					return null; // TODO
 				}
@@ -91,6 +106,36 @@ public class Parser {
 				
 				// row-reduction
 				case ROW_REDUCE: {
+					return null; // TODO
+				}
+				
+				// matrix rank
+				case M_RANK:{
+					return null; // TODO
+				}
+				
+				// matrix null space
+				case NULLSPACE: {
+					return null; // TODO
+				}
+				
+				// matrix transpose
+				case M_TRANSPOSE:{
+					return null; // TODO
+				}
+				
+				// matrix power
+				case M_POWER:{
+					return null; // TODO
+				}
+				
+				// matrix inverse
+				case M_INVERSE:{
+					return null; // TODO
+				}
+				
+				// matrix columnspace
+				case M_COLUMNSPACE:{
 					return null; // TODO
 				}
 				

@@ -6,6 +6,8 @@ import frontend.containers.Compute;
 import frontend.containers.Construct;
 import frontend.containers.SavedMatrices;
 import frontend.containers.Solution;
+import frontend.containers.Saved;
+import frontend.graphicsengine.Algorithms;
 import frontend.graphicsengine.Container;
 import frontend.graphicsengine.Frame;
 import frontend.graphicsengine.Screen;
@@ -35,7 +37,12 @@ public class MainScreen implements Screen {
 	
 	public MainScreen(Application application) {
 		_application = application;
+		System.out.println(application.getSize());
 		_background = new Rectangle(new Coord(0,0), new Coord(application.getSize()), Constants.SCREEN_BG_COLOR);
+		
+		
+		
+		
 		
 		Coord topLeftLocation = new Coord(Constants.FRAME_X_OFFSET,Constants.FRAME_Y_OFFSET);
 		Coord topLeftSize = new Coord((application.getSize().width - Constants.FRAME_X_OFFSET*3)/2,(application.getSize().height - Constants.FRAME_Y_OFFSET*3)/2);
@@ -47,27 +54,32 @@ public class MainScreen implements Screen {
 		Coord rightSize = new Coord(topLeftSize.x, application.getSize().height - Constants.FRAME_Y_OFFSET*3);
 		
 		Container compute = new Compute(topLeftLocation.plus(Constants.TABHEADER_SIZE), new Coord(400,400).minus(Constants.TABHEADER_SIZE));
-		Tab tab1 = new Tab(compute, "Compute", 1, topLeftLocation, topLeftSize);
+		Tab computeTab = new Tab(compute, "Compute", 1, topLeftLocation, topLeftSize);
 		
 		Container construct = new Construct(topLeftLocation.plus(Constants.TABHEADER_SIZE), new Coord(400,400).minus(Constants.TABHEADER_SIZE));
-		Tab tab2 = new Tab(construct, "Construct", 0, topLeftLocation, topLeftSize);
-		
-		Container saved = new SavedMatrices(botLeftLocation.plus(Constants.CONTAINER_TOP_LEFT), botLeftSize);
-		Tab savedTab = new Tab(saved, "Matrices", 0, botLeftLocation, botLeftSize);
+		Tab constructTab = new Tab(construct, "Construct", 0, topLeftLocation, topLeftSize);
 		
 		Container sols = new Solution(rightLocation.plus(Constants.CONTAINER_TOP_LEFT), rightSize);
 		Tab solsTab = new Tab(sols, "Solution", 0, rightLocation, rightSize);
 		
-		_topLeftFrame = new Frame(topLeftLocation, topLeftSize, tab2);
-		_topLeftFrame.addTab(tab1);
+		_topLeftFrame = new Frame(topLeftLocation, topLeftSize, constructTab);
+		_topLeftFrame.addTab(computeTab);
+
+		Coord bottomLeftLocation = new Coord(topLeftLocation.x, topLeftLocation.y+topLeftSize.y+Constants.FRAME_Y_OFFSET);
+		Coord bottomLeftSize = topLeftSize;
+		System.out.println("bottomLeftLocation: " + bottomLeftLocation);
 		
-		_bottomLeftFrame = new Frame(botLeftLocation, botLeftSize, savedTab);
+		Container saved = new Saved(bottomLeftLocation.plus(Constants.TABHEADER_SIZE), new Coord(400,400).minus(Constants.TABHEADER_SIZE));
+		Tab savedTab = new Tab(saved, "Saved", 0, bottomLeftLocation, bottomLeftSize);
+		
+		_bottomLeftFrame = new Frame(bottomLeftLocation, bottomLeftSize, savedTab);
 		_rightFrame = new Frame(rightLocation, rightSize, solsTab);
 		
 		
-//		Tab savedTab = new Tab(new Saved(), "Saved", 0);
-//		_bottomLeftFrame = new Frame(new Coord(0,0), new Coord(0,0), savedTab);
+//		Coord rightLocation = new Coord(topLeftLocation.x + topLeftSize.x + Constants.FRAME_X_OFFSET, topLeftLocation.y);
+//		Coord rightSize = new Coord((newSize.x - Constants.FRAME_X_OFFSET*3)/2,newSize.y - Constants.FRAME_Y_OFFSET*2);
 //		
+//		Container solution = new Solution(rightLocation.plus(Constants.TABHEADER_SIZE), new Coord(400,400).minus(Constants.TABHEADER_SIZE))
 //		Tab solutionTab = new Tab(new Solution(), "Solution", 0);
 //		_rightFrame = new Frame(new Coord(0,0), new Coord(0,0), solutionTab);
 		
@@ -84,7 +96,7 @@ public class MainScreen implements Screen {
 
 	@Override
 	public void onDown(int keycode) {
-		if (keycode == 27) {
+		if (keycode == 27) { //PRESSING ESC WILL BRING YOU TO DEBUGSCREEN
 			_application.setScreen(new DebugScreen(_application));
 		}
 	}
@@ -103,15 +115,21 @@ public class MainScreen implements Screen {
 
 	@Override
 	public void onResize(Coord newSize) {
+		System.out.println("onResize:" + newSize);
 		_background.setSize(newSize);
 		
 //		//calculates the new locations and sizes for the frames and sets them to these values
 		Coord topLeftLocation = new Coord(Constants.FRAME_X_OFFSET,Constants.FRAME_Y_OFFSET);
 		Coord topLeftSize = new Coord((newSize.x - Constants.FRAME_X_OFFSET*3)/2,(newSize.y - Constants.FRAME_Y_OFFSET*3)/2);
-		Coord bottomLeftLocation = new Coord(topLeftLocation.x, topLeftLocation.y + topLeftSize.y + Constants.FRAME_Y_OFFSET);
-		Coord bottomLeftSize = topLeftSize;
 //		Coord rightLocation = new Coord(topLeftLocation.x + topLeftSize.x + Constants.FRAME_X_OFFSET, topLeftLocation.y);
 //		Coord rightSize = new Coord((newSize.x - Constants.FRAME_X_OFFSET*3)/2,newSize.y - Constants.FRAME_Y_OFFSET*2);
+		Coord bottomLeftLocation = new Coord(topLeftLocation.x, topLeftLocation.y+topLeftSize.y+Constants.FRAME_Y_OFFSET);
+		Coord bottomLeftSize = topLeftSize;
+		System.out.println("bottomLeftLocation: " + bottomLeftLocation);
+		
+		
+		Coord rightLocation = new Coord(topLeftLocation.x + topLeftSize.x + Constants.FRAME_X_OFFSET, topLeftLocation.y);
+		Coord rightSize = new Coord((newSize.x - Constants.FRAME_X_OFFSET*3)/2,newSize.y - Constants.FRAME_Y_OFFSET*2);
 		
 		_topLeftFrame.setLocation(topLeftLocation);
 		_topLeftFrame.setSize(topLeftSize);
@@ -149,14 +167,23 @@ public class MainScreen implements Screen {
 
 	@Override
 	public void onMouseMoved(Coord location) {
+		if (Algorithms.clickWithin(_topLeftFrame, location)) {
+			_topLeftFrame.onMouseMoved(location);
+		}
 	}
 
 	@Override
 	public void onMouseWheelForward(Coord location) {
+		if (Algorithms.clickWithin(_topLeftFrame, location)) {
+			_topLeftFrame.onMouseWheelForward(location);
+		}
 	}
 
 	@Override
 	public void onMouseWheelBackward(Coord location) {
+		if (Algorithms.clickWithin(_topLeftFrame, location)) {
+			_topLeftFrame.onMouseWheelBackward(location);
+		}
 	}
 
 	@Override

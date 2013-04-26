@@ -136,19 +136,88 @@ public class Frame implements Displayable, Interactable {
 	@Override
 	public void onMouseClicked(int clickCount, Coord location) {
 		if (_currTab.headerContainsPoint(location)) { //if we clicked on the current header, do nothing
-			System.out.println("we clicked in the current header");
 			return;
 		}
 		for (int i=0; i<_tabs.size(); i++) { //otherwise, iterate through all the headers from left to right seeing which was clicked
 			Tab t = _tabs.get(i);
 			if (t.headerContainsPoint(location)) {
-				System.out.println("we clicked on tab: " + i);
 				switchTab(t);
 				return;
 			}
 		}
-		System.out.println("we clicked on main tab body");
 		_currTab.onMouseClicked(clickCount, location); //otherwise, we must've clicked within the tab main body itself, not the header
+	}
+
+
+	@Override
+	public void onDown(int keycode) {
+		_currTab.onDown(keycode);
+	}
+
+
+	@Override
+	public void onUp(int keycode) {
+		_currTab.onUp(keycode);
+	}
+
+
+	@Override
+	public void onRepeated(int keycode) {
+		_currTab.onRepeated(keycode);
+	}
+
+
+	@Override
+	public void onTyped(int keycode) {
+		_currTab.onTyped(keycode);
+	}
+
+
+	@Override
+	public void onMousePressed() {
+		_currTab.onMousePressed();
+	}
+
+
+	@Override
+	public void onMouseReleased() {
+		_currTab.onMouseReleased();	
+	}
+
+
+	@Override
+	public void onMouseDragged(Coord location) {
+		_currTab.onMouseDragged(location);		
+	}
+
+
+	@Override
+	public void onMouseMoved(Coord location) {
+		_currTab.onMouseMoved(location);
+	}
+
+
+	@Override
+	public void onMouseWheelForward(Coord location) {
+		_currTab.onMouseWheelForward(location);
+	}
+
+
+	@Override
+	public void onMouseWheelBackward(Coord location) {
+		_currTab.onMouseWheelBackward(location);
+	}
+
+
+	@Override
+	public void onDragStart(Coord location) {
+		_currTab.onDragStart(location);
+	}
+
+
+	@Override
+	public void onDragEnd(Coord location) {
+		_currTab.onDragEnd(location);
 	}
 
 }

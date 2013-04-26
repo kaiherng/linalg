@@ -4,23 +4,23 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 
 import frontend.general.Constants;
+import frontend.graphicsengine.Algorithms;
 import frontend.graphicsengine.Container;
 import frontend.graphicsengine.Displayable;
 import frontend.graphicsengine.ScrollPane;
 import frontend.shapes.Coord;
+import frontend.shapes.Rectangle;
 import frontend.shapes.TextRectangle;
 
 public class Compute extends Container {
-	
-	private TextRectangle _textRectangle;
+
 	private ScrollPane _scrollPane;
 
 	public Compute(Coord location, Coord size) {
 		super(location, size);
-		_textRectangle = new TextRectangle(Constants.TEXT_FONTSTYLE, Constants.COMPUTE_OPS_TEXT_STYLE, Constants.COMPUTE_OPS_TEXT_SIZE, "BASIC", Constants.COMPUTE_OPS_TEXT_COLOR, Constants.COMPUTE_OPS_FILL_COLOR, location.plus(Constants.COMPUTE_OPS_BORDER_WIDTH,Constants.COMPUTE_OPS_BORDER_WIDTH), new Coord(100,50), Constants.COMPUTE_OPS_BORDER_COLOR, Constants.COMPUTE_OPS_BORDER_WIDTH);
 		
-		Displayable textRectangle = new TextRectangle("Times New Roman", "bold", 15, "TextRectangle", Color.BLACK, Color.WHITE, new Coord(0,0), new Coord(100,50), Color.ORANGE, 5);
-		_scrollPane = new ScrollPane(location.plus(100,100), new Coord(200,100), new Coord(0,0), new Coord(300,100), new Coord(300,600), textRectangle);
+//		Displayable rectangle = new Rectangle(new Coord(0,0), new Coord(200,400), new Color(0,0,0,0));
+//		_scrollPane = new ScrollPane(location.plus(0,20), new Coord(size.x,size.y-20), new Coord(0,0), new Coord(size.x,400), new Coord(300,600), rectangle);
 
 	}
 	
@@ -32,18 +32,91 @@ public class Compute extends Container {
 	@Override
 	public void setLocation(Coord location) {
 		super.setLocation(location);
-		_textRectangle.setLocation(location.plus(new Coord(Constants.COMPUTE_OPS_BORDER_WIDTH,Constants.COMPUTE_OPS_BORDER_WIDTH)));
-		_scrollPane.setLocation(location.plus(100,100));
+//		_scrollPane.setLocation(location.plus(0,20));
 	}
 
 	@Override
 	public void onDraw(Graphics2D g) {
-		_textRectangle.onDraw(g);
-		_scrollPane.onDraw(g);
+//		_scrollPane.onDraw(g);
 	}
 
 	@Override
-	public void onMouseClicked(int clickCount, Coord c) {		
+	public void onMouseClicked(int clickCount, Coord c) {	
+	}
+
+	@Override
+	public void onDown(int keycode) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onUp(int keycode) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onRepeated(int keycode) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onTyped(int keycode) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onMousePressed() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onMouseReleased() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onMouseDragged(Coord location) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onMouseMoved(Coord location) {
+//		if (Algorithms.clickWithin(_scrollPane, location)) {
+//			_scrollPane.onMouseMoved(location);
+//		}
+	}
+
+	@Override
+	public void onMouseWheelForward(Coord location) {
+//		if (Algorithms.clickWithin(_scrollPane, location)) {
+//			_scrollPane.onMouseWheelForward(location);
+//		}
+	}
+
+	@Override
+	public void onMouseWheelBackward(Coord location) {
+//		if (Algorithms.clickWithin(_scrollPane, location)) {
+//			_scrollPane.onMouseWheelBackward(location);
+//		}
+	}
+
+	@Override
+	public void onDragStart(Coord location) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onDragEnd(Coord location) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 

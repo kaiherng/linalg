@@ -41,7 +41,9 @@ public abstract class WorkingFrontEnd extends JFrame {
         
         _drawingPanel = new DrawingPanel();       
 		this.add(_drawingPanel);
+		_drawingPanel.setFocusable(true);
     } 
+   
     
 	protected abstract void onDraw(Graphics2D g);
 
@@ -79,7 +81,6 @@ public abstract class WorkingFrontEnd extends JFrame {
     				repaint();
     			}
     		};
-    		
     		new Timer(10, taskPerformer).start();
     	}
     	
@@ -138,14 +139,12 @@ public abstract class WorkingFrontEnd extends JFrame {
 
 		@Override
 		public void keyTyped(KeyEvent e) {
-			System.out.println("key typed");
 			onKeyTyped(e);
 			repaint();
 		}
 
 		@Override
 		public void keyPressed(KeyEvent e) {
-			System.out.println("key pressed");
 			onKeyPressed(e);	
 			repaint();	
 		}

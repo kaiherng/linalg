@@ -71,7 +71,7 @@ public class Tab implements Displayable, Interactable {
 		if (rank == 0) {
 			_focus = true;
 		}
-		_header = new TabHeader(location.plus(_rank*Constants.TABHEADER_SIZE.x + Math.min(_rank,1)*-Constants.TABHEADER_OVERLAP,0), title, _focus);
+		_header = new TabHeader(location.plus(_rank*Constants.TABHEADER_SIZE.x + _rank*-Constants.TABHEADER_OVERLAP,0), title, _focus);
 		
 		setSize(size);
 		setLocation(location);
@@ -121,7 +121,7 @@ public class Tab implements Displayable, Interactable {
 	public void setLocation(Coord c) {
 		_location = c;
 		_background.setLocation(c.plus(0,Constants.TABHEADER_SIZE.y));
-		_header.setLocation(c.plus(_rank*Constants.TABHEADER_SIZE.x + Math.min(_rank,1)*-Constants.TABHEADER_OVERLAP,0));
+		_header.setLocation(c.plus(_rank*Constants.TABHEADER_SIZE.x + _rank*-Constants.TABHEADER_OVERLAP,0));
 		_container.setLocation(c.plus(0,Constants.TABHEADER_SIZE.y));
 	}
 	
@@ -160,8 +160,67 @@ public class Tab implements Displayable, Interactable {
 
 	@Override
 	public void onMouseClicked(int clickCount, Coord c) {
-		// TODO Auto-generated method stub
 		_container.onMouseClicked(clickCount, c);
+	}
+
+	@Override
+	public void onDown(int keycode) {
+		_container.onDown(keycode);
+	}
+
+	@Override
+	public void onUp(int keycode) {
+		_container.onUp(keycode);
+	}
+
+	@Override
+	public void onRepeated(int keycode) {
+		_container.onRepeated(keycode);
+	}
+
+	@Override
+	public void onTyped(int keycode) {
+		_container.onTyped(keycode);
+	}
+
+	@Override
+	public void onMousePressed() {
+		_container.onMousePressed();
+	}
+
+	@Override
+	public void onMouseReleased() {
+		_container.onMouseReleased();
+	}
+
+	@Override
+	public void onMouseDragged(Coord location) {
+		_container.onMouseDragged(location);
+	}
+
+	@Override
+	public void onMouseMoved(Coord location) {
+		_container.onMouseMoved(location);
+	}
+
+	@Override
+	public void onMouseWheelForward(Coord location) {
+		_container.onMouseWheelForward(location);
+	}
+
+	@Override
+	public void onMouseWheelBackward(Coord location) {
+		_container.onMouseWheelBackward(location);
+	}
+
+	@Override
+	public void onDragStart(Coord location) {
+		_container.onDragStart(location);
+	}
+
+	@Override
+	public void onDragEnd(Coord location) {
+		_container.onDragEnd(location);
 	}
 
 

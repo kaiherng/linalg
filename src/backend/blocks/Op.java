@@ -1,6 +1,7 @@
 package backend.blocks;
 
-/** Enumerates types of Operators
+/** 
+ * Enumerates types of Operators
  * 
  * @author baebi
  */
@@ -15,9 +16,12 @@ public enum Op {
 	//rank 0 (unary) operations
 	DETERMINANT(0,true,"DETERMINANT"),
 	ROW_REDUCE(0,true,"ROW-REDUCE"),
-	COLUMNSPACE(0,true,"COLUMN-SPACE"),
-	NULLSPACE(0,true,"NULL-SPACE"),
-	RANK(0,true,"RANK");
+	M_COLUMNSPACE(0,true,"COLUMN-SPACE"),
+	M_INVERSE(0,true,"M-INVERSE"),
+	M_POWER(0,true,"M-POWER"),
+	M_RANK(0,true,"M-RANK"),
+	M_TRANSPOSE(0,true,"M-TRANSPOSE"),
+	NULLSPACE(0,true,"NULL-SPACE");
 	
 	// do not give rank below zero
 	
@@ -26,7 +30,8 @@ public enum Op {
 	private String _name;
 	
 	
-	/** Give the Op a rank
+	/** 
+	 * Give the Op a rank
 	 * 
 	 * @param value the PEMDAS rank of this Op
 	 */

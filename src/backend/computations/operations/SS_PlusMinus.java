@@ -1,4 +1,6 @@
-
+/**
+ * TODO: test the toLatex
+ */
 package backend.computations.operations;
 
 import java.util.ArrayList;
@@ -19,7 +21,8 @@ import backend.computations.infrastructure.Step;
  */
 public class SS_PlusMinus extends Computable {
 	private Solution _solution;
-	private DisplayType _displayType;
+	private String _operatorStep;
+	
 	
 	/** 
 	 * Computes the solution to a scalar addition or subtraction operation. Expects non-null inputs
@@ -33,21 +36,24 @@ public class SS_PlusMinus extends Computable {
 		args.add(a);
 		args.add(b);
 		DisplayType answerDisplayType = resolveDisplayType(args);
-		_displayType = answerDisplayType;
+		a.setDisplayType(answerDisplayType);
+		b.setDisplayType(answerDisplayType);
+		
 		Double aVal = a.getValue();
 		Double bVal = b.getValue();
 		
-		String operatorStep; Double answer;
+		
+		Double answer;
 		if (isPlus){
-			operatorStep = aVal + " + " + bVal;
+			_operatorStep = a.getDisplayValue() + " + " + b.getDisplayValue();
 			answer = aVal + bVal;
 		}else{
-			operatorStep = aVal + " - " + bVal;
+			_operatorStep = a.getDisplayValue() + " - " + b.getDisplayValue();
 			answer = aVal - bVal;
 		}
 		
 		Scalar opStep = new Scalar(answer,DisplayType.CUSTOM);
-		opStep.setCustomDisplayValue(operatorStep);
+		opStep.setCustomDisplayValue(_operatorStep);
 		Step step1 = new Step(opStep);
 		Scalar answerStep = new Scalar(answer,answerDisplayType);
 		Step step2 = new Step(answerStep);
@@ -70,43 +76,14 @@ public class SS_PlusMinus extends Computable {
 
 	@Override
 	public List<String> toLatex() {
-		switch(_displayType){
-			case DECIMAL:{
-				return toLatexDecimal();
-			}
-			case WHOLENUMBERFRACTION:{
-				//TODO
-				return null;
-			}
-			case WHOLENUMBER:{
-				return toLatexWholeNumber();
-			}
-			case CUSTOM:{
-				System.err.println("ERROR (SS_PlusMinus.java) : display type should not have been resolved to CUSTOM");
-				return null;
-			}
-			default:{
-				System.err.println("ERROR (SS_PlusMinus.java) : Unrecognized display type");
-				return null;
-			}
-		}
-	}
-	
-	
-	/**
-	 * @return the LaTeX string for this computation if the display type is decimal
-	 */
-	private List<String> toLatexDecimal(){
 		List<String> toReturn = new ArrayList<>();
-		return toReturn;
-	}
-	
-	
-	/**
-	 * @return the LaTeX string for this computation if the display type is whole number
-	 */
-	private List<String> toLatexWholeNumber(){
-		List<String> toReturn = new ArrayList<>();
+		StringBuilder b = new StringBuilder();
+		b.append("$");
+		b.append(_operatorStep);
+		b.append(" = ");
+		b.append(((Scalar)_solution.getAnswer()).getDisplayValue());
+		b.append("$");
+		toReturn.add(b.toString());
 		return toReturn;
 	}
 
