@@ -27,10 +27,8 @@ public class M_Rank extends Computable
 	 *@param matrix the matrix*/
 	public M_Rank(Matrix matrix) throws Exception
 	{
-		List<Countable> matrixList = new ArrayList<>();
-		matrixList.add(matrix);
-		//TODO
-		DisplayType answerDisplayType = null;//resolveDisplayType(matrixList); // choose DisplayType to use
+		@SuppressWarnings("unused")
+		DisplayType answerDisplayType = matrix.getDisplayType();
 
 		Double[][] values = matrix.getValues();
 		for (int i = 0; i < values.length; i++)

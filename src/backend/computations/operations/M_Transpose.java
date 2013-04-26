@@ -8,42 +8,35 @@ import backend.computations.infrastructure.Step;
 
 import java.util.*;
 
-/** Matrix Transpose Operation
+/** 
+ * Matrix Transpose Operation
  *
  * @author dzee
  */
-public class M_Transpose extends Computable
-{
+public class M_Transpose extends Computable{
 	private Solution _solution;
 
 	@Override
-	public Solution getSolution()
-	{
+	public Solution getSolution(){
 		return _solution;
 	}
 
 	/**Returns the transpose of a matrix
 	 *
 	 *@param matrix the matrix*/
-	public M_Transpose(Matrix matrix)
-	{
-		List<Countable> matrixList = new ArrayList<>();
-		matrixList.add(matrix);
-		//TODO
-		DisplayType answerDisplayType = null;//resolveDisplayType(matrixList); // choose DisplayType to use
-
+	public M_Transpose(Matrix matrix){
+		DisplayType answerDisplayType = matrix.getDisplayType();
 		Double[][] values = matrix.getValues();
 
-		//the transposed values
+		// the transposed values
 		Double[][] trans = new Double[values[0].length][values.length];
-		for (int i=0;i<values[0].length;i++)
-		{
-			for (int j=0;j<values.length;j++)
-			{
+		for (int i=0;i<values[0].length;i++){
+			for (int j=0;j<values.length;j++){
 				trans[i][j]=values[j][i];
 			}
 		}
-		//the transposed matrix
+		
+		// the transposed matrix
 		Matrix answer=new Matrix(answerDisplayType,trans);
 
 		List<Step> steps = new ArrayList<Step>();
@@ -57,8 +50,9 @@ public class M_Transpose extends Computable
 
 	@Override
 	public List<String> toLatex() {
-		// TODO Auto-generated method stub
-		return null;
+		List<String> toReturn = new ArrayList<>();
+		
+		return toReturn;
 	}
 
 }
