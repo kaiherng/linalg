@@ -1,5 +1,7 @@
 package frontend.shapes;
 
+import java.awt.Dimension;
+
 /**
  * A 2D screen coordinate
  * @author Kai
@@ -20,6 +22,15 @@ public final class Coord {
 	public Coord(int x, int y) {
 		this.x = x;
 		this.y = y;
+	}
+	
+	/**
+	 * Creates a new vector from a Dimension object
+	 * @param dim the dimension to create the vector from
+	 */
+	public Coord(Dimension dim) {
+		this.x = (int) dim.getWidth();
+		this.y = (int) dim.getHeight();
 	}
 	
 
@@ -108,6 +119,18 @@ public final class Coord {
 	 */
 	public final Coord minus(int x, int y) {
 		return new Coord(this.x - x, this.y - y);
+	}
+	
+	/**
+	 * Returns the two-dimensional cross product of this vector and {@code v}, 
+	 * which will be positive if the result is in the positive z-direction 
+	 * ("out of the plane") and negative if the result is in the negative z-
+	 * direction ("into the plane").
+	 * @param v		the vector with which to take the cross product
+	 * @return		the cross-product of this vector and {@code v}
+	 */
+	public final float cross(Coord v) {
+		return x*v.y - y*v.x;
 	}
 	
 	/*

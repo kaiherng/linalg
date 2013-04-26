@@ -1,6 +1,7 @@
 package frontend.graphicsengine;
 
 import frontend.shapes.Coord;
+import frontend.shapes.Polygon;
 
 public class Algorithms {
 	

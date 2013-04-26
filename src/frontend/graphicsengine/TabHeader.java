@@ -2,21 +2,19 @@ package frontend.graphicsengine;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
-import java.awt.Point;
 import java.awt.Polygon;
-
 
 import frontend.general.Constants;
 import frontend.shapes.Coord;
-import frontend.shapes.GenericShape;
+import frontend.shapes.FourSidedPolygon;
 import frontend.shapes.Text;
 
 
 /**
  *  Something that looks like this:
- * x  _________
- *   /  title  \
- *  /___________\
+ *  _________
+ * |  title  \
+ * |__________\
  *
  * The location refers to the x (topleft of the bounding box)
  * Size refers to the size of the bounding box
@@ -24,58 +22,36 @@ import frontend.shapes.Text;
  * @author Kai
  *
  */
-public class TabHeader extends GenericShape {
 	
-	private Coord _location; 
-	private Coord _size;
-	private Polygon _polygon;
+public class TabHeader implements Displayable {
 	private Text _title;
-	private Color _bgColor;
+	private FourSidedPolygon _polygon;
+	private Coord _location;
+	private Coord _size;
 	
-	public TabHeader(Coord location, Coord size, String title) {
-		_bgColor = Constants.TAB_HEADERBG_INACTIVE_COLOR;
-		_location = location;
-		_size = size;
-		adjustPolygon();
-		_title = new Text(Constants.TEXT_FONTSTYLE, "bold", 12, title.toUpperCase(), Constants.TABHEADER_TEXT_INACTIVE_COLOR, location.plus(new Coord(20,3)));
-	}
-	
-	public void adjustPolygon() {
-		int[] xpoints = new int[4];
-		int[] ypoints = new int[4];
+	public TabHeader(Coord location, String stringToDisplay, boolean active) {
+		Color tabHeaderTextColor = Constants.TABHEADER_TEXT_INACTIVE_COLOR;
+		if (active) tabHeaderTextColor = Constants.TABHEADER_TEXT_ACTIVE_COLOR;
+		_title = new Text(Constants.TEXT_FONTSTYLE, Constants.TABHEADER_TEXT_STYLE, Constants.TABHEADER_TEXT_SIZE, stringToDisplay, tabHeaderTextColor, location.plus(Constants.TABHEADER_TEXT_OFFSET));
 		
-		xpoints[0] = _location.x + Constants.TABHEADER_LEFT_RIGHT_OFFSET;
-		ypoints[0] = _location.y;
-		
-		xpoints[1] = _location.x + _size.x - Constants.TABHEADER_LEFT_RIGHT_OFFSET;
-		ypoints[1] = _location.y;
-		
-		xpoints[2] = _location.x + _size.x;
-		ypoints[2] = _location.y + _size.y;
-		
-		xpoints[3] = _location.x;
-		ypoints[3] = _location.y + _size.y;
-		
-		_polygon = new Polygon(xpoints, ypoints, 4);
+		Color tabHeaderFillColor = Constants.TAB_HEADERBG_INACTIVE_COLOR;
+		if (active) tabHeaderFillColor = Constants.TAB_HEADERBG_ACTIVE_COLOR;
+		_polygon = new FourSidedPolygon(location, Constants.TABHEADER_SIZE, tabHeaderFillColor, Constants.TABHEADER_BORDER_WIDTH, Constants.TABHEADER_BORDER_COLOR, Constants.TABHEADER_TOPLEFT_OFFSET, Constants.TABHEADER_TOPRIGHT_OFFSET, Constants.TABHEADER_BOTTOMLEFT_OFFSET, Constants.TABHEADER_BOTTOMRIGHT_OFFSET);
 	}
 	
 	public void onFocus() {
-		_bgColor = Constants.TAB_HEADERBG_ACTIVE_COLOR;
 		_title.setColor(Constants.TABHEADER_TEXT_ACTIVE_COLOR); 
+		_polygon.setFillColor(Constants.TAB_HEADERBG_ACTIVE_COLOR);
 	}
 	
 	public void onBlur() {
-		_bgColor = Constants.TAB_HEADERBG_INACTIVE_COLOR;
 		_title.setColor(Constants.TABHEADER_TEXT_INACTIVE_COLOR);
+		_polygon.setFillColor(Constants.TAB_HEADERBG_INACTIVE_COLOR);
 	}
 	
 	public void setLocation(Coord location) {
 		_location = location;
-		_title.setLocation(_location); //centralizes the title
-		int xOffset = (_size.x - _title.getBoundingBoxSize().x)/2;
-		int yOffset = (_size.y - _title.getBoundingBoxSize().y)/4;
-		_title.setLocation(_location.plus(new Coord(xOffset, yOffset))); //centralizes the title
-		adjustPolygon();
+		_title.setLocation(_location.plus(Constants.TABHEADER_TEXT_OFFSET));
 	}
 	
 	public Coord getLocation() {
@@ -84,11 +60,7 @@ public class TabHeader extends GenericShape {
 	
 	public void setSize(Coord size) {
 		_size = size;
-		adjustPolygon();
-		_title.setLocation(_location); //centralizes the title
-		int xOffset = (_size.x - _title.getBoundingBoxSize().x)/2;
-		int yOffset = (_size.y - _title.getBoundingBoxSize().y)/4;
-		_title.setLocation(_location.plus(new Coord(xOffset, yOffset))); //centralizes the title
+		_polygon.setSize(size);
 	}
 	
 	public Coord getSize() {
@@ -96,16 +68,12 @@ public class TabHeader extends GenericShape {
 	}
 	
 	public boolean containsPoint(Coord c) {
-		return _polygon.contains(new Point(c.x, c.y));
+		return _polygon.containsPoint(c);
 	}
 	
-	public void onDraw(Graphics2D g, boolean focus) {
-		java.awt.Color savedColor = g.getColor();
-		java.awt.Stroke savedStroke = g.getStroke();
-		g.setColor(_bgColor);
-		g.fillPolygon(_polygon);
-		g.setColor(savedColor);
-		g.setStroke(savedStroke);
+	@Override
+	public void onDraw(Graphics2D g) {
+		_polygon.onDraw(g);
 		_title.onDraw(g);
 	}
 	
