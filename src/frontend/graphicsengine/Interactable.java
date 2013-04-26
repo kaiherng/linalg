@@ -4,11 +4,17 @@ import frontend.shapes.Coord;
 
 public interface Interactable {
 
-	/**
-	 * Called when a mouse click event within the object's location on the screen is detected
-	 * @param clickCount how many clicks this mouse click event is
-	 * @param c the location of the mouse click
-	 */
-	void onMouseClicked(int clickCount, Coord c);
-	
+	public void onDown(int keycode);
+	public void onUp(int keycode);
+	public void onRepeated(int keycode);
+	public void onTyped(int keycode);
+	public void onMouseClicked(int clickCount, Coord c);
+	public void onMousePressed();
+	public void onMouseReleased();
+	public void onMouseDragged(Coord location);
+	public void onMouseMoved(Coord location);
+	public void onMouseWheelForward(Coord location);
+	public void onMouseWheelBackward(Coord location);
+	public void onDragStart(Coord location);
+	public void onDragEnd(Coord location);
 }
