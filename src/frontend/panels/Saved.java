@@ -43,10 +43,10 @@ public class Saved extends JPanel {
 		numCols = (int) this.getWidth() / (Constants.SM_SIZE.x + Constants.SM_MARGIN.x);
 		Matrix m = new Matrix(DisplayType.DECIMAL, new Double[][]{{1.0,2.0},{3.0,4.0}});
 		addMatrix("A", m);
-//		addMatrix("B", m);
-//		for(int i = 0 ; i < 50; i++){
-//			addMatrix("C", m);
-//		}
+		addMatrix("B", m);
+		for(int i = 0 ; i < 50; i++){
+			addMatrix("C", m);
+		}
 	}
 	
 	public void paint(Graphics g){
