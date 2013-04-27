@@ -5,6 +5,7 @@ import backend.blocks.Countable.DisplayType;
 import backend.computations.infrastructure.Computable;
 import backend.computations.infrastructure.Solution;
 import backend.computations.infrastructure.Step;
+import matrixDraw.*;
 
 import java.util.*;
 
@@ -14,7 +15,8 @@ import java.util.*;
  */
 public class M_Columnspace extends Computable
 {
-  private Solution _solution;
+  	private Solution _solution;
+  	private List<String> steps=new ArrayList<>();
 
 	@Override
 	public Solution getSolution()
@@ -40,13 +42,12 @@ public class M_Columnspace extends Computable
 			}
 		}
 
-		List<Step> steps = new ArrayList<Step>();
-
 		/**the reduced matrix*/
-		Solution refsol=(new M_RowReduce(matrix)).getSolution();
+		M_RowReduce rowreduce=new M_RowReduce(matrix);
+		Solution refsol=rowreduce.getSolution();
 		Matrix ref=(Matrix)(refsol.getAnswer());
 		Double[][] refv=ref.getValues();
-		steps.addAll(refsol.getSteps());
+		steps.addAll(rowreduce.toLatex());
 		List<Integer> isPivot=new ArrayList<>();
 		//first zero row
 		int fzr=0;
@@ -62,6 +63,7 @@ public class M_Columnspace extends Computable
 				{
 					fzr++;
 				}
+				steps.add("Column "+(i+1)+" is a pivot column.");
 			}
 		}
 
@@ -76,18 +78,26 @@ public class M_Columnspace extends Computable
 		}
 
 		Matrix answer=new Matrix(answerDisplayType,pivots);
-		steps.add(new Step(answer));
+		String basis="The basis consists of ";
+		for (Double[] col:pivots)
+		{
+			Double[][] v=new Double[1][values[0].length];
+			v[0]=col;
+			Matrix m=new Matrix(answerDisplayType,v);
+			basis+=(new MatrixDraw(m)).getCorrectLatex(answerDisplayType)+" ";
+		}
+		steps.add(basis);
 
 		List<Countable> inputs = new ArrayList<>();
 		inputs.add(matrix);
 
-		_solution = new Solution(Op.M_COLUMNSPACE, inputs, answer, steps);
+		_solution = new Solution(Op.M_COLUMNSPACE, inputs, answer, null);
 	}
 
 	@Override
-	public List<String> toLatex() {
-		// TODO Auto-generated method stub
-		return null;
+	public List<String> toLatex()
+	{
+		return steps;
 	}
 
 }
