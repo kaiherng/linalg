@@ -26,29 +26,27 @@ public class MatrixBlock extends JPanel {
 	 * 
 	 */
 	private static final long serialVersionUID = 6148169854145080375L;
-	Rectangle2D.Double _r;
-	Rectangle2D.Double _delete;
 	Saved _s;
 	String _name;
 	Matrix _matrix;
-	JLabel _t, _label;
+	JLabel _delete, _label;
 
 	public MatrixBlock(String name, Matrix m, Saved saved) {
 		this.setLayout(null);
-		_r = new Rectangle2D.Double(0, 0, Constants.SM_SIZE.x, Constants.SM_SIZE.y);
-		_delete = new Rectangle2D.Double(Constants.SM_SIZE.x - 10, 0, 10, 10);
 		this.setPreferredSize(new Dimension(40, 40));
 		this.addMouseListener(new Click(this));
 		_s = saved;
 		_name = name;
 		_matrix = m;
 		
-		_t = new JLabel("X");
-		_t.setOpaque(false);
-		_t.setBorder(null);
-		_t.setForeground(Color.white);
-		this.add(_t);
-		_t.setBounds(Constants.SM_SIZE.x - 10,0,10,10);
+		this.setBackground(Color.blue);
+		
+		_delete = new JLabel("X");
+		_delete.setOpaque(false);
+		_delete.setBorder(null);
+		_delete.setForeground(Color.white);
+		this.add(_delete);
+		_delete.setBounds(Constants.SM_SIZE.x - 10,0,10,10);
 		
 		_label = new JLabel(name);
 		_label.setOpaque(false);
@@ -60,13 +58,6 @@ public class MatrixBlock extends JPanel {
 		_label.setBounds(0, 5, 40,30);
 	}
 	
-	public void paintComponent(Graphics g){
-		super.paintComponent(g);
-		Graphics2D g2 = (Graphics2D) g;
-		g2.setColor(Color.blue);
-		g2.fill(_r);
-	}
-	
 	private class Click extends MouseAdapter{
 		
 		Component _c;
@@ -76,7 +67,7 @@ public class MatrixBlock extends JPanel {
 		}
 		
 		public void mouseClicked(MouseEvent e){
-			if(_t.getBounds().contains(e.getPoint())){
+			if(_delete.getBounds().contains(e.getPoint())){
 				_s.deleteMatrix(_name, _c);
 			}
 		}

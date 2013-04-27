@@ -57,6 +57,7 @@ public class Main {
 		//Create Panels
 		Saved savedPanel = new Saved();
 		Construct constructPanel = new Construct(savedPanel); 
+		Compute computePanel = new Compute();
 		
 		
 		mainPanel.setBackground(new Color(0x81A4E6)); //background of the entire program
@@ -73,7 +74,7 @@ public class Main {
 
 		JComponent topLeftPanel2 = makeTextPanel("Top Left Panel #2");
 		topLeftPanel2.setBackground(new Color(0xE4E7F2));
-		tabbedPaneTopLeft.addTab("Compute", topLeftPanel2);
+		tabbedPaneTopLeft.addTab("Compute", computePanel);
 		
 		
 		c.fill = GridBagConstraints.BOTH;
