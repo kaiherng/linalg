@@ -116,7 +116,6 @@ public class Frame implements Displayable, Interactable {
 		for (int i=0; i<_tabs.size(); i++) {
 			Tab t = _tabs.get(i);
 			t.setLocation(c);
-			System.out.println(c);
 		}
 	}
 

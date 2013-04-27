@@ -29,21 +29,30 @@ import frontend.shapes.Coord;
 public abstract class WorkingFrontEnd extends JFrame {
 	
     private DrawingPanel _drawingPanel;
+    private Coord _size;
     
     public WorkingFrontEnd(Dimension initialDimension, Dimension minDimension) {      
     	
     	super("Linear Algebra Calculator");
-    	setMinimumSize(minDimension);
     	setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     	setSize(initialDimension);    
+    	setMinimumSize(minDimension);
         setUndecorated(false);
         setLocationRelativeTo(null);
         
         _drawingPanel = new DrawingPanel();       
 		this.add(_drawingPanel);
+		_drawingPanel.setPreferredSize(initialDimension);
+		_size = new Coord((int)(initialDimension.width), (int)(initialDimension.height));
+		
+		pack();
 		_drawingPanel.setFocusable(true);
 		_drawingPanel.setFocusTraversalKeysEnabled(false);
     } 
+    
+    public Coord getDPSize() {
+    	return _size;
+    }
    
     
 	protected abstract void onDraw(Graphics2D g);

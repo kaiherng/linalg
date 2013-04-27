@@ -1,28 +1,17 @@
 package frontend.containers;
 
-import java.awt.Color;
 import java.awt.Graphics2D;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CopyOnWriteArrayList;
 
-import javax.swing.JLabel;
-
-import org.scilab.forge.jlatexmath.TeXConstants;
-import org.scilab.forge.jlatexmath.TeXFormula;
-import org.scilab.forge.jlatexmath.TeXIcon;
-
-import backend.blocks.Matrix;
 import backend.blocks.Countable.DisplayType;
-
+import backend.blocks.Matrix;
 import frontend.blocks.MatrixBlock;
 import frontend.general.Constants;
 import frontend.graphicsengine.Container;
 import frontend.shapes.Coord;
-import frontend.shapes.Rectangle;
-import frontend.shapes.TextRectangle;
 
 public class Saved extends Container {
 	
@@ -40,7 +29,17 @@ public class Saved extends Container {
 		addMatrix("A", m);
 		addMatrix("B", m);
 	}
-
+	
+	@Override
+	public void setLocation(Coord c) {
+		super.setLocation(c);
+	}
+	
+	@Override
+	public void setSize(Coord c) {
+		super.setSize(c);
+	}
+	
 	@Override
 	public void onDraw(Graphics2D g) {
 		int row = 0;

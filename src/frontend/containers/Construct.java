@@ -69,6 +69,8 @@ public class Construct extends Container {
 	@Override
 	public void setLocation(Coord location) {
 		super.setLocation(location);
+		_clear.setLocation(getLocation().plus(getSize().x, getSize().y).minus(180, 35));
+		_save.setLocation(getLocation().plus(getSize().x, getSize().y).minus(90, 35));
 	}
 	
 	public void saveMatrix(){

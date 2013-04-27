@@ -119,6 +119,7 @@ public class Tab implements Displayable, Interactable {
 	 */
 	@Override
 	public void setLocation(Coord c) {
+		
 		_location = c;
 		_background.setLocation(c.plus(0,Constants.TABHEADER_SIZE.y));
 		_header.setLocation(c.plus(_rank*Constants.TABHEADER_SIZE.x + _rank*-Constants.TABHEADER_OVERLAP,0));

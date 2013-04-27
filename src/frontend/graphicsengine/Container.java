@@ -1,8 +1,10 @@
 package frontend.graphicsengine;
 
+import java.awt.Color;
 import java.awt.Graphics2D;
 
 import frontend.shapes.Coord;
+import frontend.shapes.Rectangle;
 
 public abstract class Container implements Displayable, Interactable {
 		
@@ -34,10 +36,5 @@ public abstract class Container implements Displayable, Interactable {
 		return _location;
 	}
 
-	@Override
-	public abstract void onDraw(Graphics2D g);
-	
-	@Override
-	public abstract void onMouseClicked(int clickCount, Coord c);
 	
 }

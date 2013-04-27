@@ -31,8 +31,9 @@ public class DebugScreen implements Screen {
 //	private TabHeader _tabHeaderInactive;
 //	private FourSidedPolygon _polygon;
 //	private Frame _frame;
-	private ScrollPane _viewport;
+//	private ScrollPane _viewport;
 //	private Polygon _polygon;
+	private Frame _topLeftFrame;
 	
 	public DebugScreen(Application application) {
 		_application = application;
@@ -52,10 +53,14 @@ public class DebugScreen implements Screen {
 //		_frame = new Frame(new Coord(100,100), new Coord(400,400), tab2);
 //		_frame.addTab(tab1);
 		
-		Displayable textRectangle = new TextRectangle("Times New Roman", "bold", 15, "TextRectangle", Color.BLACK, Color.WHITE, new Coord(0,0), new Coord(100,50), Color.ORANGE, 5);
-		_viewport = new ScrollPane(new Coord(100,100), new Coord(300,300), new Coord(0,0), new Coord(300,100), new Coord(300,600), textRectangle);
-		
+//		Displayable textRectangle = new TextRectangle("Times New Roman", "bold", 15, "TextRectangle", Color.BLACK, Color.WHITE, new Coord(0,0), new Coord(100,50), Color.ORANGE, 5);
+//		_viewport = new ScrollPane(new Coord(100,100), new Coord(300,300), new Coord(0,0), new Coord(300,100), new Coord(300,600), textRectangle);
 
+		Container compute = new Compute(new Coord(100,100), new Coord(300,300));
+		Tab computeTab = new Tab(compute, "Compute", 0, new Coord(100,80), new Coord(300,320));
+		
+		_topLeftFrame = new Frame(new Coord(100,80), new Coord(300,320), computeTab);
+		
 	}
 	
 
@@ -68,8 +73,8 @@ public class DebugScreen implements Screen {
 //		_tabHeaderInactive.onDraw(g);
 //		_polygon.onDraw(g);
 //		_frame.onDraw(g);
-		_viewport.onDraw(g);
-		
+//		_viewport.onDraw(g);
+		_topLeftFrame.onDraw(g);
 	}
 
 	@Override
@@ -98,6 +103,7 @@ public class DebugScreen implements Screen {
 	@Override
 	public void onResize(Coord newSize) {
 //		System.out.println("onResize, newsize: " + newSize);
+		_topLeftFrame.setLocation(new Coord(200,200));
 	}
 
 	@Override
@@ -125,23 +131,23 @@ public class DebugScreen implements Screen {
 	@Override
 	public void onMouseMoved(Coord location) {
 //		System.out.println("onMouseMoved, location: " + location);
-		_viewport.onMouseMoved(location);
+//		_viewport.onMouseMoved(location);
 	}
 
 	@Override
 	public void onMouseWheelForward(Coord location) {
 //		System.out.println("onMouseWheelForward, location: " + location);
-		if (Algorithms.clickWithin(_viewport, location)) {
-			_viewport.onMouseWheelForward(location);
-		}
+//		if (Algorithms.clickWithin(_viewport, location)) {
+//			_viewport.onMouseWheelForward(location);
+//		}
 	}
 
 	@Override
 	public void onMouseWheelBackward(Coord location) {
 //		System.out.println("onMouseWheelBackward, location: " + location);
-		if (Algorithms.clickWithin(_viewport, location)) {
-			_viewport.onMouseWheelBackward(location);
-		}
+//		if (Algorithms.clickWithin(_viewport, location)) {
+//			_viewport.onMouseWheelBackward(location);
+//		}
 	}
 
 	@Override

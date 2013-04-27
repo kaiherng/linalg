@@ -38,28 +38,28 @@ public class MainScreen implements Screen {
 	
 	public MainScreen(Application application) {
 		_application = application;
-		System.out.println(application.getSize());
-		_background = new Rectangle(new Coord(0,0), new Coord(application.getSize()), Constants.SCREEN_BG_COLOR);
+		Coord dpsize = application.getDPSize();
+		_background = new Rectangle(new Coord(0,0), dpsize, Constants.SCREEN_BG_COLOR);
 		
 		Coord topLeftLocation = new Coord(Constants.FRAME_X_OFFSET,Constants.FRAME_Y_OFFSET);
-		Coord topLeftSize = new Coord((application.getSize().width - Constants.FRAME_X_OFFSET*3)/2,(application.getSize().height - Constants.FRAME_Y_OFFSET*3)/2);
+		Coord topLeftSize = dpsize.minus(topLeftLocation.smult(3)).sdiv(2);
 		
 		Coord bottomLeftLocation = new Coord(topLeftLocation.x, topLeftLocation.y+topLeftSize.y+Constants.FRAME_Y_OFFSET);
 		Coord bottomLeftSize = topLeftSize;
 		
 		Coord rightLocation = new Coord(topLeftLocation.x + topLeftSize.x + Constants.FRAME_X_OFFSET, Constants.FRAME_Y_OFFSET);
-		Coord rightSize = new Coord(topLeftSize.x, application.getSize().height - Constants.FRAME_Y_OFFSET*3);
+		Coord rightSize = new Coord(topLeftSize.x, dpsize.y-Constants.FRAME_Y_OFFSET*2);
 		
-		Saved saved = new Saved(bottomLeftLocation.plus(Constants.TABHEADER_SIZE), new Coord(400,400).minus(Constants.TABHEADER_SIZE));
-		Tab savedTab = new Tab(saved, "Saved", 0, bottomLeftLocation, bottomLeftSize);
-		
-		Container compute = new Compute(topLeftLocation.plus(Constants.TABHEADER_SIZE), topLeftSize.minus(0, Constants.TABHEADER_SIZE.y));
+		Container compute = new Compute(topLeftLocation.plus(new Coord(0,Constants.TABHEADER_SIZE.y)), topLeftSize.minus(0, Constants.TABHEADER_SIZE.y));
 		Tab computeTab = new Tab(compute, "Compute", 1, topLeftLocation, topLeftSize);
 		
-		Container construct = new Construct(topLeftLocation.plus(0, Constants.TABHEADER_SIZE.y), topLeftSize.minus(0, Constants.TABHEADER_SIZE.y*2), saved);
+		Saved saved = new Saved(bottomLeftLocation.plus(new Coord(0, Constants.TABHEADER_SIZE.y)), bottomLeftSize.minus(0, Constants.TABHEADER_SIZE.y));
+		Tab savedTab = new Tab(saved, "Saved", 0, bottomLeftLocation, bottomLeftSize);
+		
+		Container construct = new Construct(topLeftLocation.plus(new Coord(0,Constants.TABHEADER_SIZE.y)), topLeftSize.minus(0, Constants.TABHEADER_SIZE.y), saved);
 		Tab constructTab = new Tab(construct, "Construct", 0, topLeftLocation, topLeftSize);
 		
-		Container sols = new Solution(rightLocation.plus(Constants.CONTAINER_TOP_LEFT), rightSize);
+		Container sols = new Solution(rightLocation.plus(new Coord(0,Constants.TABHEADER_SIZE.y)), rightSize.minus(0, Constants.TABHEADER_SIZE.y));
 		Tab solsTab = new Tab(sols, "Solution", 0, rightLocation, rightSize);
 		
 		_topLeftFrame = new Frame(topLeftLocation, topLeftSize, constructTab);
@@ -67,14 +67,6 @@ public class MainScreen implements Screen {
 		
 		_bottomLeftFrame = new Frame(bottomLeftLocation, bottomLeftSize, savedTab);
 		_rightFrame = new Frame(rightLocation, rightSize, solsTab);
-		
-		
-//		Coord rightLocation = new Coord(topLeftLocation.x + topLeftSize.x + Constants.FRAME_X_OFFSET, topLeftLocation.y);
-//		Coord rightSize = new Coord((newSize.x - Constants.FRAME_X_OFFSET*3)/2,newSize.y - Constants.FRAME_Y_OFFSET*2);
-//		
-//		Container solution = new Solution(rightLocation.plus(Constants.TABHEADER_SIZE), new Coord(400,400).minus(Constants.TABHEADER_SIZE))
-//		Tab solutionTab = new Tab(new Solution(), "Solution", 0);
-//		_rightFrame = new Frame(new Coord(0,0), new Coord(0,0), solutionTab);
 		
 	}
 	
@@ -115,29 +107,27 @@ public class MainScreen implements Screen {
 
 	@Override
 	public void onResize(Coord newSize) {
-		System.out.println("onResize:" + newSize);
 		_background.setSize(newSize);
 		
 //		//calculates the new locations and sizes for the frames and sets them to these values
 		Coord topLeftLocation = new Coord(Constants.FRAME_X_OFFSET,Constants.FRAME_Y_OFFSET);
-		Coord topLeftSize = new Coord((newSize.x - Constants.FRAME_X_OFFSET*3)/2,(newSize.y - Constants.FRAME_Y_OFFSET*3)/2);
-//		Coord rightLocation = new Coord(topLeftLocation.x + topLeftSize.x + Constants.FRAME_X_OFFSET, topLeftLocation.y);
-//		Coord rightSize = new Coord((newSize.x - Constants.FRAME_X_OFFSET*3)/2,newSize.y - Constants.FRAME_Y_OFFSET*2);
+		Coord topLeftSize = newSize.minus(topLeftLocation.smult(3)).sdiv(2);
+		
 		Coord bottomLeftLocation = new Coord(topLeftLocation.x, topLeftLocation.y+topLeftSize.y+Constants.FRAME_Y_OFFSET);
 		Coord bottomLeftSize = topLeftSize;
-		System.out.println("bottomLeftLocation: " + bottomLeftLocation);
 		
+		Coord rightLocation = new Coord(topLeftLocation.x + topLeftSize.x + Constants.FRAME_X_OFFSET, Constants.FRAME_Y_OFFSET);
+		Coord rightSize = new Coord(topLeftSize.x, newSize.y-Constants.FRAME_Y_OFFSET*2);
 		
-		Coord rightLocation = new Coord(topLeftLocation.x + topLeftSize.x + Constants.FRAME_X_OFFSET, topLeftLocation.y);
-		Coord rightSize = new Coord((newSize.x - Constants.FRAME_X_OFFSET*3)/2,newSize.y - Constants.FRAME_Y_OFFSET*2);
 		
 		_topLeftFrame.setLocation(topLeftLocation);
 		_topLeftFrame.setSize(topLeftSize);
 		_bottomLeftFrame.setLocation(bottomLeftLocation);
 		_bottomLeftFrame.setSize(bottomLeftSize);
-//		_rightFrame.setLocation(rightLocation);
-//		_rightFrame.setSize(rightSize);
+		_rightFrame.setLocation(rightLocation);
+		_rightFrame.setSize(rightSize);
 		
+		System.out.println("newsize in mainscreen: " + newSize);
 	}
 
 	/**

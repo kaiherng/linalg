@@ -1,16 +1,10 @@
 package frontend.containers;
 
-import java.awt.Color;
 import java.awt.Graphics2D;
 
-import frontend.general.Constants;
-import frontend.graphicsengine.Algorithms;
 import frontend.graphicsengine.Container;
-import frontend.graphicsengine.Displayable;
 import frontend.graphicsengine.ScrollPane;
 import frontend.shapes.Coord;
-import frontend.shapes.Rectangle;
-import frontend.shapes.TextRectangle;
 
 public class Compute extends Container {
 

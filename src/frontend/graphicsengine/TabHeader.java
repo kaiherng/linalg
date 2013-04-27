@@ -2,7 +2,6 @@ package frontend.graphicsengine;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
-import java.awt.Polygon;
 
 import frontend.general.Constants;
 import frontend.shapes.Coord;
@@ -52,6 +51,7 @@ public class TabHeader implements Displayable {
 	public void setLocation(Coord location) {
 		_location = location;
 		_title.setLocation(_location.plus(Constants.TABHEADER_TEXT_OFFSET));
+		_polygon.setLocation(_location);
 	}
 	
 	public Coord getLocation() {
