@@ -2,6 +2,7 @@ package backend.computations.operations;
 
 import backend.blocks.*;
 import static org.junit.Assert.*;
+import backend.blocks.Countable.DisplayType;
 import org.junit.*;
 
 import backend.computations.infrastructure.*;
@@ -13,7 +14,7 @@ public class M_RowReduceTest
 	{
 		Double[][] v=new Double[1][1];
 		v[0][0]=new Double(5);
-		Matrix m=new Matrix(null,v);
+		Matrix m=new Matrix(DisplayType.DECIMAL,v);
 		M_RowReduce t=new M_RowReduce(m);
 		Solution s=t.getSolution();
 		Double[][] d=((Matrix)(s.getAnswer())).getValues();
@@ -30,7 +31,7 @@ public class M_RowReduceTest
 		v[0][1]=new Double(2);
 		v[1][0]=new Double(3);
 		v[1][1]=new Double(4);
-		Matrix m=new Matrix(null,v);
+		Matrix m=new Matrix(DisplayType.DECIMAL,v);
 		M_RowReduce t=new M_RowReduce(m);
 		Solution s=t.getSolution();
 		Double[][] d=((Matrix)(s.getAnswer())).getValues();
@@ -51,7 +52,7 @@ public class M_RowReduceTest
 		v[0][2]=new Double(3);
 		v[0][3]=new Double(4);
 		v[0][4]=new Double(5);
-		Matrix m=new Matrix(null,v);
+		Matrix m=new Matrix(DisplayType.DECIMAL,v);
 		M_RowReduce t=new M_RowReduce(m);
 		Solution s=t.getSolution();
 		Double[][] d=((Matrix)(s.getAnswer())).getValues();
@@ -73,7 +74,7 @@ public class M_RowReduceTest
 		v[2][0]=new Double(3);
 		v[3][0]=new Double(4);
 		v[4][0]=new Double(5);
-		Matrix m=new Matrix(null,v);
+		Matrix m=new Matrix(DisplayType.DECIMAL,v);
 		M_RowReduce t=new M_RowReduce(m);
 		Solution s=t.getSolution();
 		Double[][] d=((Matrix)(s.getAnswer())).getValues();
@@ -99,7 +100,7 @@ public class M_RowReduceTest
 		v[0][2]=new Double(0);
 		v[1][2]=new Double(0);
 		v[2][2]=new Double(1);
-		Matrix m=new Matrix(null,v);
+		Matrix m=new Matrix(DisplayType.DECIMAL,v);
 		M_RowReduce d=new M_RowReduce(m);
 		Solution s=d.getSolution();
 		Double[][] a=((Matrix)(s.getAnswer())).getValues();
@@ -130,7 +131,7 @@ public class M_RowReduceTest
 		v[1][2]=new Double(1);
 		v[2][2]=new Double(2);
 		v[3][2]=new Double(9);
-		Matrix m=new Matrix(null,v);
+		Matrix m=new Matrix(DisplayType.DECIMAL,v);
 		M_RowReduce d=new M_RowReduce(m);
 		Solution s=d.getSolution();
 		Double[][] a=((Matrix)(s.getAnswer())).getValues();
@@ -163,7 +164,7 @@ public class M_RowReduceTest
 		v[0][2]=new Double(3);
 		v[1][2]=new Double(0);
 		v[2][2]=new Double(2);
-		Matrix m=new Matrix(null,v);
+		Matrix m=new Matrix(DisplayType.DECIMAL,v);
 		M_RowReduce d=new M_RowReduce(m);
 		Solution s=d.getSolution();
 		Double[][] a=((Matrix)(s.getAnswer())).getValues();
@@ -194,7 +195,7 @@ public class M_RowReduceTest
 		v[0][2]=new Double(31);
 		v[1][2]=new Double(0);
 		v[2][2]=new Double(0);
-		Matrix m=new Matrix(null,v);
+		Matrix m=new Matrix(DisplayType.DECIMAL,v);
 		M_RowReduce d=new M_RowReduce(m);
 		Solution s=d.getSolution();
 		Double[][] a=((Matrix)(s.getAnswer())).getValues();
@@ -220,7 +221,7 @@ public class M_RowReduceTest
 		v[1][0]=new Double(0);
 		v[0][1]=new Double(0);
 		v[1][1]=new Double(0);
-		Matrix m=new Matrix(null,v);
+		Matrix m=new Matrix(DisplayType.DECIMAL,v);
 		M_RowReduce d=new M_RowReduce(m);
 		Solution s=d.getSolution();
 		Double[][] a=((Matrix)(s.getAnswer())).getValues();
@@ -243,7 +244,7 @@ public class M_RowReduceTest
 		v[1][0]=new Double(0);
 		v[0][1]=new Double(3);
 		v[1][1]=new Double(0);
-		Matrix m=new Matrix(null,v);
+		Matrix m=new Matrix(DisplayType.DECIMAL,v);
 		M_RowReduce d=new M_RowReduce(m);
 		Solution s=d.getSolution();
 		Double[][] a=((Matrix)(s.getAnswer())).getValues();
@@ -263,7 +264,7 @@ public class M_RowReduceTest
 		v[1][0]=new Double(0);
 		v[0][1]=new Double(3);
 		v[1][1]=new Double(0);
-		Matrix m=new Matrix(null,v);
+		Matrix m=new Matrix(DisplayType.DECIMAL,v);
 		M_RowReduce d=new M_RowReduce(m);
 		Solution s=d.getSolution();
 		Double[][] a=((Matrix)(s.getAnswer())).getValues();
@@ -291,7 +292,7 @@ public class M_RowReduceTest
 		v[1][2]=new Double(0);
 		v[2][2]=new Double(0);
 		v[3][2]=new Double(4);
-		Matrix m=new Matrix(null,v);
+		Matrix m=new Matrix(DisplayType.DECIMAL,v);
 		M_RowReduce d=new M_RowReduce(m);
 		Solution s=d.getSolution();
 		Double[][] a=((Matrix)(s.getAnswer())).getValues();
@@ -319,16 +320,14 @@ public class M_RowReduceTest
 		v[0][1]=new Double(10);
 		v[1][0]=null;
 		v[1][1]=new Double(2);
-		Matrix m=new Matrix(null,v);
+		Matrix m=new Matrix(DisplayType.DECIMAL,v);
 		try
 		{
 			new M_RowReduce(m);
-			assertTrue(false);
+			fail();
 		}
 		catch (Exception e)
-		{
-			assertTrue(true);
-		}
+		{}
 	}
 
 	@Test
@@ -339,7 +338,7 @@ public class M_RowReduceTest
 		v[1][0]=new Double(2);
 		v[0][1]=new Double(-3);
 		v[1][1]=new Double(-6);
-		Matrix m=new Matrix(null,v);
+		Matrix m=new Matrix(DisplayType.DECIMAL,v);
 		M_RowReduce d=new M_RowReduce(m);
 		Solution s=d.getSolution();
 		Double[][] a=((Matrix)(s.getAnswer())).getValues();
