@@ -7,7 +7,7 @@ public interface Interactable {
 	public void onDown(int keycode);
 	public void onUp(int keycode);
 	public void onRepeated(int keycode);
-	public void onTyped(int keycode);
+	public void onTyped(char keychar);
 	public void onMouseClicked(int clickCount, Coord c);
 	public void onMousePressed();
 	public void onMouseReleased();

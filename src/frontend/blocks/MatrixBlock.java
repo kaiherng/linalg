@@ -75,7 +75,7 @@ public class MatrixBlock extends TextRectangle implements Interactable {
 	}
 
 	@Override
-	public void onTyped(int keycode) {
+	public void onTyped(char keychar) {
 		// TODO Auto-generated method stub
 		
 	}

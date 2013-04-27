@@ -34,7 +34,7 @@ public interface Screen {
 	public void onRepeated(int keycode);
 	
 	
-	public void onTyped(int keycode);
+	public void onTyped(char keychar);
 	
 	
 	public void onResize(Coord newSize);

@@ -90,15 +90,18 @@ public class Text {
 	 */
 	public void onDraw(Graphics2D g, Rectangle rect) {
 		FontRenderContext frc = g.getFontRenderContext();
-		TextLayout tl = new TextLayout(_stringToDisplay, _font, frc);
-		g.setColor(_color);
-		
-		//calculations to center text in the rectangle
-		double cx = rect.getLocation().x + rect.getSize().x/2 - tl.getBounds().getWidth()/2;
-		double cy = rect.getLocation().y + rect.getSize().y/2 - tl.getBounds().getHeight()/2;
-		double ox = cx - tl.getBounds().getX();
-		double oy = cy - tl.getBounds().getY();		
-		tl.draw(g, (float)ox, (float)oy);
+		if (_stringToDisplay.length() > 0) {
+			TextLayout tl = new TextLayout(_stringToDisplay, _font, frc);
+			g.setColor(_color);
+
+			//calculations to center text in the rectangle
+			double cx = rect.getLocation().x + rect.getSize().x/2 - tl.getBounds().getWidth()/2;
+			double cy = rect.getLocation().y + rect.getSize().y/2 - tl.getBounds().getHeight()/2;
+			double ox = cx - tl.getBounds().getX();
+			double oy = cy - tl.getBounds().getY();		
+			tl.draw(g, (float)ox, (float)oy);
+			System.out.println(tl.getBounds());
+		}
 	}
 	
 	

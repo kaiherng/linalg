@@ -180,8 +180,8 @@ public class Tab implements Displayable, Interactable {
 	}
 
 	@Override
-	public void onTyped(int keycode) {
-		_container.onTyped(keycode);
+	public void onTyped(char keychar) {
+		_container.onTyped(keychar);
 	}
 
 	@Override

@@ -102,7 +102,7 @@ public class MainScreen implements Screen {
 	}
 
 	@Override
-	public void onTyped(int keycode) {
+	public void onTyped(char keychar) {
 	}
 
 	@Override
@@ -119,15 +119,14 @@ public class MainScreen implements Screen {
 		Coord rightLocation = new Coord(topLeftLocation.x + topLeftSize.x + Constants.FRAME_X_OFFSET, Constants.FRAME_Y_OFFSET);
 		Coord rightSize = new Coord(topLeftSize.x, newSize.y-Constants.FRAME_Y_OFFSET*2);
 		
-		
-		_topLeftFrame.setLocation(topLeftLocation);
+		//need to always call setSize before setLocation, if not things will end up in the wrong position if they're calculated based on size
 		_topLeftFrame.setSize(topLeftSize);
-		_bottomLeftFrame.setLocation(bottomLeftLocation);
+		_topLeftFrame.setLocation(topLeftLocation);
 		_bottomLeftFrame.setSize(bottomLeftSize);
-		_rightFrame.setLocation(rightLocation);
+		_bottomLeftFrame.setLocation(bottomLeftLocation);
 		_rightFrame.setSize(rightSize);
-		
-		System.out.println("newsize in mainscreen: " + newSize);
+		_rightFrame.setLocation(rightLocation);
+
 	}
 
 	/**

@@ -26,7 +26,7 @@ public class Application extends WorkingFrontEnd {
 		_keyHeld = false;
 		_mouseHeld = 0; //0 for not held, 1 for mouse first clicked, 2 for mouse being held down
 		_keyCode = 0;
-		_currentScreen = new MainScreen(this);
+		_currentScreen = new DebugScreen(this);
 		setVisible(true);
 	}
 
@@ -37,7 +37,7 @@ public class Application extends WorkingFrontEnd {
 
 	@Override
 	protected void onKeyTyped(KeyEvent e) {
-		_currentScreen.onTyped(e.getKeyCode());
+		_currentScreen.onTyped(e.getKeyChar());
 	}
 
 	@Override

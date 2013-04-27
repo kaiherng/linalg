@@ -95,7 +95,7 @@ public class Saved extends Container {
 	}
 
 	@Override
-	public void onTyped(int keycode) {
+	public void onTyped(char keychar) {
 		// TODO Auto-generated method stub
 		
 	}

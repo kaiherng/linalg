@@ -167,8 +167,8 @@ public class Frame implements Displayable, Interactable {
 
 
 	@Override
-	public void onTyped(int keycode) {
-		_currTab.onTyped(keycode);
+	public void onTyped(char keychar) {
+		_currTab.onTyped(keychar);
 	}
 
 
