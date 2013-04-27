@@ -17,6 +17,9 @@ import javax.swing.JTabbedPane;
 import javax.swing.UIManager;
 import javax.swing.border.Border;
 
+import frontend.panels.Construct;
+import frontend.panels.Saved;
+
 
 public class Main {
 
@@ -32,14 +35,18 @@ public class Main {
 		JPanel mainPanel = new JPanel(new GridBagLayout());
 		mainPanel.setBackground(Color.LIGHT_GRAY);
 
+		//Create Panels
+		Saved savedPanel = new Saved();
+		Construct constructPanel = new Construct(savedPanel); 
+		
 		
 		mainPanel.setMinimumSize(new Dimension(500,500));
 		frame.setContentPane(mainPanel);
 		GridBagConstraints c = new GridBagConstraints();
 		
 		JTabbedPane tabbedPaneTopLeft = new JTabbedPane();
-		JComponent topLeftPanel1 = makeTextPanel("Top Left Panel #1");
-		tabbedPaneTopLeft.addTab("Top Left Tab 1", topLeftPanel1);
+		//JComponent topLeftPanel1 = makeTextPanel("Top Left Panel #1");
+		tabbedPaneTopLeft.addTab("Top Left Tab 1", constructPanel);
 		tabbedPaneTopLeft.setMnemonicAt(0, KeyEvent.VK_1);
 
 		JComponent topLeftPanel2 = makeTextPanel("Top Left Panel #2");
@@ -58,7 +65,8 @@ public class Main {
 		
 		JTabbedPane tabbedPaneBottomLeft = new JTabbedPane();
 		JComponent bottomLeftPanel1 = makeTextPanel("Bottom Left Panel #1");
-		tabbedPaneBottomLeft.addTab("Bottom Left Tab 1", bottomLeftPanel1);
+		//tabbedPaneBottomLeft.addTab("Bottom Left Tab 1", bottomLeftPanel1);
+		tabbedPaneBottomLeft.addTab("Bottom Left Tab 1", savedPanel);
 		tabbedPaneBottomLeft.setMnemonicAt(0, KeyEvent.VK_1);
 		
 		c.fill = GridBagConstraints.BOTH;
@@ -79,6 +87,12 @@ public class Main {
 		c.gridheight=2;
 		c.insets = new Insets(20,20,20,20);
 		mainPanel.add(tabbedPaneRight, c);
+		
+		//so the focus wont be on the tab itself but on the panel instead
+//		tabbedPaneTopLeft.setFocusable(false);
+//		tabbedPaneBottomLeft.setFocusable(false);
+//		tabbedPaneRight.setFocusable(false);
+
 		
 		frame.setMinimumSize(new Dimension(1000,700));
 		frame.setLocationRelativeTo(null);
