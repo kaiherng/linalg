@@ -7,6 +7,7 @@ import backend.blocks.Countable.DisplayType;
 import backend.computations.infrastructure.Computable;
 import backend.computations.infrastructure.Solution;
 import backend.computations.infrastructure.Step;
+import matrixDraw.*;
 
 /** Determinant Operation
  *
@@ -14,7 +15,9 @@ import backend.computations.infrastructure.Step;
  */
 public class Determinant extends Computable
 {
-  private Solution _solution;
+  	private Solution _solution;
+  	private List<String> steps=new ArrayList<>();
+  	private DisplayType answerDisplayType;
 
 	@Override
 	public Solution getSolution()
@@ -29,8 +32,7 @@ public class Determinant extends Computable
 	 */
 	public Determinant(Matrix matrix) throws Exception
 	{
-		DisplayType answerDisplayType = matrix.getDisplayType(); // choose DisplayType to use
-
+		answerDisplayType = matrix.getDisplayType();
 		Double[][] values = matrix.getValues();
 
 		for(int i = 0; i < values.length; i++)
@@ -43,16 +45,12 @@ public class Determinant extends Computable
 				}
 			}
 		}
-
-		List<Step> steps = calcDet(values, answerDisplayType);
-		if (steps.isEmpty())
-			throw new Exception("ERROR (Det): steps has zero size");
-		Countable answer=steps.get(steps.size()-1).getCountable();
+		Scalar answer=calcDet(values);
 
 		List<Countable> inputs = new ArrayList<>();
 		inputs.add(matrix);
 
-		_solution = new Solution(Op.DETERMINANT, inputs, answer, steps);
+		_solution = new Solution(Op.DETERMINANT, inputs, answer, null);
 	}
 
 	/**returns the matrix without the y-th row, and the x-th column*/
@@ -80,7 +78,7 @@ public class Determinant extends Computable
 
 	/**returns the list of steps to find the determinant of the matrix
 	 *the final step contains the determinant*/
-	private List<Step> calcDet(Double[][] values, DisplayType distype) throws Exception
+	private Scalar calcDet(Double[][] values) throws Exception
 	{
 		if (values.length<1)
 			throw new IllegalArgumentException("ERROR (Det): Matrix size needs to be at least 1, given "+values.length);
@@ -91,65 +89,49 @@ public class Determinant extends Computable
 		//if it is just a 1x1 matrix
 		if (values.length==1)
 		{
-			List<Step> steps=new ArrayList<>();
-			steps.add(new Step(new Scalar(values[0][0],distype)));
-			return steps;
+			steps.add("The determinant of a 1x1 matrix is its value: "+values[0][0]);
+			return new Scalar(values[0][0],answerDisplayType);
 		}
 
 		//a 2x2 matrix
 		if (values.length==2)
 		{
-			List<Step> steps=new ArrayList<>();
-			//the determinant
 			double det=values[0][0]*values[1][1]-values[0][1]*values[1][0];
-			steps.add(new Step(new Scalar(det,distype)));
-			return steps;
+			steps.add("$"+values[0][0]+" * "+values[1][1]+" - "+values[0][1]+" * "+values[1][0]+" = "+det+"$");
+			return new Scalar(det,answerDisplayType);
 		}
 
 		//for any larger matrix
-		List<Step> steps=new ArrayList<>();
 		//the determinant
 		double det=0;
 		for (int i=0;i<values.length;i++)
 		{
 			//the matrix without the first row, and the i-th column
 			Double[][] m=removeRowColumn(values,i,0);
+			steps.add("Calculate the determinant of "+
+				(new MatrixDraw(new Matrix(answerDisplayType,m))).getCorrectLatex(answerDisplayType));
 
 			//calculate m's determinant
-			List<Step> intSteps=calcDet(m,distype);
-
-			if (intSteps.isEmpty())
-				throw new Exception("ERROR: No steps");
-
-			Countable c=intSteps.get(intSteps.size()-1).getCountable();
-			if (!(c instanceof Scalar))
-				throw new Exception("ERROR: Determinant is not Scalar");
+			Scalar d=calcDet(m);
 
 			//alternate + or - sign
 			int sign=1;
 			if (i%2==1)
 				sign=-1;
 
-			double subDet=sign*values[i][0]*((Scalar)c).getValue();
+			double subDet=sign*values[i][0]*d.getValue();
 			det+=subDet;
-			Step s=new Step(new Scalar (subDet,distype));
-
-			//include all the substeps
-			steps.addAll(intSteps);
-			steps.add(s);
+			steps.add("Add $"+sign+" * "+values[i][0]+" * "+d.getValue()+" to the overall determinant.");
 		}
 
-		//final answer
-		Step answer=new Step(new Scalar(det,distype));
-		steps.add(answer);
-		return steps;
+		steps.add("The overall determinant is "+det+".");
+		return new Scalar(det,answerDisplayType);
 	}
 
-
 	@Override
-	public List<String> toLatex() {
-		// TODO Auto-generated method stub
-		return null;
+	public List<String> toLatex()
+	{
+		return steps;
 	}
 
 }
