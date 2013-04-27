@@ -5,6 +5,7 @@ import backend.blocks.Countable.DisplayType;
 import backend.computations.infrastructure.Computable;
 import backend.computations.infrastructure.Solution;
 import backend.computations.infrastructure.Step;
+import matrixDraw.*;
 
 import java.util.*;
 
@@ -14,7 +15,8 @@ import java.util.*;
  */
 public class M_RowReduce extends Computable
 {
-  private Solution _solution;
+  	private Solution _solution;
+  	private List<String> steps=new ArrayList<>();
 
 	@Override
 	public Solution getSolution()
@@ -27,8 +29,6 @@ public class M_RowReduce extends Computable
 	 *@param matrix the matrix*/
 	public M_RowReduce(Matrix matrix) throws Exception
 	{
-		DisplayType answerDisplayType = matrix.getDisplayType(); // choose DisplayType to use
-
 		Double[][] values = matrix.getValues();
 		for (int i = 0; i < values.length; i++)
 		{
@@ -39,8 +39,6 @@ public class M_RowReduce extends Computable
 				}
 			}
 		}
-
-		List<Step> steps = new ArrayList<Step>();
 
 		//rearrange matrix
 		//first nonzero of each row
@@ -78,8 +76,8 @@ public class M_RowReduce extends Computable
 			}
 		}
 
-		Matrix stepMatrix=new Matrix(answerDisplayType,moved);
-		steps.add(new Step(stepMatrix));
+		Matrix stepMatrix=new Matrix(DisplayType.DECIMAL,moved);
+		steps.add("Rearrange rows to "+(new MatrixDraw(stepMatrix)).getCorrectLatex(matrix.getDisplayType()));
 
 		//the row to work on
 		for (int j=0;j<Math.min(moved.length,moved[0].length);j++)
@@ -101,8 +99,9 @@ public class M_RowReduce extends Computable
 				{
 					moved[k][j]/=pivot;
 				}
-				stepMatrix=new Matrix(answerDisplayType,moved);
-				steps.add(new Step(stepMatrix));
+				stepMatrix=new Matrix(DisplayType.DECIMAL,moved);
+				steps.add("Divide Row "+(j+1)+" by "+pivot+" = "
+					+(new MatrixDraw(stepMatrix)).getCorrectLatex(DisplayType.DECIMAL));
 			}
 
 			//make the whole column zero except for pivot
@@ -122,8 +121,9 @@ public class M_RowReduce extends Computable
 				{
 					moved[k][l]-=moved[k][j]*factor;
 				}
-				stepMatrix=new Matrix(answerDisplayType,moved);
-				steps.add(new Step(stepMatrix));
+				stepMatrix=new Matrix(DisplayType.DECIMAL,moved);
+				steps.add("Subtract Row "+(l+1)+"by Row "+(j+1)+" times a factor of "+
+					factor+" = "+(new MatrixDraw(stepMatrix)).getCorrectLatex(DisplayType.DECIMAL));
 			}
 		}
 
@@ -159,19 +159,19 @@ public class M_RowReduce extends Computable
 			}
 		}
 
-		Matrix answer=new Matrix(answerDisplayType,moved);
-		steps.add(new Step(answer));
+		Matrix answer=new Matrix(DisplayType.DECIMAL,moved);
+		steps.add("The row reduced echolon form is "+(new MatrixDraw(answer)).getCorrectLatex(DisplayType.DECIMAL));
 
 		List<Countable> inputs = new ArrayList<>();
 		inputs.add(matrix);
 
-		_solution = new Solution(Op.ROW_REDUCE, inputs, answer, steps);
+		_solution = new Solution(Op.ROW_REDUCE, inputs, answer, null);
 	}
 
 	@Override
-	public List<String> toLatex() {
-		// TODO Auto-generated method stub
-		return null;
+	public List<String> toLatex()
+	{
+		return steps;
 	}
 
 }

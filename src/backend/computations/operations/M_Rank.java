@@ -5,6 +5,7 @@ import backend.blocks.Countable.DisplayType;
 import backend.computations.infrastructure.Computable;
 import backend.computations.infrastructure.Solution;
 import backend.computations.infrastructure.Step;
+import matrixDraw.*;
 
 import java.util.*;
 
@@ -14,7 +15,8 @@ import java.util.*;
  */
 public class M_Rank extends Computable
 {
-  private Solution _solution;
+  	private Solution _solution;
+  	private List<String> steps=new ArrayList<>();
 
 	@Override
 	public Solution getSolution()
@@ -27,8 +29,7 @@ public class M_Rank extends Computable
 	 *@param matrix the matrix*/
 	public M_Rank(Matrix matrix) throws Exception
 	{
-		@SuppressWarnings("unused")
-		DisplayType answerDisplayType = matrix.getDisplayType();
+		DisplayType answerDisplayType = matrix.getDisplayType(); // choose DisplayType to use
 
 		Double[][] values = matrix.getValues();
 		for (int i = 0; i < values.length; i++)
@@ -41,15 +42,12 @@ public class M_Rank extends Computable
 			}
 		}
 
-		List<Step> steps = new ArrayList<Step>();
-
 		/**the reduced matrix*/
-		Solution refsol=(new M_RowReduce(matrix)).getSolution();
+		M_RowReduce rowreduce=new M_RowReduce(matrix);
+		Solution refsol=rowreduce.getSolution();
 		Matrix ref=(Matrix)(refsol.getAnswer());
 		Double[][] refv=ref.getValues();
-		steps.addAll(refsol.getSteps());
-		//whether a column is pivot or not
-		Matrix isPivot=new Matrix(DisplayType.CUSTOM,1,refv.length);
+		steps.addAll(rowreduce.toLatex());
 		//first zero row
 		int fzr=0;
 		int rank=0;
@@ -60,30 +58,29 @@ public class M_Rank extends Computable
 			if (refv[i][fzr]!=0)
 			{
 				rank++;
-				isPivot.setCustomDisplayIndex(0,i,"Pivot");
 				//get to bottom of non-zero
 				while (fzr<refv[0].length && refv[i][fzr]!=0)
 				{
 					fzr++;
 				}
+				steps.add("Column "+(i+1)+" is a pivot column.");
 			}
 		}
 
-		steps.add(new Step(isPivot));
 		//answer in scalar frm
 		Scalar answer=new Scalar(rank,DisplayType.WHOLENUMBER);
-		steps.add(new Step(answer));
+		steps.add("There are in total "+answer.getDisplayValue()+" pivot columns so the rank is "+answer.getDisplayValue());
 
 		List<Countable> inputs = new ArrayList<>();
 		inputs.add(matrix);
 
-		_solution = new Solution(Op.M_RANK, inputs, answer, steps);
+		_solution = new Solution(Op.M_RANK, inputs, answer, null);
 	}
 
 	@Override
-	public List<String> toLatex() {
-		// TODO Auto-generated method stub
-		return null;
+	public List<String> toLatex()
+	{
+		return steps;
 	}
 
 }

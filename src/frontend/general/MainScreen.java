@@ -3,10 +3,7 @@ package frontend.general;
 import java.awt.Graphics2D;
 
 import frontend.containers.Compute;
-import frontend.containers.Construct;
-import frontend.containers.Saved;
 import frontend.containers.Solution;
-import frontend.containers.Saved;
 import frontend.graphicsengine.Algorithms;
 import frontend.graphicsengine.Container;
 import frontend.graphicsengine.Frame;
@@ -53,19 +50,19 @@ public class MainScreen implements Screen {
 		Container compute = new Compute(topLeftLocation.plus(new Coord(0,Constants.TABHEADER_SIZE.y)), topLeftSize.minus(0, Constants.TABHEADER_SIZE.y));
 		Tab computeTab = new Tab(compute, "Compute", 1, topLeftLocation, topLeftSize);
 		
-		Saved saved = new Saved(bottomLeftLocation.plus(new Coord(0, Constants.TABHEADER_SIZE.y)), bottomLeftSize.minus(0, Constants.TABHEADER_SIZE.y));
-		Tab savedTab = new Tab(saved, "Saved", 0, bottomLeftLocation, bottomLeftSize);
+		//Saved saved = new Saved(bottomLeftLocation.plus(new Coord(0, Constants.TABHEADER_SIZE.y)), bottomLeftSize.minus(0, Constants.TABHEADER_SIZE.y));
+		//Tab savedTab = new Tab(saved, "Saved", 0, bottomLeftLocation, bottomLeftSize);
 		
-		Container construct = new Construct(topLeftLocation.plus(new Coord(0,Constants.TABHEADER_SIZE.y)), topLeftSize.minus(0, Constants.TABHEADER_SIZE.y), saved);
-		Tab constructTab = new Tab(construct, "Construct", 0, topLeftLocation, topLeftSize);
+		//Container construct = new Construct(topLeftLocation.plus(new Coord(0,Constants.TABHEADER_SIZE.y)), topLeftSize.minus(0, Constants.TABHEADER_SIZE.y), saved);
+		//Tab constructTab = new Tab(construct, "Construct", 0, topLeftLocation, topLeftSize);
 		
 		Container sols = new Solution(rightLocation.plus(new Coord(0,Constants.TABHEADER_SIZE.y)), rightSize.minus(0, Constants.TABHEADER_SIZE.y));
 		Tab solsTab = new Tab(sols, "Solution", 0, rightLocation, rightSize);
 		
-		_topLeftFrame = new Frame(topLeftLocation, topLeftSize, constructTab);
+		//_topLeftFrame = new Frame(topLeftLocation, topLeftSize, constructTab);
 		_topLeftFrame.addTab(computeTab);
 		
-		_bottomLeftFrame = new Frame(bottomLeftLocation, bottomLeftSize, savedTab);
+		//_bottomLeftFrame = new Frame(bottomLeftLocation, bottomLeftSize, savedTab);
 		_rightFrame = new Frame(rightLocation, rightSize, solsTab);
 		
 	}

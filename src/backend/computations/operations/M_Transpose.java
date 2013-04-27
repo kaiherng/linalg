@@ -5,54 +5,76 @@ import backend.blocks.Countable.DisplayType;
 import backend.computations.infrastructure.Computable;
 import backend.computations.infrastructure.Solution;
 import backend.computations.infrastructure.Step;
+import matrixDraw.*;
 
 import java.util.*;
 
-/** 
- * Matrix Transpose Operation
+/** Matrix Transpose Operation
  *
  * @author dzee
  */
-public class M_Transpose extends Computable{
+public class M_Transpose extends Computable
+{
 	private Solution _solution;
+	private Double[][] input;
+	private Double[][] output;
+	DisplayType answerDisplayType;
 
 	@Override
-	public Solution getSolution(){
+	public Solution getSolution()
+	{
 		return _solution;
 	}
 
 	/**Returns the transpose of a matrix
 	 *
 	 *@param matrix the matrix*/
-	public M_Transpose(Matrix matrix){
-		DisplayType answerDisplayType = matrix.getDisplayType();
-		Double[][] values = matrix.getValues();
+	public M_Transpose(Matrix matrix)
+	{
+		answerDisplayType = matrix.getDisplayType(); // choose DisplayType to use
 
-		// the transposed values
-		Double[][] trans = new Double[values[0].length][values.length];
-		for (int i=0;i<values[0].length;i++){
-			for (int j=0;j<values.length;j++){
-				trans[i][j]=values[j][i];
+		Double[][] values = matrix.getValues();
+		input=values;
+
+		//the transposed values
+		output = new Double[values[0].length][values.length];
+		for (int i=0;i<values[0].length;i++)
+		{
+			for (int j=0;j<values.length;j++)
+			{
+				output[i][j]=values[j][i];
 			}
 		}
-		
-		// the transposed matrix
-		Matrix answer=new Matrix(answerDisplayType,trans);
-
-		List<Step> steps = new ArrayList<Step>();
-		steps.add(new Step(answer));
+		//the transposed matrix
+		Matrix answer=new Matrix(answerDisplayType,output);
 
 		List<Countable> inputs = new ArrayList<>();
 		inputs.add(matrix);
 
-		_solution = new Solution(Op.DETERMINANT, inputs, answer, steps);
+		_solution = new Solution(Op.DETERMINANT, inputs, answer, null);
 	}
 
 	@Override
-	public List<String> toLatex() {
-		List<String> toReturn = new ArrayList<>();
-		
-		return toReturn;
+	public List<String> toLatex()
+	{
+		List<String> steps=new ArrayList<>();
+		for (int i=0;i<input.length;i++)
+		{
+			//the original column
+			Double[][] column=new Double[1][input[0].length];
+			column[0]=input[i];
+			Matrix from=new Matrix(answerDisplayType,column);
+			//the resulted row
+			Double[][] row=new Double[output.length][1];
+			for (int j=0;j<output.length;j++)
+			{
+				row[j][0]=output[j][i];
+			}
+			Matrix to=new Matrix(answerDisplayType,row);
+			steps.add("Column "+(i+1)+" = "+(new MatrixDraw(from)).getCorrectLatex(answerDisplayType)+
+				" becomes Row "+(i+1)+" = "+(new MatrixDraw(to)).getCorrectLatex(answerDisplayType));
+		}
+		return steps;
 	}
 
 }

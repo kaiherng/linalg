@@ -1,131 +1,84 @@
 package frontend.blocks;
 
 import java.awt.Color;
+import java.awt.Component;
+import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Insets;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.geom.Rectangle2D;
 
-import frontend.containers.Saved;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+
+import backend.blocks.Matrix;
+
 import frontend.general.Constants;
-import frontend.graphicsengine.Algorithms;
-import frontend.graphicsengine.Interactable;
-import frontend.shapes.Coord;
-import frontend.shapes.TextRectangle;
+import frontend.panels.Saved;
 
-public class MatrixBlock extends TextRectangle implements Interactable {
+public class MatrixBlock extends JPanel {
 	
-	Coord _location;
-	Coord _size;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 6148169854145080375L;
+	Rectangle2D.Double _r;
+	Rectangle2D.Double _delete;
+	Saved _s;
 	String _name;
-	TextRectangle _delete;
-	Saved _sm;
+	Matrix _matrix;
+	JLabel _t, _label;
 
-	public MatrixBlock(String stringToDisplay, Coord location, Saved sm) {
-		super(Constants.TEXT_FONTSTYLE, "bold", Constants.SM_TEXT_SIZE, stringToDisplay, Color.white, Constants.SM_COLOR,
-				location, Constants.SM_SIZE, Color.black, 1);
-		_location = location;
-		_size = Constants.SM_SIZE;
-		_name = stringToDisplay;
-		_delete = new TextRectangle(Constants.TEXT_FONTSTYLE, "bold", 10, "X", Color.white, Constants.SM_COLOR, new Coord(location.x+getSize().x-10, location.y), new Coord(10,10));
-		_sm = sm;
+	public MatrixBlock(String name, Matrix m, Saved saved) {
+		this.setLayout(null);
+		_r = new Rectangle2D.Double(0, 0, Constants.SM_SIZE.x, Constants.SM_SIZE.y);
+		_delete = new Rectangle2D.Double(Constants.SM_SIZE.x - 10, 0, 10, 10);
+		this.setPreferredSize(new Dimension(40, 40));
+		this.addMouseListener(new Click(this));
+		_s = saved;
+		_name = name;
+		_matrix = m;
+		
+		_t = new JLabel("X");
+		_t.setOpaque(false);
+		_t.setBorder(null);
+		_t.setForeground(Color.white);
+		this.add(_t);
+		_t.setBounds(Constants.SM_SIZE.x - 10,0,10,10);
+		
+		_label = new JLabel(name);
+		_label.setOpaque(false);
+		_label.setBorder(null);
+		_label.setForeground(Color.white);
+		_label.setHorizontalAlignment(JLabel.CENTER);
+		_label.setFont(new Font("SansSerif", Font.BOLD, 20));
+		this.add(_label);
+		_label.setBounds(0, 5, 40,30);
 	}
 	
-	public boolean contains(Coord c){
-		if (Algorithms.clickWithin(this, c)) {
-			return true;
+	public void paintComponent(Graphics g){
+		super.paintComponent(g);
+		Graphics2D g2 = (Graphics2D) g;
+		g2.setColor(Color.blue);
+		g2.fill(_r);
+	}
+	
+	private class Click extends MouseAdapter{
+		
+		Component _c;
+		
+		public Click(Component c){
+			_c = c;
 		}
-		return false;
-	}
-	
-	public void onDraw(Graphics2D g){
-		super.onDraw(g);
-		_delete.onDraw(g);
-	}
-	
-	public void setLocation(Coord c){
-		super.setLocation(c);
-		_delete.setLocation(new Coord(c.x+getSize().x-10, c.y));
-	}
-
-	@Override
-	public void onMouseClicked(int clickCount, Coord c) {
-		// TODO Auto-generated method stub
-		if(Algorithms.clickWithin(_delete, c)){
-			_sm.deleteMatrix(_name, this);
-		} else if(Algorithms.clickWithin(this, c)){
-			System.out.println("Add matrix " + _name + " to operation bar");
+		
+		public void mouseClicked(MouseEvent e){
+			if(_t.getBounds().contains(e.getPoint())){
+				_s.deleteMatrix(_name, _c);
+			}
 		}
 	}
-
-	@Override
-	public void onDown(int keycode) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void onUp(int keycode) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void onRepeated(int keycode) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void onTyped(char keychar) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void onMousePressed() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void onMouseReleased() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void onMouseDragged(Coord location) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void onMouseMoved(Coord location) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void onMouseWheelForward(Coord location) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void onMouseWheelBackward(Coord location) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void onDragStart(Coord location) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void onDragEnd(Coord location) {
-		// TODO Auto-generated method stub
-		
-	}
-
 }

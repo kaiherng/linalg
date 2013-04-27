@@ -24,6 +24,9 @@ import javax.swing.JTabbedPane;
 import javax.swing.UIManager;
 import javax.swing.plaf.basic.BasicSplitPaneUI;
 
+import frontend.panels.Construct;
+import frontend.panels.Saved;
+
 
 public class Main {
 	
@@ -73,6 +76,12 @@ public class Main {
 		splitPane.setBorder(BorderFactory.createEmptyBorder());
 		ui.getDivider().setBorder(BorderFactory.createLineBorder(Constants.SPLITPANE_BG, 10));
 		ui.getDivider().setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
+		JPanel mainPanel = new JPanel(new GridBagLayout());
+		mainPanel.setBackground(Color.LIGHT_GRAY);
+
+		//Create Panels
+		Saved savedPanel = new Saved();
+		Construct constructPanel = new Construct(savedPanel); 
 		
 		contentPanel.add(splitPane);
 
@@ -81,7 +90,7 @@ public class Main {
 		JTabbedPane tabbedPaneTopLeft = new JTabbedPane();
 		JComponent topLeftPanel1 = makeTextPanel("Construct");
 		topLeftPanel1.setBackground(new Color(0xE4E7F2));
-		tabbedPaneTopLeft.addTab("Construct", topLeftPanel1);
+		tabbedPaneTopLeft.addTab("Construct", constructPanel);
 		tabbedPaneTopLeft.setToolTipTextAt(0,"Create a new matrix");
 
 		JComponent topLeftPanel2 = makeTextPanel("Compute");
@@ -101,7 +110,7 @@ public class Main {
 		JTabbedPane tabbedPaneBottomLeft = new JTabbedPane();
 		JComponent bottomLeftPanel1 = makeTextPanel("Saved Matrices");
 		bottomLeftPanel1.setBackground(new Color(0xE4E7F2));
-		tabbedPaneBottomLeft.addTab("Saved Matrices", bottomLeftPanel1);
+		tabbedPaneBottomLeft.addTab("Saved Matrices", savedPanel);
 		tabbedPaneBottomLeft.setToolTipTextAt(0,"All your saved matrices are stored here");
 		
 		c.fill = GridBagConstraints.BOTH;
@@ -133,6 +142,12 @@ public class Main {
 		c2.insets = new Insets(20,20,20,20);
 		
 		rightPanel.add(tabbedPaneRight, c2);
+		
+		//so the focus wont be on the tab itself but on the panel instead
+//		tabbedPaneTopLeft.setFocusable(false);
+//		tabbedPaneBottomLeft.setFocusable(false);
+//		tabbedPaneRight.setFocusable(false);
+
 		
 		frame.setMinimumSize(new Dimension(1000,700));
 		frame.setLocationRelativeTo(null);
