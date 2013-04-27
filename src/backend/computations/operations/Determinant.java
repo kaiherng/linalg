@@ -29,10 +29,7 @@ public class Determinant extends Computable
 	 */
 	public Determinant(Matrix matrix) throws Exception
 	{
-		List<Countable> matrixList = new ArrayList<>();
-		matrixList.add(matrix);
-		//TODO
-		DisplayType answerDisplayType = null;//resolveDisplayType(matrixList); // choose DisplayType to use
+		DisplayType answerDisplayType = matrix.getDisplayType(); // choose DisplayType to use
 
 		Double[][] values = matrix.getValues();
 
