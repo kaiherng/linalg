@@ -7,14 +7,16 @@ import backend.blocks.Countable.DisplayType;
 import backend.computations.infrastructure.Computable;
 import backend.computations.infrastructure.Solution;
 import backend.computations.infrastructure.Step;
+import matrixDraw.*;
 
-/** Addition Operation
+/** Inverse Operation
  *
  * @author dzee
  */
 public class M_Inverse extends Computable
 {
 	private Solution _solution;
+	private List<String> steps;
 
 	@Override
 	public Solution getSolution()
@@ -46,8 +48,9 @@ public class M_Inverse extends Computable
 			throw new IllegalArgumentException("ERROR (Inverse): Matrix must have the same number of columns and rows");
 
 		//calculate the determinant of the matrix
-		Solution sol=new Determinant(matrix).getSolution();
-		List<Step> steps = sol.getSteps();
+		Determinant determinant=new Determinant(matrix);
+		Solution sol=determinant.getSolution();
+		steps=determinant.toLatex();
 
 		//1x1 matrix
 		if (values.length==1 && values[0].length==1)
@@ -58,12 +61,12 @@ public class M_Inverse extends Computable
 			Double[][] d=new Double[1][1];
 			d[0][0]=1/values[0][0];
 			Matrix answer=new Matrix(answerDisplayType,d);
-			steps.add(new Step(answer));
+			steps.add("$1/"+matrix.getDisplayValues()[0][0]+" = "+d[0][0]+"$");
 
 			List<Countable> inputs = new ArrayList<>();
 			inputs.add(matrix);
 
-			_solution = new Solution(Op.DETERMINANT, inputs, answer, steps);
+			_solution = new Solution(Op.DETERMINANT, inputs, answer, null);
 			return;
 		}
 
@@ -84,21 +87,25 @@ public class M_Inverse extends Computable
 				if (i%2 != j%2)
 					sign=-1;
 				//calculate determinant
-				Solution s=new Determinant(new Matrix(answerDisplayType,removeRowColumn(values,i,j))).getSolution();
-				steps.addAll(sol.getSteps());
+				determinant=new Determinant(new Matrix(answerDisplayType,removeRowColumn(values,i,j)));
+				Solution s=determinant.getSolution();
+				steps.add("Calculate the determinant of the cofactor matrix of the value ("+(i+1)+","+(j+1)+") as follow:");
+				steps.addAll(determinant.toLatex());
 				cofactor[i][j]=sign*(((Scalar)(s.getAnswer())).getValue())/det;
 			}
 		}
 
 		//calculate the transpose of the cofactor
-		Solution ct=new M_Transpose(new Matrix(answerDisplayType,cofactor)).getSolution();
-		steps.addAll(ct.getSteps());
+		M_Transpose trans=new M_Transpose(new Matrix(answerDisplayType,cofactor));
+		Solution ct=trans.getSolution();
+		steps.add("Transpose the determinants calculated:");
+		steps.addAll(trans.toLatex());
 		Countable answer=ct.getAnswer();
 
 		List<Countable> inputs = new ArrayList<>();
 		inputs.add(matrix);
 
-		_solution = new Solution(Op.DETERMINANT, inputs, answer, steps);
+		_solution = new Solution(Op.DETERMINANT, inputs, answer, null);
 	}
 
 	/**returns the matrix without the y-th row, and the x-th column*/
@@ -126,9 +133,9 @@ public class M_Inverse extends Computable
 
 
 	@Override
-	public List<String> toLatex() {
-		// TODO Auto-generated method stub
-		return null;
+	public List<String> toLatex()
+	{
+		return steps;
 	}
 
 }
