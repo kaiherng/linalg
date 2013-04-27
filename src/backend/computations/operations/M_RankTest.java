@@ -2,6 +2,7 @@ package backend.computations.operations;
 
 import backend.blocks.*;
 import static org.junit.Assert.*;
+import backend.blocks.Countable.DisplayType;
 import org.junit.*;
 
 import backend.computations.infrastructure.*;
@@ -13,7 +14,7 @@ public class M_RankTest
 	{
 		Double[][] v=new Double[1][1];
 		v[0][0]=new Double(5);
-		Matrix m=new Matrix(null,v);
+		Matrix m=new Matrix(DisplayType.DECIMAL,v);
 		M_Rank r=new M_Rank(m);
 		Solution s=r.getSolution();
 		assertTrue(((Scalar)(s.getAnswer())).getValue()==1);
@@ -27,7 +28,7 @@ public class M_RankTest
 		v[1][1]=new Double(2);
 		v[0][1]=new Double(0);
 		v[1][0]=new Double(1);
-		Matrix m=new Matrix(null,v);
+		Matrix m=new Matrix(DisplayType.DECIMAL,v);
 		M_Rank d=new M_Rank(m);
 		Solution s=d.getSolution();
 		assertTrue(((Scalar)(s.getAnswer())).getValue()==2);
@@ -41,16 +42,14 @@ public class M_RankTest
 		v[0][1]=new Double(10);
 		v[1][0]=null;
 		v[1][1]=new Double(2);
-		Matrix m=new Matrix(null,v);
+		Matrix m=new Matrix(DisplayType.DECIMAL,v);
 		try
 		{
 			new M_Rank(m);
-			assertTrue(false);
+			fail();
 		}
 		catch (Exception e)
-		{
-			assertTrue(true);
-		}
+		{}
 	}
 
 	@Test
@@ -59,7 +58,7 @@ public class M_RankTest
 		Double[][] v=new Double[2][1];
 		v[0][0]=new Double(2);
 		v[1][0]=new Double(1);
-		Matrix m=new Matrix(null,v);
+		Matrix m=new Matrix(DisplayType.DECIMAL,v);
 		M_Rank d=new M_Rank(m);
 		Solution s=d.getSolution();
 		assertTrue(((Scalar)(s.getAnswer())).getValue()==1);
@@ -71,7 +70,7 @@ public class M_RankTest
 		Double[][] v=new Double[1][2];
 		v[0][0]=new Double(33);
 		v[0][1]=new Double(6);
-		Matrix m=new Matrix(null,v);
+		Matrix m=new Matrix(DisplayType.DECIMAL,v);
 		M_Rank d=new M_Rank(m);
 		Solution s=d.getSolution();
 		assertTrue(((Scalar)(s.getAnswer())).getValue()==1);
@@ -90,7 +89,7 @@ public class M_RankTest
 		v[0][2]=new Double(0);
 		v[1][2]=new Double(0);
 		v[2][2]=new Double(-9);
-		Matrix m=new Matrix(null,v);
+		Matrix m=new Matrix(DisplayType.DECIMAL,v);
 		M_Rank d=new M_Rank(m);
 		Solution s=d.getSolution();
 		assertTrue(((Scalar)(s.getAnswer())).getValue()==3);
@@ -109,7 +108,7 @@ public class M_RankTest
 		v[0][2]=new Double(0);
 		v[1][2]=new Double(0);
 		v[2][2]=new Double(-9);
-		Matrix m=new Matrix(null,v);
+		Matrix m=new Matrix(DisplayType.DECIMAL,v);
 		M_Rank d=new M_Rank(m);
 		Solution s=d.getSolution();
 		assertTrue(((Scalar)(s.getAnswer())).getValue()==2);
@@ -128,7 +127,7 @@ public class M_RankTest
 		v[0][2]=new Double(0);
 		v[1][2]=new Double(0);
 		v[2][2]=new Double(0);
-		Matrix m=new Matrix(null,v);
+		Matrix m=new Matrix(DisplayType.DECIMAL,v);
 		M_Rank d=new M_Rank(m);
 		Solution s=d.getSolution();
 		assertTrue(((Scalar)(s.getAnswer())).getValue()==1);
