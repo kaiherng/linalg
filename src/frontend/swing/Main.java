@@ -1,7 +1,6 @@
 package frontend.swing;
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
@@ -9,10 +8,6 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Insets;
-import java.awt.Point;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.JComponent;
@@ -21,7 +16,10 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSplitPane;
 import javax.swing.JTabbedPane;
+import javax.swing.SwingConstants;
+import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
+import javax.swing.border.Border;
 import javax.swing.plaf.basic.BasicSplitPaneUI;
 
 import frontend.panels.Construct;
@@ -53,16 +51,19 @@ public class Main {
 		UIManager.put("TabbedPane.tabInsets", new Insets(1, 8, 1, 8));  //sets padding within the tab header
 		UIManager.put("TabbedPane.tabAreaInsets", new Insets(0, 2, -1, 0));  //sets the margin of the block of tab headers
 		
-		final JFrame frame = new JFrame("Linear Algebra Calculator");
+		JFrame frame = new JFrame("Linear Algebra Calculator");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setUndecorated(true);
-		JPanel contentPanel = new JPanel(new BorderLayout());
-		frame.setContentPane(contentPanel);
+		JPanel contentPane = new JPanel(new BorderLayout());
+//		
+//		Border padding = BorderFactory.createLineBorder(Constants.FRAME_BORDER_COLOR,5);
+//		contentPane.setBorder(padding);
+		
+		frame.setContentPane(contentPane);
 		
 		HeaderPanel headerPanel = new HeaderPanel(frame);
+		contentPane.add(headerPanel, BorderLayout.NORTH);
 		
-		
-		contentPanel.add(headerPanel, BorderLayout.NORTH);
 		JPanel leftPanel = new JPanel(new GridBagLayout());
 		leftPanel.setBackground(Constants.PANEL_BG);
 		leftPanel.setMinimumSize(new Dimension(300,300));
@@ -79,23 +80,21 @@ public class Main {
 		JPanel mainPanel = new JPanel(new GridBagLayout());
 		mainPanel.setBackground(Color.LIGHT_GRAY);
 
+		new ResizeAdapter(splitPane, frame, 20, SwingUtilities.SOUTH, SwingUtilities.EAST, SwingUtilities.WEST);
+
 		//Create Panels
 		Saved savedPanel = new Saved();
 		Construct constructPanel = new Construct(savedPanel); 
 		Compute computePanel = new Compute();
 		
-		contentPanel.add(splitPane);
+		contentPane.add(splitPane);
 
 		GridBagConstraints c = new GridBagConstraints();
 		
 		JTabbedPane tabbedPaneTopLeft = new JTabbedPane();
-		JComponent topLeftPanel1 = makeTextPanel("Construct");
-		topLeftPanel1.setBackground(new Color(0xE4E7F2));
+		
 		tabbedPaneTopLeft.addTab("Construct", constructPanel);
 		tabbedPaneTopLeft.setToolTipTextAt(0,"Create a new matrix");
-
-		JComponent topLeftPanel2 = makeTextPanel("Compute");
-		topLeftPanel2.setBackground(new Color(0xE4E7F2));
 		
 		tabbedPaneTopLeft.addTab("Compute", computePanel);
 		tabbedPaneTopLeft.setToolTipTextAt(1,"Select computations to perform");
@@ -111,7 +110,7 @@ public class Main {
 		
 		JTabbedPane tabbedPaneBottomLeft = new JTabbedPane();
 		JComponent bottomLeftPanel1 = makeTextPanel("Saved Matrices");
-		bottomLeftPanel1.setBackground(new Color(0xE4E7F2));
+		bottomLeftPanel1.setBackground(Constants.TAB_PANEL_CONTENT_BG);
 		tabbedPaneBottomLeft.addTab("Saved Matrices", savedPanel);
 		tabbedPaneBottomLeft.setToolTipTextAt(0,"All your saved matrices are stored here");
 		
@@ -125,11 +124,11 @@ public class Main {
 	
 		JTabbedPane tabbedPaneRight = new JTabbedPane();
 		JComponent tabbedPaneRightPanel1 = makeTextPanel("Solution");
-		tabbedPaneRightPanel1.setBackground(new Color(0xE4E7F2));
+		tabbedPaneRightPanel1.setBackground(Constants.TAB_PANEL_CONTENT_BG);
 		tabbedPaneRight.addTab("Solution", tabbedPaneRightPanel1);
 		tabbedPaneRight.setToolTipTextAt(0,"Quick solution for your computation");
 		JComponent tabbedPaneRightPanel2 = makeTextPanel("Step-By-Step");
-		tabbedPaneRightPanel2.setBackground(new Color(0xE4E7F2));
+		tabbedPaneRightPanel2.setBackground(Constants.TAB_PANEL_CONTENT_BG);
 		tabbedPaneRight.addTab("Step-By-Step", tabbedPaneRightPanel2);
 		tabbedPaneRight.setToolTipTextAt(1,"View the steps to arrive at the solution");
 		rightPanel.setMinimumSize(new Dimension(300,300));

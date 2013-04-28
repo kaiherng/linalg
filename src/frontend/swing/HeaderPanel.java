@@ -2,6 +2,7 @@ package frontend.swing;
 
 import java.awt.BorderLayout;
 import java.awt.Cursor;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Point;
 import java.awt.event.MouseEvent;
@@ -25,7 +26,7 @@ public class HeaderPanel extends JPanel implements MouseListener, MouseMotionLis
 		_frame = frame;
 		addMouseListener(this);
 		addMouseMotionListener(this);
-
+		setToolTipText("Double click for fullscreen or drag to move window");
 		setCursor(Cursor.getPredefinedCursor(Cursor.MOVE_CURSOR));
 
 		setBorder(BorderFactory.createEmptyBorder(3, 6, 3, 6)); //for padding around the title elements
@@ -86,7 +87,17 @@ public class HeaderPanel extends JPanel implements MouseListener, MouseMotionLis
 	public void mouseMoved(MouseEvent e) {}
 	
 	@Override
-	public void mouseClicked(MouseEvent e) {}
+	public void mouseClicked(MouseEvent e) {
+		if (e.getClickCount() == 2) {
+			if (_frame.getExtendedState() == JFrame.NORMAL) {
+				_frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+			}
+			else {
+				_frame.setExtendedState(JFrame.NORMAL);
+			}
+		}
+		
+	}
 	
 	@Override
 	public void mouseReleased(MouseEvent e) {}
