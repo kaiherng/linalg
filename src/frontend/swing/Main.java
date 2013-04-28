@@ -22,8 +22,10 @@ import javax.swing.UIManager;
 import javax.swing.border.Border;
 import javax.swing.plaf.basic.BasicSplitPaneUI;
 
+import frontend.panels.Compute;
 import frontend.panels.Construct;
 import frontend.panels.Saved;
+import frontend.panels.Solution;
 
 
 public class Main {
@@ -83,9 +85,11 @@ public class Main {
 		new ResizeAdapter(splitPane, frame, 20, SwingUtilities.SOUTH, SwingUtilities.EAST, SwingUtilities.WEST);
 
 		//Create Panels
-		Saved savedPanel = new Saved();
+		Solution solPanel = new Solution();
+		Solution stepPanel = new Solution();
+		Compute computePanel = new Compute(solPanel, stepPanel);
+		Saved savedPanel = new Saved(computePanel);
 		Construct constructPanel = new Construct(savedPanel); 
-		Compute computePanel = new Compute();
 		
 		contentPane.add(splitPane);
 
@@ -123,13 +127,14 @@ public class Main {
 		leftPanel.add(tabbedPaneBottomLeft, c);
 	
 		JTabbedPane tabbedPaneRight = new JTabbedPane();
-		JComponent tabbedPaneRightPanel1 = makeTextPanel("Solution");
-		tabbedPaneRightPanel1.setBackground(Constants.TAB_PANEL_CONTENT_BG);
-		tabbedPaneRight.addTab("Solution", tabbedPaneRightPanel1);
+		tabbedPaneRight.addTab("Solution", solPanel);
+
 		tabbedPaneRight.setToolTipTextAt(0,"Quick solution for your computation");
 		JComponent tabbedPaneRightPanel2 = makeTextPanel("Step-By-Step");
-		tabbedPaneRightPanel2.setBackground(Constants.TAB_PANEL_CONTENT_BG);
-		tabbedPaneRight.addTab("Step-By-Step", tabbedPaneRightPanel2);
+
+		tabbedPaneRightPanel2.setBackground(new Color(0xE4E7F2));
+		tabbedPaneRight.addTab("Step-By-Step", stepPanel);
+
 		tabbedPaneRight.setToolTipTextAt(1,"View the steps to arrive at the solution");
 		rightPanel.setMinimumSize(new Dimension(300,300));
 		
