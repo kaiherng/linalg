@@ -100,4 +100,9 @@ public class Scalar extends Countable{
 		}
 	}
 	
+	//TODO: CHECK
+	public String toLatex(){
+		return _displayValue;
+	}
+	
 }

@@ -31,4 +31,13 @@ public class Bracket implements Numerical {
 	public String getName() {
 		return _name;
 	}
+	
+	//TODO: IS THIS RETURNING THE RIGHT STUFF?
+	public String toLatex(){
+		if(_isOpen){
+			return "(";
+		} else {
+			return ")";
+		}
+	}
 }

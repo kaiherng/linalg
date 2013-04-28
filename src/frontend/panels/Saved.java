@@ -30,6 +30,7 @@ import frontend.utils.WrapLayout;
 
 import backend.blocks.Matrix;
 import backend.blocks.Countable.DisplayType;
+import backend.blocks.Numerical;
 
 public class Saved extends JPanel {
 	
@@ -41,10 +42,14 @@ public class Saved extends JPanel {
 	JScrollPane _scroll;
 	JPanel _content;
 	int _width;
+	Compute _c;
+	Character id = 'A';
 
-	public Saved() {
+	public Saved(Compute c) {
 		this.setLayout(new WrapLayout(FlowLayout.LEFT));
 		this.setPreferredSize(this.getSize());
+		
+		_c = c;
 		
 		mList = new HashMap<>();
 		Matrix m = new Matrix(DisplayType.DECIMAL, new Double[][]{{1.0,2.0},{3.0,4.0}});
@@ -62,9 +67,15 @@ public class Saved extends JPanel {
 	
 	public void addMatrix(String name, Matrix m){
 		mList.put(name, m);
-		this.add(new MatrixBlock(name, m, this));
+		//this.add(new MatrixBlock(name, m, this));
+		this.add(new MatrixBlock(id.toString(), m, this));
+		id++;
 		this.revalidate();
 		this.repaint();
+	}
+	
+	public void addToBar(Numerical n, String s){
+		_c.addToBar(n, s);
 	}
 	
 	public void deleteMatrix(String name, Component mb){

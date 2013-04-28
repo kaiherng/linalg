@@ -69,6 +69,8 @@ public class MatrixBlock extends JPanel {
 		public void mouseClicked(MouseEvent e){
 			if(_delete.getBounds().contains(e.getPoint())){
 				_s.deleteMatrix(_name, _c);
+			} else {
+				_s.addToBar(_matrix, _name);
 			}
 		}
 	}

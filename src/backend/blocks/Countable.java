@@ -35,5 +35,7 @@ public abstract class Countable implements Numerical{
 	public void setDisplayType(DisplayType toSet){
 		_displayType = toSet;
 	}
+	
+	public abstract String toLatex();
 
 }

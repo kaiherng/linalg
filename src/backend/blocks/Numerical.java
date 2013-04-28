@@ -7,4 +7,6 @@ public interface Numerical{
 	 * @return the string name referring to the class
 	 */
 	public String getName();
+	
+	public String toLatex();
 }
