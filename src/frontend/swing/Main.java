@@ -128,13 +128,10 @@ public class Main {
 	
 		JTabbedPane tabbedPaneRight = new JTabbedPane();
 		tabbedPaneRight.addTab("Solution", solPanel);
-
+		
 		tabbedPaneRight.setToolTipTextAt(0,"Quick solution for your computation");
-		JComponent tabbedPaneRightPanel2 = makeTextPanel("Step-By-Step");
-
-		tabbedPaneRightPanel2.setBackground(new Color(0xE4E7F2));
 		tabbedPaneRight.addTab("Step-By-Step", stepPanel);
-
+		
 		tabbedPaneRight.setToolTipTextAt(1,"View the steps to arrive at the solution");
 		rightPanel.setMinimumSize(new Dimension(300,300));
 		
