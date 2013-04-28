@@ -85,4 +85,9 @@ public class Operation implements Numerical{
 		return _type.getName();
 	}
 	
+	//TODO: fill with something???
+	public String toLatex(){
+		return "";
+	}
+	
 }

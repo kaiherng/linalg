@@ -1,5 +1,7 @@
 package backend.blocks;
 
+import matrixDraw.MatrixDraw;
+
 
 /** 
  * The primary matrix datastructure for this project
@@ -294,6 +296,12 @@ public class Matrix extends Countable{
 	 */
 	public int getNumCols(){
 		return _numCols;
+	}
+	
+	//TODO: SHOULD MOVE ACTUAL MATRIX TO LATEX METHOD HERE!!
+	public String toLatex(){
+		MatrixDraw md = new MatrixDraw(this);
+		return md.getCorrectLatex(_displayType);
 	}
 
 }
