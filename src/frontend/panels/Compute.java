@@ -103,10 +103,17 @@ public class Compute extends JPanel {
 	public void compute(){
 		List<Numerical> l = new ArrayList<>();
 		for(Numerical n : _numericals.values()){
+			System.out.println(n.getName());
 			l.add(n);
 		}
 		try{
 			ParseNode result = Parser.parse(l);
+			if(result == null){
+				String s = "\\text{No solution found}";
+				_stepPanel.setTex(s);
+				_solPanel.setTex(s);
+				return;
+			}
 			Countable answer = result.getSolution().getAnswer();
 			_solPanel.setTex(answer.toLatex());
 			
