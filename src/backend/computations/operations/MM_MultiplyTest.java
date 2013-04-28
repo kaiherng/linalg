@@ -165,13 +165,13 @@ public class MM_MultiplyTest {
 		assertTrue(indexSteps[1][2].equals("(9.0 \\ * \\ 4.0) \\ + \\ (8.0 \\ * \\ 7.0) \\ + \\ (6.0 \\ * \\ 0.0) \\ = \\ 92.0"));
 		
 		// use this to check LaTeX (copy and paste into LaTeX compiler)
-//		List<String> latex = testMult.toLatex();
-//		int counter = 0;
-//		for (String s : latex){
-//			System.out.println("======== List item: "+counter+ "========");
-//			counter++;
-//			System.out.println(s+ "\n");
-//		}
+		List<String> latex = testMult.toLatex();
+		int counter = 0;
+		for (String s : latex){
+			System.out.println("======== List item: "+counter+ "========");
+			counter++;
+			System.out.println(s+ "\n");
+		}
 	}
 
 }

@@ -10,8 +10,11 @@ import backend.blocks.Matrix;
 import backend.blocks.Numerical;
 import backend.blocks.Op;
 import backend.blocks.Operation;
+import backend.blocks.Scalar;
 import backend.computations.infrastructure.Solution;
+import backend.computations.operations.MM_Multiply;
 import backend.computations.operations.MM_PlusMinus;
+import backend.computations.operations.MS_Multiply;
 
 /** Processes a sequence of Numericals representing a computation and generates a tree structure of solutions
  *  that allows the caller to understand how the computation was computed
@@ -91,12 +94,12 @@ public class Parser {
 				
 				// scalar-matrix multiply
 				case SM_MULTIPLY: {
-					return null; // TODO	
+					return computeSM_Multiply(rootAsOp);
 				}
 				
 				// matrix multiplication
 				case MM_MULTIPLY: {
-					return null; // TODO
+					return computeMM_Multiply(rootAsOp);
 				}
 				
 				// determinant
@@ -173,7 +176,8 @@ public class Parser {
 	}
 	
 	
-	/** Given a plus operator that includes its arguments, returns a ParseNode containing the Solution
+	/** 
+	 * Given a scalar plusminus operator that includes its arguments, returns a ParseNode containing the Solution
 	 * 
 	 * @param op the plus operator
 	 * @param isPlus true iff this is a plus operation. false iff this is a minus operation
@@ -205,6 +209,74 @@ public class Parser {
 			MM_PlusMinus minus = new MM_PlusMinus((Matrix) arg1, (Matrix) arg2,false);
 			answer = minus.getSolution();
 		}
+		return new ParseNode(answer,firstArg,secondArg);
+	}
+	
+	
+	/**
+	 * Given a MM_Multiply operator that includes its arguments, returns a ParseNode containing the Solution
+	 * 
+	 * @param op the MM_Multiply operator
+	 * @return the ParseNode containing the solution and arguments to <op>
+	 */
+	private static ParseNode computeMM_Multiply(Operation op){
+		if ((op.getFirstArg() == null || (op.getSecondArg() == null))){
+			throw new IllegalArgumentException("ERROR: MM_Multiply requires two arguments"); // should be unreachable code
+		}
+	
+		Numerical first = op.getFirstArg();     // this could return an Operation or a Countable
+		Numerical second = op.getSecondArg();
+		
+		ParseNode firstArg = compute(first);          // this will return null if passed a Countable
+		ParseNode secondArg= compute(second);
+		
+		Numerical arg1 = getNextArg(firstArg,first);  // b/c we need to actually compute, gets the Countable arguments
+		Numerical arg2 = getNextArg(secondArg,second);
+		
+		if (!(arg1 instanceof Matrix) || !(arg2 instanceof Matrix)){
+			throw new IllegalArgumentException("ERROR: MM_Multiply arguments must be matrices"); // should be unreachable code
+		}
+		
+		MM_Multiply mult = new MM_Multiply((Matrix) arg1, (Matrix) arg2); // calculate solution
+		Solution answer = mult.getSolution();	
+		
+		return new ParseNode(answer,firstArg,secondArg);
+	}
+	
+	
+	/**
+	 * Given a MS_Multiply operator that includes its arguments, returns a ParseNode containing the Solution
+	 * 
+	 * @param op the MS_Multiply operator
+	 * @return the ParseNode containing the solution and arguments to <op>
+	 */
+	private static ParseNode computeSM_Multiply(Operation op){
+		if ((op.getFirstArg() == null || (op.getSecondArg() == null))){
+			throw new IllegalArgumentException("ERROR: SM_Multiply requires two arguments"); // should be unreachable code
+		}
+	
+		Numerical first = op.getFirstArg();     // this could return an Operation or a Countable
+		Numerical second = op.getSecondArg();
+		
+		ParseNode firstArg = compute(first);          // this will return null if passed a Countable
+		ParseNode secondArg= compute(second);
+		
+		Numerical arg1 = getNextArg(firstArg,first);  // b/c we need to actually compute, gets the Countable arguments
+		Numerical arg2 = getNextArg(secondArg,second);
+		
+		if ((arg1 instanceof Matrix && arg2 instanceof Matrix) || (arg2 instanceof Scalar && arg1 instanceof Scalar)){
+			throw new IllegalArgumentException("ERROR: Scalar multiply arguments must include one scalar and one matrix"); // should be unreachable code
+		}
+		
+		Solution answer;
+		if (arg1 instanceof Matrix){
+			MS_Multiply mult = new MS_Multiply((Matrix) arg1, (Scalar) arg2); // calculate solution
+			answer = mult.getSolution();
+		}else{
+			MS_Multiply mult = new MS_Multiply((Scalar) arg1, (Matrix) arg2); // calculate solution
+			answer = mult.getSolution();
+		}
+
 		return new ParseNode(answer,firstArg,secondArg);
 	}
 	
