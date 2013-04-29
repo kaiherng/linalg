@@ -86,7 +86,7 @@ public class MS_Multiply extends Computable {
 					throw new IllegalArgumentException("ERROR: Each matrix index must contain a non-null entry");
 				}
 				result[i][j] = matrixVals[i][j] * scalarVal;
-				multiplicationStep[i][j] = "$"+getDisplayValue(matrixVals[i][j],_displayType)+" \\ * \\ "+getDisplayValue(scalarVal,_displayType)+"$";
+				multiplicationStep[i][j] = getDisplayValue(matrixVals[i][j],_displayType)+" \\ \\times \\ "+getDisplayValue(scalarVal,_displayType);
 			}
 		}
 		
@@ -114,21 +114,26 @@ public class MS_Multiply extends Computable {
 	 */
 	public List<String> toLatex() {
 		List<String> toReturn = new ArrayList<>();
+		toReturn.add("Scalar \\ Matrix \\ Multiplication");
+		toReturn.add("\\vspace{10mm} 1.");
 		MatrixDraw m1 = new MatrixDraw(_matrixArg);
 		StringBuilder b = new StringBuilder();
+		b.append("\\hspace{15mm}");
 		if (_scalarFirst){
 			b.append(_scalarArg.getDisplayValue());
-			b.append(" $+$ ");
+			b.append(" \\times ");
 			b.append(m1.getCorrectLatex(_displayType));
 		}else{
-			b.append(_scalarArg.getDisplayValue());
-			b.append(" $+$ ");
 			b.append(m1.getCorrectLatex(_displayType));
+			b.append(" \\times ");
+			b.append(_scalarArg.getDisplayValue());
 		}
 		toReturn.add(b.toString());
 		MatrixDraw answer = new MatrixDraw(_answer);
-		toReturn.add(answer.getCorrectLatex(DisplayType.CUSTOM));
-		toReturn.add(answer.getCorrectLatex(_displayType));
+		toReturn.add("\\vspace{15mm} 2. \\ Mutliply \\ each \\ index \\ by \\ "+_scalarArg.getDisplayValue());
+		toReturn.add("\\hspace{15mm} \\vspace{15mm}"+answer.getCorrectLatex(DisplayType.CUSTOM));
+		toReturn.add("\\vspace{15mm} Solution:");
+		toReturn.add("\\hspace{15mm}\\vspace{15mm}"+answer.getCorrectLatex(_displayType));
 		return toReturn;
 	}
 	

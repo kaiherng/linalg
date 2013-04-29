@@ -124,7 +124,7 @@ public class MM_Multiply extends Computable {
 		String[][] customEntries = _step1Matrix.getCustomDisplayValues();
 		for (int i = 0; i < customEntries.length; i++){
 			for (int j = 0; j < customEntries[0].length; j++){
-				toReturn.add("\\vspace{15mm} \\hspace{15mm} Column \\ "+i+" \\ of \\ 1st \\ matrix \\ multiplied \\ with \\ row \\ " + j + " \\ of \\ 2nd \\ matrix: \\\\ \\vspace{10mm} \\hspace{60mm} "+customEntries[i][j]);
+				toReturn.add("\\vspace{15mm} \\hspace{15mm} Column \\ \\textit{"+(i+1)+"} \\ of \\ \\textit{1}st \\ matrix \\ multiplied \\ with \\ row \\ \\textit{" + (j+1) + "} \\ of \\ \\textit{2}nd \\ matrix: \\\\ \\vspace{10mm} \\hspace{60mm} "+customEntries[i][j]);
 			}
 		}
 		
