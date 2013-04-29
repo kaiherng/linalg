@@ -3,6 +3,8 @@ package backend.computations.operations;
 
 import static org.junit.Assert.*;
 
+import java.util.List;
+
 import org.junit.Test;
 
 import backend.blocks.Countable.DisplayType;
@@ -33,14 +35,14 @@ public class MM_PlusMinusTest {
 		assertTrue(answer.getValues()[1][1] == 6.0);
 		
 		// use this to check LaTeX (copy and paste into LaTeX compiler)
-//		List<String> latex = test.toLatex();
-//		int counter = 0;
-//		for (String s : latex){
-//			System.out.println("======== List item: "+counter+ "========");
-//			counter++;
-//			System.out.println(s + "\n");
-//		}
-//		System.out.println();
+		List<String> latex = test.toLatex();
+		int counter = 0;
+		for (String s : latex){
+			System.out.println("======== List item: "+counter+ "========");
+			counter++;
+			System.out.println(s + "\n");
+		}
+		System.out.println();
 		
 	}
 	

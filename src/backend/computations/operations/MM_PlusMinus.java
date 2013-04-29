@@ -26,6 +26,8 @@ public class MM_PlusMinus extends Computable {
 	private Matrix _matrix1,_matrix2,_step1Matrix,_step2Matrix;
 	private DisplayType _displayType;
 	private String _operation;
+	private String _opWord;
+	private String _opName;
 	
 	@Override
 	public Solution getSolution() {
@@ -68,11 +70,17 @@ public class MM_PlusMinus extends Computable {
 					throw new IllegalArgumentException("ERROR: Each index must contain a non-null entry");
 				}
 				if (isPlus){
+					_operation = " + ";
+					_opWord = "Add \\";
+					_opName = "Addition";
 					result[i][j] = aValues[i][j] + bValues[i][j];
-					additionStep[i][j] = "$"+getDisplayValue(aValues[i][j],answerDisplayType)+" \\ + \\ "+getDisplayValue(bValues[i][j],answerDisplayType) + "$";
+					additionStep[i][j] = "$("+getDisplayValue(aValues[i][j],answerDisplayType)+" \\ + \\ "+getDisplayValue(bValues[i][j],answerDisplayType) + ")$";
 				}else{
+					_opName = "Subtraction";
+					_opWord = "Take \\ the \\ difference \\ between \\";
+					_operation = " - ";
 					result[i][j] = aValues[i][j] - bValues[i][j];
-					additionStep[i][j] = "$" +getDisplayValue(aValues[i][j],answerDisplayType)+" \\ - \\ "+getDisplayValue(bValues[i][j],answerDisplayType) + "$";
+					additionStep[i][j] = "$(" +getDisplayValue(aValues[i][j],answerDisplayType)+" \\ - \\ "+getDisplayValue(bValues[i][j],answerDisplayType) + ")$";
 				}
 			}
 		}
@@ -84,10 +92,10 @@ public class MM_PlusMinus extends Computable {
 		List<String> latex = toLatex();
 		if (isPlus){
 			_solution = new Solution(Op.MM_PLUS,matrixList, _step2Matrix, latex);
-			_operation = "+";
+
 		}else{
 			_solution = new Solution(Op.MM_MINUS,matrixList, _step2Matrix, latex);
-			_operation = "-";
+
 		}
 	}
 
@@ -101,20 +109,23 @@ public class MM_PlusMinus extends Computable {
 	 */
 	public List<String> toLatex() {
 		List<String> toReturn = new ArrayList<>();
+		toReturn.add("Matrix \\ " + _opName + ":");
 		MatrixDraw m1 = new MatrixDraw(_matrix1);
 		MatrixDraw m2 = new MatrixDraw(_matrix2);
 		String m1String = m1.getCorrectLatex(_displayType);
 		String m2String = m2.getCorrectLatex(_displayType);
 		StringBuffer b = new StringBuffer();
 		b.append(m1String);
-		b.append("$\\"+_operation+"\\$");
+		b.append("$\\"+_operation+"\\ $");
 		b.append(m2String);
-		toReturn.add(b.toString()); // first step shows "m1 + m2"
+		toReturn.add("\\vspace{15mm} 1. \\\\ \\hspace{10mm} "+b.toString()); // first step shows "m1 + m2"
 		b.delete(0, b.length()); // empty buffer
+		
 		MatrixDraw m3 = new MatrixDraw(_step1Matrix);
 		MatrixDraw m4 = new MatrixDraw(_step2Matrix);
-		toReturn.add(m3.getCorrectLatex(DisplayType.CUSTOM));
-		toReturn.add(m4.getCorrectLatex(_displayType));
+		
+		toReturn.add("\\vspace{15mm} 2. \\ " + _opWord+" \\ each \\ corresponding \\ index  \\\\ \\hspace{10mm} "+m3.getCorrectLatex(DisplayType.CUSTOM) + "\\\\");
+		toReturn.add("\\vspace{15mm} Solution: \\\\ \\hspace{10mm}"+m4.getCorrectLatex(_displayType));
 		return toReturn;
 	}
 	
