@@ -90,7 +90,8 @@ public class Main {
 		SolutionScroll stepPanel = new SolutionScroll();
 		Compute computePanel = new Compute(solPanel, stepPanel.getSolPanel());
 		Saved savedPanel = new Saved(computePanel);
-		Construct constructPanel = new Construct(savedPanel); 
+		Construct constructPanel = new Construct(savedPanel);
+		savedPanel.setConstructPanel(constructPanel);
 		
 		contentPane.add(splitPane);
 

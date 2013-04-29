@@ -21,6 +21,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
+import frontend.blocks.BracketBlock;
 import frontend.blocks.OpBlock;
 import frontend.utils.WrapLayout;
 
@@ -49,9 +50,14 @@ public class Compute extends JPanel {
 		_ops = new JPanel(new WrapLayout(FlowLayout.LEFT));
 		
 		//compute bar
+		JPanel buttonPanel = new JPanel();
 		JButton computeButton = new JButton("Compute");
+		JButton clearButton = new JButton("Clear");
+		clearButton.addActionListener(new ClearButtonListener(this));
 		computeButton.addActionListener(new SolButtonListener(this));
-		_computeBar.add(computeButton, BorderLayout.EAST);
+		_computeBar.add(buttonPanel, BorderLayout.EAST);
+		buttonPanel.add(clearButton);
+		buttonPanel.add(computeButton);
 		JPanel scrollPanel = new JPanel(new BorderLayout());
 		scrollPanel.setPreferredSize(new Dimension(100,55));
 		_bar = new JPanel(new FlowLayout(FlowLayout.LEFT));
@@ -72,16 +78,16 @@ public class Compute extends JPanel {
 		for(Op o : Op.values()){
 			_ops.add(new OpBlock(o, o.getIcon(o), this));
 		}
-//		_ops.add(new OpBlock(Op.DETERMINANT, "DET", this));
-//		_ops.add(new OpBlock(Op.MM_MINUS, "-", this));
-//		_ops.add(new OpBlock(Op.MM_PLUS, "+", this));
+		//Bracket
+		_ops.add(new BracketBlock(true, this));
+		_ops.add(new BracketBlock(false, this));
 		
 		_computeBar.setBorder(BorderFactory.createLineBorder(Color.black));
 		_pages.setBorder(BorderFactory.createLineBorder(Color.black));
 		_ops.setBorder(BorderFactory.createLineBorder(Color.black));
 		
 		this.add(_computeBar, BorderLayout.SOUTH);
-		this.add(_pages, BorderLayout.WEST);
+		//this.add(_pages, BorderLayout.WEST);
 		this.add(_ops, BorderLayout.CENTER);
 	}
 	
@@ -97,6 +103,12 @@ public class Compute extends JPanel {
 		_numericals.remove(id);
 		_bar.remove(c);
 		this.revalidate();
+		this.repaint();
+	}
+	
+	public void clearBar(){
+		_numericals.clear();
+		_bar.removeAll();
 		this.repaint();
 	}
 	
@@ -122,10 +134,6 @@ public class Compute extends JPanel {
 			List<String> ls = result.getSolution().getLatex();
 			
 			StringBuilder sb = new StringBuilder();
-//			for(String s: ls){
-//				sb.append(s);
-//				sb.append("\\\\");
-//			}
 			_stepPanel.setTex(traverseTree(result, sb).toString());
 		} catch (IllegalArgumentException e){
 			System.out.println(e.getMessage());
@@ -158,11 +166,14 @@ public class Compute extends JPanel {
 		private Compute _c;
 		private Integer _id;
 		public BarObject(Numerical n, String s, int id, Compute c){
+			this.setLayout(new BorderLayout());
 			JLabel label = new JLabel(s);
 			label.setForeground(Color.white);
-			this.setPreferredSize(new Dimension(30,30));
+			label.setHorizontalAlignment(JLabel.CENTER);
+			this.setPreferredSize(new Dimension(40,30));
 			this.setBackground(Color.blue);
-			this.add(label);
+			this.add(label, BorderLayout.CENTER);
+			this.setToolTipText(s);
 			_c = c;
 			_id = id;
 			this.addMouseListener(this);
@@ -192,6 +203,21 @@ public class Compute extends JPanel {
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
 			_c.compute();
+		}
+		
+	}
+	
+	private class ClearButtonListener implements ActionListener{
+		
+		Compute _c;
+		
+		public ClearButtonListener(Compute c){
+			_c = c;
+		}
+		
+		@Override
+		public void actionPerformed(ActionEvent arg0) {
+			_c.clearBar();
 		}
 		
 	}

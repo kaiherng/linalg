@@ -41,11 +41,12 @@ public class Saved extends JPanel {
 	 * 
 	 */
 	private static final long serialVersionUID = -1865676655486491262L;
-	Map<String, Countable> mList;
+	Map<String, Countable> cList;
 	JScrollPane _scroll;
 	JPanel _content;
 	int _width;
-	Compute _c;
+	Compute _compute;
+	Construct _construct;
 	Character id = 'A';
 	JTabbedPane _topLeftPane;
 
@@ -53,13 +54,17 @@ public class Saved extends JPanel {
 		this.setLayout(new WrapLayout(FlowLayout.LEFT));
 		this.setPreferredSize(this.getSize());
 		
-		_c = c;
+		_compute = c;
 		
-		mList = new HashMap<>();
+		cList = new HashMap<>();
 		Matrix m = new Matrix(DisplayType.DECIMAL, new Double[][]{{1.0,2.0},{3.0,4.0}});
-		addMatrix("A", m);
-		addMatrix("B", m);
-		addMatrix("C", new Scalar(4.0, DisplayType.DECIMAL));
+		addCountable("A", m);
+		addCountable("B", m);
+		addCountable("C", new Scalar(4.0, DisplayType.DECIMAL));
+	}
+	
+	public void setConstructPanel(Construct c){
+		_construct = c;
 	}
 	
 	public void paint(Graphics g){
@@ -70,8 +75,8 @@ public class Saved extends JPanel {
 		mb.paint(g);
 	}
 	
-	public void addMatrix(String name, Countable m){
-		mList.put(name, m);
+	public void addCountable(String name, Countable m){
+		cList.put(name, m);
 		//this.add(new MatrixBlock(name, m, this));
 		this.add(new CountableBlock(id.toString(), m, this));
 		id++;
@@ -81,11 +86,15 @@ public class Saved extends JPanel {
 	
 	public void addToBar(Numerical n, String s){
 		if(_topLeftPane.getSelectedIndex() == 1){
-			_c.addToBar(n, s);
+			_compute.addToBar(n, s);
+		} else {
+			if(n.getName().equals("MATRIX")){
+				_construct.editMatrix((Matrix) n);
+			}
 		}
 	}
 	
-	public void deleteMatrix(String name, Component mb){
+	public void deleteCountable(String name, Component mb){
 		//mList.remove(name);
 		this.remove(mb);
 		this.revalidate();
