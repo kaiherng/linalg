@@ -2,17 +2,14 @@ package backend.computations.operations;
 
 import static org.junit.Assert.*;
 
-import java.util.List;
-
 import org.junit.Test;
 
 import backend.blocks.Scalar;
 import backend.blocks.Countable.DisplayType;
 import backend.computations.infrastructure.Solution;
-import backend.computations.infrastructure.Step;
 
 /**
- * 
+ * Tests for a scalar power
  * 
  * @author baebi
  */
@@ -29,9 +26,6 @@ public class S_PowerTest {
 		assertTrue(sol.getAnswer() instanceof Scalar);
 		assertTrue(((Scalar) sol.getAnswer()).getValue() == 9.0);
 		assertTrue(((Scalar) sol.getAnswer()).getDisplayValue().equals("9.0"));
-		List<Step> l = sol.getSteps();
-		assertTrue(l.get(0).getCountable() instanceof Scalar);
-		assertTrue("3.0^{2.0}".equals(((Scalar) l.get(0).getCountable()).getCustomDisplayValue()));
 		assertTrue("$3.0^{2.0} \\ = \\ 9.0$".equals(s.toLatex().get(0)));
 	}
 	
@@ -43,10 +37,6 @@ public class S_PowerTest {
 		assertTrue(sol.getAnswer() instanceof Scalar);
 		assertTrue(((Scalar) sol.getAnswer()).getValue() == 9.0);
 		assertTrue(((Scalar) sol.getAnswer()).getDisplayValue().equals("9"));
-		List<Step> l = sol.getSteps();
-		assertTrue(l.get(0).getCountable() instanceof Scalar);
-		assertTrue("3^{2}".equals(((Scalar) l.get(0).getCountable()).getCustomDisplayValue()));
-		assertTrue("$3^{2} \\ = \\ 9$".equals(s.toLatex().get(0)));
 	}
 
 }

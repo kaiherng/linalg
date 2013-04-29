@@ -2,14 +2,11 @@ package backend.computations.operations;
 
 import static org.junit.Assert.*;
 
-import java.util.List;
-
 import org.junit.Test;
 
 import backend.blocks.Scalar;
 import backend.blocks.Countable.DisplayType;
 import backend.computations.infrastructure.Solution;
-import backend.computations.infrastructure.Step;
 
 /**
  * Tests for scalar multiplication and division
@@ -27,11 +24,6 @@ public class SS_MultiplyDivideTest {
 		assertTrue(sol.getAnswer() instanceof Scalar);
 		assertTrue(((Scalar) sol.getAnswer()).getValue() == 2.0);
 		assertTrue(((Scalar) sol.getAnswer()).getDisplayValue().equals("2.0"));
-		List<Step> l = sol.getSteps();
-		assertTrue(l.get(0).getCountable() instanceof Scalar);
-		assertTrue("1.0 * 2.0".equals(((Scalar) l.get(0).getCountable()).getCustomDisplayValue()));
-		System.out.println();
-		assertTrue("$1.0 * 2.0 = 2.0$".equals(s.toLatex().get(0)));
 	}
 	
 	@Test
@@ -41,10 +33,6 @@ public class SS_MultiplyDivideTest {
 		assertTrue(sol.getAnswer() instanceof Scalar);
 		assertTrue(((Scalar) sol.getAnswer()).getValue() == 0.5);
 		assertTrue(((Scalar) sol.getAnswer()).getDisplayValue().equals("0.5"));
-		List<Step> l = sol.getSteps();
-		assertTrue(l.get(0).getCountable() instanceof Scalar);
-		assertTrue("1.0 / 2.0".equals(((Scalar) l.get(0).getCountable()).getCustomDisplayValue()));
-		assertTrue("$1.0 / 2.0 = 0.5$".equals(s.toLatex().get(0)));
 	}
 
 }

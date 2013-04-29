@@ -12,7 +12,7 @@ import backend.blocks.Op;
 import backend.blocks.Scalar;
 import backend.computations.infrastructure.Computable;
 import backend.computations.infrastructure.Solution;
-import backend.computations.infrastructure.Step;
+
 
 /** 
  * Scalar addition and subtraction operations
@@ -54,12 +54,7 @@ public class SS_PlusMinus extends Computable {
 		
 		Scalar opStep = new Scalar(answer,DisplayType.CUSTOM);
 		opStep.setCustomDisplayValue(_operatorStep);
-		Step step1 = new Step(opStep);
 		Scalar answerStep = new Scalar(answer,answerDisplayType);
-		Step step2 = new Step(answerStep);
-		List<Step> steps = new ArrayList<>();
-		steps.add(step1);
-		steps.add(step2);
 		
 		List<String> latex = toLatex();
 		if (isPlus){
