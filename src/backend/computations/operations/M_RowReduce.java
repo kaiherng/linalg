@@ -165,7 +165,7 @@ public class M_RowReduce extends Computable
 		List<Countable> inputs = new ArrayList<>();
 		inputs.add(matrix);
 
-		_solution = new Solution(Op.ROW_REDUCE, inputs, answer, null);
+		_solution = new Solution(Op.ROW_REDUCE, inputs, answer, steps);
 	}
 
 	@Override

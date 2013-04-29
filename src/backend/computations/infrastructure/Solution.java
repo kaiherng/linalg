@@ -13,7 +13,7 @@ import backend.blocks.Op;
  */
 public class Solution{
 	private Countable _answer;
-	private List<Step> _steps;
+	private List<String> _latex;
 	private Op _op;
 	private List<Countable> _inputs;
 
@@ -26,11 +26,11 @@ public class Solution{
 	 * @param answer the answer to the solution
 	 * @param steps the steps to the answer
 	 */
-	public Solution(Op op, List<Countable> inputs, Countable answer, List<Step> steps){
+	public Solution(Op op, List<Countable> inputs, Countable answer, List<String> latex){
 		_op = op;
 		_inputs = inputs;
 		_answer = answer;
-		_steps = steps;
+		_latex = latex;
 	}
 	
 	
@@ -49,8 +49,8 @@ public class Solution{
 	 * 
 	 * @return A list of steps to the answer
 	 */
-	public List<Step> getSteps(){
-		return _steps;
+	public List<String> getLatex(){
+		return _latex;
 	}
 	
 

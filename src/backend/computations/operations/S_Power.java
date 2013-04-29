@@ -62,7 +62,9 @@ public class S_Power extends Computable {
 		List<Step> steps = new ArrayList<>();
 		steps.add(step1);
 		steps.add(step2);
-		_solution = new Solution(Op.S_POWER,args,answerStep,steps);
+		
+		List<String> latex = toLatex();
+		_solution = new Solution(Op.S_POWER,args,answerStep,latex);
 	}
 	
 	

@@ -11,7 +11,8 @@ public enum Op {
 	SS_MINUS(2,false,"SS_MINUS"), MM_MINUS(2,false,"MM_MINUS"),
 	
 	//rank 1 operations
-	SS_MULTIPLY(1,false,"SS_TIMES"), MM_MULTIPLY(1,false,"MM_TIMES"), SM_MULTIPLY(1,false,"SM_MULTIPLY"),
+	SS_MULTIPLY(1,false,"SS_TIMES"), MM_MULTIPLY(1,false,"MM_TIMES"), 
+	SM_MULTIPLY(1,false,"SM_MULTIPLY"), SS_DIVIDE(1,false,"SS_DIVIDE"),
 	
 	//rank 0 (unary) operations
 	DETERMINANT(0,true,"DETERMINANT"),

@@ -14,7 +14,6 @@ import backend.blocks.Op;
 import backend.blocks.Scalar;
 import backend.computations.infrastructure.Computable;
 import backend.computations.infrastructure.Solution;
-import backend.computations.infrastructure.Step;
 
 /** Computes a scalar/matrix multiplication
  * 
@@ -93,21 +92,16 @@ public class MS_Multiply extends Computable {
 		
 		Matrix step1Matrix = new Matrix(DisplayType.CUSTOM, result);
 		step1Matrix.setCustomDisplay(multiplicationStep);
-		Step step1 = new Step(step1Matrix);
 		_answer = step1Matrix;
 		
 		Matrix step2Matrix = new Matrix(answerDisplayType, result);
-		Step step2 = new Step(step2Matrix);
-		
-		List<Step> steps = new ArrayList<>();
-		steps.add(step1);
-		steps.add(step2);
-		
 		
 		List<Countable> inputs = new ArrayList<>();
 		inputs.add(matrix);
 		inputs.add(scalar);
-		_solution = new Solution(Op.SM_MULTIPLY,inputs,step2Matrix,steps);
+		
+		List<String> latex = toLatex();
+		_solution = new Solution(Op.SM_MULTIPLY,inputs,step2Matrix, latex);
 	}
 
 

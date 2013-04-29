@@ -70,7 +70,7 @@ public class MatrixDraw extends JPanel{
 	 */
 	private String getLatexCustom() {
 		StringBuilder b = new StringBuilder();
-		b.append("\\begin{pmatrix} ");
+		b.append("\\begin{bmatrix} ");
 		for(String[] i : _customValues){
 			for(String j : i){
 				b.append(j.toString());
@@ -82,7 +82,7 @@ public class MatrixDraw extends JPanel{
 				b.append("\\\\");
 			}
 		}
-		b.append("\\end{pmatrix}");
+		b.append("\\end{bmatrix}");
 //		System.out.println(b.toString());
 		return b.toString();
 	}
@@ -93,7 +93,7 @@ public class MatrixDraw extends JPanel{
 	 */
 	public String getLatex(){
 		StringBuilder b = new StringBuilder();
-		b.append("\\begin{pmatrix} ");
+		b.append("\\begin{bmatrix} ");
 		for(Double[] i : _values){
 			for(Double j : i){
 				b.append(j.toString());
@@ -105,7 +105,7 @@ public class MatrixDraw extends JPanel{
 				b.append("\\\\");
 			}
 		}
-		b.append("\\end{pmatrix}");
+		b.append("\\end{bmatrix}");
 //		System.out.println(b.toString());
 		return b.toString();
 	}
@@ -116,7 +116,7 @@ public class MatrixDraw extends JPanel{
 	 */
 	public String getLatexWhole(){
 		StringBuilder b = new StringBuilder();
-		b.append("\\begin{pmatrix} ");
+		b.append("\\begin{bmatrix} ");
 		for(Double[] i : _values){
 			for(Double j : i){
 				b.append(j.intValue());
@@ -128,7 +128,7 @@ public class MatrixDraw extends JPanel{
 				b.append("\\\\");
 			}
 		}
-		b.append("\\end{pmatrix}");
+		b.append("\\end{bmatrix}");
 //		System.out.println(b.toString());
 		return b.toString();
 	}

@@ -119,10 +119,11 @@ public class Compute extends JPanel {
 			
 			//DFS for each child .getsolution().getsteps();
 			
-			List<Step> ls = result.getSolution().getSteps();
+			List<String> ls = result.getSolution().getLatex();
+			
 			StringBuilder sb = new StringBuilder();
-			for(Step s: ls){
-				sb.append(s.getCountable().toLatex());
+			for(String s: ls){
+				sb.append(s);
 				sb.append("\\\\");
 			}
 			_stepPanel.setTex(sb.toString());

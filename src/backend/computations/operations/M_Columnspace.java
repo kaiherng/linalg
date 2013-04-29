@@ -4,7 +4,6 @@ import backend.blocks.*;
 import backend.blocks.Countable.DisplayType;
 import backend.computations.infrastructure.Computable;
 import backend.computations.infrastructure.Solution;
-import backend.computations.infrastructure.Step;
 import matrixDraw.*;
 
 import java.util.*;
@@ -91,7 +90,7 @@ public class M_Columnspace extends Computable
 		List<Countable> inputs = new ArrayList<>();
 		inputs.add(matrix);
 
-		_solution = new Solution(Op.M_COLUMNSPACE, inputs, answer, null);
+		_solution = new Solution(Op.M_COLUMNSPACE, inputs, answer, steps);
 	}
 
 	@Override

@@ -1,3 +1,4 @@
+
 package backend.computations.infrastructure;
 
 import java.util.List;
@@ -6,18 +7,22 @@ import backend.blocks.Countable;
 import backend.blocks.Countable.DisplayType;
 
 
-/** Implementors for Computable take in 1-2 matrices, perform a specified 
+/** 
+ *  Implementors for Computable take in 1-2 matrices, perform a specified 
  *  operation on the matrices, and provide getters for the result
  *  
  * @author baebi
  */
 public abstract class Computable{
 	
-	/** Returns the solution computed in the constructor of this Computable
+	
+	/** 
+	 * Returns the solution computed in the constructor of this Computable
 	 * 
 	 * @return the Solution to this Computable
 	 */
 	public abstract Solution getSolution();
+	
 	
 	/**
 	 * @return a list of LateX strings, where each one is a step. (Or whatever at your discretion)
@@ -25,36 +30,37 @@ public abstract class Computable{
 	public abstract List<String> toLatex();
 	
 	
-	/** Given multiple countables, returns the preferential DisplayType
+	/** 
+	 * Given multiple countables, returns the preferential DisplayType
 	 * 
 	 * @param countables the countables with DisplayTypes
 	 * @return the dominant DisplayType (Reminder: prefer Custom > Decimal > DecimalFraction > WholeNumberFraction > WholeNumber)
 	 */
 	public static DisplayType resolveDisplayType(List<Countable> countables){
-		boolean foundCustom,foundDecimal,foundDecimalFraction,foundWholeNumber,foundWholeNumberFraction;
-		foundCustom = foundDecimal = foundDecimalFraction = foundWholeNumber = foundWholeNumberFraction = false;
+		boolean foundCustom,foundDecimal,foundWholeNumber,foundWholeNumberFraction;
+		foundCustom = foundDecimal = foundWholeNumber = foundWholeNumberFraction = false;
 		for (Countable countable : countables){
 			DisplayType type = countable.getDisplayType();
 			switch (type){
-			case CUSTOM: {
-				foundCustom = true;
-				break;
-			}
-			case WHOLENUMBER: {
-				foundWholeNumber = true;
-				break;
-			}
-			case WHOLENUMBERFRACTION:{
-				foundWholeNumberFraction = true;
-				break;
-			}
-			case DECIMAL:{
-				foundDecimal = true;
-				break;
-			}
-			default:{
-				System.err.println("ERROR (ResolveDisplayType): Unrecognized DisplayType");
-			}
+				case CUSTOM: {
+					foundCustom = true;
+					break;
+				}
+				case WHOLENUMBER: {
+					foundWholeNumber = true;
+					break;
+				}
+				case WHOLENUMBERFRACTION:{
+					foundWholeNumberFraction = true;
+					break;
+				}
+				case DECIMAL:{
+					foundDecimal = true;
+					break;
+				}
+				default:{
+					System.err.println("ERROR (ResolveDisplayType): Unrecognized DisplayType");
+				}
 			}
 		}
 		
@@ -73,7 +79,8 @@ public abstract class Computable{
 	}
 	
 	
-	/** Converts the double value to the proper display-type
+	/** 
+	 * Converts the double value to the proper display-type
 	 * 
 	 * @param input the double value to convert
 	 * @return the same value as a string in the correct format

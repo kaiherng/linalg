@@ -6,7 +6,6 @@ import backend.blocks.*;
 import backend.blocks.Countable.DisplayType;
 import backend.computations.infrastructure.Computable;
 import backend.computations.infrastructure.Solution;
-import backend.computations.infrastructure.Step;
 import matrixDraw.*;
 
 /** Determinant Operation
@@ -49,8 +48,9 @@ public class Determinant extends Computable
 
 		List<Countable> inputs = new ArrayList<>();
 		inputs.add(matrix);
-
-		_solution = new Solution(Op.DETERMINANT, inputs, answer, null);
+		
+		List<String> latex = toLatex();
+		_solution = new Solution(Op.DETERMINANT, inputs, answer, latex);
 	}
 
 	/**returns the matrix without the y-th row, and the x-th column*/

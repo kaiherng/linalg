@@ -51,7 +51,8 @@ public class M_Transpose extends Computable
 		List<Countable> inputs = new ArrayList<>();
 		inputs.add(matrix);
 
-		_solution = new Solution(Op.DETERMINANT, inputs, answer, null);
+		List<String> latex = toLatex();
+		_solution = new Solution(Op.DETERMINANT, inputs, answer, latex);
 	}
 
 	@Override
