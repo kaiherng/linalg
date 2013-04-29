@@ -118,7 +118,7 @@ public class MM_PlusMinus extends Computable {
 		b.append(m1String);
 		b.append("$\\"+_operation+"\\ $");
 		b.append(m2String);
-		toReturn.add("\\vspace{15mm} 1. \\\\ \\hspace{10mm} "+b.toString()); // first step shows "m1 + m2"
+		toReturn.add("\\vspace{10mm} 1. \\\\ \\hspace{10mm} "+b.toString()); // first step shows "m1 + m2"
 		b.delete(0, b.length()); // empty buffer
 		
 		MatrixDraw m3 = new MatrixDraw(_step1Matrix);

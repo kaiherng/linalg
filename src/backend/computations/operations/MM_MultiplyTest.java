@@ -41,14 +41,14 @@ public class MM_MultiplyTest {
 		
 		
 		// use this to check LaTeX (copy and paste into LaTeX compiler)
-//		List<String> latex = testMult.toLatex();
-//		int counter = 0;
-//		for (String s : latex){
-//			System.out.println("======== List item: "+counter+ "========");
-//			counter++;
-//			System.out.println(s + "\n");
-//		}
-//		System.out.println();
+		List<String> latex = testMult.toLatex();
+		int counter = 0;
+		for (String s : latex){
+			System.out.println("======== List item: "+counter+ "========");
+			counter++;
+			System.out.println(s + "\n");
+		}
+		System.out.println();
 	}
 	
 	

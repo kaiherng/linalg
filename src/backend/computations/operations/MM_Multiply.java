@@ -84,6 +84,8 @@ public class MM_Multiply extends Computable {
 				multStep[col][row] = expanded;
 			}
 		}
+		_step1Matrix = new Matrix(DisplayType.CUSTOM,result);
+		_step1Matrix.setCustomDisplay(multStep);
 		
 		// second step shows the resulting matrix product
 		Matrix step2Matrix = new Matrix(answerDisplayType,result);
@@ -104,6 +106,7 @@ public class MM_Multiply extends Computable {
 	 */
 	public List<String> toLatex() {
 		List<String> toReturn = new ArrayList<>();
+		toReturn.add("Matrix \\ Multiply:");
 		MatrixDraw m1 = new MatrixDraw(_matrixA);
 		MatrixDraw m2 = new MatrixDraw(_matrixB);
 		StringBuilder b = new StringBuilder();
@@ -112,22 +115,21 @@ public class MM_Multiply extends Computable {
 		b.append(m1String);
 		b.append(" $\\times$ ");
 		b.append(m2String);
-		toReturn.add(b.toString());
+		
+		toReturn.add("\\vspace{10mm} 1.\\\\ \\hspace{15mm}"+b.toString());
 		b.delete(0, b.length());
 		
+		toReturn.add("\\vspace{15mm} 2. \\ Equation \\ at \\ each \\ index \\\\");
 		// make list of equations for each index
-		b.append("\\begin{itemize} \n");
 		String[][] customEntries = _step1Matrix.getCustomDisplayValues();
 		for (int i = 0; i < customEntries.length; i++){
 			for (int j = 0; j < customEntries[0].length; j++){
-				b.append("\\item $"+customEntries[i][j]+"$ \n");
+				toReturn.add("\\vspace{8mm} \\hspace{15mm} Column \\ "+i+" \\ of \\ 1st \\ matrix \\ multiplied \\ with \\ row \\ " + j + " \\ of \\ 2nd \\ matrix: \\\\ \\hspace{30mm} "+customEntries[i][j]);
 			}
 		}
-		b.append("\\end{itemize}");
-		toReturn.add(b.toString());
 		
 		MatrixDraw m3 = new MatrixDraw(_step1Matrix);
-		toReturn.add(m3.getCorrectLatex(_displayType));
+		toReturn.add("\\vspace{15mm} Solution: \\\\ \\hspace{45mm}"+m3.getCorrectLatex(_displayType));
 		return toReturn;
 	}
 }
