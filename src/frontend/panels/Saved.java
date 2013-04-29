@@ -41,7 +41,7 @@ public class Saved extends JPanel {
 	 * 
 	 */
 	private static final long serialVersionUID = -1865676655486491262L;
-	Map<String, Countable> mList;
+	Map<String, Countable> cList;
 	JScrollPane _scroll;
 	JPanel _content;
 	int _width;
@@ -55,11 +55,11 @@ public class Saved extends JPanel {
 		
 		_c = c;
 		
-		mList = new HashMap<>();
+		cList = new HashMap<>();
 		Matrix m = new Matrix(DisplayType.DECIMAL, new Double[][]{{1.0,2.0},{3.0,4.0}});
-		addMatrix("A", m);
-		addMatrix("B", m);
-		addMatrix("C", new Scalar(4.0, DisplayType.DECIMAL));
+		addCountable("A", m);
+		addCountable("B", m);
+		addCountable("C", new Scalar(4.0, DisplayType.DECIMAL));
 	}
 	
 	public void paint(Graphics g){
@@ -70,8 +70,8 @@ public class Saved extends JPanel {
 		mb.paint(g);
 	}
 	
-	public void addMatrix(String name, Countable m){
-		mList.put(name, m);
+	public void addCountable(String name, Countable m){
+		cList.put(name, m);
 		//this.add(new MatrixBlock(name, m, this));
 		this.add(new CountableBlock(id.toString(), m, this));
 		id++;
@@ -85,7 +85,7 @@ public class Saved extends JPanel {
 		}
 	}
 	
-	public void deleteMatrix(String name, Component mb){
+	public void deleteCountable(String name, Component mb){
 		//mList.remove(name);
 		this.remove(mb);
 		this.revalidate();

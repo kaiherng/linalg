@@ -26,10 +26,12 @@ import java.util.Map;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import backend.blocks.Matrix;
 import backend.blocks.Countable.DisplayType;
+import backend.blocks.Scalar;
 
 public class Construct extends JPanel {
 
@@ -72,15 +74,23 @@ public class Construct extends JPanel {
 		buttonPanel.setBorder(BorderFactory.createLineBorder(Color.black, 1));
 		this.add(buttonPanel, BorderLayout.SOUTH);
 		
-		JButton clearButton, saveButton;
+		JButton clearButton, saveButton, scalarButton, iButton;
 		clearButton = new JButton("Clear");
 		saveButton = new JButton("Save");
+		scalarButton = new JButton("New Scalar");
+		iButton = new JButton("Identity");
 		clearButton.addActionListener(new ClearListener(this));
 		saveButton.addActionListener(new SaveListener(this));
+		scalarButton.addActionListener(new ScalarListener(this));
+		iButton.addActionListener(new IdentityListener(this));
 		clearButton.setFocusable(false);
 		saveButton.setFocusable(false);
-		buttonPanel.add(clearButton, BorderLayout.SOUTH);
-		buttonPanel.add(saveButton, BorderLayout.SOUTH);
+		scalarButton.setFocusable(false);
+		iButton.setFocusable(false);
+		buttonPanel.add(iButton);
+		buttonPanel.add(scalarButton);
+		buttonPanel.add(clearButton);
+		buttonPanel.add(saveButton);
 	}
 	
 	public void clear(){
@@ -190,7 +200,6 @@ public class Construct extends JPanel {
 		}
 		
 		public void mouseReleased(MouseEvent e){
-			System.out.println("RELEASED");
 			_drawing = false;
 			_p.repaint();
 		}
@@ -243,9 +252,10 @@ public class Construct extends JPanel {
 
 		@Override
 		public void keyReleased(KeyEvent arg0) {
+			int keyCode = arg0.getKeyCode();
 			if(_selected.size() == 2){
 				//tab key
-				if(arg0.getKeyCode() == 9){
+				if(keyCode == 9){
 					if(_selected.get(0) < _mSize.get(0)){
 						_selected.set(0, _selected.get(0)+1);
 					} else {
@@ -260,6 +270,30 @@ public class Construct extends JPanel {
 					_p.repaint();
 					return;
 				}
+				//arrow keys
+				switch(keyCode){
+				case 38:
+					if(_selected.get(1) > 0){
+						_selected.set(1, _selected.get(1)-1);
+					}
+					break;
+				case 40:
+					if(_selected.get(1) < _mSize.get(1)){
+						_selected.set(1, _selected.get(1)+1);
+					}
+					break;
+				case 37:
+					if(_selected.get(0) > 0){
+						_selected.set(0, _selected.get(0)-1);
+					}
+					break;
+				case 39:
+					if(_selected.get(0) < _mSize.get(0)){
+						_selected.set(0, _selected.get(0)+1);
+					}
+					break;
+				}
+				
 				
 				StringBuilder sb;
 				if(_values.containsKey(_selected.toString())){
@@ -268,13 +302,13 @@ public class Construct extends JPanel {
 					sb = new StringBuilder();
 				}
 				//numbers
-				if(arg0.getKeyChar() >= 48 && arg0.getKeyChar() <= 57){
+				if(keyCode >= 48 && keyCode <= 57){
 					sb.append(arg0.getKeyChar());
 				//period
-				} else if(arg0.getKeyCode() == 110 || arg0.getKeyChar() == 46){
+				} else if(keyCode == 110 || keyCode == 46){
 					sb.append(".");
 				//backspace
-				} else if(arg0.getKeyCode() == 8){
+				} else if(keyCode == 8){
 					sb.setLength(sb.length()-1);
 				}
 				if(sb.length() == 0){
@@ -348,7 +382,7 @@ public class Construct extends JPanel {
 					mValues[i][j] = Double.parseDouble(_values.get("[" + i + ", " + j + "]"));
 				}
 			}
-			_save.addMatrix("A", new Matrix(DisplayType.DECIMAL, mValues));
+			_save.addCountable("A", new Matrix(DisplayType.DECIMAL, mValues));
 			_c.clear();
 		}
 	}
@@ -364,6 +398,52 @@ public class Construct extends JPanel {
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
 			_c.clear();
+		}
+	}
+	
+	public class ScalarListener implements ActionListener{
+		
+		Construct _c;
+		
+		public ScalarListener(Construct c){
+			_c = c;
+		}
+		
+		@Override
+		public void actionPerformed(ActionEvent arg0) {
+			String s = (String)JOptionPane.showInputDialog("Enter the value of the scalar");
+			Double value = Double.parseDouble(s);
+			_save.addCountable("scalar", new Scalar(value, DisplayType.DECIMAL));
+		}
+	}
+	
+	public class IdentityListener implements ActionListener{
+		
+		Construct _c;
+		
+		public IdentityListener(Construct c){
+			_c = c;
+		}
+		
+		@Override
+		public void actionPerformed(ActionEvent arg0) {
+			if(_drawn){
+				if(_mSize.get(0) != _mSize.get(1)){
+					System.out.println("matrix is not square!");
+					return;
+				}
+				_values.clear();
+				for(int i = 0; i < _mSize.get(0)+1; i++){
+					for(int j = 0; j < _mSize.get(1)+1; j++){
+						if(i == j){
+							_values.put("[" + i  + ", " + j + "]", "1");
+						} else {
+							_values.put("[" + i  + ", " + j + "]", "0");
+						}
+					}
+				}
+				_c.repaint();
+			}
 		}
 	}
 

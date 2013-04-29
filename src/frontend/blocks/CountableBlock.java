@@ -62,7 +62,7 @@ public class CountableBlock extends JPanel {
 		} else if(c.getName().equals("SCALAR")){
 			Scalar s = (Scalar) c;
 			_label = new JLabel(Double.toString(s.getValue()));
-			_label.setFont(new Font("SansSerif", Font.BOLD, 18));
+			_label.setFont(new Font("SansSerif", Font.BOLD, 16));
 			_name = Double.toString(s.getValue());
 		}
 		_label.setOpaque(false);
@@ -71,6 +71,8 @@ public class CountableBlock extends JPanel {
 		_label.setHorizontalAlignment(JLabel.CENTER);
 		this.add(_label);
 		_label.setBounds(0, 5, 40,30);
+		
+		this.setToolTipText(_name);
 	}
 	
 	private class Click extends MouseAdapter{
@@ -83,7 +85,7 @@ public class CountableBlock extends JPanel {
 		
 		public void mouseClicked(MouseEvent e){
 			if(_delete.getBounds().contains(e.getPoint())){
-				_s.deleteMatrix(_name, _c);
+				_s.deleteCountable(_name, _c);
 			} else {
 				_s.addToBar(_countable, _name);
 			}
