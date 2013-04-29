@@ -100,8 +100,10 @@ public class MM_Multiply extends Computable {
 		steps.add(step1);
 		steps.add(step2);
 		
+		List<String> latex = toLatex();
+		
 		// create the solution
-		_solution = new Solution(Op.MM_MULTIPLY,inputs,step2Matrix,steps);
+		_solution = new Solution(Op.MM_MULTIPLY,inputs,step2Matrix,latex);
 	}
 
 
