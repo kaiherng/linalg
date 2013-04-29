@@ -18,6 +18,11 @@ public class M_RankTest
 		M_Rank r=new M_Rank(m);
 		Solution s=r.getSolution();
 		assertTrue(((Scalar)(s.getAnswer())).getValue()==1);
+		int size=r.toLatex().size();
+		String l="Column 1 is a pivot column.";
+		assertTrue(r.toLatex().get(size-2).equals(l));
+		l="There is in total 1 pivot column so the rank is 1";
+		assertTrue(r.toLatex().get(size-1).equals(l));
 	}
 
 	@Test
@@ -32,6 +37,13 @@ public class M_RankTest
 		M_Rank d=new M_Rank(m);
 		Solution s=d.getSolution();
 		assertTrue(((Scalar)(s.getAnswer())).getValue()==2);
+		int size=d.toLatex().size();
+		String l="Column 1 is a pivot column.";
+		assertTrue(d.toLatex().get(size-3).equals(l));
+		l="Column 2 is a pivot column.";
+		assertTrue(d.toLatex().get(size-2).equals(l));
+		l="There are in total 2 pivot columns so the rank is 2";
+		assertTrue(d.toLatex().get(size-1).equals(l));
 	}
 
 	@Test
@@ -62,6 +74,11 @@ public class M_RankTest
 		M_Rank d=new M_Rank(m);
 		Solution s=d.getSolution();
 		assertTrue(((Scalar)(s.getAnswer())).getValue()==1);
+		int size=d.toLatex().size();
+		String l="Column 1 is a pivot column.";
+		assertTrue(d.toLatex().get(size-2).equals(l));
+		l="There is in total 1 pivot column so the rank is 1";
+		assertTrue(d.toLatex().get(size-1).equals(l));
 	}
 
 	@Test
@@ -74,6 +91,11 @@ public class M_RankTest
 		M_Rank d=new M_Rank(m);
 		Solution s=d.getSolution();
 		assertTrue(((Scalar)(s.getAnswer())).getValue()==1);
+		int size=d.toLatex().size();
+		String l="Column 1 is a pivot column.";
+		assertTrue(d.toLatex().get(size-2).equals(l));
+		l="There is in total 1 pivot column so the rank is 1";
+		assertTrue(d.toLatex().get(size-1).equals(l));
 	}
 
 	@Test
@@ -93,6 +115,15 @@ public class M_RankTest
 		M_Rank d=new M_Rank(m);
 		Solution s=d.getSolution();
 		assertTrue(((Scalar)(s.getAnswer())).getValue()==3);
+		int size=d.toLatex().size();
+		String l="Column 1 is a pivot column.";
+		assertTrue(d.toLatex().get(size-4).equals(l));
+		l="Column 2 is a pivot column.";
+		assertTrue(d.toLatex().get(size-3).equals(l));
+		l="Column 3 is a pivot column.";
+		assertTrue(d.toLatex().get(size-2).equals(l));
+		l="There are in total 3 pivot columns so the rank is 3";
+		assertTrue(d.toLatex().get(size-1).equals(l));
 	}
 
 	@Test
@@ -112,6 +143,13 @@ public class M_RankTest
 		M_Rank d=new M_Rank(m);
 		Solution s=d.getSolution();
 		assertTrue(((Scalar)(s.getAnswer())).getValue()==2);
+		int size=d.toLatex().size();
+		String l="Column 1 is a pivot column.";
+		assertTrue(d.toLatex().get(size-3).equals(l));
+		l="Column 3 is a pivot column.";
+		assertTrue(d.toLatex().get(size-2).equals(l));
+		l="There are in total 2 pivot columns so the rank is 2";
+		assertTrue(d.toLatex().get(size-1).equals(l));
 	}
 
 	@Test
@@ -131,5 +169,62 @@ public class M_RankTest
 		M_Rank d=new M_Rank(m);
 		Solution s=d.getSolution();
 		assertTrue(((Scalar)(s.getAnswer())).getValue()==1);
+		int size=d.toLatex().size();
+		String l="Column 1 is a pivot column.";
+		assertTrue(d.toLatex().get(size-2).equals(l));
+		l="There is in total 1 pivot column so the rank is 1";
+		assertTrue(d.toLatex().get(size-1).equals(l));
+	}
+
+	@Test
+	public void nonref3x3() throws Exception
+	{
+		Double[][] v=new Double[3][3];
+		v[0][0]=new Double(1);
+		v[1][0]=new Double(2);
+		v[2][0]=new Double(3);
+		v[0][1]=new Double(4);
+		v[1][1]=new Double(1);
+		v[2][1]=new Double(-5);
+		v[0][2]=new Double(100);
+		v[1][2]=new Double(0);
+		v[2][2]=new Double(0);
+		Matrix m=new Matrix(DisplayType.DECIMAL,v);
+		M_Rank d=new M_Rank(m);
+		Solution s=d.getSolution();
+		assertTrue(((Scalar)(s.getAnswer())).getValue()==3);
+		int size=d.toLatex().size();
+		String l="Column 1 is a pivot column.";
+		assertTrue(d.toLatex().get(size-4).equals(l));
+		l="Column 2 is a pivot column.";
+		assertTrue(d.toLatex().get(size-3).equals(l));
+		l="Column 3 is a pivot column.";
+		assertTrue(d.toLatex().get(size-2).equals(l));
+		l="There are in total 3 pivot columns so the rank is 3";
+		assertTrue(d.toLatex().get(size-1).equals(l));
+	}
+
+	@Test
+	public void nonreflowest() throws Exception
+	{
+		Double[][] v=new Double[3][3];
+		v[0][0]=new Double(1);
+		v[1][0]=new Double(2);
+		v[2][0]=new Double(3);
+		v[0][1]=new Double(4);
+		v[1][1]=new Double(8);
+		v[2][1]=new Double(12);
+		v[0][2]=new Double(-1);
+		v[1][2]=new Double(-2);
+		v[2][2]=new Double(-3);
+		Matrix m=new Matrix(DisplayType.DECIMAL,v);
+		M_Rank d=new M_Rank(m);
+		Solution s=d.getSolution();
+		assertTrue(((Scalar)(s.getAnswer())).getValue()==1);
+		int size=d.toLatex().size();
+		String l="Column 1 is a pivot column.";
+		assertTrue(d.toLatex().get(size-2).equals(l));
+		l="There is in total 1 pivot column so the rank is 1";
+		assertTrue(d.toLatex().get(size-1).equals(l));
 	}
 }
