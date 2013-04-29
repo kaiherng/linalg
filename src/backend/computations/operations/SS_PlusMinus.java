@@ -22,6 +22,7 @@ import backend.computations.infrastructure.Solution;
 public class SS_PlusMinus extends Computable {
 	private Solution _solution;
 	private String _operatorStep;
+	private Scalar _answerStep;
 	
 	
 	/** 
@@ -54,13 +55,13 @@ public class SS_PlusMinus extends Computable {
 		
 		Scalar opStep = new Scalar(answer,DisplayType.CUSTOM);
 		opStep.setCustomDisplayValue(_operatorStep);
-		Scalar answerStep = new Scalar(answer,answerDisplayType);
+		_answerStep = new Scalar(answer,answerDisplayType);
 		
 		List<String> latex = toLatex();
 		if (isPlus){
-			_solution = new Solution(Op.SS_PLUS,args,answerStep,latex);
+			_solution = new Solution(Op.SS_PLUS,args,_answerStep,latex);
 		}else{
-			_solution = new Solution(Op.SS_MINUS,args,answerStep,latex);
+			_solution = new Solution(Op.SS_MINUS,args,_answerStep,latex);
 		}
 	}
 	
@@ -82,7 +83,7 @@ public class SS_PlusMinus extends Computable {
 		b.append("$");
 		b.append(_operatorStep);
 		b.append(" \\ = \\ ");
-		b.append(((Scalar)_solution.getAnswer()).getDisplayValue());
+		b.append(_answerStep.getDisplayValue());
 		b.append("$");
 		toReturn.add(b.toString());
 		return toReturn;
