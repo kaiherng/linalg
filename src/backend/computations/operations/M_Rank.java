@@ -74,7 +74,7 @@ public class M_Rank extends Computable
 		List<Countable> inputs = new ArrayList<>();
 		inputs.add(matrix);
 
-		_solution = new Solution(Op.M_RANK, inputs, answer, null);
+		_solution = new Solution(Op.M_RANK, inputs, answer, steps);
 	}
 
 	@Override
