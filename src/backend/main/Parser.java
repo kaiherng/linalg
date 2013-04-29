@@ -80,32 +80,32 @@ public class Parser {
 			switch (op){
 				// matrix addition
 				case MM_PLUS: {
-					return computeMM_PlusMinus(rootAsOp,true); // recursive call to compute in here
+					return computeMatrixBinaryOp(rootAsOp,op); // recursive call to compute in here
 				}
 				
 				// matrix subtraction
 				case MM_MINUS: {
-					return computeMM_PlusMinus(rootAsOp,false); // recursive call to compute in here
+					return computeMatrixBinaryOp(rootAsOp,op); // recursive call to compute in here
 				}
 				
 				//scalar addition
 				case SS_PLUS: {
-					return computeSS_PlusMinus(rootAsOp,true); // recursive call to compute in here
+					return computeScalarBinaryOp(rootAsOp,op); // recursive call to compute in here			
 				}
 				
 				// scalar subtraction
 				case SS_MINUS: {
-					return computeSS_PlusMinus(rootAsOp,true); // recursive call to compute in here
+					return computeScalarBinaryOp(rootAsOp,op); // recursive call to compute in here			
 				}
 				
 				// scalar multiplication
 				case SS_MULTIPLY: {
-					return computeSS_MultiplyDivide(rootAsOp,true); // recursive call to compute in here
+					return computeScalarBinaryOp(rootAsOp,op); // recursive call to compute in here		
 				}
 				
 				// scalar division
 				case SS_DIVIDE: {
-					return computeSS_MultiplyDivide(rootAsOp,false); // recursive call to compute in here
+					return computeScalarBinaryOp(rootAsOp,op); // recursive call to compute in here
 				}
 				
 				// scalar power
@@ -120,7 +120,7 @@ public class Parser {
 				
 				// matrix multiplication
 				case MM_MULTIPLY: {
-					return computeMM_Multiply(rootAsOp); // recursive call to compute in here
+					return computeMatrixBinaryOp(rootAsOp,op); // recursive call to compute in here
 				}
 				
 				// determinant
@@ -425,101 +425,6 @@ public class Parser {
 	//===================================
 	
 	/**
-	 * Given a SS_MultiplyDivide operator that includes its arguments, returns a ParseNode containing the Solution
-	 * 
-	 * @param op the SS_MultiplyDivide operation to solve
-	 * @param isTimes true iff this is a multiplication operation, false iff this is a division operation
-	 * @return the Parsenode containing the solution and arguments to this operation
-	 */
-	private static ParseNode computeSS_MultiplyDivide(Operation op,boolean isTimes){
-		if ((op.getFirstArg() == null || (op.getSecondArg() == null))){
-			throw new IllegalArgumentException("ERROR: SS_Multiply requires two arguments"); // should be unreachable code
-		}
-		
-		Numerical first = op.getFirstArg();           // this could return an Operation or a Countable
-		Numerical second = op.getSecondArg();
-		
-		ParseNode firstArg = compute(first);          // this will return null if passed a Countable
-		ParseNode secondArg= compute(second);
-		
-		Numerical arg1 = getNextArg(firstArg,first);  // b/c we need to actually compute, gets the Countable arguments
-		Numerical arg2 = getNextArg(secondArg,second);
-		
-		if (!(arg1 instanceof Scalar) || !(arg2 instanceof Scalar)){
-			throw new IllegalArgumentException("ERROR: SS_MultiplyDivide arguments must be scalars"); // should be unreachable code
-		}
-		
-		SS_MultiplyDivide multDiv = new SS_MultiplyDivide((Scalar) arg1, (Scalar) arg2,isTimes); // calculate solution
-		Solution answer = multDiv.getSolution();					// get solution
-
-		return new ParseNode(answer,firstArg,secondArg);
-	}
-	
-	
-	/** 
-	 * Given a scalar plusminus operator that includes its arguments, returns a ParseNode containing the Solution
-	 * 
-	 * @param op the plus operator
-	 * @param isPlus true iff this is a plus operation. false iff this is a minus operation
-	 * @return the ParseNode containing the solution and arguments to <op>
-	 */
-	private static ParseNode computeMM_PlusMinus(Operation op,boolean isPlus){
-		if ((op.getFirstArg() == null || (op.getSecondArg() == null))){
-			throw new IllegalArgumentException("ERROR: Plus requires two arguments"); // should be unreachable code
-		}
-		
-		Numerical first = op.getFirstArg();     // this could return an Operation or a Countable
-		Numerical second = op.getSecondArg();
-		
-		ParseNode firstArg = compute(first);          // this will return null if passed a Countable
-		ParseNode secondArg= compute(second);
-		
-		Numerical arg1 = getNextArg(firstArg,first);  // b/c we need to actually compute, gets the Countable arguments
-		Numerical arg2 = getNextArg(secondArg,second);
-		
-		if (!(arg1 instanceof Matrix) || !(arg2 instanceof Matrix)){
-			throw new IllegalArgumentException("ERROR: Plus arguments must be matrices"); // should be unreachable code
-		}
-		
-		MM_PlusMinus plus = new MM_PlusMinus((Matrix) arg1, (Matrix) arg2,isPlus); // calculate solution
-		Solution answer = plus.getSolution();					// get solution
-		
-		return new ParseNode(answer,firstArg,secondArg);
-	}
-	
-	
-	/**
-	 * Given a MM_Multiply operator that includes its arguments, returns a ParseNode containing the Solution
-	 * 
-	 * @param op the MM_Multiply operator
-	 * @return the ParseNode containing the solution and arguments to <op>
-	 */
-	private static ParseNode computeMM_Multiply(Operation op){
-		if ((op.getFirstArg() == null || (op.getSecondArg() == null))){
-			throw new IllegalArgumentException("ERROR: MM_Multiply requires two arguments"); // should be unreachable code
-		}
-	
-		Numerical first = op.getFirstArg();     // this could return an Operation or a Countable
-		Numerical second = op.getSecondArg();
-		
-		ParseNode firstArg = compute(first);          // this will return null if passed a Countable
-		ParseNode secondArg= compute(second);
-		
-		Numerical arg1 = getNextArg(firstArg,first);  // b/c we need to actually compute, gets the Countable arguments
-		Numerical arg2 = getNextArg(secondArg,second);
-		
-		if (!(arg1 instanceof Matrix) || !(arg2 instanceof Matrix)){
-			throw new IllegalArgumentException("ERROR: MM_Multiply arguments must be matrices"); // should be unreachable code
-		}
-		
-		MM_Multiply mult = new MM_Multiply((Matrix) arg1, (Matrix) arg2); // calculate solution
-		Solution answer = mult.getSolution();	
-		
-		return new ParseNode(answer,firstArg,secondArg);
-	}
-	
-	
-	/**
 	 * Given a MS_Multiply operator that includes its arguments, returns a ParseNode containing the Solution
 	 * 
 	 * @param op the MS_Multiply operator
@@ -560,7 +465,7 @@ public class Parser {
 	 * 
 	 * @param op
 	 * @param type
-	 * @return
+	 * @return the ParseNode containing the solution and arguments to <op>
 	 */
 	private static ParseNode computeUnaryMatrixOp(Operation op, Op type){
 		if ((op.getSecondArg() == null) || !(op.getFirstArg() == null)){
@@ -620,17 +525,68 @@ public class Parser {
 	}
 	
 	
+	/**
+	 * 
+	 * @param op
+	 * @param type
+	 * @return the ParseNode containing the solution and arguments to <op>
+	 */
+	private static ParseNode computeMatrixBinaryOp(Operation op, Op type){
+		if ((op.getFirstArg() == null || (op.getSecondArg() == null))){
+			throw new IllegalArgumentException("ERROR: " + type.getName() + "requires two arguments"); // should be unreachable code
+		}
+	
+		Numerical first = op.getFirstArg();     // this could return an Operation or a Countable
+		Numerical second = op.getSecondArg();
+		
+		ParseNode firstArg = compute(first);          // this will return null if passed a Countable
+		ParseNode secondArg= compute(second);
+		
+		Numerical arg1 = getNextArg(firstArg,first);  // b/c we need to actually compute, gets the Countable arguments
+		Numerical arg2 = getNextArg(secondArg,second);
+		
+		if (!(arg1 instanceof Matrix) || !(arg2 instanceof Matrix)){
+			throw new IllegalArgumentException("ERROR: " + type.getName()+" arguments must be matrices"); // should be unreachable code
+		}
+
+		try{
+			switch(type){
+				case MM_MULTIPLY:{
+					MM_Multiply mult = new MM_Multiply((Matrix) arg1, (Matrix) arg2); // calculate solution
+					Solution answer = mult.getSolution();	
+					return new ParseNode(answer,firstArg,secondArg);
+				}
+				case MM_MINUS:{
+					MM_PlusMinus minus = new MM_PlusMinus((Matrix) arg1, (Matrix) arg2,false); // calculate solution
+					Solution answer = minus.getSolution();					// get solution
+					return new ParseNode(answer,firstArg,secondArg);
+				}
+				case MM_PLUS:{
+					MM_PlusMinus plus = new MM_PlusMinus((Matrix) arg1, (Matrix) arg2,true); // calculate solution
+					Solution answer = plus.getSolution();					// get solution
+					return new ParseNode(answer,firstArg,secondArg);
+				}
+				default:{
+					System.err.println("ERROR: Parser.java : computeUnaryMatrix -- unrecognized op"); // should be unreachable code
+					return null;
+				}
+			}
+		} catch (Exception e) {
+			// TODO dzee, is this what I should do?
+			throw new IllegalArgumentException("ERROR: "+ e.getMessage());
+		}
+	}
+	
 	
 	/**
-	 * Given an SS_PlusMinus operator that includes its arguments, returns a ParseNode containing the Solution
 	 * 
-	 * @param op the SS_PlusMinus operator
-	 * @param isPlus true if this is a plus operation, false if this is a minus operation
-	 * @return the ParseNode containing the solution and arguments to the computation
+	 * @param op
+	 * @param type
+	 * @return the ParseNode containing the solution and arguments to <op>
 	 */
-	private static ParseNode computeSS_PlusMinus(Operation op, boolean isPlus) {
+	private static ParseNode computeScalarBinaryOp(Operation op, Op type){
 		if ((op.getFirstArg() == null || (op.getSecondArg() == null))){
-			throw new IllegalArgumentException("ERROR: SM_Multiply requires two arguments"); // should be unreachable code
+			throw new IllegalArgumentException("ERROR: "+ type.getName() + " requires two arguments"); // should be unreachable code
 		}
 	
 		Numerical first = op.getFirstArg();           // this could return an Operation or a Countable
@@ -643,14 +599,35 @@ public class Parser {
 		Numerical arg2 = getNextArg(secondArg,second);
 		
 		if (!(arg1 instanceof Scalar) || !(arg2 instanceof Scalar)){
-			throw new IllegalArgumentException("ERROR: SS_PlusMinus arguments must be scalars"); // should be unreachable code
+			throw new IllegalArgumentException("ERROR: " + type.getName() + " arguments must be scalars"); // should be unreachable code
 		}
 		
-		SS_PlusMinus plus = new SS_PlusMinus((Scalar) arg1, (Scalar) arg2,isPlus); // calculate solution
-		Solution answer = plus.getSolution();					// get solution
-		
-		return new ParseNode(answer,firstArg,secondArg);	
+		switch (type){
+			case SS_MULTIPLY:{
+				SS_MultiplyDivide multDiv = new SS_MultiplyDivide((Scalar) arg1, (Scalar) arg2,true); // calculate solution
+				Solution answer = multDiv.getSolution();					// get solution
+				return new ParseNode(answer,firstArg,secondArg);
+			}
+			case SS_DIVIDE:{
+				SS_MultiplyDivide multDiv = new SS_MultiplyDivide((Scalar) arg1, (Scalar) arg2,false); // calculate solution
+				Solution answer = multDiv.getSolution();					// get solution
+				return new ParseNode(answer,firstArg,secondArg);
+			}
+			case SS_PLUS:{
+				SS_PlusMinus plus = new SS_PlusMinus((Scalar) arg1, (Scalar) arg2,true); // calculate solution
+				Solution answer = plus.getSolution();					// get solution
+				return new ParseNode(answer,firstArg,secondArg);	
+			}
+			case SS_MINUS:{
+				SS_PlusMinus plus = new SS_PlusMinus((Scalar) arg1, (Scalar) arg2,false); // calculate solution
+				Solution answer = plus.getSolution();					// get solution
+				return new ParseNode(answer,firstArg,secondArg);				
+			}
+			default:{
+				System.err.println("ERROR: Parser.java : computeScalarBinaryOp -- unrecognized op"); // should be unreachable code
+				return null;
+			}
+		}
 	}
-	
 	
 }
