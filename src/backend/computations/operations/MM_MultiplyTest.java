@@ -11,7 +11,6 @@ import org.junit.Test;
 import backend.blocks.Countable.DisplayType;
 import backend.blocks.Matrix;
 import backend.computations.infrastructure.Solution;
-import backend.computations.infrastructure.Step;
 
 /**
  * Tests for MM_Multiply
@@ -34,19 +33,12 @@ public class MM_MultiplyTest {
 	public void multiplyOneTest(){
 		MM_Multiply testMult = new MM_Multiply(m6,m7);
 		Solution sol = testMult.getSolution();
-		List<Step> l = sol.getSteps();
-		Step step1 = l.get(0);
-		Step step2 = l.get(1);
-		assertTrue(step2.getCountable() instanceof Matrix);
-		Matrix answer = (Matrix) step2.getCountable();
-		assertTrue(answer.getNumCols() == 1);
-		assertTrue(answer.getNumRows() == 1);
-		assertTrue(answer.getValues()[0][0] == 6);
+		Matrix l = (Matrix) sol.getAnswer();
+
+		assertTrue(l.getNumCols() == 1);
+		assertTrue(l.getNumRows() == 1);
+		assertTrue(l.getValues()[0][0] == 6);
 		
-		assertTrue(step1.getCountable() instanceof Matrix);
-		Matrix step1Matrix = (Matrix) step1.getCountable();
-		String[][] indexSteps = step1Matrix.getCustomDisplayValues();
-		assertTrue(indexSteps[0][0].equals("(3.0 \\ * \\ 2.0) \\ = \\ 6.0"));
 		
 		// use this to check LaTeX (copy and paste into LaTeX compiler)
 //		List<String> latex = testMult.toLatex();
@@ -64,21 +56,11 @@ public class MM_MultiplyTest {
 	public void multiplyTest() {
 		MM_Multiply testMult = new MM_Multiply(m1,m2);
 		Solution sol = testMult.getSolution();
-		List<Step> l = sol.getSteps();
-		Step step1 = l.get(0);
-		Step step2 = l.get(1);
-		assertTrue(step2.getCountable() instanceof Matrix);
-		Matrix answer = (Matrix) step2.getCountable();
-		assertTrue(answer.getNumCols() == 2);
-		assertTrue(answer.getNumRows() == 1);
-		assertTrue(answer.getValues()[0][0] == 64);
-		assertTrue(answer.getValues()[1][0] == 89);
-		
-		assertTrue(step1.getCountable() instanceof Matrix);
-		Matrix step1Matrix = (Matrix) step1.getCountable();
-		String[][] indexSteps = step1Matrix.getCustomDisplayValues();
-		assertTrue(indexSteps[0][0].equals("(1.0 \\ * \\ 2.0) \\ + \\ (4.0 \\ * \\ 5.0) \\ + \\ (6.0 \\ * \\ 7.0) \\ = \\ 64.0"));
-		assertTrue(indexSteps[1][0].equals("(1.0 \\ * \\ 3.0) \\ + \\ (4.0 \\ * \\ 8.0) \\ + \\ (6.0 \\ * \\ 9.0) \\ = \\ 89.0"));
+		Matrix l = (Matrix) sol.getAnswer();
+		assertTrue(l.getNumCols() == 2);
+		assertTrue(l.getNumRows() == 1);
+		assertTrue(l.getValues()[0][0] == 64);
+		assertTrue(l.getValues()[1][0] == 89);
 		
 		// use this to check LaTeX (copy and paste into LaTeX compiler)
 //		List<String> latex = testMult.toLatex();
@@ -117,22 +99,11 @@ public class MM_MultiplyTest {
 	public void wholeNumberTest(){
 		MM_Multiply testMult = new MM_Multiply(m4,m5);
 		Solution sol = testMult.getSolution();
-		List<Step> l = sol.getSteps();
-		Step step1 = l.get(0);
-		Step step2 = l.get(1);
-		assertTrue(step2.getCountable() instanceof Matrix);
-		Matrix answer = (Matrix) step2.getCountable();
-		assertTrue(answer.getNumCols() == 2);
-		assertTrue(answer.getNumRows() == 1);
-		assertTrue(answer.getValues()[0][0] == 64);
-		assertTrue(answer.getValues()[1][0] == 89);
-		
-		assertTrue(step1.getCountable() instanceof Matrix);
-		Matrix step1Matrix = (Matrix) step1.getCountable();
-		String[][] indexSteps = step1Matrix.getCustomDisplayValues();
-
-		assertTrue(indexSteps[0][0].equals("(1 \\ * \\ 2) \\ + \\ (4 \\ * \\ 5) \\ + \\ (6 \\ * \\ 7) \\ = \\ 64"));
-		assertTrue(indexSteps[1][0].equals("(1 \\ * \\ 3) \\ + \\ (4 \\ * \\ 8) \\ + \\ (6 \\ * \\ 9) \\ = \\ 89"));
+		Matrix l = (Matrix) sol.getAnswer();
+		assertTrue(l.getNumCols() == 2);
+		assertTrue(l.getNumRows() == 1);
+		assertTrue(l.getValues()[0][0] == 64);
+		assertTrue(l.getValues()[1][0] == 89);
 	}
 	
 	
@@ -140,32 +111,22 @@ public class MM_MultiplyTest {
 	public void oneMoreMatrixTest(){
 		MM_Multiply testMult = new MM_Multiply(m8,m9);
 		Solution sol = testMult.getSolution();
-		List<Step> l = sol.getSteps();
-		Step step1 = l.get(0);
-		Step step2 = l.get(1);
-		assertTrue(step2.getCountable() instanceof Matrix);
-		Matrix answer = (Matrix) step2.getCountable();
-		assertTrue(answer.getNumCols() == 2);
-		assertTrue(answer.getNumRows() == 3);
-		assertTrue(answer.getValues()[0][0] == 60);
-		assertTrue(answer.getValues()[0][1] == 49);
-		assertTrue(answer.getValues()[0][2] == 141);
-		assertTrue(answer.getValues()[1][0] == 45);
-		assertTrue(answer.getValues()[1][1] == 43);
-		assertTrue(answer.getValues()[1][2] == 92);
+		Matrix l = (Matrix) sol.getAnswer();
+		assertTrue(l.getNumCols() == 2);
+		assertTrue(l.getNumRows() == 3);
+		assertTrue(l.getValues()[0][0] == 60);
+		assertTrue(l.getValues()[0][1] == 49);
+		assertTrue(l.getValues()[0][2] == 141);
+		assertTrue(l.getValues()[1][0] == 45);
+		assertTrue(l.getValues()[1][1] == 43);
+		assertTrue(l.getValues()[1][2] == 92);
 		
-		assertTrue(step1.getCountable() instanceof Matrix);
-		Matrix step1Matrix = (Matrix) step1.getCountable();
-		String[][] indexSteps = step1Matrix.getCustomDisplayValues();
-		assertTrue(indexSteps[0][0].equals("(6.0 \\ * \\ 7.0) \\ + \\ (3.0 \\ * \\ 6.0) \\ + \\ (0.0 \\ * \\ 5.0) \\ = \\ 60.0"));
-		assertTrue(indexSteps[0][1].equals("(2.0 \\ * \\ 7.0) \\ + \\ (5.0 \\ * \\ 6.0) \\ + \\ (1.0 \\ * \\ 5.0) \\ = \\ 49.0"));
-		assertTrue(indexSteps[0][2].equals("(9.0 \\ * \\ 7.0) \\ + \\ (8.0 \\ * \\ 6.0) \\ + \\ (6.0 \\ * \\ 5.0) \\ = \\ 141.0"));
-		assertTrue(indexSteps[1][0].equals("(6.0 \\ * \\ 4.0) \\ + \\ (3.0 \\ * \\ 7.0) \\ + \\ (0.0 \\ * \\ 0.0) \\ = \\ 45.0"));
-		assertTrue(indexSteps[1][1].equals("(2.0 \\ * \\ 4.0) \\ + \\ (5.0 \\ * \\ 7.0) \\ + \\ (1.0 \\ * \\ 0.0) \\ = \\ 43.0"));
-		assertTrue(indexSteps[1][2].equals("(9.0 \\ * \\ 4.0) \\ + \\ (8.0 \\ * \\ 7.0) \\ + \\ (6.0 \\ * \\ 0.0) \\ = \\ 92.0"));
+		
 		
 		// use this to check LaTeX (copy and paste into LaTeX compiler)
 		List<String> latex = testMult.toLatex();
+		assertTrue("\\begin{bmatrix} 6.0 & 2.0 & 9.0\\\\3.0 & 5.0 & 8.0\\\\0.0 & 1.0 & 6.0\\end{bmatrix} $\\times$ \\begin{bmatrix} 7.0 & 6.0 & 5.0\\\\4.0 & 7.0 & 0.0\\end{bmatrix}".equals(latex.get(0)));
+		
 		int counter = 0;
 		for (String s : latex){
 			System.out.println("======== List item: "+counter+ "========");

@@ -14,7 +14,6 @@ import backend.blocks.Matrix;
 import backend.blocks.Op;
 import backend.computations.infrastructure.Computable;
 import backend.computations.infrastructure.Solution;
-import backend.computations.infrastructure.Step;
 
 
 /** 
@@ -80,15 +79,7 @@ public class MM_PlusMinus extends Computable {
 		
 		_step1Matrix = new Matrix(DisplayType.CUSTOM, result); // this will show the addition in each index, for instance ("1 + 2")
 		_step1Matrix.setCustomDisplay(additionStep);
-		Step step1 = new Step(_step1Matrix);
-		
 		_step2Matrix = new Matrix(answerDisplayType,result);
-		Step step2 = new Step(_step2Matrix);
-		
-		List<Step> steps = new ArrayList<>();
-		steps.add(step1);
-		steps.add(step2);
-		
 
 		List<String> latex = toLatex();
 		if (isPlus){

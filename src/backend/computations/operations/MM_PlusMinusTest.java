@@ -2,14 +2,12 @@
 package backend.computations.operations;
 
 import static org.junit.Assert.*;
-import java.util.List;
 
 import org.junit.Test;
 
 import backend.blocks.Countable.DisplayType;
 import backend.blocks.Matrix;
 import backend.computations.infrastructure.Solution;
-import backend.computations.infrastructure.Step;
 
 /** Tests MM_PlusMinus
  * 
@@ -33,13 +31,6 @@ public class MM_PlusMinusTest {
 		assertTrue(answer.getValues()[0][1] == 6.0);
 		assertTrue(answer.getValues()[1][0] == 4.0);
 		assertTrue(answer.getValues()[1][1] == 6.0);
-		List<Step> steps = sol.getSteps();
-		Step additionStep = steps.get(0);
-		Matrix addStep = (Matrix) additionStep.getCountable();
-		assertTrue(addStep.getCustomDisplayValues()[0][0].equals("$1.0 \\ + \\ 3.0$"));
-		assertTrue(addStep.getCustomDisplayValues()[0][1].equals("$2.0 \\ + \\ 4.0$"));
-		assertTrue(addStep.getCustomDisplayValues()[1][0].equals("$1.0 \\ + \\ 3.0$"));
-		assertTrue(addStep.getCustomDisplayValues()[1][1].equals("$2.0 \\ + \\ 4.0$"));
 		
 		// use this to check LaTeX (copy and paste into LaTeX compiler)
 //		List<String> latex = test.toLatex();
@@ -63,13 +54,6 @@ public class MM_PlusMinusTest {
 		assertTrue(answer.getValues()[0][1] == -2.0);
 		assertTrue(answer.getValues()[1][0] == -2.0);
 		assertTrue(answer.getValues()[1][1] == -2.0);
-		List<Step> steps = sol.getSteps();
-		Step additionStep = steps.get(0);
-		Matrix addStep = (Matrix) additionStep.getCountable();
-		assertTrue(addStep.getCustomDisplayValues()[0][0].equals("$1.0 \\ - \\ 3.0$"));
-		assertTrue(addStep.getCustomDisplayValues()[0][1].equals("$2.0 \\ - \\ 4.0$"));
-		assertTrue(addStep.getCustomDisplayValues()[1][0].equals("$1.0 \\ - \\ 3.0$"));
-		assertTrue(addStep.getCustomDisplayValues()[1][1].equals("$2.0 \\ - \\ 4.0$"));
 		
 		// use this to check LaTeX (copy and paste into LaTeX compiler)
 //		List<String> latex = test.toLatex();
@@ -116,13 +100,7 @@ public class MM_PlusMinusTest {
 		assertTrue(answer.getValues()[0][1] == 0.0);
 		assertTrue(answer.getValues()[1][0] == 0.0);
 		assertTrue(answer.getValues()[1][1] == 0.0);
-		List<Step> steps = sol.getSteps();
-		Step additionStep = steps.get(0);
-		Matrix addStep = (Matrix) additionStep.getCountable();
-		assertTrue(addStep.getCustomDisplayValues()[0][0].equals("$1 \\ - \\ 1$"));
-		assertTrue(addStep.getCustomDisplayValues()[0][1].equals("$2 \\ - \\ 2$"));
-		assertTrue(addStep.getCustomDisplayValues()[1][0].equals("$1 \\ - \\ 1$"));
-		assertTrue(addStep.getCustomDisplayValues()[1][1].equals("$2 \\ - \\ 2$"));
+		
 		
 		// use this to check LaTeX (copy and paste into LaTeX compiler)
 //		List<String> latex = test.toLatex();

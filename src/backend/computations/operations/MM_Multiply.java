@@ -14,7 +14,6 @@ import backend.blocks.Matrix;
 import backend.blocks.Op;
 import backend.computations.infrastructure.Computable;
 import backend.computations.infrastructure.Solution;
-import backend.computations.infrastructure.Step;
 
 /** 
  * Performs a matrix multiplication operation
@@ -86,19 +85,8 @@ public class MM_Multiply extends Computable {
 			}
 		}
 		
-		// first step shows computation at each index
-		_step1Matrix = new Matrix(DisplayType.CUSTOM, result);
-		_step1Matrix.setCustomDisplay(multStep);
-		Step step1 = new Step(_step1Matrix);
-		
 		// second step shows the resulting matrix product
 		Matrix step2Matrix = new Matrix(answerDisplayType,result);
-		Step step2 = new Step(step2Matrix);
-		
-		// put steps in a list
-		List<Step> steps = new ArrayList<>();
-		steps.add(step1);
-		steps.add(step2);
 		
 		List<String> latex = toLatex();
 		
@@ -132,7 +120,7 @@ public class MM_Multiply extends Computable {
 		String[][] customEntries = _step1Matrix.getCustomDisplayValues();
 		for (int i = 0; i < customEntries.length; i++){
 			for (int j = 0; j < customEntries[0].length; j++){
-				b.append("\\item $"+customEntries[i][j]+"$ \\\\ \n");
+				b.append("\\item $"+customEntries[i][j]+"$ \n");
 			}
 		}
 		b.append("\\end{itemize}");

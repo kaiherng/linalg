@@ -6,15 +6,12 @@ package backend.computations.operations;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
-import java.util.List;
-
 import org.junit.Test;
 
 import backend.blocks.Countable.DisplayType;
 import backend.blocks.Matrix;
 import backend.blocks.Scalar;
 import backend.computations.infrastructure.Solution;
-import backend.computations.infrastructure.Step;
 
 /**
  * Tests for Matrix-Scalar multiplications
@@ -32,18 +29,11 @@ public class MS_MultiplyTest {
 	public void multiplicationTest() {
 		MS_Multiply msm = new MS_Multiply(s1,m1);
 		Solution sol = msm.getSolution();
-		List<Step> l = sol.getSteps();
 		assertTrue(sol.getAnswer() instanceof Matrix);
 		assertTrue(((Matrix) sol.getAnswer()).getValues()[0][0] == 2);
 		assertTrue(((Matrix) sol.getAnswer()).getValues()[0][1] == 4);
 		assertTrue(((Matrix) sol.getAnswer()).getValues()[1][0] == 6);
 		assertTrue(((Matrix) sol.getAnswer()).getValues()[1][1] == 8);
-		Step multStep = l.get(0);
-		assertTrue(multStep.getCountable() instanceof Matrix);
-		"$1.0 \\ * \\ 2.0$".equals(((Matrix) multStep.getCountable()).getCustomDisplayValues()[0][0]);
-		"$2.0 \\ * \\ 2.0$".equals(((Matrix) multStep.getCountable()).getCustomDisplayValues()[0][1]);
-		"$3.0 \\ * \\ 2.0$".equals(((Matrix) multStep.getCountable()).getCustomDisplayValues()[1][0]);
-		"$4.0 \\ * \\ 2.0$".equals(((Matrix) multStep.getCountable()).getCustomDisplayValues()[1][1]);
 		
 		// use this to check LaTeX (copy and paste into LaTeX compiler)
 //		List<String> latex = msm.toLatex();
@@ -61,18 +51,11 @@ public class MS_MultiplyTest {
 	public void multiplicationTestReverse() {
 		MS_Multiply msm = new MS_Multiply(m1,s1);
 		Solution sol = msm.getSolution();
-		List<Step> l = sol.getSteps();
 		assertTrue(sol.getAnswer() instanceof Matrix);
 		assertTrue(((Matrix) sol.getAnswer()).getValues()[0][0] == 2);
 		assertTrue(((Matrix) sol.getAnswer()).getValues()[0][1] == 4);
 		assertTrue(((Matrix) sol.getAnswer()).getValues()[1][0] == 6);
 		assertTrue(((Matrix) sol.getAnswer()).getValues()[1][1] == 8);
-		Step multStep = l.get(0);
-		assertTrue(multStep.getCountable() instanceof Matrix);
-		"$1.0 \\ * \\ 2.0$".equals(((Matrix) multStep.getCountable()).getCustomDisplayValues()[0][0]);
-		"$2.0 \\ * \\ 2.0$".equals(((Matrix) multStep.getCountable()).getCustomDisplayValues()[0][1]);
-		"$3.0 \\ * \\ 2.0$".equals(((Matrix) multStep.getCountable()).getCustomDisplayValues()[1][0]);
-		"$4.0 \\ * \\ 2.0$".equals(((Matrix) multStep.getCountable()).getCustomDisplayValues()[1][1]);
 		
 		// use this to check LaTeX (copy and paste into LaTeX compiler)
 //		List<String> latex = msm.toLatex();
@@ -89,18 +72,11 @@ public class MS_MultiplyTest {
 	public void multiplicationWholeNumber() {
 		MS_Multiply msm = new MS_Multiply(m3,s2);
 		Solution sol = msm.getSolution();
-		List<Step> l = sol.getSteps();
 		assertTrue(sol.getAnswer() instanceof Matrix);
 		assertTrue(((Matrix) sol.getAnswer()).getValues()[0][0] == 2);
 		assertTrue(((Matrix) sol.getAnswer()).getValues()[0][1] == 4);
 		assertTrue(((Matrix) sol.getAnswer()).getValues()[1][0] == 6);
 		assertTrue(((Matrix) sol.getAnswer()).getValues()[1][1] == 8);
-		Step multStep = l.get(0);
-		assertTrue(multStep.getCountable() instanceof Matrix);
-		"$1 \\ * \\ 2$".equals(((Matrix) multStep.getCountable()).getCustomDisplayValues()[0][0]);
-		"$2 \\ * \\ 2$".equals(((Matrix) multStep.getCountable()).getCustomDisplayValues()[0][1]);
-		"$3 \\ * \\ 2$".equals(((Matrix) multStep.getCountable()).getCustomDisplayValues()[1][0]);
-		"$4 \\ * \\ 2$".equals(((Matrix) multStep.getCountable()).getCustomDisplayValues()[1][1]);
 		
 		// use this to check LaTeX (copy and paste into LaTeX compiler)
 //		List<String> latex = msm.toLatex();
