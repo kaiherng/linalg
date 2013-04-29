@@ -15,6 +15,7 @@ import backend.computations.infrastructure.Solution;
 import backend.computations.operations.MM_Multiply;
 import backend.computations.operations.MM_PlusMinus;
 import backend.computations.operations.MS_Multiply;
+import backend.computations.operations.M_RowReduce;
 import backend.computations.operations.SS_MultiplyDivide;
 import backend.computations.operations.SS_PlusMinus;
 
@@ -124,7 +125,7 @@ public class Parser {
 				
 				// row-reduction
 				case ROW_REDUCE: { // recursive call to compute in here
-					return null; // TODO
+					return computeRowReduce(rootAsOp);
 				}
 				
 				// matrix rank
@@ -578,7 +579,43 @@ public class Parser {
 		SS_PlusMinus plus = new SS_PlusMinus((Scalar) arg1, (Scalar) arg2,isPlus); // calculate solution
 		Solution answer = plus.getSolution();					// get solution
 		
-		return new ParseNode(answer,firstArg,secondArg);
+		return new ParseNode(answer,firstArg,secondArg);	
+	}
+	
+	
+	/**
+	 * 
+	 * @param op
+	 * @return
+	 * @throws Exception 
+	 */
+	private static ParseNode computeRowReduce(Operation op){
+		if ((op.getSecondArg() == null) || !(op.getFirstArg() == null)){
+			throw new IllegalArgumentException("ERROR: RowReduce requires one argument");
+		}
+		
+		Numerical second = op.getSecondArg();           // this could return an Operation or a Countable
+		ParseNode secondArg = compute(second);          // this will return null if passed a Countable
+		Numerical arg1 = getNextArg(secondArg,second);  // b/c we need to actually compute, gets the Countable arguments
+		
+		if (!(arg1 instanceof Matrix)){
+			System.out.println(arg1 instanceof Scalar);
+			throw new IllegalArgumentException("ERROR: Rowreduce operator requires matrix type argument"); // should be unreachable code
+		}
+		
+		M_RowReduce rr;
+		try {
+			rr = new M_RowReduce((Matrix) arg1);
+			Solution answer = rr.getSolution();
+			System.out.println(((Matrix) answer.getAnswer()).getValues()[0][0]);
+			return new ParseNode(answer,null, secondArg);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block  what is this???
+			e.printStackTrace();
+			return null;
+		}
+			
+
 		
 	}
 	
