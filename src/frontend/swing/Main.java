@@ -83,7 +83,7 @@ public class Main {
 		JPanel mainPanel = new JPanel(new GridBagLayout());
 		mainPanel.setBackground(Color.LIGHT_GRAY);
 
-		new ResizeAdapter(splitPane, frame, 20, SwingUtilities.SOUTH, SwingUtilities.EAST, SwingUtilities.WEST, SwingUtilities.SOUTH_EAST, SwingUtilities.SOUTH_WEST);
+		new ResizeAdapter(splitPane, frame, 10, SwingUtilities.SOUTH, SwingUtilities.EAST, SwingUtilities.WEST, SwingUtilities.SOUTH_EAST, SwingUtilities.SOUTH_WEST);
 
 		//Create Panels
 		Solution solPanel = new Solution();

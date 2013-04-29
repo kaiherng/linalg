@@ -1,6 +1,7 @@
 package frontend.swing;
 
 import java.awt.Component;
+import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Frame;
 import java.awt.Insets;
@@ -165,50 +166,37 @@ public class ResizeAdapter extends MouseAdapter{
     @Override
     public void mouseReleased(MouseEvent e) {
         _resizing = 0;
+        _frame.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
     }
     
-    /**
-     * DONT BOTHER - waste of time because of weird mouse release
-     */
     @Override
     public void mouseMoved(MouseEvent e) {
-//    	if (_resizing!=0) {
-//    		return;
-//    	} 
-//    	Point currMouseLocation = e.getLocationOnScreen();
-//    	Dimension frameSize = _frame.getSize();
-//    	Point frameLocation = _frame.getLocationOnScreen();
-//    	_frame.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
-//    	
-//    	for (int resizeSide: _resizeSides) {
-//
-//    		if (resizeSide == SwingUtilities.SOUTH) {
-//    			if (currMouseLocation.y >= frameLocation.y + frameSize.height - _threshold && currMouseLocation.y <= frameLocation.y + frameSize.height) {
-//    				System.out.println("we are here");
-//    				_frame.setCursor(Cursor.getPredefinedCursor(Cursor.S_RESIZE_CURSOR));
-//    			} 
-//    		}
-//
-//    	}
-    	
-//    	
-//    	if (_resizeSide == SwingUtilities.EAST) {
-//    		if (currMouseLocation.x >= frameLocation.x + frameSize.width - _threshold && currMouseLocation.x <= frameLocation.x + frameSize.width) {
-//    			_frame.setCursor(Cursor.getPredefinedCursor(Cursor.E_RESIZE_CURSOR));
-//   		} else {
-//    			_frame.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
-//    		}
-//    	}
-//    	
-//    	if (_resizeSide == SwingUtilities.WEST) {
-//    		if (currMouseLocation.x >= frameLocation.x && currMouseLocation.x <= frameLocation.x + _threshold) {
-//    			resizing = true;
-//    			_frame.setCursor(Cursor.getPredefinedCursor(Cursor.W_RESIZE_CURSOR));
-//    		} else {
-//    			_frame.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
-//    		}
-//    	}
-    	
+    	Dimension frameSize = _frame.getSize();
+    	Point frameLocation = _frame.getLocationOnScreen();
+    	Point currMouseLocation = e.getLocationOnScreen();
+
+    	if (currMouseLocation.x >= frameLocation.x + frameSize.width - _threshold && currMouseLocation.x <= frameLocation.x + frameSize.width
+    			&& currMouseLocation.y >= frameLocation.y + frameSize.height - _threshold && currMouseLocation.y <= frameLocation.y + frameSize.height) {
+    		_frame.setCursor(Cursor.getPredefinedCursor(Cursor.SE_RESIZE_CURSOR));
+    	}
+    	else if (currMouseLocation.y >= frameLocation.y + frameSize.height - _threshold && currMouseLocation.y <= frameLocation.y + frameSize.height
+    			&& currMouseLocation.x >= frameLocation.x && currMouseLocation.x <= frameLocation.x + _threshold) {
+    		_frame.setCursor(Cursor.getPredefinedCursor(Cursor.SW_RESIZE_CURSOR));
+    	}
+    	else if (currMouseLocation.y >= frameLocation.y + frameSize.height - _threshold && currMouseLocation.y <= frameLocation.y + frameSize.height) {
+    		_frame.setCursor(Cursor.getPredefinedCursor(Cursor.S_RESIZE_CURSOR));
+    	}
+    	else if (currMouseLocation.x >= frameLocation.x + frameSize.width - _threshold && currMouseLocation.x <= frameLocation.x + frameSize.width) {
+    		_frame.setCursor(Cursor.getPredefinedCursor(Cursor.E_RESIZE_CURSOR));
+    	}
+    	else if (currMouseLocation.x >= frameLocation.x && currMouseLocation.x <= frameLocation.x + _threshold) {
+    		_frame.setCursor(Cursor.getPredefinedCursor(Cursor.W_RESIZE_CURSOR));
+    	}
+    	else {
+        	_frame.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+    	}
+
+    		
     }
 
 }
