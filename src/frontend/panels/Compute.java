@@ -50,9 +50,14 @@ public class Compute extends JPanel {
 		_ops = new JPanel(new WrapLayout(FlowLayout.LEFT));
 		
 		//compute bar
+		JPanel buttonPanel = new JPanel();
 		JButton computeButton = new JButton("Compute");
+		JButton clearButton = new JButton("Clear");
+		clearButton.addActionListener(new ClearButtonListener(this));
 		computeButton.addActionListener(new SolButtonListener(this));
-		_computeBar.add(computeButton, BorderLayout.EAST);
+		_computeBar.add(buttonPanel, BorderLayout.EAST);
+		buttonPanel.add(clearButton);
+		buttonPanel.add(computeButton);
 		JPanel scrollPanel = new JPanel(new BorderLayout());
 		scrollPanel.setPreferredSize(new Dimension(100,55));
 		_bar = new JPanel(new FlowLayout(FlowLayout.LEFT));
@@ -82,7 +87,7 @@ public class Compute extends JPanel {
 		_ops.setBorder(BorderFactory.createLineBorder(Color.black));
 		
 		this.add(_computeBar, BorderLayout.SOUTH);
-		this.add(_pages, BorderLayout.WEST);
+		//this.add(_pages, BorderLayout.WEST);
 		this.add(_ops, BorderLayout.CENTER);
 	}
 	
@@ -98,6 +103,12 @@ public class Compute extends JPanel {
 		_numericals.remove(id);
 		_bar.remove(c);
 		this.revalidate();
+		this.repaint();
+	}
+	
+	public void clearBar(){
+		_numericals.clear();
+		_bar.removeAll();
 		this.repaint();
 	}
 	
@@ -192,6 +203,21 @@ public class Compute extends JPanel {
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
 			_c.compute();
+		}
+		
+	}
+	
+	private class ClearButtonListener implements ActionListener{
+		
+		Compute _c;
+		
+		public ClearButtonListener(Compute c){
+			_c = c;
+		}
+		
+		@Override
+		public void actionPerformed(ActionEvent arg0) {
+			_c.clearBar();
 		}
 		
 	}
