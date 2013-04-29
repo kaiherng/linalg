@@ -117,6 +117,8 @@ public class Compute extends JPanel {
 			Countable answer = result.getSolution().getAnswer();
 			_solPanel.setTex(answer.toLatex());
 			
+			//DFS for each child .getsolution().getsteps();
+			
 			List<Step> ls = result.getSolution().getSteps();
 			StringBuilder sb = new StringBuilder();
 			for(Step s: ls){
@@ -127,6 +129,7 @@ public class Compute extends JPanel {
 		} catch (IllegalArgumentException e){
 			System.out.println(e.getMessage());
 			_solPanel.setTex("\\text{" + e.getMessage() + "}");
+			_stepPanel.setTex("\\text{" + e.getMessage() + "}");
 		}
 	}
 	

@@ -89,7 +89,7 @@ public enum Op {
 		case M_COLUMNSPACE:
 			return "CS";
 		case M_INVERSE:
-			return "-1";
+			return "INV";
 		case M_POWER:
 			return "^";
 		case M_RANK:
