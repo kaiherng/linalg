@@ -15,12 +15,14 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import backend.blocks.Countable;
 import backend.blocks.Matrix;
+import backend.blocks.Scalar;
 
 import frontend.general.Constants;
 import frontend.panels.Saved;
 
-public class MatrixBlock extends JPanel {
+public class CountableBlock extends JPanel {
 	
 	/**
 	 * 
@@ -28,16 +30,22 @@ public class MatrixBlock extends JPanel {
 	private static final long serialVersionUID = 6148169854145080375L;
 	Saved _s;
 	String _name;
-	Matrix _matrix;
+	Countable _countable;
 	JLabel _delete, _label;
-
-	public MatrixBlock(String name, Matrix m, Saved saved) {
+	
+	/**
+	 * Name is ignored for scalars
+	 * @param name
+	 * @param c
+	 * @param saved
+	 */
+	public CountableBlock(String name, Countable c, Saved saved) {
 		this.setLayout(null);
 		this.setPreferredSize(new Dimension(40, 40));
 		this.addMouseListener(new Click(this));
 		_s = saved;
 		_name = name;
-		_matrix = m;
+		_countable = c;
 		
 		this.setBackground(Color.blue);
 		
@@ -48,12 +56,19 @@ public class MatrixBlock extends JPanel {
 		this.add(_delete);
 		_delete.setBounds(Constants.SM_SIZE.x - 10,0,10,10);
 		
-		_label = new JLabel(name);
+		if(c.getName().equals("MATRIX")){
+			_label = new JLabel(name);
+			_label.setFont(new Font("SansSerif", Font.BOLD, 20));
+		} else if(c.getName().equals("SCALAR")){
+			Scalar s = (Scalar) c;
+			_label = new JLabel(Double.toString(s.getValue()));
+			_label.setFont(new Font("SansSerif", Font.BOLD, 18));
+			_name = Double.toString(s.getValue());
+		}
 		_label.setOpaque(false);
 		_label.setBorder(null);
 		_label.setForeground(Color.white);
 		_label.setHorizontalAlignment(JLabel.CENTER);
-		_label.setFont(new Font("SansSerif", Font.BOLD, 20));
 		this.add(_label);
 		_label.setBounds(0, 5, 40,30);
 	}
@@ -70,7 +85,7 @@ public class MatrixBlock extends JPanel {
 			if(_delete.getBounds().contains(e.getPoint())){
 				_s.deleteMatrix(_name, _c);
 			} else {
-				_s.addToBar(_matrix, _name);
+				_s.addToBar(_countable, _name);
 			}
 		}
 	}

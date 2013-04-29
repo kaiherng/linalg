@@ -122,16 +122,31 @@ public class Compute extends JPanel {
 			List<String> ls = result.getSolution().getLatex();
 			
 			StringBuilder sb = new StringBuilder();
-			for(String s: ls){
-				sb.append(s);
-				sb.append("\\\\");
-			}
-			_stepPanel.setTex(sb.toString());
+//			for(String s: ls){
+//				sb.append(s);
+//				sb.append("\\\\");
+//			}
+			_stepPanel.setTex(traverseTree(result, sb).toString());
 		} catch (IllegalArgumentException e){
 			System.out.println(e.getMessage());
 			_solPanel.setTex("\\text{" + e.getMessage() + "}");
 			_stepPanel.setTex("\\text{" + e.getMessage() + "}");
 		}
+	}
+	
+	public StringBuilder traverseTree(ParseNode n, StringBuilder sb){
+		if(n.getLeft() != null){
+			sb.append(traverseTree(n.getLeft(), sb));
+		}
+		if(n.getRight() != null){
+			sb.append(traverseTree(n.getRight(), sb));
+		}
+		List<String> list = n.getSolution().getLatex();
+		for(String s : list){
+			sb.append(s);
+			sb.append("\\\\");
+		}
+		return sb;
 	}
 	
 	private class BarObject extends JPanel implements MouseListener{

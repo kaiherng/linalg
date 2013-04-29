@@ -190,22 +190,42 @@ public class Construct extends JPanel {
 		}
 		
 		public void mouseReleased(MouseEvent e){
+			System.out.println("RELEASED");
 			_drawing = false;
 			_p.repaint();
 		}
 		
 		public void mouseDragged(MouseEvent e){
 			if(_drawing){
-				_mSize.clear();
-				_mSize.add((int) Math.floor((e.getX()-_offset.get(0))/_size));
-				_mSize.add((int) Math.floor((e.getY()-_offset.get(1))/_size));
-				_drawn = true;
-				_p.repaint();
+				int newX = (int) Math.floor((e.getX()-_offset.get(0))/_size);
+				int newY = (int) Math.floor((e.getY()-_offset.get(1))/_size);
+				if(newX < _grid.length && newY < _grid[0].length){
+					_mSize.clear();
+					_mSize.add(newX);
+					_mSize.add(newY);
+					_drawn = true;
+					_p.repaint();
+				}
 			} else if(_drawn && !_drawing){
-				_offset.set(0, _offset.get(0) + e.getPoint().x - (_startDrag).x);
-				_offset.set(1, _offset.get(1) + e.getPoint().y - (_startDrag).y);
-				_startDrag = e.getPoint();
-				_p.repaint();
+				//drag matrix around
+				int newX = _offset.get(0) + e.getPoint().x - (_startDrag).x;
+				int newY = _offset.get(1) + e.getPoint().y - (_startDrag).y;
+				if(!_p.contains(_offset.get(0) + (1+ _mSize.get(0))*_size, _offset.get(1) + (1+ _mSize.get(1))*_size)){
+					_offset.set(0, newX);
+					_offset.set(1, newY);
+					_startDrag = e.getPoint();
+					_p.repaint();
+					return;
+				}
+				
+				if(_p.contains(newX, newY)){
+					if(_p.contains(newX + (1+ _mSize.get(0))*_size, newY + (1+ _mSize.get(1))*_size)){
+						_offset.set(0, newX);
+						_offset.set(1, newY);
+						_startDrag = e.getPoint();
+						_p.repaint();
+					}
+				}
 			}
 		}
 	}
@@ -251,7 +271,7 @@ public class Construct extends JPanel {
 				if(arg0.getKeyChar() >= 48 && arg0.getKeyChar() <= 57){
 					sb.append(arg0.getKeyChar());
 				//period
-				} else if(arg0.getKeyCode() == 110){
+				} else if(arg0.getKeyCode() == 110 || arg0.getKeyChar() == 46){
 					sb.append(".");
 				//backspace
 				} else if(arg0.getKeyCode() == 8){
@@ -288,7 +308,7 @@ public class Construct extends JPanel {
 		@Override
 		public void componentResized(ComponentEvent arg0) {
 			Dimension size = arg0.getComponent().getSize();
-			_grid = new Rectangle[size.width/_size][size.height/_size];
+			_grid = new Rectangle[size.width/_size - 1][size.height/_size - 1];
 			for(int i = 0; i < _grid.length; i++){
 				for(int j = 0 ; j < _grid[0].length; j++){
 					_grid[i][j] = new Rectangle(i*_size, j*_size, _size, _size);
@@ -328,7 +348,7 @@ public class Construct extends JPanel {
 					mValues[i][j] = Double.parseDouble(_values.get("[" + i + ", " + j + "]"));
 				}
 			}
-			_save.addMatrix("A", new Matrix(DisplayType.DECIMAL, new Double[][] {{1.0}}));
+			_save.addMatrix("A", new Matrix(DisplayType.DECIMAL, mValues));
 			_c.clear();
 		}
 	}

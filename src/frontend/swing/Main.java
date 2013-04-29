@@ -26,6 +26,7 @@ import frontend.panels.Compute;
 import frontend.panels.Construct;
 import frontend.panels.Saved;
 import frontend.panels.Solution;
+import frontend.panels.SolutionScroll;
 
 
 public class Main {
@@ -86,8 +87,8 @@ public class Main {
 
 		//Create Panels
 		Solution solPanel = new Solution();
-		Solution stepPanel = new Solution();
-		Compute computePanel = new Compute(solPanel, stepPanel);
+		SolutionScroll stepPanel = new SolutionScroll();
+		Compute computePanel = new Compute(solPanel, stepPanel.getSolPanel());
 		Saved savedPanel = new Saved(computePanel);
 		Construct constructPanel = new Construct(savedPanel); 
 		
@@ -102,7 +103,7 @@ public class Main {
 		
 		tabbedPaneTopLeft.addTab("Compute", computePanel);
 		tabbedPaneTopLeft.setToolTipTextAt(1,"Select computations to perform");
-
+		
 		c.fill = GridBagConstraints.BOTH;
 		c.gridx = 0;
 		c.gridy = 0;
@@ -115,6 +116,8 @@ public class Main {
 		JTabbedPane tabbedPaneBottomLeft = new JTabbedPane();
 		JComponent bottomLeftPanel1 = makeTextPanel("Saved Matrices");
 		bottomLeftPanel1.setBackground(Constants.TAB_PANEL_CONTENT_BG);
+		//set the pane to check when adding matrices
+		savedPanel.setTopLeftPane(tabbedPaneTopLeft);
 		tabbedPaneBottomLeft.addTab("Saved Matrices", savedPanel);
 		tabbedPaneBottomLeft.setToolTipTextAt(0,"All your saved matrices are stored here");
 		
@@ -145,11 +148,7 @@ public class Main {
 		c2.insets = new Insets(20,20,20,20);
 		
 		rightPanel.add(tabbedPaneRight, c2);
-		
-		//so the focus wont be on the tab itself but on the panel instead
-//		tabbedPaneTopLeft.setFocusable(false);
-//		tabbedPaneBottomLeft.setFocusable(false);
-//		tabbedPaneRight.setFocusable(false);
+//		rightPanel.add(stepPanel, c2);
 
 		
 		frame.setMinimumSize(new Dimension(1000,700));
