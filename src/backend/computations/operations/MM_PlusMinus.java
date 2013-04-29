@@ -90,11 +90,12 @@ public class MM_PlusMinus extends Computable {
 		steps.add(step2);
 		
 
+		List<String> latex = toLatex();
 		if (isPlus){
-			_solution = new Solution(Op.MM_PLUS,matrixList, _step2Matrix, steps);
+			_solution = new Solution(Op.MM_PLUS,matrixList, _step2Matrix, latex);
 			_operation = "+";
 		}else{
-			_solution = new Solution(Op.MM_MINUS,matrixList, _step2Matrix, steps);
+			_solution = new Solution(Op.MM_MINUS,matrixList, _step2Matrix, latex);
 			_operation = "-";
 		}
 	}

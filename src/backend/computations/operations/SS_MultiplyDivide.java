@@ -60,10 +60,11 @@ public class SS_MultiplyDivide extends Computable {
 		List<Step> steps = new ArrayList<>();
 		steps.add(step1);
 		steps.add(step2);
+		List<String> latex = toLatex();
 		if (isTimes){
-			_solution = new Solution(Op.SS_PLUS,args,answerStep,steps);
+			_solution = new Solution(Op.SS_PLUS,args,answerStep,latex);
 		}else{
-			_solution = new Solution(Op.SS_MINUS,args,answerStep,steps);
+			_solution = new Solution(Op.SS_MINUS,args,answerStep,latex);
 		}
 	}
 	
