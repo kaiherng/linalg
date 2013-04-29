@@ -1,8 +1,9 @@
 package frontend.swing;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Cursor;
-import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.Point;
 import java.awt.event.MouseEvent;
@@ -29,12 +30,91 @@ public class HeaderPanel extends JPanel implements MouseListener, MouseMotionLis
 		setToolTipText("Double click for fullscreen or drag to move window");
 		setCursor(Cursor.getPredefinedCursor(Cursor.MOVE_CURSOR));
 
-		setBorder(BorderFactory.createEmptyBorder(3, 6, 3, 6)); //for padding around the title elements
+		setBorder(BorderFactory.createEmptyBorder(0, 7, 0, 7)); //for padding around the title elements
 		setBackground(Constants.HEADER_BG);
 		JLabel title = new JLabel("Linear Algebra Calculator");
 		title.setFont(new Font("Dialog", Font.BOLD, 11));
 		title.setForeground(Constants.HEADER_TITLE_COLOR);
 		add(title,BorderLayout.CENTER);   
+		
+		JPanel eastPanel = new JPanel(new FlowLayout(FlowLayout.LEADING, 0, 0));
+		eastPanel.setBackground(new Color(0,0,0,0));
+		
+		
+		JLabel minButton = createMinButton();
+		minButton.setBorder(BorderFactory.createEmptyBorder(0,0,6,7));
+		eastPanel.add(minButton);
+		
+		JLabel maxButton = createMaxButton();
+		maxButton.setBorder(BorderFactory.createEmptyBorder(0,0,2,7));
+		eastPanel.add(maxButton);
+		
+		JLabel closeButton = createCloseButton();
+		eastPanel.add(closeButton);
+		
+		add(eastPanel,BorderLayout.EAST);
+	}
+	
+	public JLabel createMinButton() {
+		JLabel maxButton = new JLabel("_");
+		maxButton.setToolTipText("Minimize");
+		maxButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		maxButton.setForeground(Constants.HEADER_TITLE_COLOR);
+		maxButton.setFont(new Font("Dialog", Font.BOLD, 14));
+		maxButton.addMouseListener(new MouseListener() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				_frame.setExtendedState(JFrame.ICONIFIED);
+			}
+
+			@Override
+			public void mousePressed(MouseEvent e) {}
+
+			@Override
+			public void mouseReleased(MouseEvent e) {}
+
+			@Override
+			public void mouseEntered(MouseEvent e) {}
+			
+			@Override
+			public void mouseExited(MouseEvent e) {}
+		});
+		return maxButton;
+	}
+	
+	public JLabel createMaxButton() {
+		JLabel maxButton = new JLabel("\u25FB");
+		maxButton.setToolTipText("Maximize");
+		maxButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		maxButton.setForeground(Constants.HEADER_TITLE_COLOR);
+		maxButton.setFont(new Font("Dialog", Font.BOLD, 14));
+		maxButton.addMouseListener(new MouseListener() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				if (_frame.getExtendedState() == JFrame.NORMAL) {
+					_frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+				}
+				else {
+					_frame.setExtendedState(JFrame.NORMAL);
+				}
+			}
+
+			@Override
+			public void mousePressed(MouseEvent e) {}
+
+			@Override
+			public void mouseReleased(MouseEvent e) {}
+
+			@Override
+			public void mouseEntered(MouseEvent e) {}
+			
+			@Override
+			public void mouseExited(MouseEvent e) {}
+		});
+		return maxButton;
+	}
+	
+	public JLabel createCloseButton() {
 		JLabel closeButton = new JLabel("X");
 		closeButton.setForeground(Constants.HEADER_TITLE_COLOR);
 		closeButton.setToolTipText("Close the program. You'll lose all existing work.");
@@ -59,8 +139,7 @@ public class HeaderPanel extends JPanel implements MouseListener, MouseMotionLis
 			public void mouseExited(MouseEvent e) {}
 
 		});
-		add(closeButton,BorderLayout.EAST);
-
+		return closeButton;
 	}
 	
 	@Override
