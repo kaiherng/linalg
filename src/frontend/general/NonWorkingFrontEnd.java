@@ -1,3 +1,4 @@
+package frontend.general;
 /*package frontend.general;
 
 import java.awt.BorderLayout;
