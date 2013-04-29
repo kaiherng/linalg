@@ -105,6 +105,25 @@ public class Construct extends JPanel {
 		this.repaint();
 	}
 	
+	public void editMatrix(Matrix m){
+		clear();
+		Double[][] values = m.getValues();
+		for(int i = 0; i < values.length; i++){
+			for(int j = 0; j < values[0].length; j++){
+				_values.put("[" + i + ", " + j + "]", values[i][j].toString());
+			}
+		}
+		_mSize.clear();
+		_offset.clear();
+		_mSize.add(values.length);
+		_mSize.add(values[0].length);
+		_offset.add(0);
+		_offset.add(0);
+		_drawing = false;
+		_drawn = true;
+		this.repaint();
+	}
+	
 	public void paintComponent(Graphics g){
 		super.paintComponent(g);
 		Graphics2D g2 = (Graphics2D) g;
@@ -304,12 +323,16 @@ public class Construct extends JPanel {
 				//numbers
 				if(keyCode >= 48 && keyCode <= 57){
 					sb.append(arg0.getKeyChar());
+				} else if(keyCode >= 96 && keyCode <= 105){
+					sb.append(arg0.getKeyChar());
 				//period
 				} else if(keyCode == 110 || keyCode == 46){
 					sb.append(".");
 				//backspace
 				} else if(keyCode == 8){
-					sb.setLength(sb.length()-1);
+					if(sb.length() > 0){
+						sb.setLength(sb.length()-1);
+					}
 				}
 				if(sb.length() == 0){
 					_values.remove(_selected.toString());
