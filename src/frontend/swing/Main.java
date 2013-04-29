@@ -104,7 +104,6 @@ public class Main {
 		
 		tabbedPaneTopLeft.addTab("Compute", computePanel);
 		tabbedPaneTopLeft.setToolTipTextAt(1,"Select computations to perform");
-		
 		c.fill = GridBagConstraints.BOTH;
 		c.gridx = 0;
 		c.gridy = 0;
