@@ -16,7 +16,11 @@ import backend.computations.operations.Determinant;
 import backend.computations.operations.MM_Multiply;
 import backend.computations.operations.MM_PlusMinus;
 import backend.computations.operations.MS_Multiply;
+import backend.computations.operations.M_Columnspace;
+import backend.computations.operations.M_Inverse;
+import backend.computations.operations.M_Rank;
 import backend.computations.operations.M_RowReduce;
+import backend.computations.operations.M_Transpose;
 import backend.computations.operations.SS_MultiplyDivide;
 import backend.computations.operations.SS_PlusMinus;
 
@@ -121,17 +125,17 @@ public class Parser {
 				
 				// determinant
 				case DETERMINANT: { // recursive call to compute in here
-					return computeDeterminant(rootAsOp);
+					return computeUnaryMatrixOp(rootAsOp,op);
 				}
 				
 				// row-reduction
 				case ROW_REDUCE: { // recursive call to compute in here
-					return computeRowReduce(rootAsOp);
+					return computeUnaryMatrixOp(rootAsOp,op);
 				}
 				
 				// matrix rank
 				case M_RANK: { // recursive call to compute in here
-					return null; // TODO
+					return computeUnaryMatrixOp(rootAsOp,op);
 				}
 				
 				// matrix null space
@@ -141,7 +145,7 @@ public class Parser {
 				
 				// matrix transpose
 				case M_TRANSPOSE: { // recursive call to compute in here
-					return null; // TODO
+					return computeUnaryMatrixOp(rootAsOp,op);
 				}
 				
 				// matrix power
@@ -151,12 +155,12 @@ public class Parser {
 				
 				// matrix inverse
 				case M_INVERSE: { // recursive call to compute in here
-					return null; // TODO
+					return computeUnaryMatrixOp(rootAsOp,op);
 				}
 				
 				// matrix columnspace
 				case M_COLUMNSPACE: { // recursive call to compute in here
-					return null; // TODO
+					return computeUnaryMatrixOp(rootAsOp,op);
 				}
 				
 				// unrecognized operation
@@ -553,6 +557,71 @@ public class Parser {
 	
 	
 	/**
+	 * 
+	 * @param op
+	 * @param type
+	 * @return
+	 */
+	private static ParseNode computeUnaryMatrixOp(Operation op, Op type){
+		if ((op.getSecondArg() == null) || !(op.getFirstArg() == null)){
+			throw new IllegalArgumentException("ERROR: " +  type.getName() + " requires one argument");
+		}
+		
+		Numerical second = op.getSecondArg();           // this could return an Operation or a Countable
+		ParseNode secondArg = compute(second);          // this will return null if passed a Countable
+		Numerical arg1 = getNextArg(secondArg,second);  // b/c we need to actually compute, gets the Countable arguments
+		
+		if (!(arg1 instanceof Matrix)){
+			System.out.println(arg1 instanceof Scalar);
+			throw new IllegalArgumentException("ERROR: " + type.getName() + " operator requires matrix type argument"); // should be unreachable code
+		}
+		
+		try {
+			switch(type){
+				case M_RANK:{
+					M_Rank rank = new M_Rank((Matrix) arg1);
+					Solution answer = rank.getSolution();
+					return new ParseNode(answer,null, secondArg);
+				}
+				case DETERMINANT:{
+					Determinant det = new Determinant((Matrix) arg1);
+					Solution answer = det.getSolution();
+					return new ParseNode(answer,null, secondArg);
+				}
+				case ROW_REDUCE:{
+					M_RowReduce rr = new M_RowReduce((Matrix) arg1);
+					Solution answer = rr.getSolution();
+					return new ParseNode(answer,null, secondArg);
+				}
+				case M_TRANSPOSE:{
+					M_Transpose t = new M_Transpose((Matrix) arg1);
+					Solution answer = t.getSolution();
+					return new ParseNode(answer,null,secondArg);
+				}
+				case M_COLUMNSPACE:{
+					M_Columnspace t = new M_Columnspace((Matrix) arg1);
+					Solution answer = t.getSolution();
+					return new ParseNode(answer,null,secondArg);
+				}
+				case M_INVERSE:{
+					M_Inverse t = new M_Inverse((Matrix) arg1);
+					Solution answer = t.getSolution();
+					return new ParseNode(answer,null,secondArg);
+				}
+				default:{
+					System.err.println("ERROR: Parser.java : computeUnaryMatrix -- unrecognized op"); // should be unreachable code
+					return null;
+				}
+			}
+		} catch (Exception e) {
+			// TODO dzee, is this what I should do?
+			throw new IllegalArgumentException("ERROR: "+ e.getMessage());
+		}
+	}
+	
+	
+	
+	/**
 	 * Given an SS_PlusMinus operator that includes its arguments, returns a ParseNode containing the Solution
 	 * 
 	 * @param op the SS_PlusMinus operator
@@ -583,72 +652,5 @@ public class Parser {
 		return new ParseNode(answer,firstArg,secondArg);	
 	}
 	
-	
-	/**
-	 * Given an M_RowReduce operator that includes its arguments, returns a ParseNode containing the Solution
-	 * 
-	 * @param op the M_RowReduce operator
-	 * @return the ParseNode containing the solution and arguments to the computation
-	 * @throws Exception  TODO wat?
-	 */
-	private static ParseNode computeRowReduce(Operation op){
-		if ((op.getSecondArg() == null) || !(op.getFirstArg() == null)){
-			throw new IllegalArgumentException("ERROR: RowReduce requires one argument");
-		}
-		
-		Numerical second = op.getSecondArg();           // this could return an Operation or a Countable
-		ParseNode secondArg = compute(second);          // this will return null if passed a Countable
-		Numerical arg1 = getNextArg(secondArg,second);  // b/c we need to actually compute, gets the Countable arguments
-		
-		if (!(arg1 instanceof Matrix)){
-			System.out.println(arg1 instanceof Scalar);
-			throw new IllegalArgumentException("ERROR: Rowreduce operator requires matrix type argument"); // should be unreachable code
-		}
-		
-		M_RowReduce rr;
-		try {
-			rr = new M_RowReduce((Matrix) arg1);
-			Solution answer = rr.getSolution();
-			return new ParseNode(answer,null, secondArg);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block  what is this???
-			e.printStackTrace();
-			return null;
-		}
-	}
-	
-	
-	/**
-	 * Given an Determinant operator that includes its arguments, returns a ParseNode containing the Solution
-	 * 
-	 * @param op the Determinant operator
-	 * @return the ParseNode containing the solution and arguments to the computation
-	 */
-	private static ParseNode computeDeterminant(Operation op){
-		if ((op.getSecondArg() == null) || !(op.getFirstArg() == null)){
-			throw new IllegalArgumentException("ERROR: RowReduce requires one argument");
-		}
-		
-		Numerical second = op.getSecondArg();           // this could return an Operation or a Countable
-		ParseNode secondArg = compute(second);          // this will return null if passed a Countable
-		Numerical arg1 = getNextArg(secondArg,second);  // b/c we need to actually compute, gets the Countable arguments
-		
-		if (!(arg1 instanceof Matrix)){
-			System.out.println(arg1 instanceof Scalar);
-			throw new IllegalArgumentException("ERROR: Rowreduce operator requires matrix type argument"); // should be unreachable code
-		}
-		
-		Determinant det;
-		try {
-			det = new Determinant((Matrix) arg1);
-			Solution answer = det.getSolution();
-			return new ParseNode(answer,null, secondArg);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return null;
-		}
-
-	}
 	
 }
