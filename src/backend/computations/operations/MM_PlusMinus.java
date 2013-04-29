@@ -92,10 +92,8 @@ public class MM_PlusMinus extends Computable {
 		List<String> latex = toLatex();
 		if (isPlus){
 			_solution = new Solution(Op.MM_PLUS,matrixList, _step2Matrix, latex);
-
 		}else{
 			_solution = new Solution(Op.MM_MINUS,matrixList, _step2Matrix, latex);
-
 		}
 	}
 
@@ -123,7 +121,6 @@ public class MM_PlusMinus extends Computable {
 		
 		MatrixDraw m3 = new MatrixDraw(_step1Matrix);
 		MatrixDraw m4 = new MatrixDraw(_step2Matrix);
-		
 		toReturn.add("\\vspace{15mm} 2. \\ " + _opWord+" \\ each \\ corresponding \\ index  \\\\ \\hspace{10mm} "+m3.getCorrectLatex(DisplayType.CUSTOM) + "\\\\");
 		toReturn.add("\\vspace{15mm} Solution: \\\\ \\hspace{10mm}"+m4.getCorrectLatex(_displayType));
 		return toReturn;

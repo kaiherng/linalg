@@ -22,6 +22,7 @@ import backend.computations.infrastructure.Step;
 public class SS_MultiplyDivide extends Computable {
 	private Solution _solution;
 	private String _operatorStep;
+	private Scalar _answerStep;
 	
 	
 	/** 
@@ -54,17 +55,13 @@ public class SS_MultiplyDivide extends Computable {
 		
 		Scalar opStep = new Scalar(answer,DisplayType.CUSTOM);
 		opStep.setCustomDisplayValue(_operatorStep);
-		Step step1 = new Step(opStep);
-		Scalar answerStep = new Scalar(answer,answerDisplayType);
-		Step step2 = new Step(answerStep);
-		List<Step> steps = new ArrayList<>();
-		steps.add(step1);
-		steps.add(step2);
+		_answerStep = new Scalar(answer,answerDisplayType);
+		
 		List<String> latex = toLatex();
 		if (isTimes){
-			_solution = new Solution(Op.SS_PLUS,args,answerStep,latex);
+			_solution = new Solution(Op.SS_PLUS,args,_answerStep,latex);
 		}else{
-			_solution = new Solution(Op.SS_MINUS,args,answerStep,latex);
+			_solution = new Solution(Op.SS_MINUS,args,_answerStep,latex);
 		}
 	}
 	
@@ -85,7 +82,7 @@ public class SS_MultiplyDivide extends Computable {
 		b.append("$");
 		b.append(_operatorStep);
 		b.append(" = ");
-		b.append(((Scalar) _solution.getAnswer()).getDisplayValue());
+		b.append(_answerStep.getDisplayValue());
 		b.append("$");
 		toReturn.add(b.toString());
 		return toReturn;
