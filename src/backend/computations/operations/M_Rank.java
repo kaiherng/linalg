@@ -69,8 +69,11 @@ public class M_Rank extends Computable
 
 		//answer in scalar frm
 		Scalar answer=new Scalar(rank,DisplayType.WHOLENUMBER);
-		steps.add("There are in total "+answer.getDisplayValue()+" pivot columns so the rank is "+answer.getDisplayValue());
-
+		String plural="";
+		if (rank==1)
+			steps.add("There is in total 1 pivot column so the rank is 1");
+		else
+			steps.add("There are in total "+answer.getDisplayValue()+" pivot columns so the rank is "+answer.getDisplayValue());
 		List<Countable> inputs = new ArrayList<>();
 		inputs.add(matrix);
 
