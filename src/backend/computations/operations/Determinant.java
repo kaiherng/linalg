@@ -98,6 +98,7 @@ public class Determinant extends Computable
 		{
 			double det=values[0][0]*values[1][1]-values[0][1]*values[1][0];
 			steps.add("$"+values[0][0]+" * "+values[1][1]+" - "+values[0][1]+" * "+values[1][0]+" = "+det+"$");
+			steps.add("The determinant is "+det);
 			return new Scalar(det,answerDisplayType);
 		}
 
@@ -121,7 +122,7 @@ public class Determinant extends Computable
 
 			double subDet=sign*values[i][0]*d.getValue();
 			det+=subDet;
-			steps.add("Add $"+sign+" * "+values[i][0]+" * "+d.getValue()+" to the overall determinant.");
+			steps.add("Add $"+sign+" * "+values[i][0]+" * "+d.getValue()+"$ to the overall determinant.");
 		}
 
 		steps.add("The overall determinant is "+det+".");

@@ -5,6 +5,8 @@ import backend.blocks.Countable.DisplayType;
 import static org.junit.Assert.*;
 import org.junit.*;
 
+import java.util.*;
+
 import backend.computations.infrastructure.*;
 
 public class DeterminantTest
@@ -18,6 +20,9 @@ public class DeterminantTest
 		Determinant d=new Determinant(m);
 		Solution s=d.getSolution();
 		assertTrue(((Scalar)(s.getAnswer())).getValue()==5);
+		assertTrue(d.toLatex().size()==1);
+		String l="The determinant of a 1x1 matrix is its value: 5.0";
+		assertTrue(d.toLatex().get(0).equals(l));
 	}
 
 	@Test
@@ -32,6 +37,11 @@ public class DeterminantTest
 		Determinant d=new Determinant(m);
 		Solution s=d.getSolution();
 		assertTrue(((Scalar)(s.getAnswer())).getValue()==1);
+		assertTrue(d.toLatex().size()==2);
+		String l="$2.0 * 2.0 - 3.0 * 1.0 = 1.0$";
+		assertTrue(d.toLatex().get(0).equals(l));
+		l="The determinant is 1.0";
+		assertTrue(d.toLatex().get(1).equals(l));
 	}
 
 	@Test
@@ -46,6 +56,11 @@ public class DeterminantTest
 		Determinant d=new Determinant(m);
 		Solution s=d.getSolution();
 		assertTrue(((Scalar)(s.getAnswer())).getValue()==-63);
+		assertTrue(d.toLatex().size()==2);
+		String l="$6.0 * -8.0 - 5.0 * 3.0 = -63.0$";
+		assertTrue(d.toLatex().get(0).equals(l));
+		l="The determinant is -63.0";
+		assertTrue(d.toLatex().get(1).equals(l));
 	}
 
 	@Test
@@ -60,6 +75,11 @@ public class DeterminantTest
 		Determinant d=new Determinant(m);
 		Solution s=d.getSolution();
 		assertTrue(((Scalar)(s.getAnswer())).getValue()==38.944);
+		assertTrue(d.toLatex().size()==2);
+		String l="$0.2 * 2.22 - -3.5 * 11.0 = 38.944$";
+		assertTrue(d.toLatex().get(0).equals(l));
+		l="The determinant is 38.944";
+		assertTrue(d.toLatex().get(1).equals(l));
 	}
 
 	@Test
@@ -79,6 +99,33 @@ public class DeterminantTest
 		Determinant d=new Determinant(m);
 		Solution s=d.getSolution();
 		assertTrue(((Scalar)(s.getAnswer())).getValue()==-188);
+		assertTrue(d.toLatex().size()==13);
+		String l="Calculate the determinant of \\begin{bmatrix} 5.0 & 7.0\\\\11.0 & 8.0\\end{bmatrix}";
+		assertTrue(d.toLatex().get(0).equals(l));
+		l="$5.0 * 8.0 - 7.0 * 11.0 = -37.0$";
+		assertTrue(d.toLatex().get(1).equals(l));
+		l="The determinant is -37.0";
+		assertTrue(d.toLatex().get(2).equals(l));
+		l="Add $1 * 6.0 * -37.0$ to the overall determinant.";
+		assertTrue(d.toLatex().get(3).equals(l));
+		l="Calculate the determinant of \\begin{bmatrix} -2.0 & 0.0\\\\11.0 & 8.0\\end{bmatrix}";
+		assertTrue(d.toLatex().get(4).equals(l));
+		l="$-2.0 * 8.0 - 0.0 * 11.0 = -16.0$";
+		assertTrue(d.toLatex().get(5).equals(l));
+		l="The determinant is -16.0";
+		assertTrue(d.toLatex().get(6).equals(l));
+		l="Add $-1 * 3.0 * -16.0$ to the overall determinant.";
+		assertTrue(d.toLatex().get(7).equals(l));
+		l="Calculate the determinant of \\begin{bmatrix} -2.0 & 0.0\\\\5.0 & 7.0\\end{bmatrix}";
+		assertTrue(d.toLatex().get(8).equals(l));
+		l="$-2.0 * 7.0 - 0.0 * 5.0 = -14.0$";
+		assertTrue(d.toLatex().get(9).equals(l));
+		l="The determinant is -14.0";
+		assertTrue(d.toLatex().get(10).equals(l));
+		l="Add $1 * 1.0 * -14.0$ to the overall determinant.";
+		assertTrue(d.toLatex().get(11).equals(l));
+		l="The overall determinant is -188.0.";
+		assertTrue(d.toLatex().get(12).equals(l));
 	}
 
 	@Test
@@ -98,6 +145,34 @@ public class DeterminantTest
 		Determinant d=new Determinant(m);
 		Solution s=d.getSolution();
 		assertTrue(((Scalar)(s.getAnswer())).getValue()==728);
+
+		assertTrue(d.toLatex().size()==13);
+		String l="Calculate the determinant of \\begin{bmatrix} 0.0 & 16.0\\\\0.0 & 33.2\\end{bmatrix}";
+		assertTrue(d.toLatex().get(0).equals(l));
+		l="$0.0 * 33.2 - 16.0 * 0.0 = 0.0$";
+		assertTrue(d.toLatex().get(1).equals(l));
+		l="The determinant is 0.0";
+		assertTrue(d.toLatex().get(2).equals(l));
+		l="Add $1 * 52.3 * 0.0$ to the overall determinant.";
+		assertTrue(d.toLatex().get(3).equals(l));
+		l="Calculate the determinant of \\begin{bmatrix} 2.0 & 0.0\\\\0.0 & 33.2\\end{bmatrix}";
+		assertTrue(d.toLatex().get(4).equals(l));
+		l="$2.0 * 33.2 - 0.0 * 0.0 = 66.4$";
+		assertTrue(d.toLatex().get(5).equals(l));
+		l="The determinant is 66.4";
+		assertTrue(d.toLatex().get(6).equals(l));
+		l="Add $-1 * -10.0 * 66.4$ to the overall determinant.";
+		assertTrue(d.toLatex().get(7).equals(l));
+		l="Calculate the determinant of \\begin{bmatrix} 2.0 & 0.0\\\\0.0 & 16.0\\end{bmatrix}";
+		assertTrue(d.toLatex().get(8).equals(l));
+		l="$2.0 * 16.0 - 0.0 * 0.0 = 32.0$";
+		assertTrue(d.toLatex().get(9).equals(l));
+		l="The determinant is 32.0";
+		assertTrue(d.toLatex().get(10).equals(l));
+		l="Add $1 * 2.0 * 32.0$ to the overall determinant.";
+		assertTrue(d.toLatex().get(11).equals(l));
+		l="The overall determinant is 728.0.";
+		assertTrue(d.toLatex().get(12).equals(l));
 	}
 
 	@Test

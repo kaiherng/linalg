@@ -145,10 +145,12 @@ public class Compute extends JPanel {
 	
 	public StringBuilder traverseTree(ParseNode n, StringBuilder sb){
 		if(n.getLeft() != null){
-			sb.append(traverseTree(n.getLeft(), sb));
+			String toAdd = traverseTree(n.getLeft(), new StringBuilder()).toString();
+			sb.append(toAdd);
 		}
 		if(n.getRight() != null){
-			sb.append(traverseTree(n.getRight(), sb));
+			String toAdd = traverseTree(n.getLeft(), new StringBuilder()).toString();
+			sb.append(toAdd);
 		}
 		List<String> list = n.getSolution().getLatex();
 		for(String s : list){

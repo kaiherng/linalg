@@ -51,6 +51,8 @@ public class M_RowReduce extends Computable
 			firstnz[i]=j;
 		}
 
+		//whether we exchanged rows or not
+		boolean changed=false;
 		//matrix with the rows rearranged so that it forms as much of a echelon form as possible
 		Double[][] moved = values;
 		//check each row with the one above
@@ -61,6 +63,7 @@ public class M_RowReduce extends Computable
 			int j=i;
 			while (j>0 && firstnz[j-1]>firstnz[j])
 			{
+				changed=true;
 				//swap firstnz value
 				int temp=firstnz[j-1];
 				firstnz[j-1]=firstnz[j];
@@ -77,7 +80,8 @@ public class M_RowReduce extends Computable
 		}
 
 		Matrix stepMatrix=new Matrix(DisplayType.DECIMAL,moved);
-		steps.add("Rearrange rows to "+(new MatrixDraw(stepMatrix)).getCorrectLatex(matrix.getDisplayType()));
+		if (changed)
+			steps.add("Rearrange rows to "+(new MatrixDraw(stepMatrix)).getCorrectLatex(matrix.getDisplayType()));
 
 		//the row to work on
 		for (int j=0;j<Math.min(moved.length,moved[0].length);j++)
@@ -122,7 +126,7 @@ public class M_RowReduce extends Computable
 					moved[k][l]-=moved[k][j]*factor;
 				}
 				stepMatrix=new Matrix(DisplayType.DECIMAL,moved);
-				steps.add("Subtract Row "+(l+1)+"by Row "+(j+1)+" times a factor of "+
+				steps.add("Subtract Row "+(l+1)+" by Row "+(j+1)+" times "+
 					factor+" = "+(new MatrixDraw(stepMatrix)).getCorrectLatex(DisplayType.DECIMAL));
 			}
 		}
@@ -160,7 +164,7 @@ public class M_RowReduce extends Computable
 		}
 
 		Matrix answer=new Matrix(DisplayType.DECIMAL,moved);
-		steps.add("The row reduced echolon form is "+(new MatrixDraw(answer)).getCorrectLatex(DisplayType.DECIMAL));
+		steps.add("The row reduced echelon form is "+(new MatrixDraw(answer)).getCorrectLatex(DisplayType.DECIMAL));
 
 		List<Countable> inputs = new ArrayList<>();
 		inputs.add(matrix);
