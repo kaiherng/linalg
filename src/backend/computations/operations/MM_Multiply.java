@@ -119,12 +119,12 @@ public class MM_Multiply extends Computable {
 		toReturn.add("\\vspace{10mm} 1.\\\\ \\hspace{15mm}"+b.toString());
 		b.delete(0, b.length());
 		
-		toReturn.add("\\vspace{15mm} 2. \\ Equation \\ at \\ each \\ index \\\\");
+		toReturn.add("\\vspace{15mm} 2. \\ Equation \\ at \\ each \\ index");
 		// make list of equations for each index
 		String[][] customEntries = _step1Matrix.getCustomDisplayValues();
 		for (int i = 0; i < customEntries.length; i++){
 			for (int j = 0; j < customEntries[0].length; j++){
-				toReturn.add("\\vspace{8mm} \\hspace{15mm} Column \\ "+i+" \\ of \\ 1st \\ matrix \\ multiplied \\ with \\ row \\ " + j + " \\ of \\ 2nd \\ matrix: \\\\ \\hspace{30mm} "+customEntries[i][j]);
+				toReturn.add("\\vspace{15mm} \\hspace{15mm} Column \\ \\textit{"+(i+1)+"} \\ of \\ \\textit{1}st \\ matrix \\ multiplied \\ with \\ row \\ \\textit{" + (j+1) + "} \\ of \\ \\textit{2}nd \\ matrix: \\\\ \\vspace{10mm} \\hspace{60mm} "+customEntries[i][j]);
 			}
 		}
 		

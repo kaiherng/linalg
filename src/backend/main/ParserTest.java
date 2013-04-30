@@ -572,6 +572,7 @@ public class ParserTest {
 		assertTrue(subRes.getSecondArg().equals(matrixC));
 	}
 	
+
 	@Test
 	// tests single unary operator
 	// det A
@@ -722,6 +723,8 @@ public class ParserTest {
 		assertTrue(indices[1][1]==4.0);
 		assertTrue(indices[1][0]==4.0);
 	}
+	
+
 	
 	
 	
