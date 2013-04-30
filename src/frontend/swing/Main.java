@@ -86,9 +86,9 @@ public class Main {
 		new ResizeAdapter(splitPane, frame, 10, SwingUtilities.SOUTH, SwingUtilities.EAST, SwingUtilities.WEST, SwingUtilities.SOUTH_EAST, SwingUtilities.SOUTH_WEST);
 
 		//Create Panels
-		Solution solPanel = new Solution();
+		SolutionScroll solPanel = new SolutionScroll();
 		SolutionScroll stepPanel = new SolutionScroll();
-		Compute computePanel = new Compute(solPanel, stepPanel.getSolPanel());
+		Compute computePanel = new Compute(solPanel.getSolPanel(), stepPanel.getSolPanel());
 		Saved savedPanel = new Saved(computePanel);
 		Construct constructPanel = new Construct(savedPanel);
 		savedPanel.setConstructPanel(constructPanel);

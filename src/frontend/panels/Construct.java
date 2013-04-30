@@ -115,10 +115,10 @@ public class Construct extends JPanel {
 		}
 		_mSize.clear();
 		_offset.clear();
-		_mSize.add(values.length);
-		_mSize.add(values[0].length);
-		_offset.add(0);
-		_offset.add(0);
+		_mSize.add(values.length-1);
+		_mSize.add(values[0].length-1);
+		_offset.add(10);
+		_offset.add(10);
 		_drawing = false;
 		_drawn = true;
 		this.repaint();
@@ -219,6 +219,14 @@ public class Construct extends JPanel {
 		}
 		
 		public void mouseReleased(MouseEvent e){
+			if(_drawing = true){
+				if(_mSize.get(0) > 0 && _mSize.get(1) > 0){
+					_selected.clear();
+					_selected.add(0);
+					_selected.add(0);
+					_p.repaint();
+				}
+			}
 			_drawing = false;
 			_p.repaint();
 		}

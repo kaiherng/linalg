@@ -37,7 +37,8 @@ public class Compute extends JPanel {
 	Map<Integer, Numerical> _numericals;
 	JPanel _computeBar, _pages, _ops, _bar;
 	Integer _id = 0;
-	Solution _solPanel, _stepPanel;
+	Solution _solPanel;
+	Solution _stepPanel;
 	
 	public Compute(Solution sol, Solution step) {
 		_numericals = new LinkedHashMap<>();

@@ -73,6 +73,8 @@ public enum Op {
 			return "S+S";
 		case SS_MINUS:
 			return "S-S";
+		case SS_DIVIDE:
+			return "S/S";
 		case MM_PLUS:
 			return "M+M";
 		case MM_MINUS:
