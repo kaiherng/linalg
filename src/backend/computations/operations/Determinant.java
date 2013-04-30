@@ -121,7 +121,7 @@ public class Determinant extends Computable
 
 			double subDet=sign*values[i][0]*d.getValue();
 			det+=subDet;
-			steps.add("Add $"+sign+" * "+values[i][0]+" * "+d.getValue()+" to the overall determinant.");
+			steps.add("Add $"+sign+" * "+values[i][0]+" * "+d.getValue()+"$ to the overall determinant.");
 		}
 
 		steps.add("The overall determinant is "+det+".");
