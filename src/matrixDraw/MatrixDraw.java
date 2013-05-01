@@ -100,7 +100,23 @@ public class MatrixDraw extends JPanel{
 		b.append("\\begin{bmatrix} ");
 		for(int i = 0; i < _values[0].length; i++){
 			for(int j = 0; j < _values.length; j++){
-				b.append(_values[j][i].toString() + " ");
+				String num = _values[j][i].toString();
+				boolean foundDecimal = false;
+				int numAfterDecimal = 0;
+				for (int k = 0; k < num.length(); k++){
+					if (num.charAt(k) == '.'){
+						foundDecimal = true;
+					}
+					if (foundDecimal){
+						numAfterDecimal++;
+					}
+					if (numAfterDecimal > 5){
+						num = num.substring(0, k) + "...";
+						break;
+					}
+				}
+
+				b.append(num + " ");
 				if(j != _values.length -1){
 					b.append(" & ");
 				}

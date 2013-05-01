@@ -63,7 +63,7 @@ public class M_Rank extends Computable
 				{
 					fzr++;
 				}
-				steps.add("Column "+(i+1)+" is a pivot column.");
+				steps.add("\\mathrm{Column \\ "+(i+1)+" \\ is \\ a \\ pivot \\ column.}");
 			}
 		}
 
@@ -71,9 +71,9 @@ public class M_Rank extends Computable
 		Scalar answer=new Scalar(rank,DisplayType.WHOLENUMBER);
 		String plural="";
 		if (rank==1)
-			steps.add("There is in total 1 pivot column so the rank is 1");
+			steps.add("\\mathrm{There \\ is \\ in \\ total \\ 1 \\ pivot \\ column \\ so \\ the \\ rank \\ is \\ 1}");
 		else
-			steps.add("There are in total "+answer.getDisplayValue()+" pivot columns so the rank is "+answer.getDisplayValue());
+			steps.add("\\mathrm{There \\ are \\ in \\ total} \\ "+answer.getDisplayValue()+" \\mathrm{pivot \\ columns \\ so \\ the \\ rank \\ is} \\ "+answer.getDisplayValue());
 		List<Countable> inputs = new ArrayList<>();
 		inputs.add(matrix);
 
