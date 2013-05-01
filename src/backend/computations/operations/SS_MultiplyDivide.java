@@ -23,6 +23,7 @@ public class SS_MultiplyDivide extends Computable {
 	private Solution _solution;
 	private String _operatorStep;
 	private Scalar _answerStep;
+	private String _op;
 	
 	
 	/** 
@@ -46,9 +47,11 @@ public class SS_MultiplyDivide extends Computable {
 		
 		Double answer;
 		if (isTimes){
+			_op = "Multiplication";
 			_operatorStep = aString + " * " + bString;
 			answer = aVal * bVal;
 		}else{
+			_op = "Division";
 			_operatorStep = aString + " / " + bString;
 			answer = aVal / bVal;
 		}
@@ -78,12 +81,12 @@ public class SS_MultiplyDivide extends Computable {
 	@Override
 	public List<String> toLatex() {
 		List<String> toReturn = new ArrayList<>();
+		toReturn.add("\\vspace{10mm} \\mathrm{"+_op+"}");
 		StringBuffer b = new StringBuffer();
-		b.append("$");
+		b.append("\\hspace{15mm}");
 		b.append(_operatorStep);
 		b.append(" = ");
 		b.append(_answerStep.getDisplayValue());
-		b.append("$");
 		toReturn.add(b.toString());
 		return toReturn;
 	}

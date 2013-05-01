@@ -149,7 +149,7 @@ public class Compute extends JPanel {
 			sb.append(toAdd);
 		}
 		if(n.getRight() != null){
-			String toAdd = traverseTree(n.getLeft(), new StringBuilder()).toString();
+			String toAdd = traverseTree(n.getRight(), new StringBuilder()).toString();
 			sb.append(toAdd);
 		}
 		List<String> list = n.getSolution().getLatex();

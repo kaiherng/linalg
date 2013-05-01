@@ -106,7 +106,7 @@ public class MM_Multiply extends Computable {
 	 */
 	public List<String> toLatex() {
 		List<String> toReturn = new ArrayList<>();
-		toReturn.add("Matrix \\ Multiply:");
+		toReturn.add("\\vspace{10mm} \\mathrm{Matrix \\ Multiply:}");
 		MatrixDraw m1 = new MatrixDraw(_matrixA);
 		MatrixDraw m2 = new MatrixDraw(_matrixB);
 		StringBuilder b = new StringBuilder();
@@ -119,17 +119,26 @@ public class MM_Multiply extends Computable {
 		toReturn.add("\\vspace{10mm} 1.\\\\ \\hspace{15mm}"+b.toString());
 		b.delete(0, b.length());
 		
-		toReturn.add("\\vspace{15mm} 2. \\ Equation \\ at \\ each \\ index");
+		toReturn.add("\\vspace{15mm} 2. \\ \\mathrm{Equation \\ at \\ each \\ index}");
 		// make list of equations for each index
+		int counter = 0;
 		String[][] customEntries = _step1Matrix.getCustomDisplayValues();
 		for (int i = 0; i < customEntries.length; i++){
 			for (int j = 0; j < customEntries[0].length; j++){
-				toReturn.add("\\vspace{15mm} \\hspace{15mm} Column \\ \\textit{"+(i+1)+"} \\ of \\ \\textit{1}st \\ matrix \\ multiplied \\ with \\ row \\ \\textit{" + (j+1) + "} \\ of \\ \\textit{2}nd \\ matrix: \\\\ \\vspace{10mm} \\hspace{60mm} "+customEntries[i][j]);
+				toReturn.add("\\vspace{15mm} \\hspace{15mm} \\mathrm{Column \\ "+(i+1)+" \\ of \\ 1st \\ matrix \\ multiplied \\ with \\ row \\ " + (j+1) + " \\ of \\ 2nd \\ matrix: }\\\\ \\vspace{10mm} \\hspace{60mm} "+customEntries[i][j]);
+				counter++;
+				if (counter > 4){
+					toReturn.add("\\vspace{25mm} \\hspace{15mm} \\mathrm{Continue \\ by \\ multiplying \\ together \\ the \\ remaining \\ rows \\ and \\ columns \\\\ of \\ the \\ matrices}");
+					break;
+				}
+			}
+			if (counter > 4){
+				break;
 			}
 		}
 		
 		MatrixDraw m3 = new MatrixDraw(_step1Matrix);
-		toReturn.add("\\vspace{15mm} Solution: \\\\ \\hspace{45mm}"+m3.getCorrectLatex(_displayType));
+		toReturn.add("\\vspace{15mm} \\mathrm{Solution:} \\\\ \\hspace{15mm}"+m3.getCorrectLatex(_displayType));
 		return toReturn;
 	}
 }

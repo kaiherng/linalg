@@ -23,6 +23,7 @@ public class SS_PlusMinus extends Computable {
 	private Solution _solution;
 	private String _operatorStep;
 	private Scalar _answerStep;
+	private String _op;
 	
 	
 	/** 
@@ -46,9 +47,11 @@ public class SS_PlusMinus extends Computable {
 		
 		Double answer;
 		if (isPlus){
+			_op = "Addition";
 			_operatorStep = a.getDisplayValue() + " \\ + \\ " + b.getDisplayValue();
 			answer = aVal + bVal;
 		}else{
+			_op = "Subtraction";
 			_operatorStep = a.getDisplayValue() + " \\ - \\ " + b.getDisplayValue();
 			answer = aVal - bVal;
 		}
@@ -79,12 +82,12 @@ public class SS_PlusMinus extends Computable {
 	 */
 	public List<String> toLatex() {
 		List<String> toReturn = new ArrayList<>();
+		toReturn.add("\\vspace{10mm} \\mathrm{"+_op+"}");
 		StringBuilder b = new StringBuilder();
-		b.append("$");
+		b.append("\\hspace{15mm}");
 		b.append(_operatorStep);
 		b.append(" \\ = \\ ");
 		b.append(_answerStep.getDisplayValue());
-		b.append("$");
 		toReturn.add(b.toString());
 		return toReturn;
 	}
