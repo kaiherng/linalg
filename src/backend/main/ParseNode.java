@@ -3,6 +3,12 @@
  */
 package backend.main;
 
+import java.util.List;
+
+import matrixDraw.MatrixDraw;
+import backend.blocks.Countable;
+import backend.blocks.Matrix;
+import backend.blocks.Scalar;
 import backend.computations.infrastructure.Solution;
 
 /** A tree of ParseNodes is returned to the front-end after a computation. This allows the front-end to understand the order 
@@ -15,6 +21,8 @@ public class ParseNode {
 	private Solution _solution; // The Solution of this ParseNode
 	private ParseNode _left;    // contains the Solution to the 1st argument to the operation that created _solution
 	private ParseNode _right;   // contains the Solution to the 2nd argument to the operation that created _solution
+	private String _toCompute;  // the latex string detailing which part of the equation is being computed at this step
+	private ToComputeTreeNode _toComputeTree; // the tree that details how to construct <_toCompute>  
 	// Note, if the 1st or 2nd arguments to the operation that created _solution were not themselves computed in
 	// a Computable, the respective _left or _right will be null
 	
@@ -24,11 +32,52 @@ public class ParseNode {
 	 * @param solution the Solution of a single operation
 	 * @param arg1 the ParseNode that contains the Solution which was used as the first argument to compute <solution>
 	 * @param arg2 the ParseNode that contains the Solution which was used as the second argument to compute <solution>
+	 * @param toCompute
 	 */
 	public ParseNode(Solution solution,ParseNode arg1, ParseNode arg2){
 		_solution = solution;
 		_left = arg1;
 		_right = arg2;
+	}
+	
+	
+	/**
+	 * 
+	 * @param root the root of 
+	 * @param toReplace this should be a node on the tree rooted at <root>
+	 * @return the node in the tree rooted at <root> that should be expanded next
+	 */
+	public void setComputeString(ToComputeTreeNode root, ToComputeTreeNode toReplace){
+		_toComputeTree = root;
+		toReplace.setValue(_solution.getOp().getIcon2());
+		List<Countable> args = _solution.getInputs();
+		
+		String toSetArg1 = getToSet(args.get(0));
+		
+		if (args.size() == 2){ // was it a unary or binary operator?
+			String toSetArg2 = getToSet(args.get(1));
+			toReplace.setLeft(new ToComputeTreeNode(null,null,toSetArg1));
+			toReplace.setRight(new ToComputeTreeNode(null,null,toSetArg2));
+		}else{
+			toReplace.setLeft(null);
+			toReplace.setRight(new ToComputeTreeNode(null,null,toSetArg1));
+		}
+	}
+	
+	
+	/**
+	 * Gets the proper latex string for a given countable
+	 * 
+	 * @param c a Countable
+	 * @return the latex string for the <c>
+	 */
+	private String getToSet(Countable c){
+		if (c instanceof Matrix){
+			MatrixDraw first = new MatrixDraw((Matrix) c);
+			return  first.getCorrectLatex(_solution.getDisplayType());
+		}else{
+			return ((Scalar) c).getDisplayValue();
+		}
 	}
 	
 	
@@ -39,6 +88,19 @@ public class ParseNode {
 		return _solution;
 	}
 	
+	/**
+	 * @return the latex string detailing which part of the equation is being computed at this step
+	 */
+	public String getToCompute(){
+		return _toCompute;
+	}
+	
+	/**
+	 * @return the tree detailing how to create _toCompute
+	 */
+	public ToComputeTreeNode getToComputeTree(){
+		return _toComputeTree;
+	}
 	
 	/**
 	 * @return the solution comprising the first argument to the solution in this ParseNode
@@ -47,12 +109,10 @@ public class ParseNode {
 		return _left;
 	}
 	
-	
 	/**
 	 * @return the solution comprising the second argument to the solution in this ParseNode
 	 */
 	public ParseNode getRight(){
 		return _right;
 	}
-	
 }

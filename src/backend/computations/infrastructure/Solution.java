@@ -3,6 +3,7 @@ package backend.computations.infrastructure;
 import java.util.List;
 
 import backend.blocks.Countable;
+import backend.blocks.Countable.DisplayType;
 import backend.blocks.Op;
 
 /** 
@@ -15,6 +16,7 @@ public class Solution{
 	private Countable _answer;
 	private List<String> _latex;
 	private Op _op;
+	private DisplayType _displayType;
 	private List<Countable> _inputs;
 
 	
@@ -31,6 +33,15 @@ public class Solution{
 		_inputs = inputs;
 		_answer = answer;
 		_latex = latex;
+		_displayType = answer.getDisplayType();
+	}
+	
+	
+	/**
+	 * @return returns the display type of the answer of this Solution
+	 */
+	public DisplayType getDisplayType(){
+		return _displayType;
 	}
 	
 	

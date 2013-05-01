@@ -31,7 +31,7 @@ public class Determinant extends Computable
 	 */
 	public Determinant(Matrix matrix) throws Exception
 	{
-		steps.add("\\vspace{10mm} \\mathrm{Determinant}");
+		steps.add("\\vspace{10mm} \\mathrm{Calculate \\ the \\ Determinant}");
 		answerDisplayType = matrix.getDisplayType();
 		Double[][] values = matrix.getValues();
 
@@ -45,7 +45,7 @@ public class Determinant extends Computable
 				}
 			}
 		}
-		Scalar answer=calcDet(values);
+		Scalar answer=calcDet(values,0);
 
 		List<Countable> inputs = new ArrayList<>();
 		inputs.add(matrix);
@@ -78,8 +78,9 @@ public class Determinant extends Computable
 	}
 
 	/**returns the list of steps to find the determinant of the matrix
-	 *the final step contains the determinant*/
-	private Scalar calcDet(Double[][] values) throws Exception
+	 *the final step contains the determinant
+	 * @param indentLength */
+	private Scalar calcDet(Double[][] values, int indentLength) throws Exception
 	{
 		if (values.length<1)
 			throw new IllegalArgumentException("ERROR (Det): Matrix size needs to be at least 1, given "+values.length);
@@ -90,7 +91,7 @@ public class Determinant extends Computable
 		//if it is just a 1x1 matrix
 		if (values.length==1)
 		{
-			steps.add("\\mathrm{The \\ determinant \\ of \\ a \\ 1x1 \\ matrix \\ is \\ its \\ value:} "+values[0][0]);
+			steps.add("\\hspace{"+indentLength+"mm}\\mathrm{The \\ determinant \\ of \\ a \\ 1x1 \\ matrix \\ is \\ its \\ value:} "+values[0][0]);
 			return new Scalar(values[0][0],answerDisplayType);
 		}
 
@@ -98,8 +99,8 @@ public class Determinant extends Computable
 		if (values.length==2)
 		{
 			double det=values[0][0]*values[1][1]-values[0][1]*values[1][0];
-			steps.add("$"+values[0][0]+" * "+values[1][1]+" - "+values[0][1]+" * "+values[1][0]+" = "+det+"$");
-			steps.add("\\mathrm{The \\ determinant \\ is \\ "+det+"}");
+			steps.add("\\hspace{"+indentLength+"mm}"+values[0][0]+" \\times "+values[1][1]+" - "+values[0][1]+" \\times "+values[1][0]+" = "+det);
+			steps.add("\\hspace{"+indentLength+"mm}\\mathrm{The \\ determinant \\ is \\ "+det+"}");
 			return new Scalar(det,answerDisplayType);
 		}
 
@@ -110,11 +111,11 @@ public class Determinant extends Computable
 		{
 			//the matrix without the first row, and the i-th column
 			Double[][] m=removeRowColumn(values,i,0);
-			steps.add("\\mathrm{Calculate \\ the \\ determinant \\ of} "+
+			steps.add("\\hspace{"+indentLength+"mm}\\mathrm{Calculate \\ the \\ determinant \\ of} "+
 				(new MatrixDraw(new Matrix(answerDisplayType,m))).getCorrectLatex(answerDisplayType));
 
 			//calculate m's determinant
-			Scalar d=calcDet(m);
+			Scalar d=calcDet(m,indentLength+15);
 
 			//alternate + or - sign
 			int sign=1;
@@ -123,10 +124,11 @@ public class Determinant extends Computable
 
 			double subDet=sign*values[i][0]*d.getValue();
 			det+=subDet;
-			steps.add("\\mathrm{Add} "+sign+" * "+values[i][0]+" * "+d.getValue()+"\\mathrm{to \\ the \\ overall \\ determinant.}");
+			steps.add("\\hspace{"+indentLength+"mm}\\mathrm{Add} \\ "+sign+" * "+values[i][0]+" * "+d.getValue()+" \\ \\mathrm{to \\ the \\ overall \\ determinant.}");
 		}
 
-		steps.add("\\mathrm{The \\ overall \\ determinant \\ is \\ "+det+".}");
+		String detString = shortenDecimal(Double.toString(det));
+		steps.add("\\hspace{"+indentLength+"mm}\\mathrm{The \\ overall \\ determinant \\ is \\ "+detString+".}");
 		return new Scalar(det,answerDisplayType);
 	}
 
