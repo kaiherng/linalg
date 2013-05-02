@@ -2,17 +2,11 @@ package frontend.panels;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.awt.Graphics;
-import java.awt.LayoutManager;
 
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
 
-import org.scilab.forge.jlatexmath.TeXConstants;
-import org.scilab.forge.jlatexmath.TeXFormula;
-import org.scilab.forge.jlatexmath.TeXIcon;
+import frontend.swing.ScrollPane;
 
 public class SolutionScroll extends JPanel {
 	
@@ -24,7 +18,7 @@ public class SolutionScroll extends JPanel {
 		this.setLayout(new BorderLayout());
 		_sol = new Solution(this);
 		
-		_scroll = new JScrollPane(_sol);
+		_scroll = new ScrollPane(_sol);
 		this.setPreferredSize(new Dimension(100,100));
 		this.add(_scroll, BorderLayout.CENTER);
 		_scroll.getVerticalScrollBar().setUnitIncrement(20);

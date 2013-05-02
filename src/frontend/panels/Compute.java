@@ -21,16 +21,16 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
-import frontend.blocks.BracketBlock;
-import frontend.blocks.OpBlock;
-import frontend.utils.WrapLayout;
-
 import backend.blocks.Countable;
 import backend.blocks.Numerical;
 import backend.blocks.Op;
-import backend.computations.infrastructure.Step;
-import backend.main.Parser;
 import backend.main.ParseNode;
+import backend.main.Parser;
+import frontend.blocks.BracketBlock;
+import frontend.blocks.OpBlock;
+import frontend.swing.Button;
+import frontend.swing.ScrollPane;
+import frontend.utils.WrapLayout;
 
 public class Compute extends JPanel {
 
@@ -52,8 +52,8 @@ public class Compute extends JPanel {
 		
 		//compute bar
 		JPanel buttonPanel = new JPanel();
-		JButton computeButton = new JButton("Compute");
-		JButton clearButton = new JButton("Clear");
+		JButton computeButton = new Button("Compute");
+		JButton clearButton = new Button("Clear");
 		clearButton.addActionListener(new ClearButtonListener(this));
 		computeButton.addActionListener(new SolButtonListener(this));
 		_computeBar.add(buttonPanel, BorderLayout.EAST);
@@ -62,15 +62,15 @@ public class Compute extends JPanel {
 		JPanel scrollPanel = new JPanel(new BorderLayout());
 		scrollPanel.setPreferredSize(new Dimension(100,55));
 		_bar = new JPanel(new FlowLayout(FlowLayout.LEFT));
-		JScrollPane scrollBar = new JScrollPane(_bar);
+		JScrollPane scrollBar = new ScrollPane(_bar);
 		scrollBar.getVerticalScrollBar().setPreferredSize(new Dimension(0,0));
 		scrollPanel.add(scrollBar, BorderLayout.CENTER);
 		_computeBar.add(scrollPanel, BorderLayout.CENTER);
 		
 		//pages
-		JButton rank0Button = new JButton("Rank 0");
-		JButton rank1Button = new JButton("Rank 1");
-		JButton rank2Button = new JButton("Rank 2");
+		JButton rank0Button = new Button("Rank 0");
+		JButton rank1Button = new Button("Rank 1");
+		JButton rank2Button = new Button("Rank 2");
 		_pages.add(rank0Button);
 		_pages.add(rank1Button);
 		_pages.add(rank2Button);

@@ -33,7 +33,7 @@ public class AppFrame extends JFrame {
 	public void setUpDesign() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setUndecorated(true);
-		setMinimumSize(new Dimension(1000,700));
+		setMinimumSize(Constants.FRAME_MIN_SIZE);
 		setLocationRelativeTo(null);
 	}
 
@@ -62,7 +62,7 @@ public class AppFrame extends JFrame {
 		
 
 
-		new ResizeAdapter(splitPane, this, 10, SwingUtilities.SOUTH, SwingUtilities.EAST, SwingUtilities.WEST, SwingUtilities.SOUTH_EAST, SwingUtilities.SOUTH_WEST);
+		new ResizeAdapter(splitPane, this, Constants.RESIZE_THRESHOLD, SwingUtilities.SOUTH, SwingUtilities.EAST, SwingUtilities.WEST, SwingUtilities.SOUTH_EAST, SwingUtilities.SOUTH_WEST);
 		
 		ContentPane contentPane = new ContentPane(this);
 		setContentPane(contentPane);
@@ -100,7 +100,7 @@ public class AppFrame extends JFrame {
 	public final static JPanel createLeftPanel(JTabbedPane tabbedPaneTopLeft, JTabbedPane tabbedPaneBottomLeft) {
 		JPanel leftPanel = new JPanel(new GridBagLayout());
 		leftPanel.setBackground(Constants.LEFT_RIGHT_PANEL_BG);
-		leftPanel.setMinimumSize(new Dimension(300,300));
+		leftPanel.setMinimumSize(Constants.LEFT_PANEL_MIN_SIZE);
 		leftPanel.setBorder(BorderFactory.createEmptyBorder());
 		
 		GridBagConstraints c = new GridBagConstraints();
@@ -128,7 +128,7 @@ public class AppFrame extends JFrame {
 	public final static JPanel createRightPanel(JTabbedPane tabbedPaneRight) {
 		JPanel rightPanel = new JPanel(new GridBagLayout());
 		rightPanel.setBackground(Constants.LEFT_RIGHT_PANEL_BG);
-		rightPanel.setMinimumSize(new Dimension(300,300));
+		rightPanel.setMinimumSize(Constants.RIGHT_PANEL_MIN_SIZE);
 		
 		GridBagConstraints c2 = new GridBagConstraints();
 		c2.fill = GridBagConstraints.BOTH;

@@ -26,13 +26,14 @@ import java.util.Map;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-import backend.blocks.Matrix;
 import backend.blocks.Countable.DisplayType;
+import backend.blocks.Matrix;
 import backend.blocks.Scalar;
+import frontend.swing.Button;
+import frontend.swing.Constants;
 
 public class Construct extends JPanel {
 
@@ -77,15 +78,15 @@ public class Construct extends JPanel {
 		this.setFocusTraversalKeysEnabled(false);
 		
 		JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
-		buttonPanel.setBorder(BorderFactory.createLineBorder(Color.black, 1));
+		buttonPanel.setBorder(Constants.CONSTRUCT_BUTTON_PANEL_BORDER);
 		this.add(buttonPanel, BorderLayout.SOUTH);
 		
 		JButton clearButton, saveButton, scalarButton, iButton, fillButton;
-		clearButton = new JButton("Clear");
-		saveButton = new JButton("Save");
-		scalarButton = new JButton("New Scalar");
-		iButton = new JButton("Identity");
-		fillButton = new JButton("Fill Matrix");
+		clearButton = new Button("Clear");
+		saveButton = new Button("Save");
+		scalarButton = new Button("New Scalar");
+		iButton = new Button("Identity");
+		fillButton = new Button("Fill Matrix");
 		fillButton.setToolTipText("Fill empty cells with specified value");
 		clearButton.addActionListener(new ClearListener(this));
 		saveButton.addActionListener(new SaveListener(this));

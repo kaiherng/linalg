@@ -29,10 +29,10 @@ public class HeaderPanel extends JPanel implements MouseListener, MouseMotionLis
 		addMouseMotionListener(this);
 		setToolTipText("Double click for fullscreen or drag to move window");
 		setCursor(Cursor.getPredefinedCursor(Cursor.MOVE_CURSOR));
-		setBorder(BorderFactory.createEmptyBorder(0, 7, 0, 7)); //for padding around the title elements
+		setBorder(Constants.HEADER_BORDER); //for padding around the title elements
 		setBackground(Constants.HEADER_BG);
 		JLabel title = new JLabel("Linear Algebra Calculator");
-		title.setFont(new Font("Dialog", Font.BOLD, 11));
+		title.setFont(Constants.HEADER_TITLE_FONT);
 		title.setForeground(Constants.HEADER_TITLE_COLOR);
 		add(title,BorderLayout.CENTER);   
 		
@@ -40,11 +40,11 @@ public class HeaderPanel extends JPanel implements MouseListener, MouseMotionLis
 		eastPanel.setBackground(new Color(0,0,0,0));
 		
 		JLabel minButton = createMinButton();
-		minButton.setBorder(BorderFactory.createEmptyBorder(0,0,6,7));
+		minButton.setBorder(Constants.HEADER_MIN_BUTTON_BORDER);
 		eastPanel.add(minButton);
 		
 		JLabel maxButton = createMaxButton();
-		maxButton.setBorder(BorderFactory.createEmptyBorder(0,0,2,7));
+		maxButton.setBorder(Constants.HEADER_MAX_BUTTON_BORDER);
 		eastPanel.add(maxButton);
 		
 		JLabel closeButton = createCloseButton();
@@ -58,7 +58,7 @@ public class HeaderPanel extends JPanel implements MouseListener, MouseMotionLis
 		maxButton.setToolTipText("Minimize");
 		maxButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		maxButton.setForeground(Constants.HEADER_TITLE_COLOR);
-		maxButton.setFont(new Font("Dialog", Font.BOLD, 14));
+		maxButton.setFont(Constants.HEADER_MIN_BUTTON_FONT);
 		maxButton.addMouseListener(new MouseListener() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -85,7 +85,7 @@ public class HeaderPanel extends JPanel implements MouseListener, MouseMotionLis
 		maxButton.setToolTipText("Maximize");
 		maxButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		maxButton.setForeground(Constants.HEADER_TITLE_COLOR);
-		maxButton.setFont(new Font("Dialog", Font.BOLD, 14));
+		maxButton.setFont(Constants.HEADER_MAX_BUTTON_FONT);
 		maxButton.addMouseListener(new MouseListener() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -114,6 +114,7 @@ public class HeaderPanel extends JPanel implements MouseListener, MouseMotionLis
 	
 	public JLabel createCloseButton() {
 		JLabel closeButton = new JLabel("X");
+		closeButton.setFont(Constants.HEADER_CLOSE_BUTTON_FONT);
 		closeButton.setForeground(Constants.HEADER_TITLE_COLOR);
 		closeButton.setToolTipText("Close the program. You'll lose all existing work.");
 		closeButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));

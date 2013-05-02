@@ -18,16 +18,16 @@ public class Main {
 		UIManager.put("TabbedPane.selected", Constants.TAB_SELECTED);  
 		UIManager.put("TabbedPane.selectHighlight", Constants.TAB_SELECTED_HIGHLIGHT); 
 		UIManager.put("TabbedPane.selectedForeground", Constants.TAB_SELECTED_FG);  
-		UIManager.put("TabbedPane.contentBorderInsets", new Insets(5, 3, 3, 3)); //gets rid of the ugly light blue line in the content pane
+		UIManager.put("TabbedPane.contentBorderInsets", Constants.TAB_CONTENT_BORDER_INSETS); //gets rid of the ugly light blue line in the content pane
 		UIManager.put("TabbedPane.contentAreaColor", Constants.TAB_CONTENT_AREA); //gets rid of the ugly light blue line in the content pane
 		UIManager.put("TabbedPane.darkShadow", Constants.TAB_DARK_SHADOW); 
 		UIManager.put("TabbedPane.foreground", Constants.TAB_FG);  
 		UIManager.put("TabbedPane.background", Constants.TAB_BG);  
 		UIManager.put("TabbedPane.light", Constants.TAB_LIGHT);  
-		UIManager.put("TabbedPane.tabsOverlapBorder", true);
+		UIManager.put("TabbedPane.tabsOverlapBorder", Constants.TAB_TABS_OVERLAP_BORDER);
 		
-		UIManager.put("TabbedPane.tabInsets", new Insets(1, 8, 1, 8));  //sets padding within the tab header
-		UIManager.put("TabbedPane.tabAreaInsets", new Insets(0, 2, -1, 0));  //sets the margin of the block of tab headers
+		UIManager.put("TabbedPane.tabInsets", Constants.TAB_INSETS);  //sets padding within the tab header
+		UIManager.put("TabbedPane.tabAreaInsets", Constants.TAB_AREA_INSETS);  //sets the margin of the block of tab headers
 	}
 	
 	public static void main(String[] args) {
