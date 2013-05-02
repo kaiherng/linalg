@@ -707,6 +707,11 @@ public class ParserTest {
 	
 	@Test
 	// Test a matrix double addition
+	//          +
+	//         / \
+	//        +   ma
+	//       / \ 
+	//      ma  mb
 	public void matrixAddTwiceTest(){
 		List<Numerical> comp = new ArrayList<>();
 		comp.add(matrixA);
@@ -722,6 +727,12 @@ public class ParserTest {
 		assertTrue(indices[0][1]==4.0);
 		assertTrue(indices[1][1]==4.0);
 		assertTrue(indices[1][0]==4.0);
+		try {
+			System.out.println(result.getComputeString());
+		} catch (Exception e) {
+			e.printStackTrace();
+			fail();
+		}
 	}
 	
 }

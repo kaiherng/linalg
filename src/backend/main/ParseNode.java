@@ -72,6 +72,24 @@ public class ParseNode {
 		return b.toString();
 	}
 	
+	/**
+	 * Method used only for testing
+	 * 
+	 * @param root the root of the ToComputeTreeNode String tree
+	 */
+	protected void setComputeStringTreeForTesting(ToComputeTreeNode root){
+		_toComputeTree = root;
+	}
+	
+	private ToComputeTreeNode copyTree(ToComputeTreeNode root){
+		if(root == null){
+			return null;
+		}
+		ToComputeTreeNode left = copyTree(root.getLeft());
+		ToComputeTreeNode right = copyTree(root.getRight());
+		return new ToComputeTreeNode(left,right,root.getValue());
+		
+	}
 	
 	/**
 	 * 
@@ -80,7 +98,10 @@ public class ParseNode {
 	 * @return the node in the tree rooted at <root> that should be expanded next
 	 */
 	public void setComputeStringTree(ToComputeTreeNode root, ToComputeTreeNode toReplace){
-		_toComputeTree = root;
+		if (toReplace == null){
+			return;
+		}
+		
 		toReplace.setValue(_solution.getOp().getIcon2());
 		List<Countable> args = _solution.getInputs();
 		
@@ -94,6 +115,8 @@ public class ParseNode {
 			toReplace.setLeft(null);
 			toReplace.setRight(new ToComputeTreeNode(null,null,toSetArg1));
 		}
+		
+		_toComputeTree = copyTree(root);
 	}
 	
 	
