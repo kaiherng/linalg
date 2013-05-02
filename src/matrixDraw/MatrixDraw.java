@@ -64,6 +64,33 @@ public class MatrixDraw extends JPanel{
 		}
 	}
 	
+	/**
+	 * Given the displayType you want, returns the properly formatted LaTeX string
+	 *  
+	 * @param displayType the display type you want for the latex matrix
+	 */
+	public static String getCorrectLatexStatic(Matrix m){
+		DisplayType displayType = m.getDisplayType();
+		switch(displayType){
+		case DECIMAL:{
+			return getLatexStatic(m);
+		}
+		case WHOLENUMBER:{
+			//return getLatexWhole();
+		}
+		case WHOLENUMBERFRACTION:{
+			// TODO
+			return null;
+		}
+		case CUSTOM:{
+			//return getLatexCustom();
+		}
+		default:
+			System.err.println("ERROR (MatrixDraw.java) : Unrecognized display type");
+			return null;
+		}
+	}
+	
 	
 	/**
 	 * @return the LaTeX string for the matrix where the indices are in custom format
@@ -122,6 +149,43 @@ public class MatrixDraw extends JPanel{
 				}
 			}
 			if(i != _values[0].length - 1){
+				b.append("\\\\");
+			}
+		}
+		
+		b.append("\\end{bmatrix}");
+//		System.out.println(b.toString());
+		return b.toString();
+	}
+	
+	public static String getLatexStatic(Matrix m){
+		Double[][] values = m.getValues();
+		StringBuilder b = new StringBuilder();
+		b.append("\\begin{bmatrix} ");
+		for(int i = 0; i < values[0].length; i++){
+			for(int j = 0; j < values.length; j++){
+				String num = values[j][i].toString();
+				boolean foundDecimal = false;
+				int numAfterDecimal = 0;
+				for (int k = 0; k < num.length(); k++){
+					if (num.charAt(k) == '.'){
+						foundDecimal = true;
+					}
+					if (foundDecimal){
+						numAfterDecimal++;
+					}
+					if (numAfterDecimal > 5){
+						num = num.substring(0, k) + "...";
+						break;
+					}
+				}
+
+				b.append(num + " ");
+				if(j != values.length -1){
+					b.append(" & ");
+				}
+			}
+			if(i != values[0].length - 1){
 				b.append("\\\\");
 			}
 		}
