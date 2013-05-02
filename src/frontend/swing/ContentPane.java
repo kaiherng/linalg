@@ -15,7 +15,7 @@ public class ContentPane extends JPanel {
 
 	public ContentPane(AppFrame appFrame) {
 		super(new BorderLayout());
-		setBorder(new LineBorder(Constants.FRAME_BORDER_COLOR, Constants.FRAME_BORDER_WIDTH));
+		setBorder(new LineBorder(CurrentConstants.FRAME_BORDER_COLOR, CurrentConstants.FRAME_BORDER_WIDTH));
 		HeaderPanel headerPanel = new HeaderPanel(appFrame);		
 		add(headerPanel, BorderLayout.NORTH);
 	}

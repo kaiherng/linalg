@@ -9,7 +9,7 @@ import java.awt.Rectangle;
 import javax.swing.BorderFactory;
 import javax.swing.border.Border;
 
-public class Constants {
+public class BlueConstants {
 	
 	public static final Color FRAME_BORDER_COLOR = Color.DARK_GRAY;
 	public static final int FRAME_BORDER_WIDTH = 1;

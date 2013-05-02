@@ -1,40 +1,23 @@
 package frontend.panels;
 
-import java.awt.BorderLayout;
 import java.awt.Component;
-import java.awt.ComponentOrientation;
-import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Graphics;
-import java.awt.GridLayout;
-import java.awt.LayoutManager;
-import java.awt.Rectangle;
-import java.awt.event.ComponentEvent;
-import java.awt.event.ComponentListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.geom.Rectangle2D;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-import java.util.concurrent.CopyOnWriteArrayList;
 
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 
-import oldfrontend.general.Constants;
-
-import frontend.blocks.CountableBlock;
-import frontend.blocks.CountableBlock;
-import frontend.utils.WrapLayout;
-
 import backend.blocks.Countable;
-import backend.blocks.Matrix;
 import backend.blocks.Countable.DisplayType;
+import backend.blocks.Matrix;
 import backend.blocks.Numerical;
 import backend.blocks.Scalar;
+import frontend.blocks.CountableBlock;
+import frontend.swing.CurrentConstants;
+import frontend.utils.WrapLayout;
 
 public class Saved extends JPanel {
 	
@@ -54,7 +37,8 @@ public class Saved extends JPanel {
 	public Saved(Compute c) {
 		this.setLayout(new WrapLayout(FlowLayout.LEFT));
 		this.setPreferredSize(this.getSize());
-		
+		this.setBorder(CurrentConstants.SAVED_BORDER);
+		this.setBackground(CurrentConstants.SAVED_BG);
 		_compute = c;
 		
 		cList = new HashMap<>();

@@ -8,7 +8,7 @@ import javax.swing.JPanel;
 
 import backend.blocks.Bracket;
 import frontend.panels.Compute;
-import frontend.swing.Constants;
+import frontend.swing.CurrentConstants;
 
 public class BracketBlock extends JPanel{
 
@@ -28,9 +28,9 @@ public class BracketBlock extends JPanel{
 			this.setToolTipText("Close Bracket");
 		}
 		label.setText(_text);
-		label.setForeground(Constants.BRACKET_BLOCK_FG);
-		this.setPreferredSize(Constants.BRACKET_BLOCK_SIZE);
-		this.setBackground(Constants.BRACKET_BLOCK_BG);
+		label.setForeground(CurrentConstants.BRACKET_BLOCK_FG);
+		this.setPreferredSize(CurrentConstants.BRACKET_BLOCK_SIZE);
+		this.setBackground(CurrentConstants.BRACKET_BLOCK_BG);
 		this.add(label);
 		this.addMouseListener(new Click());
 	}

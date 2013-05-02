@@ -33,7 +33,7 @@ public class AppFrame extends JFrame {
 	public void setUpDesign() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setUndecorated(true);
-		setMinimumSize(Constants.FRAME_MIN_SIZE);
+		setMinimumSize(CurrentConstants.FRAME_MIN_SIZE);
 		setLocationRelativeTo(null);
 	}
 
@@ -59,10 +59,8 @@ public class AppFrame extends JFrame {
 		
 		//create splitPane
 		SplitPane splitPane = new SplitPane(leftPanel, rightPanel);
-		
 
-
-		new ResizeAdapter(splitPane, this, Constants.RESIZE_THRESHOLD, SwingUtilities.SOUTH, SwingUtilities.EAST, SwingUtilities.WEST, SwingUtilities.SOUTH_EAST, SwingUtilities.SOUTH_WEST);
+		new ResizeAdapter(splitPane, this, CurrentConstants.RESIZE_THRESHOLD, SwingUtilities.SOUTH, SwingUtilities.EAST, SwingUtilities.WEST, SwingUtilities.SOUTH_EAST, SwingUtilities.SOUTH_WEST);
 		
 		ContentPane contentPane = new ContentPane(this);
 		setContentPane(contentPane);
@@ -99,8 +97,8 @@ public class AppFrame extends JFrame {
 	
 	public final static JPanel createLeftPanel(JTabbedPane tabbedPaneTopLeft, JTabbedPane tabbedPaneBottomLeft) {
 		JPanel leftPanel = new JPanel(new GridBagLayout());
-		leftPanel.setBackground(Constants.LEFT_RIGHT_PANEL_BG);
-		leftPanel.setMinimumSize(Constants.LEFT_PANEL_MIN_SIZE);
+		leftPanel.setBackground(CurrentConstants.LEFT_RIGHT_PANEL_BG);
+		leftPanel.setMinimumSize(CurrentConstants.LEFT_PANEL_MIN_SIZE);
 		leftPanel.setBorder(BorderFactory.createEmptyBorder());
 		
 		GridBagConstraints c = new GridBagConstraints();
@@ -127,8 +125,8 @@ public class AppFrame extends JFrame {
 	
 	public final static JPanel createRightPanel(JTabbedPane tabbedPaneRight) {
 		JPanel rightPanel = new JPanel(new GridBagLayout());
-		rightPanel.setBackground(Constants.LEFT_RIGHT_PANEL_BG);
-		rightPanel.setMinimumSize(Constants.RIGHT_PANEL_MIN_SIZE);
+		rightPanel.setBackground(CurrentConstants.LEFT_RIGHT_PANEL_BG);
+		rightPanel.setMinimumSize(CurrentConstants.RIGHT_PANEL_MIN_SIZE);
 		
 		GridBagConstraints c2 = new GridBagConstraints();
 		c2.fill = GridBagConstraints.BOTH;

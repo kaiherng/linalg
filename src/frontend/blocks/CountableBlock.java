@@ -11,7 +11,7 @@ import javax.swing.JPanel;
 import backend.blocks.Countable;
 import backend.blocks.Scalar;
 import frontend.panels.Saved;
-import frontend.swing.Constants;
+import frontend.swing.CurrentConstants;
 
 public class CountableBlock extends JPanel {
 	
@@ -32,36 +32,36 @@ public class CountableBlock extends JPanel {
 	 */
 	public CountableBlock(String name, Countable c, Saved saved) {
 		this.setLayout(null);
-		this.setPreferredSize(Constants.COUNTABLE_BLOCK_SIZE);
+		this.setPreferredSize(CurrentConstants.COUNTABLE_BLOCK_SIZE);
 		this.addMouseListener(new Click(this));
 		_s = saved;
 		_name = name;
 		_countable = c;
 		
-		this.setBackground(Constants.COUNTABLE_BLOCK_BG);
+		this.setBackground(CurrentConstants.COUNTABLE_BLOCK_BG);
 		
 		_delete = new JLabel("X");
 		_delete.setOpaque(false);
 		_delete.setBorder(null);
-		_delete.setForeground(Constants.COUNTABLE_BLOCK_DELETE_FG);
+		_delete.setForeground(CurrentConstants.COUNTABLE_BLOCK_DELETE_FG);
 		this.add(_delete);
-		_delete.setBounds(Constants.COUNTABLE_BLOCK_DELETE_BOUNDS);
+		_delete.setBounds(CurrentConstants.COUNTABLE_BLOCK_DELETE_BOUNDS);
 		
 		if(c.getName().equals("MATRIX")){
 			_label = new JLabel(name);
-			_label.setFont(Constants.COUNTABLE_BLOCK_LABEL_MATRIX_FONT);
+			_label.setFont(CurrentConstants.COUNTABLE_BLOCK_LABEL_MATRIX_FONT);
 		} else if(c.getName().equals("SCALAR")){
 			Scalar s = (Scalar) c;
 			_label = new JLabel(Double.toString(s.getValue()));
-			_label.setFont(Constants.COUNTABLE_BLOCK_LABEL_SCALAR_FONT);
+			_label.setFont(CurrentConstants.COUNTABLE_BLOCK_LABEL_SCALAR_FONT);
 			_name = Double.toString(s.getValue());
 		}
 		_label.setOpaque(false);
 		_label.setBorder(null);
-		_label.setForeground(Constants.COUNTABLE_BLOCK_LABEL_FG);
+		_label.setForeground(CurrentConstants.COUNTABLE_BLOCK_LABEL_FG);
 		_label.setHorizontalAlignment(JLabel.CENTER);
 		this.add(_label);
-		_label.setBounds(Constants.COUNTABLE_BLOCK_LABEL_BOUNDS);
+		_label.setBounds(CurrentConstants.COUNTABLE_BLOCK_LABEL_BOUNDS);
 		
 		this.setToolTipText(_name);
 	}

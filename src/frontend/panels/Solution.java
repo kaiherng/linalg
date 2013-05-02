@@ -11,6 +11,8 @@ import org.scilab.forge.jlatexmath.TeXConstants;
 import org.scilab.forge.jlatexmath.TeXFormula;
 import org.scilab.forge.jlatexmath.TeXIcon;
 
+import frontend.swing.CurrentConstants;
+
 public class Solution extends JPanel {
 	
 	TeXIcon _ti;
@@ -19,6 +21,8 @@ public class Solution extends JPanel {
 
 	public Solution(SolutionScroll scroll){
 		this.setLayout(new BorderLayout());
+		setBackground(CurrentConstants.SOLUTION_BG);
+		setBorder(CurrentConstants.SOLUTION_BORDER);
 		TeXFormula formula = new TeXFormula("\\text{Solutions will be displayed here}");
 		_ti = formula.createTeXIcon(TeXConstants.STYLE_DISPLAY, 20);
 		_label = new JLabel();

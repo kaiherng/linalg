@@ -33,7 +33,7 @@ import backend.blocks.Countable.DisplayType;
 import backend.blocks.Matrix;
 import backend.blocks.Scalar;
 import frontend.swing.Button;
-import frontend.swing.Constants;
+import frontend.swing.CurrentConstants;
 
 public class Construct extends JPanel {
 
@@ -78,7 +78,8 @@ public class Construct extends JPanel {
 		this.setFocusTraversalKeysEnabled(false);
 		
 		JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
-		buttonPanel.setBorder(Constants.CONSTRUCT_BUTTON_PANEL_BORDER);
+		buttonPanel.setBackground(CurrentConstants.CONSTRUCT_BUTTON_PANEL_BG);
+		buttonPanel.setBorder(CurrentConstants.CONSTRUCT_BUTTON_PANEL_BORDER);
 		this.add(buttonPanel, BorderLayout.SOUTH);
 		
 		JButton clearButton, saveButton, scalarButton, iButton, fillButton;

@@ -29,22 +29,22 @@ public class HeaderPanel extends JPanel implements MouseListener, MouseMotionLis
 		addMouseMotionListener(this);
 		setToolTipText("Double click for fullscreen or drag to move window");
 		setCursor(Cursor.getPredefinedCursor(Cursor.MOVE_CURSOR));
-		setBorder(Constants.HEADER_BORDER); //for padding around the title elements
-		setBackground(Constants.HEADER_BG);
+		setBorder(CurrentConstants.HEADER_BORDER); //for padding around the title elements
+		setBackground(CurrentConstants.HEADER_BG);
 		JLabel title = new JLabel("Linear Algebra Calculator");
-		title.setFont(Constants.HEADER_TITLE_FONT);
-		title.setForeground(Constants.HEADER_TITLE_COLOR);
+		title.setFont(CurrentConstants.HEADER_TITLE_FONT);
+		title.setForeground(CurrentConstants.HEADER_TITLE_COLOR);
 		add(title,BorderLayout.CENTER);   
 		
 		JPanel eastPanel = new JPanel(new FlowLayout(FlowLayout.LEADING, 0, 0));
 		eastPanel.setBackground(new Color(0,0,0,0));
 		
 		JLabel minButton = createMinButton();
-		minButton.setBorder(Constants.HEADER_MIN_BUTTON_BORDER);
+		minButton.setBorder(CurrentConstants.HEADER_MIN_BUTTON_BORDER);
 		eastPanel.add(minButton);
 		
 		JLabel maxButton = createMaxButton();
-		maxButton.setBorder(Constants.HEADER_MAX_BUTTON_BORDER);
+		maxButton.setBorder(CurrentConstants.HEADER_MAX_BUTTON_BORDER);
 		eastPanel.add(maxButton);
 		
 		JLabel closeButton = createCloseButton();
@@ -57,8 +57,8 @@ public class HeaderPanel extends JPanel implements MouseListener, MouseMotionLis
 		JLabel maxButton = new JLabel("_");
 		maxButton.setToolTipText("Minimize");
 		maxButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		maxButton.setForeground(Constants.HEADER_TITLE_COLOR);
-		maxButton.setFont(Constants.HEADER_MIN_BUTTON_FONT);
+		maxButton.setForeground(CurrentConstants.HEADER_TITLE_COLOR);
+		maxButton.setFont(CurrentConstants.HEADER_MIN_BUTTON_FONT);
 		maxButton.addMouseListener(new MouseListener() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -84,8 +84,8 @@ public class HeaderPanel extends JPanel implements MouseListener, MouseMotionLis
 		JLabel maxButton = new JLabel("\u25FB");
 		maxButton.setToolTipText("Maximize");
 		maxButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		maxButton.setForeground(Constants.HEADER_TITLE_COLOR);
-		maxButton.setFont(Constants.HEADER_MAX_BUTTON_FONT);
+		maxButton.setForeground(CurrentConstants.HEADER_TITLE_COLOR);
+		maxButton.setFont(CurrentConstants.HEADER_MAX_BUTTON_FONT);
 		maxButton.addMouseListener(new MouseListener() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -114,8 +114,8 @@ public class HeaderPanel extends JPanel implements MouseListener, MouseMotionLis
 	
 	public JLabel createCloseButton() {
 		JLabel closeButton = new JLabel("X");
-		closeButton.setFont(Constants.HEADER_CLOSE_BUTTON_FONT);
-		closeButton.setForeground(Constants.HEADER_TITLE_COLOR);
+		closeButton.setFont(CurrentConstants.HEADER_CLOSE_BUTTON_FONT);
+		closeButton.setForeground(CurrentConstants.HEADER_TITLE_COLOR);
 		closeButton.setToolTipText("Close the program. You'll lose all existing work.");
 		closeButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		closeButton.addMouseListener(new MouseListener() {

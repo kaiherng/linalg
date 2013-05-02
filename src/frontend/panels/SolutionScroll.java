@@ -6,6 +6,7 @@ import java.awt.Dimension;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
+import frontend.swing.CurrentConstants;
 import frontend.swing.ScrollPane;
 
 public class SolutionScroll extends JPanel {
@@ -16,11 +17,15 @@ public class SolutionScroll extends JPanel {
 	public SolutionScroll() {
 		// TODO Auto-generated constructor stub
 		this.setLayout(new BorderLayout());
+		setBackground(CurrentConstants.SOLUTIONSCROLL_BG);
+		setBorder(CurrentConstants.SOLUTIONSCROLL_BORDER);
 		_sol = new Solution(this);
 		
 		_scroll = new ScrollPane(_sol);
 		this.setPreferredSize(new Dimension(100,100));
 		this.add(_scroll, BorderLayout.CENTER);
+		_scroll.setBackground(CurrentConstants.SOLUTIONSCROLL_SCROLLPANE_BG);
+		_scroll.setBorder(CurrentConstants.SOLUTIONSCROLL_SCROLLPANE_BORDER);
 		_scroll.getVerticalScrollBar().setUnitIncrement(20);
 	}
 	

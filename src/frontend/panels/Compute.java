@@ -29,6 +29,7 @@ import backend.main.Parser;
 import frontend.blocks.BracketBlock;
 import frontend.blocks.OpBlock;
 import frontend.swing.Button;
+import frontend.swing.CurrentConstants;
 import frontend.swing.ScrollPane;
 import frontend.utils.WrapLayout;
 
@@ -47,11 +48,21 @@ public class Compute extends JPanel {
 		
 		this.setLayout(new BorderLayout());
 		_computeBar = new JPanel(new BorderLayout());
+		_computeBar.setBackground(CurrentConstants.COMPUTE_BAR_BG);
+		_computeBar.setBorder(CurrentConstants.COMPUTE_BAR_BORDER);
+		
 		_pages = new JPanel(new GridLayout(3, 1));
+		_computeBar.setBackground(CurrentConstants.COMPUTE_PAGES_BG);
+		_computeBar.setBorder(CurrentConstants.COMPUTE_PAGES_BORDER);
+		
 		_ops = new JPanel(new WrapLayout(FlowLayout.LEFT));
+		_ops.setBackground(CurrentConstants.COMPUTE_OPS_BG);
+		_ops.setBorder(CurrentConstants.COMPUTE_OPS_BORDER);
 		
 		//compute bar
 		JPanel buttonPanel = new JPanel();
+		buttonPanel.setBackground(CurrentConstants.COMPUTE_BUTTON_PANEL_BG);
+		buttonPanel.setBorder(CurrentConstants.COMPUTE_BUTTON_PANEL_BORDER);
 		JButton computeButton = new Button("Compute");
 		JButton clearButton = new Button("Clear");
 		clearButton.addActionListener(new ClearButtonListener(this));
@@ -60,11 +71,17 @@ public class Compute extends JPanel {
 		buttonPanel.add(clearButton);
 		buttonPanel.add(computeButton);
 		JPanel scrollPanel = new JPanel(new BorderLayout());
+		scrollPanel.setBackground(CurrentConstants.COMPUTE_BAR_SCROLLPANEL_BG);
+		scrollPanel.setBorder(CurrentConstants.COMPUTE_BAR_SCROLLPANEL_BORDER);
 		scrollPanel.setPreferredSize(new Dimension(100,55));
 		_bar = new JPanel(new FlowLayout(FlowLayout.LEFT));
-		JScrollPane scrollBar = new ScrollPane(_bar);
+		ScrollPane scrollBar = new ScrollPane(_bar);
+		scrollBar.setBackground(CurrentConstants.COMPUTE_BAR_SCROLL_PANE_BG);
+		scrollBar.setBorder(CurrentConstants.COMPUTE_BAR_SCROLL_PANE_BORDER);
 		scrollBar.getVerticalScrollBar().setPreferredSize(new Dimension(0,0));
 		scrollPanel.add(scrollBar, BorderLayout.CENTER);
+		_bar.setBackground(CurrentConstants.COMPUTE_BAR_SCROLLPANE_BAR_BG);
+		_bar.setBorder(CurrentConstants.COMPUTE_BAR_SCROLLPANE_BAR_BORDER);
 		_computeBar.add(scrollPanel, BorderLayout.CENTER);
 		
 		//pages
@@ -82,11 +99,7 @@ public class Compute extends JPanel {
 		//Bracket
 		_ops.add(new BracketBlock(true, this));
 		_ops.add(new BracketBlock(false, this));
-		
-		_computeBar.setBorder(BorderFactory.createLineBorder(Color.black));
-		_pages.setBorder(BorderFactory.createLineBorder(Color.black));
-		_ops.setBorder(BorderFactory.createLineBorder(Color.black));
-		
+				
 		this.add(_computeBar, BorderLayout.SOUTH);
 		//this.add(_pages, BorderLayout.WEST);
 		this.add(_ops, BorderLayout.CENTER);
@@ -171,10 +184,10 @@ public class Compute extends JPanel {
 		public BarObject(Numerical n, String s, int id, Compute c){
 			this.setLayout(new BorderLayout());
 			JLabel label = new JLabel(s);
-			label.setForeground(Color.white);
+			label.setForeground(CurrentConstants.COMPUTE_BAR_OBJECT_FG);
 			label.setHorizontalAlignment(JLabel.CENTER);
-			this.setPreferredSize(new Dimension(40,30));
-			this.setBackground(Color.blue);
+			this.setPreferredSize(CurrentConstants.COMPUTE_BAR_OBJECT_SIZE);
+			this.setBackground(CurrentConstants.COMPUTE_BAR_OBJECT_BG);
 			this.add(label, BorderLayout.CENTER);
 			this.setToolTipText(s);
 			_c = c;
