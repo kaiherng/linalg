@@ -23,6 +23,7 @@ import backend.computations.operations.M_RowReduce;
 import backend.computations.operations.M_Transpose;
 import backend.computations.operations.SS_MultiplyDivide;
 import backend.computations.operations.SS_PlusMinus;
+import backend.computations.operations.S_Power;
 
 /** 
  *  Processes a sequence of Numericals representing a computation and generates a tree structure of solutions
@@ -135,7 +136,7 @@ public class Parser {
 				
 				// scalar power
 				case S_POWER: {
-					return null; //TODO
+					return computeScalarBinaryOp(rootAsOp,op);
 				}
 				
 				// scalar-matrix multiply
@@ -550,6 +551,9 @@ public class Parser {
 	}
 	
 	
+
+	
+	
 	/**
 	 * 
 	 * @param op
@@ -647,6 +651,11 @@ public class Parser {
 				SS_PlusMinus plus = new SS_PlusMinus((Scalar) arg1, (Scalar) arg2,false); // calculate solution
 				Solution answer = plus.getSolution();					// get solution
 				return new ParseNode(answer,firstArg,secondArg);				
+			}
+			case S_POWER:{
+				S_Power pow = new S_Power((Scalar) arg1, (Scalar) arg2);
+				Solution answer = pow.getSolution();
+				return new ParseNode(answer,firstArg,secondArg);
 			}
 			default:{
 				System.err.println("ERROR: Parser.java : computeScalarBinaryOp -- unrecognized op"); // should be unreachable code

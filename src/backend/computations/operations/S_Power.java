@@ -22,6 +22,7 @@ import backend.computations.infrastructure.Step;
 public class S_Power extends Computable {
 	private Solution _solution;
 	private String _operatorStep;
+	private Scalar _answerStep;
 	
 	
 	/* (non-Javadoc)
@@ -56,15 +57,10 @@ public class S_Power extends Computable {
 		
 		Scalar opStep = new Scalar(answer,DisplayType.CUSTOM);
 		opStep.setCustomDisplayValue(_operatorStep);
-		Step step1 = new Step(opStep);
-		Scalar answerStep = new Scalar(answer,answerDisplayType);
-		Step step2 = new Step(answerStep);
-		List<Step> steps = new ArrayList<>();
-		steps.add(step1);
-		steps.add(step2);
+		_answerStep = new Scalar(answer,answerDisplayType);
 		
 		List<String> latex = toLatex();
-		_solution = new Solution(Op.S_POWER,args,answerStep,latex);
+		_solution = new Solution(Op.S_POWER,args,_answerStep,latex);
 	}
 	
 	
@@ -75,12 +71,11 @@ public class S_Power extends Computable {
 	 */
 	public List<String> toLatex() {
 		List<String> toReturn = new ArrayList<>();
+		toReturn.add("\\vspace{10mm} \\mathrm{Scalar \\ Power}");
 		StringBuilder b = new StringBuilder();
-		b.append("$");
-		b.append(_operatorStep);
+		b.append("\\hspace{15mm}"+_operatorStep);
 		b.append(" \\ = \\ ");
-		b.append(((Scalar)_solution.getAnswer()).getDisplayValue());
-		b.append("$");
+		b.append(_answerStep.getDisplayValue());
 		toReturn.add(b.toString());
 		return toReturn;
 	}
