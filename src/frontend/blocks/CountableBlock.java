@@ -15,11 +15,12 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import oldfrontend.general.Constants;
+
 import backend.blocks.Countable;
 import backend.blocks.Matrix;
 import backend.blocks.Scalar;
 
-import frontend.general.Constants;
 import frontend.panels.Saved;
 
 public class CountableBlock extends JPanel {

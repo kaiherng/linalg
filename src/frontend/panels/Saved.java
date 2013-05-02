@@ -24,9 +24,10 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 
+import oldfrontend.general.Constants;
+
 import frontend.blocks.CountableBlock;
 import frontend.blocks.CountableBlock;
-import frontend.general.Constants;
 import frontend.utils.WrapLayout;
 
 import backend.blocks.Countable;

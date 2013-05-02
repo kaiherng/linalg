@@ -4,16 +4,15 @@ import java.awt.Color;
 import java.awt.Font;
 
 public class Constants {
-
-	public static final Color PANEL_BG = new Color(0x81A4E6);
-	public static final Color SPLITPANE_BG = new Color(0x1D4673);
-	public static final int SPLITPANE_WIDTH = 5;
+	
+	public static final Color FRAME_BORDER_COLOR = Color.DARK_GRAY;
 	
 	public static final Color HEADER_BG = new Color(0x1D4673);
 	public static final Color HEADER_TITLE_COLOR = Color.WHITE;
 	
-	public static final Color FRAME_BORDER_COLOR = Color.DARK_GRAY;
-	
+	public static final Color SPLITPANE_BG = new Color(0x1D4673);
+	public static final int SPLITPANE_WIDTH = 5;
+	public static final Color LEFT_RIGHT_PANEL_BG = new Color(0x81A4E6);
 	
 	public static final Font TAB_FONT = new Font("Dialog", Font.BOLD, 12);	
 	public static final Color TAB_SELECTED = new Color(0x2A3A6E);

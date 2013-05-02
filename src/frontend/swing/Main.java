@@ -30,7 +30,6 @@ public class Main {
 		UIManager.put("TabbedPane.tabAreaInsets", new Insets(0, 2, -1, 0));  //sets the margin of the block of tab headers
 	}
 	
-	
 	public static void main(String[] args) {
 		setUpDesign();
 		SwingUtilities.invokeLater(new Runnable() { //as per best practice for concurrency in swing - see http://docs.oracle.com/javase/tutorial/uiswing/concurrency/

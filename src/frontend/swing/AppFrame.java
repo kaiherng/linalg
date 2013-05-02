@@ -1,6 +1,5 @@
 package frontend.swing;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -14,7 +13,6 @@ import javax.swing.JPanel;
 import javax.swing.JSplitPane;
 import javax.swing.JTabbedPane;
 import javax.swing.SwingUtilities;
-import javax.swing.border.LineBorder;
 import javax.swing.border.MatteBorder;
 import javax.swing.plaf.basic.BasicSplitPaneUI;
 
@@ -22,18 +20,26 @@ import frontend.panels.Compute;
 import frontend.panels.Construct;
 import frontend.panels.Saved;
 import frontend.panels.SolutionScroll;
+import frontend.utils.ResizeAdapter;
 
+/**
+ * Our JFrame
+ * @author kloh
+ *
+ */
 @SuppressWarnings("serial")
 public class AppFrame extends JFrame {
-
-	public AppFrame() {
-		super("Linear Algebra Calculator");
+	
+	public void setUpDesign() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setUndecorated(true);
 		setMinimumSize(new Dimension(1000,700));
 		setLocationRelativeTo(null);
-		
-		
+	}
+
+	public AppFrame() {
+		super("Linear Algebra Calculator");
+		setUpDesign();
 		
 		//Create Panels
 		SolutionScroll solPanel = new SolutionScroll();
@@ -51,23 +57,16 @@ public class AppFrame extends JFrame {
 		JTabbedPane tabbedPaneRight = createTabbedPaneRight(solPanel, stepPanel);
 		JPanel rightPanel = createRightPanel(tabbedPaneRight);
 		
-		JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, leftPanel, rightPanel);
-		splitPane.setResizeWeight(0.5);
+		//create splitPane
+		SplitPane splitPane = new SplitPane(leftPanel, rightPanel);
 		
-		BasicSplitPaneUI ui = (BasicSplitPaneUI) splitPane.getUI();
-		splitPane.setBorder(new MatteBorder(1,0,0,0,Constants.FRAME_BORDER_COLOR));
-		ui.getDivider().setBorder(BorderFactory.createLineBorder(Constants.SPLITPANE_BG, 10));
-		ui.getDivider().setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
-		JPanel mainPanel = new JPanel(new GridBagLayout());
-		mainPanel.setBackground(Color.LIGHT_GRAY);
+
 
 		new ResizeAdapter(splitPane, this, 10, SwingUtilities.SOUTH, SwingUtilities.EAST, SwingUtilities.WEST, SwingUtilities.SOUTH_EAST, SwingUtilities.SOUTH_WEST);
 		
 		ContentPane contentPane = new ContentPane(this);
 		setContentPane(contentPane);
 		contentPane.add(splitPane);
-		
-		
 	}
 	
 	public final static JTabbedPane createTabbedPaneTopLeft(Construct constructPanel, Compute computePanel) {
@@ -100,7 +99,7 @@ public class AppFrame extends JFrame {
 	
 	public final static JPanel createLeftPanel(JTabbedPane tabbedPaneTopLeft, JTabbedPane tabbedPaneBottomLeft) {
 		JPanel leftPanel = new JPanel(new GridBagLayout());
-		leftPanel.setBackground(Constants.PANEL_BG);
+		leftPanel.setBackground(Constants.LEFT_RIGHT_PANEL_BG);
 		leftPanel.setMinimumSize(new Dimension(300,300));
 		leftPanel.setBorder(BorderFactory.createEmptyBorder());
 		
@@ -128,7 +127,7 @@ public class AppFrame extends JFrame {
 	
 	public final static JPanel createRightPanel(JTabbedPane tabbedPaneRight) {
 		JPanel rightPanel = new JPanel(new GridBagLayout());
-		rightPanel.setBackground(Constants.PANEL_BG);
+		rightPanel.setBackground(Constants.LEFT_RIGHT_PANEL_BG);
 		rightPanel.setMinimumSize(new Dimension(300,300));
 		
 		GridBagConstraints c2 = new GridBagConstraints();

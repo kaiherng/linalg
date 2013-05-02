@@ -39,7 +39,6 @@ public class HeaderPanel extends JPanel implements MouseListener, MouseMotionLis
 		JPanel eastPanel = new JPanel(new FlowLayout(FlowLayout.LEADING, 0, 0));
 		eastPanel.setBackground(new Color(0,0,0,0));
 		
-		
 		JLabel minButton = createMinButton();
 		minButton.setBorder(BorderFactory.createEmptyBorder(0,0,6,7));
 		eastPanel.add(minButton);
