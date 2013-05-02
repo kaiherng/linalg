@@ -17,7 +17,6 @@ public class TestShadow {
 		JFrame frame = new JFrame("hey");
 		frame.setMinimumSize(new Dimension(500,500));
 		frame.setUndecorated(true);
-		frame.setBackground(new Color(1.0f,1.0f,1.0f,0.5f));
 		frame.setVisible(true);
 	}
 

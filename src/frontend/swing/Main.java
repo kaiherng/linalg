@@ -3,23 +3,19 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.GridLayout;
 import java.awt.Insets;
 
 import javax.swing.BorderFactory;
-import javax.swing.JComponent;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSplitPane;
 import javax.swing.JTabbedPane;
-import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
-import javax.swing.border.Border;
+import javax.swing.border.LineBorder;
+import javax.swing.border.MatteBorder;
 import javax.swing.plaf.basic.BasicSplitPaneUI;
 
 import frontend.panels.Compute;
@@ -31,40 +27,42 @@ import frontend.panels.SolutionScroll;
 
 public class Main {
 	
-	
-	public static void main(String[] args) {
-				
+	/**
+	 * Sets up the design of the components to the look we want to achieve
+	 */
+	public static void setUpDesign() {
 		UIManager.put("SplitPane.dividerSize", Constants.SPLITPANE_WIDTH);
 		UIManager.put("SplitPane.background", Constants.SPLITPANE_BG);
-		UIManager.put("TabbedPane.font", new Font( "Dialog", Font.BOLD, 12 ));  
-		
-		UIManager.put("TabbedPane.focus", new Color(0,0,0,0)); //removes the ugly border around the header text when in focus
-		UIManager.put("TabbedPane.selected", new Color(0x2A3A6E));  
-		UIManager.put("TabbedPane.selectHighlight", new Color(0x2A3A6E)); //must be same as TabbedPane.selectHighlight to get rid of ugly inset
-		UIManager.put("TabbedPane.selectedForeground", Color.WHITE);  
+		UIManager.put("TabbedPane.font", Constants.TAB_FONT);  		
+		UIManager.put("TabbedPane.focus", Constants.TAB_FOCUS); //removes the ugly border around the header text when in focus
+		UIManager.put("TabbedPane.selected", Constants.TAB_SELECTED);  
+		UIManager.put("TabbedPane.selectHighlight", Constants.TAB_SELECTED_HIGHLIGHT); 
+		UIManager.put("TabbedPane.selectedForeground", Constants.TAB_SELECTED_FG);  
 		UIManager.put("TabbedPane.contentBorderInsets", new Insets(5, 3, 3, 3)); //gets rid of the ugly light blue line in the content pane
-		UIManager.put("TabbedPane.contentAreaColor", new Color(0x2A3A6E)); //gets rid of the ugly light blue line in the content pane
-		UIManager.put("TabbedPane.darkShadow", new Color(0,0,0,0)); 
-		UIManager.put("TabbedPane.foreground", Color.WHITE);  
-		UIManager.put("TabbedPane.background", new Color(0x29477F));  
-		UIManager.put("TabbedPane.light", new Color(0x29477F));  
-		 
+		UIManager.put("TabbedPane.contentAreaColor", Constants.TAB_CONTENT_AREA); //gets rid of the ugly light blue line in the content pane
+		UIManager.put("TabbedPane.darkShadow", Constants.TAB_DARK_SHADOW); 
+		UIManager.put("TabbedPane.foreground", Constants.TAB_FG);  
+		UIManager.put("TabbedPane.background", Constants.TAB_BG);  
+		UIManager.put("TabbedPane.light", Constants.TAB_LIGHT);  
+		System.out.println(SwingUtilities.isEventDispatchThread());
 		UIManager.put("TabbedPane.tabsOverlapBorder", true);
 		
 		UIManager.put("TabbedPane.tabInsets", new Insets(1, 8, 1, 8));  //sets padding within the tab header
 		UIManager.put("TabbedPane.tabAreaInsets", new Insets(0, 2, -1, 0));  //sets the margin of the block of tab headers
-		
+	}
+	
+	
+	public static void main(String[] args) {
+				
+		setUpDesign();
 		JFrame frame = new JFrame("Linear Algebra Calculator");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setUndecorated(true);
-		JPanel contentPane = new JPanel(new BorderLayout());
-//		
-//		Border padding = BorderFactory.createLineBorder(Constants.FRAME_BORDER_COLOR,5);
-//		contentPane.setBorder(padding);
 		
+		ContentPane contentPane = new ContentPane();
 		frame.setContentPane(contentPane);
-		
-		HeaderPanel headerPanel = new HeaderPanel(frame);
+		contentPane.setBorder(new LineBorder(Constants.FRAME_BORDER_COLOR, 1));
+		HeaderPanel headerPanel = new HeaderPanel(frame);		
 		contentPane.add(headerPanel, BorderLayout.NORTH);
 		
 		JPanel leftPanel = new JPanel(new GridBagLayout());
@@ -77,7 +75,7 @@ public class Main {
 		leftPanel.setBorder(BorderFactory.createEmptyBorder());
 		
 		BasicSplitPaneUI ui = (BasicSplitPaneUI) splitPane.getUI();
-		splitPane.setBorder(BorderFactory.createEmptyBorder());
+		splitPane.setBorder(new MatteBorder(1,0,0,0,Constants.FRAME_BORDER_COLOR));
 		ui.getDivider().setBorder(BorderFactory.createLineBorder(Constants.SPLITPANE_BG, 10));
 		ui.getDivider().setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
 		JPanel mainPanel = new JPanel(new GridBagLayout());
@@ -115,8 +113,6 @@ public class Main {
 		leftPanel.add(tabbedPaneTopLeft, c);
 		
 		JTabbedPane tabbedPaneBottomLeft = new JTabbedPane();
-		JComponent bottomLeftPanel1 = makeTextPanel("Saved Matrices");
-		bottomLeftPanel1.setBackground(Constants.TAB_PANEL_CONTENT_BG);
 		//set the pane to check when adding matrices
 		savedPanel.setTopLeftPane(tabbedPaneTopLeft);
 		tabbedPaneBottomLeft.addTab("Saved Matrices", savedPanel);
@@ -157,13 +153,5 @@ public class Main {
 		frame.setVisible(true);
 	}
 	
-	private static JComponent makeTextPanel(String text) {
-        JPanel panel = new JPanel();
-        JLabel filler = new JLabel(text);
-        filler.setHorizontalAlignment(JLabel.CENTER);
-        panel.setLayout(new GridLayout(1, 1));
-        panel.add(filler);
-        return panel;
-    }
 
 }

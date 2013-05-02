@@ -1,6 +1,7 @@
 package frontend.swing;
 
 import java.awt.Color;
+import java.awt.Font;
 
 public class Constants {
 
@@ -11,6 +12,17 @@ public class Constants {
 	public static final Color HEADER_BG = new Color(0x1D4673);
 	public static final Color HEADER_TITLE_COLOR = Color.WHITE;
 	
-	public static final Color FRAME_BORDER_COLOR = new Color(0x1D4673);
-	public static final Color TAB_PANEL_CONTENT_BG = new Color(0xE4E7F2);
+	public static final Color FRAME_BORDER_COLOR = Color.DARK_GRAY;
+	
+	
+	public static final Font TAB_FONT = new Font("Dialog", Font.BOLD, 12);	
+	public static final Color TAB_SELECTED = new Color(0x2A3A6E);
+	public static final Color TAB_SELECTED_HIGHLIGHT = new Color(0x2A3A6E);
+	public static final Color TAB_SELECTED_FG = Color.WHITE;
+	public static final Color TAB_CONTENT_AREA = new Color(0x2A3A6E);
+	public static final Color TAB_FG = Color.WHITE;
+	public static final Color TAB_BG = new Color(0x29477F);
+	public static final Color TAB_LIGHT = new Color(0x29477F);
+	public static final Color TAB_DARK_SHADOW = new Color(0,0,0,0);
+	public static final Color TAB_FOCUS = new Color(0,0,0,0);
 }

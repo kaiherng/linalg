@@ -29,7 +29,6 @@ public class HeaderPanel extends JPanel implements MouseListener, MouseMotionLis
 		addMouseMotionListener(this);
 		setToolTipText("Double click for fullscreen or drag to move window");
 		setCursor(Cursor.getPredefinedCursor(Cursor.MOVE_CURSOR));
-
 		setBorder(BorderFactory.createEmptyBorder(0, 7, 0, 7)); //for padding around the title elements
 		setBackground(Constants.HEADER_BG);
 		JLabel title = new JLabel("Linear Algebra Calculator");

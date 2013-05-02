@@ -3,6 +3,7 @@ package frontend.swing;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.GridBagConstraints;
@@ -11,8 +12,10 @@ import java.awt.Insets;
 import java.awt.RenderingHints;
 
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.SwingUtilities;
+import javax.swing.border.EmptyBorder;
+import javax.swing.border.LineBorder;
 
 public class ShadowFrame {
 
@@ -23,12 +26,7 @@ public class ShadowFrame {
     }
 
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
                 new ShadowFrame();
-            }
-        });
     }
 
     private void initComponents() {
@@ -71,7 +69,7 @@ class RoundedPanel extends JPanel {
     /**
      * Double values for Horizontal and Vertical radius of corner arcs
      */
-    protected Dimension arcs = new Dimension(0, 0);
+    protected Dimension arcs = new Dimension(20, 20);
     //protected Dimension arcs = new Dimension(20, 20);//creates curved borders and panel
     /**
      * Distance between shadow border and opaque panel border
@@ -89,7 +87,13 @@ class RoundedPanel extends JPanel {
 
     public RoundedPanel() {
         super();
-        setOpaque(false);
+        setBorder(new EmptyBorder(0,0,0,0));
+        setLayout(new FlowLayout());
+        JPanel mainPanel = new JPanel();
+        mainPanel.setSize(new Dimension(200,200));
+        mainPanel.setBorder(new LineBorder(Color.BLACK, 1));
+        mainPanel.add(new JLabel("hey"));
+        add(mainPanel);
     }
 
     @Override
@@ -99,7 +103,7 @@ class RoundedPanel extends JPanel {
                 shadowColor.getGreen(), shadowColor.getBlue(), shadowAlpha);
         Graphics2D graphics = (Graphics2D) g;
 
-        //Sets antialiasing if HQ.
+//        //Sets antialiasing if HQ.
         if (highQuality) {
             graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
                     RenderingHints.VALUE_ANTIALIAS_ON);
@@ -119,7 +123,7 @@ class RoundedPanel extends JPanel {
         }
 
         //Draws the rounded opaque panel with borders.
-        graphics.setColor(getBackground());
+        graphics.setColor(Color.PINK);
         graphics.fillRoundRect(0, 0, width - shadowGap,
                 height - shadowGap, arcs.width, arcs.height);
         graphics.setColor(new Color(0,0,0,0));
