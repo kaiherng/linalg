@@ -9,6 +9,7 @@ import java.awt.Rectangle;
 import javax.swing.BorderFactory;
 import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
+import javax.swing.border.LineBorder;
 
 //http://colorschemedesigner.com/ 
 //Scheme ID: 3z41Tw0w0w0w0
@@ -101,7 +102,7 @@ public class CurrentConstants {
 	
 	public static final Dimension COMPUTE_BAR_OBJECT_SIZE = new Dimension(40,30);
 	public static final Color COMPUTE_BAR_OBJECT_FG = Color.WHITE;
-	public static final Color COMPUTE_BAR_OBJECT_BG = new Color(0x446896);
+	public static final Color COMPUTE_BAR_OBJECT_BG = new Color(0x3A5E85);
 	
 	public static final Color SAVED_BG = new Color(0,0,0,0);
 	public static final Border SAVED_BORDER = new EmptyBorder(0,0,0,0);
@@ -114,5 +115,7 @@ public class CurrentConstants {
 	public static final Color SOLUTIONSCROLL_SCROLLPANE_BG = new Color(0,0,0,0);
 	public static final Border SOLUTIONSCROLL_SCROLLPANE_BORDER = new EmptyBorder(0,0,0,0);
 	
-	
+	public static final Color BUTTON_BG = new Color(0x264261);
+	public static final Color BUTTON_FG = Color.WHITE;
+	public static final Border BUTTON_BORDER = new EmptyBorder(5,10,5,10);
 }

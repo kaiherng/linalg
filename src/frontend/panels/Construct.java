@@ -1,7 +1,6 @@
 package frontend.panels;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Graphics;
@@ -24,7 +23,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -53,6 +51,8 @@ public class Construct extends JPanel {
 	
 	public Construct(Saved saved) {
 		this.setLayout(new BorderLayout());
+//		setBackground(CurrentConstants.CONSTRUCT_BG);
+		setBorder(CurrentConstants.CONSTRUCT_BORDER);
 		_save = saved;
 		
 		_drawn = false;
@@ -142,29 +142,29 @@ public class Construct extends JPanel {
 		Graphics2D g2 = (Graphics2D) g;
 		
 		if(_drawing){
-			g2.setColor(Color.decode("#CCCCCC"));
+			g2.setColor(CurrentConstants.CONSTRUCT_GRID_LIGHT);
 			for(int i = 0; i < _grid.length; i++){
 				for(int j = 0 ; j < _grid[0].length; j++){
 					_grid[i][j].setLocation((i*_size) + _offset.get(0), (j*_size) + _offset.get(1));
 					g2.drawRect(_grid[i][j].x, _grid[i][j].y, _grid[i][j].width, _grid[i][j].height);
 				}
 			}
-			g2.setColor(Color.black);
+			g2.setColor(CurrentConstants.CONSTRUCT_GRID_DARK);
 			g2.drawString(_sizeIndicator, _mouseLocation.x + 10, _mouseLocation.y + 10);
 		}
 		
 		if(_drawn){
-			g2.setColor(Color.black);
+			g2.setColor(CurrentConstants.CONSTRUCT_GRID_DARK);
 			for(int i = 0; i <= _mSize.get(0); i++){
 				for(int j = 0 ; j <= _mSize.get(1); j++){
 					_grid[i][j].setLocation((i*_size) + _offset.get(0), (j*_size) + _offset.get(1));
 					if(_selected.size() == 2){
 						if(i == _selected.get(0) && j == _selected.get(1)){
-							g2.setColor(Color.decode("#BBBBBB"));
+							g2.setColor(CurrentConstants.CONSTRUCT_GRID_MEDIUM);
 							g2.fillRect(_grid[i][j].x, _grid[i][j].y, _grid[i][j].width, _grid[i][j].height);
 						}
 					}
-					g2.setColor(Color.black);
+					g2.setColor(CurrentConstants.CONSTRUCT_GRID_DARK);
 					g2.drawRect(_grid[i][j].x, _grid[i][j].y, _grid[i][j].width, _grid[i][j].height);
 					
 					List<Integer> pos = new ArrayList<>();

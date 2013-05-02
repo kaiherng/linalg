@@ -1,5 +1,7 @@
 package frontend.swing;
 
+import java.awt.Color;
+
 import javax.swing.JButton;
 
 /**
@@ -12,6 +14,10 @@ public class Button extends JButton {
 	
 	public Button(String label) {
 		super(label);
+		setBackground(CurrentConstants.BUTTON_BG);
+		setForeground(CurrentConstants.BUTTON_FG);
+		setBorder(CurrentConstants.BUTTON_BORDER);
+		setFocusable(false);
 	}
 
 }
