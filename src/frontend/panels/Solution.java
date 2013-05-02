@@ -15,13 +15,17 @@ import frontend.swing.CurrentConstants;
 
 public class Solution extends JPanel {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 3677189812572651937L;
 	TeXIcon _ti;
 	JLabel _label;
 	SolutionScroll _scroll;
 
 	public Solution(SolutionScroll scroll){
 		this.setLayout(new BorderLayout());
-		setBackground(CurrentConstants.SOLUTION_BG);
+//		setBackground(CurrentConstants.SOLUTION_BG);
 		setBorder(CurrentConstants.SOLUTION_BORDER);
 		TeXFormula formula = new TeXFormula("\\text{Solutions will be displayed here}");
 		_ti = formula.createTeXIcon(TeXConstants.STYLE_DISPLAY, 20);
