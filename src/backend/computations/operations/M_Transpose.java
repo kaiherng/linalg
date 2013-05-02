@@ -59,6 +59,7 @@ public class M_Transpose extends Computable
 	public List<String> toLatex()
 	{
 		List<String> steps=new ArrayList<>();
+		steps.add("\\vspace{10mm} \\mathrm{Matrix \\ Transpose}");
 		for (int i=0;i<input.length;i++)
 		{
 			//the original column
@@ -72,8 +73,9 @@ public class M_Transpose extends Computable
 				row[j][0]=output[j][i];
 			}
 			Matrix to=new Matrix(answerDisplayType,row);
-			steps.add("Column "+(i+1)+" = "+(new MatrixDraw(from)).getCorrectLatex(answerDisplayType)+
-				" becomes Row "+(i+1)+" = "+(new MatrixDraw(to)).getCorrectLatex(answerDisplayType));
+			steps.add("\\vspace{10mm} "+(i+1)+". \\\\");
+			steps.add("\\hspace{15mm} \\mathrm{Column} \\ "+(i+1)+" = "+(new MatrixDraw(from)).getCorrectLatex(answerDisplayType)+
+				" \\mathrm{becomes \\ Row} \\ "+(i+1)+" = "+(new MatrixDraw(to)).getCorrectLatex(answerDisplayType));
 		}
 		return steps;
 	}

@@ -114,7 +114,7 @@ public class MS_Multiply extends Computable {
 	 */
 	public List<String> toLatex() {
 		List<String> toReturn = new ArrayList<>();
-		toReturn.add("Scalar \\ Matrix \\ Multiplication");
+		toReturn.add("\\vspace{10mm} \\mathrm{Scalar \\ Matrix \\ Multiplication}");
 		toReturn.add("\\vspace{10mm} 1.");
 		MatrixDraw m1 = new MatrixDraw(_matrixArg);
 		StringBuilder b = new StringBuilder();
@@ -130,9 +130,9 @@ public class MS_Multiply extends Computable {
 		}
 		toReturn.add(b.toString());
 		MatrixDraw answer = new MatrixDraw(_answer);
-		toReturn.add("\\vspace{15mm} 2. \\ Mutliply \\ each \\ index \\ by \\ "+_scalarArg.getDisplayValue());
+		toReturn.add("\\vspace{15mm} 2. \\ \\mathrm{Mutliply \\ each \\ index \\ by \\ "+_scalarArg.getDisplayValue()+"}");
 		toReturn.add("\\hspace{15mm} \\vspace{15mm}"+answer.getCorrectLatex(DisplayType.CUSTOM));
-		toReturn.add("\\vspace{15mm} Solution:");
+		toReturn.add("\\vspace{15mm} \\mathrm{Solution:}");
 		toReturn.add("\\hspace{15mm}\\vspace{15mm}"+answer.getCorrectLatex(_displayType));
 		return toReturn;
 	}

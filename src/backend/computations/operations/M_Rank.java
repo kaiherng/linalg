@@ -29,6 +29,7 @@ public class M_Rank extends Computable
 	 *@param matrix the matrix*/
 	public M_Rank(Matrix matrix) throws Exception
 	{
+		steps.add("\\vspace{10mm} \\mathrm{Determining \\ Matrix \\ Rank}");
 		DisplayType answerDisplayType = matrix.getDisplayType(); // choose DisplayType to use
 
 		Double[][] values = matrix.getValues();
@@ -51,6 +52,8 @@ public class M_Rank extends Computable
 		//first zero row
 		int fzr=0;
 		int rank=0;
+		
+		steps.add("\\vspace{15mm} \\mathrm{Identify \\ pivot \\ columns}");
 		for (int i=0;i<refv.length;i++)
 		{
 			if (fzr>=refv[0].length)//beyond the last row
@@ -63,7 +66,7 @@ public class M_Rank extends Computable
 				{
 					fzr++;
 				}
-				steps.add("Column "+(i+1)+" is a pivot column.");
+				steps.add("\\mathrm{Column \\ "+(i+1)+" \\ is \\ a \\ pivot \\ column.}");
 			}
 		}
 
@@ -71,9 +74,9 @@ public class M_Rank extends Computable
 		Scalar answer=new Scalar(rank,DisplayType.WHOLENUMBER);
 		String plural="";
 		if (rank==1)
-			steps.add("There is in total 1 pivot column so the rank is 1");
+			steps.add("\\vspace{15mm} \\mathrm{There \\ is \\ in \\ total \\ 1 \\ pivot \\ column \\ so \\ the \\ rank \\ is \\ 1}");
 		else
-			steps.add("There are in total "+answer.getDisplayValue()+" pivot columns so the rank is "+answer.getDisplayValue());
+			steps.add("\\vspace{15mm} \\mathrm{There \\ are \\ in \\ total} \\ "+answer.getDisplayValue()+" \\ \\mathrm{pivot \\ columns \\ so \\ the \\ rank \\ is} \\ "+answer.getDisplayValue());
 		List<Countable> inputs = new ArrayList<>();
 		inputs.add(matrix);
 

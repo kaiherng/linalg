@@ -37,7 +37,8 @@ public class Compute extends JPanel {
 	Map<Integer, Numerical> _numericals;
 	JPanel _computeBar, _pages, _ops, _bar;
 	Integer _id = 0;
-	Solution _solPanel, _stepPanel;
+	Solution _solPanel;
+	Solution _stepPanel;
 	
 	public Compute(Solution sol, Solution step) {
 		_numericals = new LinkedHashMap<>();
@@ -148,7 +149,7 @@ public class Compute extends JPanel {
 			sb.append(toAdd);
 		}
 		if(n.getRight() != null){
-			String toAdd = traverseTree(n.getLeft(), new StringBuilder()).toString();
+			String toAdd = traverseTree(n.getRight(), new StringBuilder()).toString();
 			sb.append(toAdd);
 		}
 		List<String> list = n.getSolution().getLatex();

@@ -26,6 +26,7 @@ import java.util.Map;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
@@ -46,6 +47,8 @@ public class Construct extends JPanel {
 	boolean _drawn;
 	boolean _drawing;
 	Saved _save;
+	String _sizeIndicator;
+	Point _mouseLocation;
 	
 	public Construct(Saved saved) {
 		this.setLayout(new BorderLayout());
@@ -61,6 +64,9 @@ public class Construct extends JPanel {
 		_mSize.add(0);
 		_values = new HashMap<>();
 		
+		_sizeIndicator = "";
+		_mouseLocation = new Point(0,0);
+		
 		MouseListener ml = new MouseListener(this);
 		this.addMouseListener(ml);
 		this.addMouseMotionListener(ml);
@@ -74,19 +80,24 @@ public class Construct extends JPanel {
 		buttonPanel.setBorder(BorderFactory.createLineBorder(Color.black, 1));
 		this.add(buttonPanel, BorderLayout.SOUTH);
 		
-		JButton clearButton, saveButton, scalarButton, iButton;
+		JButton clearButton, saveButton, scalarButton, iButton, fillButton;
 		clearButton = new JButton("Clear");
 		saveButton = new JButton("Save");
 		scalarButton = new JButton("New Scalar");
 		iButton = new JButton("Identity");
+		fillButton = new JButton("Fill Matrix");
+		fillButton.setToolTipText("Fill empty cells with specified value");
 		clearButton.addActionListener(new ClearListener(this));
 		saveButton.addActionListener(new SaveListener(this));
 		scalarButton.addActionListener(new ScalarListener(this));
 		iButton.addActionListener(new IdentityListener(this));
+		fillButton.addActionListener(new FillListener(this));
 		clearButton.setFocusable(false);
 		saveButton.setFocusable(false);
 		scalarButton.setFocusable(false);
 		iButton.setFocusable(false);
+		fillButton.setFocusable(false);
+		buttonPanel.add(fillButton);
 		buttonPanel.add(iButton);
 		buttonPanel.add(scalarButton);
 		buttonPanel.add(clearButton);
@@ -115,10 +126,10 @@ public class Construct extends JPanel {
 		}
 		_mSize.clear();
 		_offset.clear();
-		_mSize.add(values.length);
-		_mSize.add(values[0].length);
-		_offset.add(0);
-		_offset.add(0);
+		_mSize.add(values.length-1);
+		_mSize.add(values[0].length-1);
+		_offset.add(10);
+		_offset.add(10);
 		_drawing = false;
 		_drawn = true;
 		this.repaint();
@@ -135,7 +146,9 @@ public class Construct extends JPanel {
 					_grid[i][j].setLocation((i*_size) + _offset.get(0), (j*_size) + _offset.get(1));
 					g2.drawRect(_grid[i][j].x, _grid[i][j].y, _grid[i][j].width, _grid[i][j].height);
 				}
-			}			
+			}
+			g2.setColor(Color.black);
+			g2.drawString(_sizeIndicator, _mouseLocation.x + 10, _mouseLocation.y + 10);
 		}
 		
 		if(_drawn){
@@ -219,41 +232,64 @@ public class Construct extends JPanel {
 		}
 		
 		public void mouseReleased(MouseEvent e){
+			if(_drawing = true){
+				if(_mSize.get(0) > -1 && _mSize.get(1) > -1){
+					if(_selected.size() != 2){
+						_selected.clear();
+						_selected.add(0);
+						_selected.add(0);
+						_p.repaint();
+					}
+				}
+			}
 			_drawing = false;
 			_p.repaint();
 		}
 		
 		public void mouseDragged(MouseEvent e){
+			_p.requestFocus();
 			if(_drawing){
+				_mouseLocation = e.getPoint();
 				int newX = (int) Math.floor((e.getX()-_offset.get(0))/_size);
 				int newY = (int) Math.floor((e.getY()-_offset.get(1))/_size);
+				if(newX < 0){
+					newX = 0;
+				}
+				if(newY < 0){
+					newY = 0;
+				}
 				if(newX < _grid.length && newY < _grid[0].length){
 					_mSize.clear();
 					_mSize.add(newX);
 					_mSize.add(newY);
+					if(newX > 7){
+						_mSize.set(0, 7);
+					}
+					if(newY > 7){
+						_mSize.set(1, 7);
+					}
+					_sizeIndicator = (1+_mSize.get(0)) + " x " + (1+_mSize.get(1));
 					_drawn = true;
-					_p.repaint();
+					_p.repaint(0);
 				}
 			} else if(_drawn && !_drawing){
 				//drag matrix around
 				int newX = _offset.get(0) + e.getPoint().x - (_startDrag).x;
 				int newY = _offset.get(1) + e.getPoint().y - (_startDrag).y;
-				if(!_p.contains(_offset.get(0) + (1+ _mSize.get(0))*_size, _offset.get(1) + (1+ _mSize.get(1))*_size)){
-					_offset.set(0, newX);
-					_offset.set(1, newY);
-					_startDrag = e.getPoint();
-					_p.repaint();
-					return;
+				_offset.set(0, newX);
+				_offset.set(1, newY);
+				if(newX < 0){
+					_offset.set(0, 0);
+				} else if(newX > _p.getWidth() - (1+_mSize.get(0))*_size){
+					_offset.set(0, _p.getWidth() - (1+_mSize.get(0))*_size);
 				}
-				
-				if(_p.contains(newX, newY)){
-					if(_p.contains(newX + (1+ _mSize.get(0))*_size, newY + (1+ _mSize.get(1))*_size)){
-						_offset.set(0, newX);
-						_offset.set(1, newY);
-						_startDrag = e.getPoint();
-						_p.repaint();
-					}
+				if(newY < 0){
+					_offset.set(1, 0);
+				} else if(newY > _p.getHeight() - (1+_mSize.get(1))*_size){
+					_offset.set(1, _p.getHeight() - (1+_mSize.get(1))*_size);
 				}
+				_startDrag = e.getPoint();
+				_p.repaint();
 			}
 		}
 	}
@@ -333,6 +369,9 @@ public class Construct extends JPanel {
 					if(sb.length() > 0){
 						sb.setLength(sb.length()-1);
 					}
+				}
+				if(sb.length() > 8){
+					sb.setLength(8);
 				}
 				if(sb.length() == 0){
 					_values.remove(_selected.toString());
@@ -435,7 +474,16 @@ public class Construct extends JPanel {
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
 			String s = (String)JOptionPane.showInputDialog("Enter the value of the scalar");
-			Double value = Double.parseDouble(s);
+			Double value;
+			try{
+				value = Double.parseDouble(s);
+			} catch (NumberFormatException e){
+				JOptionPane.showMessageDialog(_c,
+					    "Input must be a number!",
+					    "Input Error",
+					    JOptionPane.ERROR_MESSAGE);
+				return;
+			}
 			_save.addCountable("scalar", new Scalar(value, DisplayType.DECIMAL));
 		}
 	}
@@ -462,6 +510,42 @@ public class Construct extends JPanel {
 							_values.put("[" + i  + ", " + j + "]", "1");
 						} else {
 							_values.put("[" + i  + ", " + j + "]", "0");
+						}
+					}
+				}
+				_c.repaint();
+			}
+		}
+	}
+	
+	public class FillListener implements ActionListener{
+		
+		Construct _c;
+		
+		public FillListener(Construct c){
+			_c = c;
+		}
+		
+		@Override
+		public void actionPerformed(ActionEvent arg0) {
+			String s = (String)JOptionPane.showInputDialog("Enter value to fill in");
+			Double value;
+			try{
+				value = Double.parseDouble(s);
+			} catch (NumberFormatException e){
+				JOptionPane.showMessageDialog(_c,
+					    "Input must be a number!",
+					    "Input Error",
+					    JOptionPane.ERROR_MESSAGE);
+				return;
+			}
+			if(_drawn){
+				for(int i = 0; i < _mSize.get(0)+1; i++){
+					for(int j = 0; j < _mSize.get(1)+1; j++){
+						String val = _values.get("[" + i  + ", " + j + "]");
+						if(val == null || val.length() == 0){
+							val = value.toString();
+							_values.put("[" + i  + ", " + j + "]", val);
 						}
 					}
 				}

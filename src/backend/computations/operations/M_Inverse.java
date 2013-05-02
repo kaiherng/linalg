@@ -89,7 +89,7 @@ public class M_Inverse extends Computable
 				//calculate determinant
 				determinant=new Determinant(new Matrix(answerDisplayType,removeRowColumn(values,i,j)));
 				Solution s=determinant.getSolution();
-				steps.add("Calculate the determinant of the cofactor matrix of the value ("+(i+1)+","+(j+1)+") as follow:");
+				steps.add("\\mathrm{Calculate \\ the \\ determinant \\ of \\ the \\ cofactor \\ matrix \\ of \\ the \\ value \\ ("+(i+1)+","+(j+1)+") \\ as \\ follow:}");
 				steps.addAll(determinant.toLatex());
 				cofactor[i][j]=sign*(((Scalar)(s.getAnswer())).getValue())/det;
 			}
@@ -98,7 +98,7 @@ public class M_Inverse extends Computable
 		//calculate the transpose of the cofactor
 		M_Transpose trans=new M_Transpose(new Matrix(answerDisplayType,cofactor));
 		Solution ct=trans.getSolution();
-		steps.add("Transpose the determinants calculated:");
+		steps.add("\\mathrm{Transpose \\ the \\ determinants \\ calculated:}");
 		steps.addAll(trans.toLatex());
 		Countable answer=ct.getAnswer();
 

@@ -15,12 +15,14 @@ public class Solution extends JPanel {
 	
 	TeXIcon _ti;
 	JLabel _label;
+	SolutionScroll _scroll;
 
-	public Solution(){
+	public Solution(SolutionScroll scroll){
 		this.setLayout(new BorderLayout());
 		TeXFormula formula = new TeXFormula("\\text{Solutions will be displayed here}");
 		_ti = formula.createTeXIcon(TeXConstants.STYLE_DISPLAY, 20);
 		_label = new JLabel();
+		_scroll = scroll;
 		this.add(_label, BorderLayout.CENTER);
 	}
 	
@@ -30,11 +32,12 @@ public class Solution extends JPanel {
 	}
 	
 	public void setTex(String tex){
+		System.out.println(tex);
 		TeXFormula formula = new TeXFormula(tex);
 		_ti = formula.createTeXIcon(TeXConstants.STYLE_DISPLAY, 20);
-		//_label.setSize(_ti.getIconWidth(), _ti.getIconHeight());
-		//System.out.println(_ti.getIconHeight());
+		_scroll.resetScroll();
 		this.setPreferredSize(new Dimension(_ti.getIconWidth(), _ti.getIconHeight()));
+		this.revalidate();
 		this.repaint();
 	}
 

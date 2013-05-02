@@ -107,4 +107,30 @@ public abstract class Computable{
 		}
 	}
 	
+	/**
+	 * Shortens a decimal if it is too long
+	 * 
+	 * @param num
+	 * @return
+	 */
+	public String shortenDecimal(String num){
+		// truncate long decimals
+
+		boolean foundDecimal = false;
+		int numAfterDecimal = 0;
+		for (int k = 0; k < num.length(); k++){
+			if (num.charAt(k) == '.'){
+				foundDecimal = true;
+			}
+			if (foundDecimal){
+				numAfterDecimal++;
+			}
+			if (numAfterDecimal > 4){
+				num = num.substring(0, k) + "...";
+				return num;
+			}
+		}
+		return num;
+	}
+	
 }
