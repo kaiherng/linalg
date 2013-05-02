@@ -2,26 +2,16 @@ package frontend.blocks;
 
 import java.awt.Color;
 import java.awt.Component;
-import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.Insets;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.geom.Rectangle2D;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
-
-import oldfrontend.general.Constants;
 
 import backend.blocks.Countable;
-import backend.blocks.Matrix;
 import backend.blocks.Scalar;
-
 import frontend.panels.Saved;
+import frontend.swing.Constants;
 
 public class CountableBlock extends JPanel {
 	
@@ -42,36 +32,36 @@ public class CountableBlock extends JPanel {
 	 */
 	public CountableBlock(String name, Countable c, Saved saved) {
 		this.setLayout(null);
-		this.setPreferredSize(new Dimension(40, 40));
+		this.setPreferredSize(Constants.COUNTABLE_BLOCK_SIZE);
 		this.addMouseListener(new Click(this));
 		_s = saved;
 		_name = name;
 		_countable = c;
 		
-		this.setBackground(Color.blue);
+		this.setBackground(Constants.COUNTABLE_BLOCK_BG);
 		
 		_delete = new JLabel("X");
 		_delete.setOpaque(false);
 		_delete.setBorder(null);
-		_delete.setForeground(Color.white);
+		_delete.setForeground(Constants.COUNTABLE_BLOCK_DELETE_FG);
 		this.add(_delete);
-		_delete.setBounds(Constants.SM_SIZE.x - 10,0,10,10);
+		_delete.setBounds(Constants.COUNTABLE_BLOCK_DELETE_BOUNDS);
 		
 		if(c.getName().equals("MATRIX")){
 			_label = new JLabel(name);
-			_label.setFont(new Font("SansSerif", Font.BOLD, 20));
+			_label.setFont(Constants.COUNTABLE_BLOCK_LABEL_MATRIX_FONT);
 		} else if(c.getName().equals("SCALAR")){
 			Scalar s = (Scalar) c;
 			_label = new JLabel(Double.toString(s.getValue()));
-			_label.setFont(new Font("SansSerif", Font.BOLD, 16));
+			_label.setFont(Constants.COUNTABLE_BLOCK_LABEL_SCALAR_FONT);
 			_name = Double.toString(s.getValue());
 		}
 		_label.setOpaque(false);
 		_label.setBorder(null);
-		_label.setForeground(Color.white);
+		_label.setForeground(Constants.COUNTABLE_BLOCK_LABEL_FG);
 		_label.setHorizontalAlignment(JLabel.CENTER);
 		this.add(_label);
-		_label.setBounds(0, 5, 40,30);
+		_label.setBounds(Constants.COUNTABLE_BLOCK_LABEL_BOUNDS);
 		
 		this.setToolTipText(_name);
 	}

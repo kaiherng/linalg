@@ -82,10 +82,6 @@ public class Constants {
 	public static final String CONSTRUCT_INSTRUCTIONS_TEXT_STYLE = "bold";
 	public static final Coord CONSTRUCT_INSTRUCTIONS_TEXT_OFFSET = new Coord(10,10);
 	
-	/** SAVED MATRICES **/
-	public static final Coord SM_MARGIN = new Coord(10,10);
-	public static final Coord SM_SIZE = new Coord(40,40);
-	public static final int SM_TEXT_SIZE = 18;
-	public static final Color SM_COLOR = SCREEN_BG_COLOR;
+
 	
 }

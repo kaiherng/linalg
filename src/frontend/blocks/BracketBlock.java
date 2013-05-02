@@ -1,7 +1,5 @@
 package frontend.blocks;
 
-import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -9,8 +7,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import backend.blocks.Bracket;
-
 import frontend.panels.Compute;
+import frontend.swing.Constants;
 
 public class BracketBlock extends JPanel{
 
@@ -30,9 +28,9 @@ public class BracketBlock extends JPanel{
 			this.setToolTipText("Close Bracket");
 		}
 		label.setText(_text);
-		label.setForeground(Color.white);
-		this.setPreferredSize(new Dimension(60,60));
-		this.setBackground(Color.blue);
+		label.setForeground(Constants.BRACKET_BLOCK_FG);
+		this.setPreferredSize(Constants.BRACKET_BLOCK_SIZE);
+		this.setBackground(Constants.BRACKET_BLOCK_BG);
 		this.add(label);
 		this.addMouseListener(new Click());
 	}

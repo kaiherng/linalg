@@ -1,19 +1,15 @@
 package frontend.blocks;
 
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.Dimension;
-import java.awt.LayoutManager;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import frontend.panels.Compute;
-
 import backend.blocks.Op;
 import backend.blocks.Operation;
+import frontend.panels.Compute;
+import frontend.swing.Constants;
 
 public class OpBlock extends JPanel {
 	
@@ -23,9 +19,9 @@ public class OpBlock extends JPanel {
 
 	public OpBlock(Op op, String text, Compute c) {
 		JLabel label = new JLabel(text);
-		label.setForeground(Color.white);
-		this.setPreferredSize(new Dimension(60,60));
-		this.setBackground(Color.blue);
+		label.setForeground(Constants.OP_BLOCK_FG);
+		this.setPreferredSize(Constants.OP_BLOCK_SIZE);
+		this.setBackground(Constants.OP_BLOCK_BG);
 		this.add(label);
 		this.addMouseListener(new Click());
 		this.setToolTipText(op.toString());

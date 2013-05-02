@@ -13,6 +13,7 @@ import javax.swing.plaf.basic.BasicSplitPaneUI;
  * @author kloh
  *
  */
+@SuppressWarnings("serial")
 public class SplitPane extends JSplitPane {
 
 	public SplitPane(JPanel leftPanel, JPanel rightPanel) {
