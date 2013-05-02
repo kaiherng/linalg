@@ -38,7 +38,7 @@ public class Saved extends JPanel {
 		this.setLayout(new WrapLayout(FlowLayout.LEFT));
 		this.setPreferredSize(this.getSize());
 		this.setBorder(CurrentConstants.SAVED_BORDER);
-		this.setBackground(CurrentConstants.SAVED_BG);
+		//this.setBackground(CurrentConstants.SAVED_BG);
 		_compute = c;
 		
 		cList = new HashMap<>();

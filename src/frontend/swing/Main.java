@@ -29,19 +29,21 @@ public class Main {
 		UIManager.put("TabbedPane.tabAreaInsets", CurrentConstants.TAB_AREA_INSETS);  //sets the margin of the block of tab headers
 	}
 	
+	private static boolean _splash = false;;
 	
 	public static void main(String[] args) {
 		
 		setUpDesign();
 		final InitFrameThread initFrameThread = new InitFrameThread();
-		
-		SwingUtilities.invokeLater(initFrameThread);
-		
-		try {
-			Thread.sleep(1000);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		if(_splash){
+			
+			SwingUtilities.invokeLater(initFrameThread);
+			
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+			}
 		}
 
 		SwingUtilities.invokeLater(new Runnable() { //as per best practice for concurrency in swing - see http://docs.oracle.com/javase/tutorial/uiswing/concurrency/
@@ -49,7 +51,10 @@ public class Main {
 			public void run() {
 				final AppFrame appFrame = new AppFrame();
 				appFrame.setVisible(true);
-				initFrameThread.kill();
+				
+				if(_splash){
+					initFrameThread.kill();
+				}
 			}
 		});
 		

@@ -51,7 +51,7 @@ public class Construct extends JPanel {
 	
 	public Construct(Saved saved) {
 		this.setLayout(new BorderLayout());
-//		setBackground(CurrentConstants.CONSTRUCT_BG);
+		setBackground(CurrentConstants.CONSTRUCT_BG);
 		setBorder(CurrentConstants.CONSTRUCT_BORDER);
 		_save = saved;
 		
@@ -291,6 +291,7 @@ public class Construct extends JPanel {
 					_offset.set(1, _p.getHeight() - (1+_mSize.get(1))*_size);
 				}
 				_startDrag = e.getPoint();
+				//_p.revalidate();
 				_p.repaint();
 			}
 		}
