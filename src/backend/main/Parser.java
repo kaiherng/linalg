@@ -75,8 +75,9 @@ public class Parser {
 	 * @param currNode the node of the toComputeRoot tree that will be expanded from the computation of the current ParseNode
 	 * @return the same ParseNode with a stored depiction of equation state along with the same for all its descendents
 	 */
-	private static ParseNode createToComputeStrings(ParseNode root,ToComputeTreeNode toComputeRoot, ToComputeTreeNode currNode){
+	protected static ParseNode createToComputeStrings(ParseNode root,ToComputeTreeNode toComputeRoot, ToComputeTreeNode currNode){
 		root.setComputeStringTree(toComputeRoot, currNode);
+		
 		if (root.getLeft() != null){
 			createToComputeStrings(root.getLeft(),toComputeRoot,currNode.getLeft());
 		}
