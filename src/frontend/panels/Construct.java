@@ -1,6 +1,7 @@
 package frontend.panels;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Graphics;
@@ -51,7 +52,7 @@ public class Construct extends JPanel {
 	
 	public Construct(Saved saved) {
 		this.setLayout(new BorderLayout());
-		setBackground(CurrentConstants.CONSTRUCT_BG);
+//		setBackground(CurrentConstants.CONSTRUCT_BG);
 		setBorder(CurrentConstants.CONSTRUCT_BORDER);
 		_save = saved;
 		
