@@ -4,9 +4,6 @@ import backend.blocks.*;
 import backend.blocks.Countable.DisplayType;
 import backend.computations.infrastructure.Computable;
 import backend.computations.infrastructure.Solution;
-import backend.computations.infrastructure.Step;
-import matrixDraw.*;
-
 import java.util.*;
 
 /** Matrix Rank Operation
@@ -30,6 +27,7 @@ public class M_Rank extends Computable
 	public M_Rank(Matrix matrix) throws Exception
 	{
 		steps.add("\\vspace{10mm} \\mathrm{Determining \\ Matrix \\ Rank}");
+		@SuppressWarnings("unused")
 		DisplayType answerDisplayType = matrix.getDisplayType(); // choose DisplayType to use
 
 		Double[][] values = matrix.getValues();
@@ -72,7 +70,6 @@ public class M_Rank extends Computable
 
 		//answer in scalar frm
 		Scalar answer=new Scalar(rank,DisplayType.WHOLENUMBER);
-		String plural="";
 		if (rank==1)
 			steps.add("\\vspace{15mm} \\mathrm{There \\ is \\ in \\ total \\ 1 \\ pivot \\ column \\ so \\ the \\ rank \\ is \\ 1}");
 		else
