@@ -724,9 +724,4 @@ public class ParserTest {
 		assertTrue(indices[1][0]==4.0);
 	}
 	
-
-	
-	
-	
-	
 }

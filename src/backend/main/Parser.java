@@ -59,7 +59,31 @@ public class Parser {
 	public static ParseNode parse(List<Numerical> input) throws IllegalArgumentException {
 		checkValidInput(input);
 		Numerical operationTree = createSortedTree(input); 
-		return compute(operationTree);
+		ParseNode parseTree =  compute(operationTree);
+		ToComputeTreeNode toComputeRoot = new ToComputeTreeNode(null,null,null);
+		createToComputeStrings(parseTree,toComputeRoot,toComputeRoot);
+		return parseTree;
+	}
+	
+	
+	/**
+	 * Generates a string at each ParseNode that depicts the current state of the entire equation
+	 * at the point where the given ParseNode is being computed
+	 * 
+	 * @param root the current ParseNode in the ParseNode tree
+	 * @param toComputeRoot the root of the tree of strings diagramming the equation state
+	 * @param currNode the node of the toComputeRoot tree that will be expanded from the computation of the current ParseNode
+	 * @return the same ParseNode with a stored depiction of equation state along with the same for all its descendents
+	 */
+	private static ParseNode createToComputeStrings(ParseNode root,ToComputeTreeNode toComputeRoot, ToComputeTreeNode currNode){
+		root.setComputeStringTree(toComputeRoot, currNode);
+		if (root.getLeft() != null){
+			createToComputeStrings(root.getLeft(),toComputeRoot,currNode.getLeft());
+		}
+		if (root.getRight() != null){
+			createToComputeStrings(root.getRight(),toComputeRoot,currNode.getRight());
+		}
+		return root;
 	}
 	
 	
@@ -69,8 +93,8 @@ public class Parser {
 	 *  dimensions or have null entries, etc. But if for instance, the arguments to a matrix multiply will 
 	 *  be matrices). 
 	 * 
-	 * @param root
-	 * @return
+	 * @param root the first operation to perform in the equation
+	 * @return a tree of ParseNodes containing solutions to all parts of the whole equation. The root contains the overall answer
 	 */
 	protected static ParseNode compute(Numerical root) throws IllegalArgumentException{
 
