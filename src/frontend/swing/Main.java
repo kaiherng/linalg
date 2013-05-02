@@ -29,14 +29,13 @@ public class Main {
 		UIManager.put("TabbedPane.tabAreaInsets", CurrentConstants.TAB_AREA_INSETS);  //sets the margin of the block of tab headers
 	}
 	
-	public static final boolean _splash = false;;
+	private static boolean _splash = false;;
 	
 	public static void main(String[] args) {
 		
 		setUpDesign();
-		final InitFrameThread initFrameThread;
+		final InitFrameThread initFrameThread = new InitFrameThread();
 		if(_splash){
-			initFrameThread = new InitFrameThread();
 			
 			SwingUtilities.invokeLater(initFrameThread);
 			
