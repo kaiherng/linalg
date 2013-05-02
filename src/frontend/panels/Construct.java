@@ -220,7 +220,7 @@ public class Construct extends JPanel {
 		
 		public void mouseReleased(MouseEvent e){
 			if(_drawing = true){
-				if(_mSize.get(0) > 0 && _mSize.get(1) > 0){
+				if(_mSize.get(0) > -1 && _mSize.get(1) > -1){
 					_selected.clear();
 					_selected.add(0);
 					_selected.add(0);
@@ -232,36 +232,37 @@ public class Construct extends JPanel {
 		}
 		
 		public void mouseDragged(MouseEvent e){
+			_p.requestFocus();
 			if(_drawing){
 				int newX = (int) Math.floor((e.getX()-_offset.get(0))/_size);
 				int newY = (int) Math.floor((e.getY()-_offset.get(1))/_size);
 				if(newX < _grid.length && newY < _grid[0].length){
-					_mSize.clear();
-					_mSize.add(newX);
-					_mSize.add(newY);
-					_drawn = true;
-					_p.repaint();
+					if(!(newX > 7 || newY > 7)){
+						_mSize.clear();
+						_mSize.add(newX);
+						_mSize.add(newY);
+						_drawn = true;
+						_p.repaint();
+					}
 				}
 			} else if(_drawn && !_drawing){
 				//drag matrix around
 				int newX = _offset.get(0) + e.getPoint().x - (_startDrag).x;
 				int newY = _offset.get(1) + e.getPoint().y - (_startDrag).y;
-				if(!_p.contains(_offset.get(0) + (1+ _mSize.get(0))*_size, _offset.get(1) + (1+ _mSize.get(1))*_size)){
-					_offset.set(0, newX);
-					_offset.set(1, newY);
-					_startDrag = e.getPoint();
-					_p.repaint();
-					return;
+				_offset.set(0, newX);
+				_offset.set(1, newY);
+				if(newX < 0){
+					_offset.set(0, 0);
+				} else if(newX > _p.getWidth() - (1+_mSize.get(0))*_size){
+					_offset.set(0, _p.getWidth() - (1+_mSize.get(0))*_size);
 				}
-				
-				if(_p.contains(newX, newY)){
-					if(_p.contains(newX + (1+ _mSize.get(0))*_size, newY + (1+ _mSize.get(1))*_size)){
-						_offset.set(0, newX);
-						_offset.set(1, newY);
-						_startDrag = e.getPoint();
-						_p.repaint();
-					}
+				if(newY < 0){
+					_offset.set(1, 0);
+				} else if(newY > _p.getHeight() - (1+_mSize.get(1))*_size){
+					_offset.set(1, _p.getHeight() - (1+_mSize.get(1))*_size);
 				}
+				_startDrag = e.getPoint();
+				_p.repaint();
 			}
 		}
 	}
@@ -341,6 +342,9 @@ public class Construct extends JPanel {
 					if(sb.length() > 0){
 						sb.setLength(sb.length()-1);
 					}
+				}
+				if(sb.length() > 8){
+					sb.setLength(8);
 				}
 				if(sb.length() == 0){
 					_values.remove(_selected.toString());
