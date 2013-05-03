@@ -19,6 +19,7 @@ import javax.swing.plaf.basic.BasicSplitPaneUI;
 import frontend.panels.Compute;
 import frontend.panels.Construct;
 import frontend.panels.Saved;
+import frontend.panels.SavedScroll;
 import frontend.panels.SolutionScroll;
 import frontend.utils.ResizeAdapter;
 
@@ -45,13 +46,13 @@ public class AppFrame extends JFrame {
 		SolutionScroll solPanel = new SolutionScroll();
 		SolutionScroll stepPanel = new SolutionScroll();
 		Compute computePanel = new Compute(solPanel.getSolPanel(), stepPanel.getSolPanel());
-		Saved savedPanel = new Saved(computePanel);
-		Construct constructPanel = new Construct(savedPanel);
-		savedPanel.setConstructPanel(constructPanel);
+		SavedScroll savedPanel = new SavedScroll(computePanel);
+		Construct constructPanel = new Construct(savedPanel.getSavedPanel());
+		savedPanel.getSavedPanel().setConstructPanel(constructPanel);
 		
 		//create TabbedPanes and Left/Right Panels for SplitPane
 		JTabbedPane tabbedPaneTopLeft = createTabbedPaneTopLeft(constructPanel, computePanel);		
-		savedPanel.setTopLeftPane(tabbedPaneTopLeft); //set the pane to check when adding matrices
+		savedPanel.getSavedPanel().setTopLeftPane(tabbedPaneTopLeft); //set the pane to check when adding matrices
 		JTabbedPane tabbedPaneBottomLeft = createTabbedPaneBottomLeft(savedPanel);
 		JPanel leftPanel = createLeftPanel(tabbedPaneTopLeft, tabbedPaneBottomLeft);
 		JTabbedPane tabbedPaneRight = createTabbedPaneRight(solPanel, stepPanel);
@@ -77,7 +78,7 @@ public class AppFrame extends JFrame {
 		return tabbedPaneTopLeft;
 	}
 	
-	public final static JTabbedPane createTabbedPaneBottomLeft(Saved savedPanel) {
+	public final static JTabbedPane createTabbedPaneBottomLeft(SavedScroll savedPanel) {
 		JTabbedPane tabbedPaneBottomLeft = new JTabbedPane();
 		tabbedPaneBottomLeft.addTab("Saved Matrices", savedPanel);
 		tabbedPaneBottomLeft.setToolTipTextAt(0,"All your saved matrices are stored here");
