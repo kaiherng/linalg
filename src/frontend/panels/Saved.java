@@ -33,7 +33,7 @@ public class Saved extends JPanel {
 	int _width;
 	Compute _compute;
 	Construct _construct;
-	Character id = 'A';
+	String _id = "A";
 	JTabbedPane _topLeftPane;
 	CountableBlock _editing;
 
@@ -48,9 +48,11 @@ public class Saved extends JPanel {
 		addCountable("A", m);
 		addCountable("B", m);
 		addCountable("C", new Scalar(4.0, DisplayType.WHOLENUMBER));
-		for(int i = 0 ; i < 30 ; i++){
-//			addCountable("D", m);
+		
+		for(int i = 0 ; i < 40; i++){
+//			addCountable("A", m);
 		}
+		
 	}
 	
 	public void setConstructPanel(Construct c){
@@ -58,10 +60,10 @@ public class Saved extends JPanel {
 	}
 	
 	public void addCountable(String name, Countable m){
-		CountableBlock cblock = new CountableBlock(id.toString(), m, this);
-		cList.put(id.toString(), cblock);
+		CountableBlock cblock = new CountableBlock(_id, m, this);
+		cList.put(_id.toString(), cblock);
 		this.add(cblock);
-		id++;
+		_id = increment(_id);
 		this.revalidate();
 		this.repaint();
 	}
@@ -105,4 +107,17 @@ public class Saved extends JPanel {
 		_topLeftPane = pane;
 	}
 	
+	public String increment(String s) {
+		if(s.length() == 0){
+			return "A";
+		}
+		Character lastChar = s.charAt(s.length()-1);
+		if(lastChar != 'Z'){
+			lastChar++;
+			s = s.substring(0, s.length()-1) + lastChar.toString(); 
+		} else {
+			return increment(s.substring(0, s.length()-1)) + "A";
+		}
+		return s.toString();
+	}
 }
