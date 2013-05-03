@@ -3,6 +3,8 @@ package frontend.panels;
 import java.awt.Component;
 import java.awt.FlowLayout;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.geom.Rectangle2D;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -38,7 +40,6 @@ public class Saved extends JPanel {
 		this.setLayout(new WrapLayout(FlowLayout.LEFT));
 		this.setPreferredSize(this.getSize());
 		this.setBorder(CurrentConstants.SAVED_BORDER);
-		//this.setBackground(CurrentConstants.SAVED_BG);
 		_compute = c;
 		
 		cList = new HashMap<>();
@@ -50,14 +51,6 @@ public class Saved extends JPanel {
 	
 	public void setConstructPanel(Construct c){
 		_construct = c;
-	}
-	
-	public void paint(Graphics g){
-		super.paint(g);
-		Matrix m = new Matrix(DisplayType.DECIMAL, new Double[][]{{1.0,2.0},{3.0,4.0}});
-		CountableBlock mb = new CountableBlock("A", m, this);
-		mb.setLocation(0, 0);
-		mb.paint(g);
 	}
 	
 	public void addCountable(String name, Countable m){
