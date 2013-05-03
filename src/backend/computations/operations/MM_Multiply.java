@@ -59,7 +59,7 @@ public class MM_Multiply extends Computable {
 		String[][] bDisplay = matrixB.getDisplayValues();
 		
 		if(aValues.length != bValues[0].length){
-			throw new IllegalArgumentException("ERROR: Number of columns of first matrix must equal number of rows of second matrix");
+			throw new IllegalArgumentException("Number of columns of first matrix must equal number of rows of second matrix");
 		}
 		
 		// we will end up with two steps: an answer, and a matrix of strings showing how each index was calculated

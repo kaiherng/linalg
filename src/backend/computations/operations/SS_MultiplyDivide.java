@@ -12,7 +12,6 @@ import backend.blocks.Scalar;
 import backend.blocks.Countable.DisplayType;
 import backend.computations.infrastructure.Computable;
 import backend.computations.infrastructure.Solution;
-import backend.computations.infrastructure.Step;
 
 /**
  * Operation for multiplication or division of scalars

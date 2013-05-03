@@ -46,12 +46,17 @@ public class M_Rank extends Computable
 		Solution refsol=rowreduce.getSolution();
 		Matrix ref=(Matrix)(refsol.getAnswer());
 		Double[][] refv=ref.getValues();
-		steps.addAll(rowreduce.toLatex());
+		List<String> rrSteps = rowreduce.toLatex();
+		rrSteps.remove(0);
+		steps.add("\\vspace{10mm}\\mathrm{1. \\ Determine \\ the \\ row \\ reduced \\ echelon \\ form \\ of \\ the \\ matrix}");
+		for (String s : rrSteps){
+			steps.add("\\hspace{15mm}"+s);
+		}
 		//first zero row
 		int fzr=0;
 		int rank=0;
 		
-		steps.add("\\vspace{15mm} \\mathrm{Identify \\ pivot \\ columns}");
+		steps.add("\\vspace{15mm} \\mathrm{2. \\ Identify \\ pivot \\ columns}");
 		for (int i=0;i<refv.length;i++)
 		{
 			if (fzr>=refv[0].length)//beyond the last row
@@ -64,7 +69,7 @@ public class M_Rank extends Computable
 				{
 					fzr++;
 				}
-				steps.add("\\mathrm{Column \\ "+(i+1)+" \\ is \\ a \\ pivot \\ column.}");
+				steps.add("\\hspace{15mm} \\mathrm{Column \\ "+(i+1)+" \\ is \\ a \\ pivot \\ column.}");
 			}
 		}
 
@@ -73,7 +78,7 @@ public class M_Rank extends Computable
 		if (rank==1)
 			steps.add("\\vspace{15mm} \\mathrm{There \\ is \\ in \\ total \\ 1 \\ pivot \\ column \\ so \\ the \\ rank \\ is \\ 1}");
 		else
-			steps.add("\\vspace{15mm} \\mathrm{There \\ are \\ in \\ total} \\ "+answer.getDisplayValue()+" \\ \\mathrm{pivot \\ columns \\ so \\ the \\ rank \\ is} \\ "+answer.getDisplayValue());
+			steps.add("\\vspace{15mm} \\mathrm{There \\ are} \\ "+answer.getDisplayValue()+" \\ \\mathrm{pivot \\ columns; \\ the \\ rank \\ is} \\ "+answer.getDisplayValue());
 		List<Countable> inputs = new ArrayList<>();
 		inputs.add(matrix);
 
