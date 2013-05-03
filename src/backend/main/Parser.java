@@ -4,6 +4,7 @@ package backend.main;
 import java.util.ArrayList;
 import java.util.List;
 
+import matrixDraw.MatrixDraw;
 import backend.blocks.Bracket;
 import backend.blocks.Countable;
 import backend.blocks.Matrix;
@@ -60,11 +61,22 @@ public class Parser {
 	 */
 	public static ParseNode parse(List<Numerical> input) throws IllegalArgumentException {
 		checkValidInput(input);
+		if (input.size() == 1){
+			List<String> l = new ArrayList<>();
+			if (input.get(0) instanceof Scalar){
+				l.add("\\hspace{5mm} \\mathrm{Scalar \\ Value: \\}"+((Scalar) input.get(0)).getDisplayValue()+"\\vspace{10mm}");
+			}else{
+				MatrixDraw m = new MatrixDraw((Matrix) input.get(0));
+				l.add("\\hspace{5mm} \\mathrm{Matrix:\\vspace{15mm} \\ }"+m.getCorrectLatex(((Matrix) input.get(0)).getDisplayType()));
+			}
+			return new ParseNode(new Solution(null,null,(Countable) input.get(0),l),null,null);
+		}else{
 		Numerical operationTree = createSortedTree(input); 
 		ParseNode parseTree =  compute(operationTree);
 		ToComputeTreeNode toComputeRoot = new ToComputeTreeNode(null,null,null);
 		createToComputeStrings(parseTree,toComputeRoot,toComputeRoot);
 		return parseTree;
+		}
 	}
 	
 	
@@ -107,60 +119,55 @@ public class Parser {
 			switch (op){
 				// addition
 				case PLUS: {
-					return computePlusMinus(rootAsOp,true); // recursive call to compute in here
+					return computePlusMinus(rootAsOp,true); // recursive call to compute() in here
 				}
 				
 				// subtraction
 				case MINUS: {
-					return computePlusMinus(rootAsOp,false); // recursive call to compute in here
+					return computePlusMinus(rootAsOp,false); // recursive call to compute() in here
 				}
 				
 				// scalar multiplication
 				case MULTIPLY: {
-					return computeMultiply(rootAsOp); // recursive call to compute in here		
+					return computeMultiply(rootAsOp); // recursive call to compute() in here		
 				}
 				
 				// scalar division
 				case SS_DIVIDE: {
-					return computeScalarBinaryOp(rootAsOp,op); // recursive call to compute in here
+					return computeScalarDivide(rootAsOp); // recursive call to compute() in here
 				}
 				
 				// power
 				case POWER: {
-					return computePower(rootAsOp);
+					return computePower(rootAsOp); // recursive call to compute() in here
 				}
 				
 				// determinant
-				case DETERMINANT: { // recursive call to compute in here
+				case DETERMINANT: { // recursive call to compute() in here
 					return computeUnaryMatrixOp(rootAsOp,op);
 				}
 				
 				// row-reduction
-				case ROW_REDUCE: { // recursive call to compute in here
+				case ROW_REDUCE: { // recursive call to compute() in here
 					return computeUnaryMatrixOp(rootAsOp,op);
 				}
 				
 				// matrix rank
-				case M_RANK: { // recursive call to compute in here
+				case M_RANK: { // recursive call to compute() in here
 					return computeUnaryMatrixOp(rootAsOp,op);
 				}
 				
-				// matrix null space
-				case NULLSPACE: { // recursive call to compute in here
-					return null; // TODO
-				}
-				
 				// matrix transpose
-				case M_TRANSPOSE: { // recursive call to compute in here
+				case M_TRANSPOSE: { // recursive call to compute() in here
 					return computeUnaryMatrixOp(rootAsOp,op);
 				}
 				
 				// matrix inverse
-				case M_INVERSE: { // recursive call to compute in here
+				case M_INVERSE: { // recursive call to compute() in here
 					return computeUnaryMatrixOp(rootAsOp,op);
 				}
 				
-				case M_COLUMNSPACE: { // recursive call to compute in here
+				case M_COLUMNSPACE: { // recursive call to compute() in here
 					return computeUnaryMatrixOp(rootAsOp,op);
 				}
 				
@@ -178,9 +185,6 @@ public class Parser {
 			return null;
 		}
 	}
-	
-
-
 
 
 	/** 
@@ -350,7 +354,7 @@ public class Parser {
 			}else if(input.get(0) instanceof Bracket){
 				throw new IllegalArgumentException("ERROR: Unpaired bracket");
 			}else{
-				throw new IllegalArgumentException("ERROR: Require expression to compute"); // maybe don't need to throw expection for this
+				//throw new IllegalArgumentException("ERROR: Require expression to compute"); // maybe don't need to throw expection for this
 			}
 		}
 		
@@ -485,21 +489,20 @@ public class Parser {
 				}
 			}
 		} catch (Exception e) {
-			// TODO dzee, is this what I should do?
 			throw new IllegalArgumentException("ERROR: "+ e.getMessage());
 		}
 	}
 	
 	
 	/**
+	 * Computes a ParseNode containing the Solution and arguments to the Division operation
 	 * 
-	 * @param op
-	 * @param type
+	 * @param op the Operation to compute
 	 * @return the ParseNode containing the solution and arguments to <op>
 	 */
-	private static ParseNode computeScalarBinaryOp(Operation op, Op type){
+	private static ParseNode computeScalarDivide(Operation op){
 		if ((op.getFirstArg() == null || (op.getSecondArg() == null))){
-			throw new IllegalArgumentException("ERROR: "+ type.getName() + " requires two arguments"); // should be unreachable code
+			throw new IllegalArgumentException("ERROR: Division requires two arguments"); // should be unreachable code
 		}
 	
 		Numerical first = op.getFirstArg();           // this could return an Operation or a Countable
@@ -512,27 +515,20 @@ public class Parser {
 		Numerical arg2 = getNextArg(secondArg,second);
 		
 		if (!(arg1 instanceof Scalar) || !(arg2 instanceof Scalar)){
-			throw new IllegalArgumentException("ERROR: " + type.getName() + " arguments must be scalars"); // should be unreachable code
+			throw new IllegalArgumentException("ERROR: Divide arguments must be scalars"); // should be unreachable code
 		}
-		
-		switch (type){
-			case SS_DIVIDE:{
-				SS_MultiplyDivide multDiv = new SS_MultiplyDivide((Scalar) arg1, (Scalar) arg2,false); // calculate solution
-				Solution answer = multDiv.getSolution();					// get solution
-				return new ParseNode(answer,firstArg,secondArg);
-			}
-			default:{
-				System.err.println("ERROR: Parser.java : computeScalarBinaryOp -- unrecognized op"); // should be unreachable code
-				return null;
-			}
-		}
+
+		SS_MultiplyDivide multDiv = new SS_MultiplyDivide((Scalar) arg1, (Scalar) arg2,false); // calculate solution
+		Solution answer = multDiv.getSolution();					// get solution
+		return new ParseNode(answer,firstArg,secondArg);
 	}
 	
 	
 	/**
+	 * Computes a ParseNode containing the Solution and arguments to the Multiply operation
 	 * 
-	 * @param op
-	 * @return
+	 * @param op the Operation to compute
+	 * @return A ParseNode containing the Solution and arguments to <op>
 	 */
 	private static ParseNode computeMultiply(Operation op){
 		if ((op.getFirstArg() == null || (op.getSecondArg() == null))){
@@ -569,10 +565,12 @@ public class Parser {
 		}
 	}
 	
+	
 	/**
+	 * Computes a ParseNode containing the Solution and arguments to the Power operation
 	 * 
-	 * @param op
-	 * @return
+	 * @param op the Operation to compute
+	 * @return A ParseNode containing the Solution and arguments to <op>
 	 */
 	private static ParseNode computePower(Operation op){
 		if ((op.getFirstArg() == null || (op.getSecondArg() == null))){
@@ -602,11 +600,13 @@ public class Parser {
 		}
 	}
 	
+	
 	/**
+	 * Computes a ParseNode containing the Solution and arguments to the Plus or Minus operation
 	 * 
-	 * @param op
-	 * @param isPlus
-	 * @return
+	 * @param op the Operation to compute
+	 * @param isPlus true iff this is a plus operation, false iff this is a minus operation
+	 * @return A ParseNode containing the Solution and arguments to <op>
 	 */
 	private static ParseNode computePlusMinus(Operation op, boolean isPlus){
 		if ((op.getFirstArg() == null || (op.getSecondArg() == null))){
