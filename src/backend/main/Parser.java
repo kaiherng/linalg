@@ -18,6 +18,7 @@ import backend.computations.operations.MM_PlusMinus;
 import backend.computations.operations.MS_Multiply;
 import backend.computations.operations.M_Columnspace;
 import backend.computations.operations.M_Inverse;
+import backend.computations.operations.M_Power;
 import backend.computations.operations.M_Rank;
 import backend.computations.operations.M_RowReduce;
 import backend.computations.operations.M_Transpose;
@@ -176,7 +177,7 @@ public class Parser {
 				
 				// matrix power
 				case M_POWER: { // recursive call to compute in here
-					return null; // TODO
+					return computeMPower(rootAsOp);
 				}
 				
 				// matrix inverse
@@ -483,6 +484,36 @@ public class Parser {
 			answer = mult.getSolution();
 		}
 
+		return new ParseNode(answer,firstArg,secondArg);
+	}
+	
+	
+	/**
+	 * Computes the ParseNode for M_Power
+	 * 
+	 * @param op the M_Power operation to compute
+	 * @return the Parsenode containing the solution and the arguments to the M_Power operation
+	 */
+	private static ParseNode computeMPower(Operation op){
+		if ((op.getFirstArg() == null || (op.getSecondArg() == null))){
+			throw new IllegalArgumentException("ERROR: M_Power requires two arguments"); // should be unreachable code
+		}
+	
+		Numerical first = op.getFirstArg();     // this could return an Operation or a Countable
+		Numerical second = op.getSecondArg();
+		
+		ParseNode firstArg = compute(first);          // this will return null if passed a Countable
+		ParseNode secondArg= compute(second);
+		
+		Numerical arg1 = getNextArg(firstArg,first);  // b/c we need to actually compute, gets the Countable arguments
+		Numerical arg2 = getNextArg(secondArg,second);
+		
+		if ((arg1 instanceof Scalar) || (arg2 instanceof Matrix)){
+			throw new IllegalArgumentException("ERROR: Scalar power arguments must include one scalar and one matrix"); // should be unreachable code
+		}
+
+		M_Power pow = new M_Power((Matrix) arg1, (Scalar) arg2); // calculate solution
+		Solution answer = pow.getSolution();
 		return new ParseNode(answer,firstArg,secondArg);
 	}
 	
