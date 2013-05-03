@@ -1,7 +1,6 @@
 package frontend.panels;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -15,11 +14,9 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 
 import backend.blocks.Countable;
 import backend.blocks.Numerical;
@@ -36,7 +33,7 @@ import frontend.utils.WrapLayout;
 public class Compute extends JPanel {
 
 	Map<Integer, Numerical> _numericals;
-	JPanel _computeBar, _pages, _ops, _bar;
+	JPanel _computeBar, _ops, _bar;
 	Integer _id = 0;
 	Solution _solPanel;
 	Solution _stepPanel;
@@ -51,7 +48,6 @@ public class Compute extends JPanel {
 		_computeBar.setBackground(CurrentConstants.COMPUTE_BAR_BG);
 		_computeBar.setBorder(CurrentConstants.COMPUTE_BAR_BORDER);
 		
-		_pages = new JPanel(new GridLayout(3, 1));
 		_computeBar.setBackground(CurrentConstants.COMPUTE_PAGES_BG);
 		_computeBar.setBorder(CurrentConstants.COMPUTE_PAGES_BORDER);
 		
@@ -63,17 +59,20 @@ public class Compute extends JPanel {
 		JPanel buttonPanel = new JPanel();
 		buttonPanel.setBackground(CurrentConstants.COMPUTE_BUTTON_PANEL_BG);
 		buttonPanel.setBorder(CurrentConstants.COMPUTE_BUTTON_PANEL_BORDER);
-		JButton computeButton = new Button("Compute");
-		JButton clearButton = new Button("Clear");
+		buttonPanel.setLayout(new BorderLayout());
+		
+		JButton computeButton = new Button("Compute", CurrentConstants.BUTTON_COMPUTE_BG, CurrentConstants.BUTTON_COMPUTE_FG, CurrentConstants.BUTTON_COMPUTE_HOVER_BG, CurrentConstants.BUTTON_COMPUTE_HOVER_FG, CurrentConstants.BUTTON_COMPUTE_PRESSED_BG, CurrentConstants.BUTTON_COMPUTE_PRESSED_FG, CurrentConstants.BUTTON_COMPUTE_BORDER);
+		JButton clearButton = new Button("Clear", CurrentConstants.BUTTON_CLEAR_BG, CurrentConstants.BUTTON_CLEAR_FG, CurrentConstants.BUTTON_CLEAR_HOVER_BG, CurrentConstants.BUTTON_CLEAR_HOVER_FG, CurrentConstants.BUTTON_CLEAR_PRESSED_BG, CurrentConstants.BUTTON_CLEAR_PRESSED_FG, CurrentConstants.BUTTON_CLEAR_BORDER);
+		
 		clearButton.addActionListener(new ClearButtonListener(this));
 		computeButton.addActionListener(new SolButtonListener(this));
 		_computeBar.add(buttonPanel, BorderLayout.EAST);
-		buttonPanel.add(clearButton);
-		buttonPanel.add(computeButton);
+		buttonPanel.add(clearButton, BorderLayout.EAST);
+		buttonPanel.add(computeButton, BorderLayout.WEST);
 		JPanel scrollPanel = new JPanel(new BorderLayout());
 		scrollPanel.setBackground(CurrentConstants.COMPUTE_BAR_SCROLLPANEL_BG);
 		scrollPanel.setBorder(CurrentConstants.COMPUTE_BAR_SCROLLPANEL_BORDER);
-		scrollPanel.setPreferredSize(new Dimension(100,55));
+		scrollPanel.setPreferredSize(CurrentConstants.COMPUTE_BAR_SCROLLPANEL_SIZE);
 		_bar = new JPanel(new FlowLayout(FlowLayout.LEFT));
 		ScrollPane scrollBar = new ScrollPane(_bar);
 		scrollBar.setBackground(CurrentConstants.COMPUTE_BAR_SCROLL_PANE_BG);
@@ -84,13 +83,6 @@ public class Compute extends JPanel {
 		_bar.setBorder(CurrentConstants.COMPUTE_BAR_SCROLLPANE_BAR_BORDER);
 		_computeBar.add(scrollPanel, BorderLayout.CENTER);
 		
-		//pages
-		JButton rank0Button = new Button("Rank 0");
-		JButton rank1Button = new Button("Rank 1");
-		JButton rank2Button = new Button("Rank 2");
-		_pages.add(rank0Button);
-		_pages.add(rank1Button);
-		_pages.add(rank2Button);
 		
 		//operations
 		for(Op o : Op.values()){
@@ -101,7 +93,6 @@ public class Compute extends JPanel {
 		_ops.add(new BracketBlock(false, this));
 				
 		this.add(_computeBar, BorderLayout.SOUTH);
-		//this.add(_pages, BorderLayout.WEST);
 		this.add(_ops, BorderLayout.CENTER);
 	}
 	
