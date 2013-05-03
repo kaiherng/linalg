@@ -22,20 +22,33 @@ public class Solution extends JPanel {
 	TeXIcon _ti;
 	JLabel _label;
 	SolutionScroll _scroll;
+	int _size = 20;
 
-	public Solution(SolutionScroll scroll){
+	public Solution(){
 		this.setLayout(new BorderLayout());
 //		setBackground(CurrentConstants.SOLUTION_BG);
 		setBorder(CurrentConstants.SOLUTION_BORDER);
 		TeXFormula formula = new TeXFormula("\\text{Solutions will be displayed here}");
-		_ti = formula.createTeXIcon(TeXConstants.STYLE_DISPLAY, 20);
+		_ti = formula.createTeXIcon(TeXConstants.STYLE_DISPLAY, _size);
 		_label = new JLabel();
-		_scroll = scroll;
+//		_scroll = scroll;
 		this.add(_label, BorderLayout.CENTER);
 	}
 	
-	public void paint(Graphics g){
-		super.paint(g);
+	public Solution(int size){
+		_size = size;
+		this.setLayout(new BorderLayout());
+//		setBackground(CurrentConstants.SOLUTION_BG);
+		setBorder(CurrentConstants.SOLUTION_BORDER);
+		TeXFormula formula = new TeXFormula("\\text{Solutions will be displayed here}");
+		_ti = formula.createTeXIcon(TeXConstants.STYLE_DISPLAY, _size);
+		_label = new JLabel();
+//		_scroll = scroll;
+		this.add(_label, BorderLayout.CENTER);
+	}
+	
+	public void paintComponent(Graphics g){
+		super.paintComponent(g);
 		_ti.paintIcon(_label, g, 5, 0);
 	}
 	
@@ -44,10 +57,9 @@ public class Solution extends JPanel {
 	}
 	
 	public void setTex(String tex){
-		System.out.println(tex);
 		TeXFormula formula = new TeXFormula(tex);
-		_ti = formula.createTeXIcon(TeXConstants.STYLE_DISPLAY, 20);
-		_scroll.resetScroll();
+		_ti = formula.createTeXIcon(TeXConstants.STYLE_DISPLAY, _size);
+//		_scroll.resetScroll();
 		this.setPreferredSize(new Dimension(_ti.getIconWidth(), _ti.getIconHeight()));
 		this.revalidate();
 		this.repaint();

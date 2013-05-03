@@ -35,10 +35,11 @@ public class Compute extends JPanel {
 	Map<Integer, Numerical> _numericals;
 	JPanel _computeBar, _ops, _bar;
 	Integer _id = 0;
-	Solution _solPanel;
+	StepSolution _solPanel;
 	Solution _stepPanel;
 	
-	public Compute(Solution sol, Solution step) {
+	public Compute(StepSolution sol, Solution step) {
+		super();
 		_numericals = new LinkedHashMap<>();
 		_solPanel = sol;
 		_stepPanel = step;
@@ -114,7 +115,6 @@ public class Compute extends JPanel {
 	public void compute(){
 		List<Numerical> l = new ArrayList<>();
 		for(Numerical n : _numericals.values()){
-			System.out.println(n.getName());
 			l.add(n);
 		}
 		try{
@@ -122,40 +122,53 @@ public class Compute extends JPanel {
 			if(result == null){
 				String s = "\\text{No solution found}";
 				_stepPanel.setTex(s);
-				_solPanel.setTex(s);
+				//_solPanel.setTex(s);
 				return;
 			}
 			Countable answer = result.getSolution().getAnswer();
-			_solPanel.setTex(answer.toLatex());
 			
 			//DFS for each child .getsolution().getsteps();
 			
 			List<String> ls = result.getSolution().getLatex();
 			
-			StringBuilder sb = new StringBuilder();
-			_stepPanel.setTex(traverseTree(result, sb).toString());
+			List<List<String>> list = new ArrayList<>();
+			list.add(new ArrayList<String>());
+			list.add(new ArrayList<String>());
+			_solPanel.setSolution(traverseTree(result, list), result.getSolution().getAnswer().toLatex());
+			//_stepPanel.setTex(traverseTree(result, list).toString());
 		} catch (IllegalArgumentException e){
 			System.out.println(e.getMessage());
-			_solPanel.setTex("\\text{" + e.getMessage() + "}");
+//			_solPanel.setTex("\\text{" + e.getMessage() + "}");
 			_stepPanel.setTex("\\text{" + e.getMessage() + "}");
 		}
 	}
 	
-	public StringBuilder traverseTree(ParseNode n, StringBuilder sb){
+	public List<List<String>> traverseTree(ParseNode n, List<List<String>> list){
 		if(n.getLeft() != null){
-			String toAdd = traverseTree(n.getLeft(), new StringBuilder()).toString();
-			sb.append(toAdd);
+			List<List<String>> toAdd = traverseTree(n.getLeft(), list);
+			list.get(1).addAll(toAdd.get(1));
+			list.get(0).addAll(toAdd.get(0));
 		}
 		if(n.getRight() != null){
-			String toAdd = traverseTree(n.getRight(), new StringBuilder()).toString();
-			sb.append(toAdd);
+			List<List<String>> toAdd = traverseTree(n.getRight(), list);
+			list.get(1).addAll(toAdd.get(1));
+			list.get(0).addAll(toAdd.get(0));
 		}
-		List<String> list = n.getSolution().getLatex();
-		for(String s : list){
+		
+		List<String> nList = n.getSolution().getLatex();
+		StringBuilder sb = new StringBuilder();
+		for(String s : nList){
 			sb.append(s);
 			sb.append("\\\\");
 		}
-		return sb;
+		list.get(1).add(sb.toString());
+		try {
+			list.get(0).add(n.getComputeString());
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return list;
 	}
 	
 	private class BarObject extends JPanel implements MouseListener{
@@ -220,7 +233,7 @@ public class Compute extends JPanel {
 		public void actionPerformed(ActionEvent arg0) {
 			_c.clearBar();
 			_stepPanel.clear();
-			_solPanel.clear();
+//			_solPanel.clear();
 		}
 		
 	}

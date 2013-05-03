@@ -38,6 +38,7 @@ public class Saved extends JPanel {
 	CountableBlock _editing;
 
 	public Saved(Compute c) {
+		super();
 		this.setLayout(new WrapLayout(FlowLayout.LEFT));
 		//this.setPreferredSize(this.getSize());
 		this.setBorder(CurrentConstants.SAVED_BORDER);

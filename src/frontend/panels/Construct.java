@@ -7,6 +7,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.Rectangle;
+import java.awt.RenderingHints;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ComponentEvent;
@@ -160,6 +161,8 @@ public class Construct extends JPanel {
 	public void paintComponent(Graphics g){
 		super.paintComponent(g);
 		Graphics2D g2 = (Graphics2D) g;
+		//antialiasing text
+		g2.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
 		
 		if(_drawing){
 			g2.setColor(CurrentConstants.CONSTRUCT_GRID_LIGHT);
@@ -215,6 +218,7 @@ public class Construct extends JPanel {
 					}
 				}
 			}
+			
 			
 			for(int i = 0; i <= _mSize.get(0); i++){
 				for(int j = 0 ; j <= _mSize.get(1); j++){

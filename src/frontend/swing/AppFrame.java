@@ -23,6 +23,7 @@ import frontend.panels.Construct;
 import frontend.panels.Saved;
 import frontend.panels.SavedScroll;
 import frontend.panels.SolutionScroll;
+import frontend.panels.StepSolution;
 import frontend.utils.ResizeAdapter;
 
 /**
@@ -46,18 +47,20 @@ public class AppFrame extends JFrame {
 		
 		//Create Panels
 		SolutionScroll solPanel = new SolutionScroll();
+		StepSolution stepSol = new StepSolution();
 		SolutionScroll stepPanel = new SolutionScroll();
-		Compute computePanel = new Compute(solPanel.getSolPanel(), stepPanel.getSolPanel());
+		Compute computePanel = new Compute(stepSol, stepPanel.getSolPanel());
 		SavedScroll savedPanel = new SavedScroll(computePanel);
 		Construct constructPanel = new Construct(savedPanel.getSavedPanel());
 		savedPanel.getSavedPanel().setConstructPanel(constructPanel);
+		stepSol.setSavedPanel(savedPanel.getSavedPanel());
 		
 		//create TabbedPanes and Left/Right Panels for SplitPane
 		JTabbedPane tabbedPaneTopLeft = createTabbedPaneTopLeft(constructPanel, computePanel);		
 		savedPanel.getSavedPanel().setTopLeftPane(tabbedPaneTopLeft); //set the pane to check when adding matrices
 		JTabbedPane tabbedPaneBottomLeft = createTabbedPaneBottomLeft(savedPanel);
 		JPanel leftPanel = createLeftPanel(tabbedPaneTopLeft, tabbedPaneBottomLeft);
-		JTabbedPane tabbedPaneRight = createTabbedPaneRight(solPanel, stepPanel);
+		JTabbedPane tabbedPaneRight = createTabbedPaneRight(stepSol, stepPanel);
 		JPanel rightPanel = createRightPanel(tabbedPaneRight);
 		
 		//create splitPane
@@ -91,7 +94,7 @@ public class AppFrame extends JFrame {
 		return tabbedPaneBottomLeft;
 	}
 	
-	public final static JTabbedPane createTabbedPaneRight(SolutionScroll solPanel, SolutionScroll stepPanel) {
+	public final static JTabbedPane createTabbedPaneRight(StepSolution solPanel, SolutionScroll stepPanel) {
 		JTabbedPane tabbedPaneRight = new JTabbedPane();
 		tabbedPaneRight.addTab("Solution", solPanel);
 		
