@@ -43,7 +43,7 @@ public class M_Inverse extends Computable
 		}
 
 		if (values.length!=values[0].length)
-			throw new IllegalArgumentException("ERROR (Inverse): Matrix must have the same number of columns and rows");
+			throw new IllegalArgumentException("Matrix must have the same number of columns and rows");
 
 		//calculate the determinant of the matrix
 		Determinant determinant=new Determinant(matrix);
@@ -54,7 +54,7 @@ public class M_Inverse extends Computable
 		if (values.length==1 && values[0].length==1)
 		{
 			if (values[0][0]==0)
-				throw new Exception("ERROR (Inverse): Determinant of matrix is 0");
+				throw new Exception("Determinant of matrix is 0");
 
 			Double[][] d=new Double[1][1];
 			d[0][0]=1/values[0][0];
@@ -72,7 +72,7 @@ public class M_Inverse extends Computable
 		double det=((Scalar)(sol.getAnswer())).getValue();
 		//determinant cannot be 0
 		if (det==0)
-			throw new Exception("ERROR (Inverse): Determinant of matrix is 0");
+			throw new Exception("Determinant of matrix is 0");
 
 		//calculate cofactor matrix
 		Double[][] cofactor=new Double[values.length][values.length];
