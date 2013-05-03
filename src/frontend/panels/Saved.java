@@ -25,7 +25,7 @@ public class Saved extends JPanel {
 	 * 
 	 */
 	private static final long serialVersionUID = -1865676655486491262L;
-	Map<String, Countable> cList;
+	Map<String, CountableBlock> cList;
 	JScrollPane _scroll;
 	JPanel _content;
 	int _width;
@@ -33,12 +33,12 @@ public class Saved extends JPanel {
 	Construct _construct;
 	Character id = 'A';
 	JTabbedPane _topLeftPane;
+	CountableBlock _editing;
 
 	public Saved(Compute c) {
 		this.setLayout(new WrapLayout(FlowLayout.LEFT));
 		this.setPreferredSize(this.getSize());
 		this.setBorder(CurrentConstants.SAVED_BORDER);
-		//this.setBackground(CurrentConstants.SAVED_BG);
 		_compute = c;
 		
 		cList = new HashMap<>();
@@ -61,21 +61,39 @@ public class Saved extends JPanel {
 	}
 	
 	public void addCountable(String name, Countable m){
-		cList.put(name, m);
-		//this.add(new MatrixBlock(name, m, this));
-		this.add(new CountableBlock(id.toString(), m, this));
+		CountableBlock cblock = new CountableBlock(id.toString(), m, this);
+		cList.put(id.toString(), cblock);
+		this.add(cblock);
 		id++;
 		this.revalidate();
 		this.repaint();
 	}
 	
-	public void addToBar(Numerical n, String s){
+	public void replaceCountable(String name, Countable m){
+		cList.get(name).setCountable(m);
+		cList.get(name).doneEditing();
+		this.revalidate();
+		this.repaint();
+	}
+	
+	public void addToBar(Numerical n, String s, CountableBlock cb){
 		if(_topLeftPane.getSelectedIndex() == 1){
 			_compute.addToBar(n, s);
 		} else {
 			if(n.getName().equals("MATRIX")){
-				_construct.editMatrix((Matrix) n);
+				if(_editing != null){
+					_editing.doneEditing();
+				}
+				_construct.editMatrix((Matrix) n, s);
+				_editing = cb;
+				cb.setEditing();
 			}
+		}
+	}
+	
+	public void clear(){
+		if(_editing != null){
+			_editing.doneEditing();
 		}
 	}
 	

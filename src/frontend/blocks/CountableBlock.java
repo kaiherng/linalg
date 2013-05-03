@@ -66,19 +66,35 @@ public class CountableBlock extends JPanel {
 		this.setToolTipText(_name);
 	}
 	
+	public void setCountable(Countable c){
+		_countable = c;
+	}
+	
+	public Countable getCountable(){
+		return _countable;
+	}
+	
+	public void setEditing(){
+		this.setBackground(Color.green);
+	}
+	
+	public void doneEditing(){
+		this.setBackground(CurrentConstants.COUNTABLE_BLOCK_BG);
+	}
+	
 	private class Click extends MouseAdapter{
 		
-		Component _c;
+		CountableBlock _c;
 		
-		public Click(Component c){
+		public Click(CountableBlock c){
 			_c = c;
 		}
 		
-		public void mouseClicked(MouseEvent e){
+		public void mousePressed(MouseEvent e){
 			if(_delete.getBounds().contains(e.getPoint())){
 				_s.deleteCountable(_name, _c);
 			} else {
-				_s.addToBar(_countable, _name);
+				_s.addToBar(_countable, _name, _c);
 			}
 		}
 	}

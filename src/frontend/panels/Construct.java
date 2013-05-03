@@ -46,6 +46,8 @@ public class Construct extends JPanel {
 	Map<String, String> _values;
 	boolean _drawn;
 	boolean _drawing;
+	boolean _editing;
+	String _currentEdit;
 	Saved _save;
 	String _sizeIndicator;
 	Point _mouseLocation;
@@ -108,6 +110,7 @@ public class Construct extends JPanel {
 	}
 	
 	public void clear(){
+		_editing = false;
 		_drawn = false;
 		_drawing = false;
 		_mSize.clear();
@@ -116,10 +119,11 @@ public class Construct extends JPanel {
 		_selected.clear();
 		_values.clear();
 		_offset.clear();
+		_save.clear();
 		this.repaint();
 	}
 	
-	public void editMatrix(Matrix m){
+	public void editMatrix(Matrix m, String s){
 		clear();
 		Double[][] values = m.getValues();
 		for(int i = 0; i < values.length; i++){
@@ -127,6 +131,8 @@ public class Construct extends JPanel {
 				_values.put("[" + i + ", " + j + "]", values[i][j].toString());
 			}
 		}
+		_editing = true;
+		_currentEdit = s;
 		_mSize.clear();
 		_offset.clear();
 		_mSize.add(values.length-1);
@@ -448,7 +454,12 @@ public class Construct extends JPanel {
 					mValues[i][j] = Double.parseDouble(_values.get("[" + i + ", " + j + "]"));
 				}
 			}
-			_save.addCountable("A", new Matrix(DisplayType.DECIMAL, mValues));
+			if(_editing){
+				_save.replaceCountable(_currentEdit, new Matrix(DisplayType.DECIMAL, mValues));
+				_editing = false;
+			} else {
+				_save.addCountable("A", new Matrix(DisplayType.DECIMAL, mValues));
+			}
 			_c.clear();
 		}
 	}
@@ -479,6 +490,9 @@ public class Construct extends JPanel {
 		public void actionPerformed(ActionEvent arg0) {
 			String s = (String)JOptionPane.showInputDialog("Enter the value of the scalar");
 			Double value;
+			if(s == null){
+				return;
+			}
 			try{
 				value = Double.parseDouble(s);
 			} catch (NumberFormatException e){
@@ -534,6 +548,9 @@ public class Construct extends JPanel {
 		public void actionPerformed(ActionEvent arg0) {
 			String s = (String)JOptionPane.showInputDialog("Enter value to fill in");
 			Double value;
+			if(s == null){
+				return;
+			}
 			try{
 				value = Double.parseDouble(s);
 			} catch (NumberFormatException e){

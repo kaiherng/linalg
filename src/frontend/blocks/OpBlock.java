@@ -8,6 +8,7 @@ import javax.swing.JPanel;
 
 import backend.blocks.Op;
 import backend.blocks.Operation;
+import backend.computations.operations.Multiply;
 import frontend.panels.Compute;
 import frontend.swing.CurrentConstants;
 

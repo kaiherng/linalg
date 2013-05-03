@@ -67,48 +67,6 @@ public enum Op {
 		return _name;
 	}
 	
-	//TODO get rid of this?
-	public String getIcon(Op o){
-		switch(o){
-		case SS_PLUS:
-			return "S+S";
-		case SS_MINUS:
-			return "S-S";
-		case SS_DIVIDE:
-			return "S/S";
-		case MM_PLUS:
-			return "M+M";
-		case MM_MINUS:
-			return "M-M";
-		case SS_MULTIPLY:
-			return "S*S";
-		case MM_MULTIPLY:
-			return "M*M";
-		case SM_MULTIPLY:
-			return "S*M";
-		case DETERMINANT:
-			return "det";
-		case ROW_REDUCE:
-			return "RR";
-		case M_COLUMNSPACE:
-			return "CS";
-		case M_INVERSE:
-			return "INV";
-		case M_POWER:
-			return "^";
-		case M_RANK:
-			return "R";
-		case NULLSPACE:
-			return "NS";
-		case M_TRANSPOSE:
-			return "T";
-		case S_POWER:
-			return "S^";
-		default:
-			return "?";
-		}
-	}
-	
 	/**
 	 * Get's the icon for this enum
 	 * 
