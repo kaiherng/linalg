@@ -17,6 +17,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.font.TextAttribute;
 import java.awt.font.TextLayout;
+import java.math.BigDecimal;
 import java.text.AttributedString;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -128,7 +129,15 @@ public class Construct extends JPanel {
 		Double[][] values = m.getValues();
 		for(int i = 0; i < values.length; i++){
 			for(int j = 0; j < values[0].length; j++){
-				_values.put("[" + i + ", " + j + "]", values[i][j].toString());
+				Double d = values[i][j];
+				BigDecimal bd = new BigDecimal(Double.valueOf(d));
+				String val;
+				if(bd.intValue() - bd.doubleValue() == new Double(0)){
+					val = ((Integer) bd.intValue()).toString();
+				} else {
+					val = Double.toString(d);
+				}
+				_values.put("[" + i + ", " + j + "]", val);
 			}
 		}
 		_editing = true;
@@ -475,16 +484,22 @@ public class Construct extends JPanel {
 				}
 			}
 			Double[][] mValues = new Double[_mSize.get(0)+1][_mSize.get(1)+1];
+			DisplayType dt = DisplayType.WHOLENUMBER;
 			for(int i = 0; i <= _mSize.get(0); i++){
 				for(int j = 0; j <= _mSize.get(1); j++){
-					mValues[i][j] = Double.parseDouble(_values.get("[" + i + ", " + j + "]"));
+					Double d = Double.parseDouble(_values.get("[" + i + ", " + j + "]"));
+					mValues[i][j] = d;
+					BigDecimal bd = new BigDecimal(Double.valueOf(d));
+					if(!(bd.intValue() - bd.doubleValue() == new Double(0))){
+						dt = DisplayType.DECIMAL;
+					}
 				}
 			}
 			if(_editing){
-				_save.replaceCountable(_currentEdit, new Matrix(DisplayType.DECIMAL, mValues));
+				_save.replaceCountable(_currentEdit, new Matrix(dt, mValues));
 				_editing = false;
 			} else {
-				_save.addCountable("A", new Matrix(DisplayType.DECIMAL, mValues));
+				_save.addCountable("A", new Matrix(dt, mValues));
 			}
 			_c.clear();
 		}
