@@ -6,6 +6,7 @@ import java.awt.Component;
 import java.awt.GridBagLayout;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.math.BigDecimal;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -27,7 +28,6 @@ public class CountableBlock extends JPanel {
 	String _name;
 	Countable _countable;
 	JLabel _delete, _label;
-	private JPanel _northPanel;
 	
 	/**
 	 * Name is ignored for scalars
@@ -57,9 +57,15 @@ public class CountableBlock extends JPanel {
 			_label.setFont(CurrentConstants.COUNTABLE_BLOCK_LABEL_MATRIX_FONT);
 		} else if(c.getName().equals("SCALAR")){
 			Scalar s = (Scalar) c;
-			_label = new JLabel(Double.toString(s.getValue()));
+			Double d = s.getValue();
+			BigDecimal bd = new BigDecimal(Double.valueOf(d));
+			if(bd.intValue() - bd.doubleValue() == new Double(0)){
+				_name = ((Integer) bd.intValue()).toString();
+			} else {
+				_name = Double.toString(s.getValue());
+			}
+			_label = new JLabel(_name);
 			_label.setFont(CurrentConstants.COUNTABLE_BLOCK_LABEL_SCALAR_FONT);
-			_name = Double.toString(s.getValue());
 		}
 		_label.setOpaque(false);
 		_label.setForeground(CurrentConstants.COUNTABLE_BLOCK_LABEL_FG);

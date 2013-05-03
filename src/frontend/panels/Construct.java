@@ -157,7 +157,7 @@ public class Construct extends JPanel {
 				}
 			}
 			g2.setColor(CurrentConstants.CONSTRUCT_GRID_DARK);
-			g2.drawString(_sizeIndicator, _mouseLocation.x + 10, _mouseLocation.y + 10);
+			g2.drawString(_sizeIndicator, _mouseLocation.x + 10, _mouseLocation.y + 30);
 		}
 		
 		if(_drawn){
@@ -397,7 +397,9 @@ public class Construct extends JPanel {
 					sb.append(arg0.getKeyChar());
 				//period
 				} else if(keyCode == 110 || keyCode == 46){
-					sb.append(".");
+					if(sb.indexOf(".") == -1){
+						sb.append(".");
+					}
 				//backspace
 				} else if(keyCode == 8){
 					if(sb.length() > 0){
