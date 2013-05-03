@@ -129,13 +129,10 @@ public class Compute extends JPanel {
 			
 			//DFS for each child .getsolution().getsteps();
 			
-			List<String> ls = result.getSolution().getLatex();
-			
 			List<List<String>> list = new ArrayList<>();
 			list.add(new ArrayList<String>());
 			list.add(new ArrayList<String>());
 			_solPanel.setSolution(traverseTree(result, list), result.getSolution().getAnswer().toLatex());
-			//_stepPanel.setTex(traverseTree(result, list).toString());
 		} catch (IllegalArgumentException e){
 			System.out.println(e.getMessage());
 //			_solPanel.setTex("\\text{" + e.getMessage() + "}");
@@ -143,6 +140,14 @@ public class Compute extends JPanel {
 		}
 	}
 	
+	/**
+	 * Solutions are stored in a list of list of strings
+	 * list 0 is for the computeString
+	 * list 1 is for the concatenated steps strings
+	 * @param n
+	 * @param list
+	 * @return
+	 */
 	public List<List<String>> traverseTree(ParseNode n, List<List<String>> list){
 		if(n.getLeft() != null){
 			List<List<String>> toAdd = traverseTree(n.getLeft(), list);
@@ -155,6 +160,7 @@ public class Compute extends JPanel {
 			list.get(0).addAll(toAdd.get(0));
 		}
 		
+		//put all strings in the step list into one long string
 		List<String> nList = n.getSolution().getLatex();
 		StringBuilder sb = new StringBuilder();
 		for(String s : nList){
@@ -162,10 +168,11 @@ public class Compute extends JPanel {
 			sb.append("\\\\");
 		}
 		list.get(1).add(sb.toString());
+		
+		//add the computeString to list 0
 		try {
 			list.get(0).add(n.getComputeString());
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return list;
