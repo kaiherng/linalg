@@ -91,9 +91,9 @@ public class MM_PlusMinus extends Computable {
 
 		List<String> latex = toLatex();
 		if (isPlus){
-			_solution = new Solution(Op.MM_PLUS,matrixList, _step2Matrix, latex);
+			_solution = new Solution(Op.PLUS,matrixList, _step2Matrix, latex);
 		}else{
-			_solution = new Solution(Op.MM_MINUS,matrixList, _step2Matrix, latex);
+			_solution = new Solution(Op.MINUS,matrixList, _step2Matrix, latex);
 		}
 	}
 

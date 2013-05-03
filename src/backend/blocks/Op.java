@@ -7,8 +7,8 @@ package backend.blocks;
  */
 public enum Op {
 	// rank 2 operations
-	SS_PLUS(2,false,"SS_PLUS"),   MM_PLUS(2,false,"MM_PLUS"),
-	SS_MINUS(2,false,"SS_MINUS"), MM_MINUS(2,false,"MM_MINUS"),
+	PLUS(2,false,"PLUS"),
+	MINUS(2,false,"MINUS"),
 	
 	//rank 1 operations
 	SS_MULTIPLY(1,false,"SS_TIMES"), MM_MULTIPLY(1,false,"MM_TIMES"), 
@@ -74,16 +74,12 @@ public enum Op {
 	 */
 	public String getIcon2(){
 		switch(this){
-		case SS_PLUS:
-			return "S+S";
-		case SS_MINUS:
-			return "S-S";
+		case PLUS:
+			return "+";
+		case MINUS:
+			return "-";
 		case SS_DIVIDE:
 			return "S/S";
-		case MM_PLUS:
-			return "M+M";
-		case MM_MINUS:
-			return "M-M";
 		case SS_MULTIPLY:
 			return "S*S";
 		case MM_MULTIPLY:

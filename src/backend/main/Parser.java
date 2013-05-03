@@ -105,24 +105,14 @@ public class Parser {
 			Operation rootAsOp = (Operation) root;
 			Op op = rootAsOp.getType();
 			switch (op){
-				// matrix addition
-				case MM_PLUS: {
-					return computeMatrixBinaryOp(rootAsOp,op); // recursive call to compute in here
+				// addition
+				case PLUS: {
+					return computePlusMinus(rootAsOp,true); // recursive call to compute in here
 				}
 				
-				// matrix subtraction
-				case MM_MINUS: {
-					return computeMatrixBinaryOp(rootAsOp,op); // recursive call to compute in here
-				}
-				
-				//scalar addition
-				case SS_PLUS: {
-					return computeScalarBinaryOp(rootAsOp,op); // recursive call to compute in here			
-				}
-				
-				// scalar subtraction
-				case SS_MINUS: {
-					return computeScalarBinaryOp(rootAsOp,op); // recursive call to compute in here			
+				// subtraction
+				case MINUS: {
+					return computePlusMinus(rootAsOp,false); // recursive call to compute in here
 				}
 				
 				// scalar multiplication
@@ -204,6 +194,7 @@ public class Parser {
 			return null;
 		}
 	}
+	
 	
 
 
@@ -616,16 +607,6 @@ public class Parser {
 					Solution answer = mult.getSolution();	
 					return new ParseNode(answer,firstArg,secondArg);
 				}
-				case MM_MINUS:{
-					MM_PlusMinus minus = new MM_PlusMinus((Matrix) arg1, (Matrix) arg2,false); // calculate solution
-					Solution answer = minus.getSolution();					// get solution
-					return new ParseNode(answer,firstArg,secondArg);
-				}
-				case MM_PLUS:{
-					MM_PlusMinus plus = new MM_PlusMinus((Matrix) arg1, (Matrix) arg2,true); // calculate solution
-					Solution answer = plus.getSolution();					// get solution
-					return new ParseNode(answer,firstArg,secondArg);
-				}
 				default:{
 					System.err.println("ERROR: Parser.java : computeUnaryMatrix -- unrecognized op"); // should be unreachable code
 					return null;
@@ -673,16 +654,6 @@ public class Parser {
 				Solution answer = multDiv.getSolution();					// get solution
 				return new ParseNode(answer,firstArg,secondArg);
 			}
-			case SS_PLUS:{
-				SS_PlusMinus plus = new SS_PlusMinus((Scalar) arg1, (Scalar) arg2,true); // calculate solution
-				Solution answer = plus.getSolution();					// get solution
-				return new ParseNode(answer,firstArg,secondArg);	
-			}
-			case SS_MINUS:{
-				SS_PlusMinus plus = new SS_PlusMinus((Scalar) arg1, (Scalar) arg2,false); // calculate solution
-				Solution answer = plus.getSolution();					// get solution
-				return new ParseNode(answer,firstArg,secondArg);				
-			}
 			case S_POWER:{
 				S_Power pow = new S_Power((Scalar) arg1, (Scalar) arg2);
 				Solution answer = pow.getSolution();
@@ -694,5 +665,48 @@ public class Parser {
 			}
 		}
 	}
+	
+	
+	
+	/**
+	 * 
+	 * @param op
+	 * @param isPlus
+	 * @return
+	 */
+	private static ParseNode computePlusMinus(Operation op, boolean isPlus){
+		if ((op.getFirstArg() == null || (op.getSecondArg() == null))){
+			throw new IllegalArgumentException("ERROR: Addition requires two arguments"); // should be unreachable code
+		}
+	
+		Numerical first = op.getFirstArg();           // this could return an Operation or a Countable
+		Numerical second = op.getSecondArg();  
+		
+		ParseNode firstArg = compute(first);          // this will return null if passed a Countable
+		ParseNode secondArg= compute(second);
+		
+		Numerical arg1 = getNextArg(firstArg,first);  // b/c we need to actually compute, gets the Countable arguments
+		Numerical arg2 = getNextArg(secondArg,second);
+		
+		if ((arg1 instanceof Scalar && arg2 instanceof Matrix) || (arg2 instanceof Scalar && arg1 instanceof Matrix)){
+			if (isPlus){
+				throw new IllegalArgumentException("ERROR: Cannot add a matrix and a scalar");
+			}else{
+				throw new IllegalArgumentException("ERROR: Cannot subtract a matrix and a scalar");
+			}
+		}
+		
+		Solution answer;
+		if (arg1 instanceof Scalar){
+			SS_PlusMinus plus = new SS_PlusMinus((Scalar) arg1, (Scalar) arg2,isPlus);
+			answer = plus.getSolution();
+			return new ParseNode(answer,firstArg,secondArg);
+		}else{
+			MM_PlusMinus plus = new MM_PlusMinus((Matrix) arg1, (Matrix) arg2,isPlus); // calculate solution
+			answer = plus.getSolution();					// get solution
+			return new ParseNode(answer,firstArg,secondArg);
+		}
+	}
+
 	
 }

@@ -62,9 +62,9 @@ public class SS_PlusMinus extends Computable {
 		
 		List<String> latex = toLatex();
 		if (isPlus){
-			_solution = new Solution(Op.SS_PLUS,args,_answerStep,latex);
+			_solution = new Solution(Op.PLUS,args,_answerStep,latex);
 		}else{
-			_solution = new Solution(Op.SS_MINUS,args,_answerStep,latex);
+			_solution = new Solution(Op.MINUS,args,_answerStep,latex);
 		}
 	}
 	

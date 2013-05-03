@@ -26,7 +26,7 @@ public class Main {
 	public static void main(String[] args) {
 		Matrix m1 = new Matrix(DisplayType.DECIMAL, new Double[][]{{1.0,2.0},{3.0,4.0}});
 		Matrix m2 = new Matrix(DisplayType.DECIMAL, new Double[][]{{1.0,2.0},{3.0,4.0}});
-		Operation multiply = new Operation(Op.MM_PLUS);
+		Operation multiply = new Operation(Op.PLUS);
 		
 		List<Numerical> list = new ArrayList<>();
 		list.add(m1);
