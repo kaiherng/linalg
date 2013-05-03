@@ -153,6 +153,10 @@ public class Construct extends JPanel {
 		this.repaint();
 	}
 	
+	public Saved getSavedPanel(){
+		return _save;
+	}
+	
 	public void paintComponent(Graphics g){
 		super.paintComponent(g);
 		Graphics2D g2 = (Graphics2D) g;

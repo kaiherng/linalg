@@ -93,6 +93,19 @@ public class Saved extends JPanel {
 	public void clear(){
 		if(_editing != null){
 			_editing.doneEditing();
+			_editing = null;
+		}
+	}
+	
+	public void hideEditing(){
+		if(_editing != null){
+			_editing.doneEditing();
+		}
+	}
+	
+	public void showEditing(){
+		if(_editing != null){
+			_editing.setEditing();
 		}
 	}
 	

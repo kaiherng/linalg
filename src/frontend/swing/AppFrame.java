@@ -14,6 +14,8 @@ import javax.swing.JSplitPane;
 import javax.swing.JTabbedPane;
 import javax.swing.SwingUtilities;
 import javax.swing.border.MatteBorder;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import javax.swing.plaf.basic.BasicSplitPaneUI;
 
 import frontend.panels.Compute;
@@ -70,6 +72,10 @@ public class AppFrame extends JFrame {
 	
 	public final static JTabbedPane createTabbedPaneTopLeft(Construct constructPanel, Compute computePanel) {
 		JTabbedPane tabbedPaneTopLeft = new JTabbedPane();
+		
+		//change listeners
+		tabbedPaneTopLeft.addChangeListener(new TopLeftTabListener(constructPanel.getSavedPanel()));
+		
 		tabbedPaneTopLeft.addTab("Construct", constructPanel);
 		tabbedPaneTopLeft.setToolTipTextAt(0,"Create a new matrix");
 		
@@ -142,4 +148,21 @@ public class AppFrame extends JFrame {
 		return rightPanel;
 	}
 
+	
+	private static class TopLeftTabListener implements ChangeListener{
+		Saved _s;
+		public TopLeftTabListener(Saved s){
+			_s = s;
+		}
+		@Override
+		public void stateChanged(ChangeEvent arg0) {
+			// TODO Auto-generated method stub
+            JTabbedPane pane = (JTabbedPane) arg0.getSource();
+			if(pane.getSelectedIndex() == 0){
+				_s.showEditing();
+			} else {
+				_s.hideEditing();
+			}
+		}
+	}
 }

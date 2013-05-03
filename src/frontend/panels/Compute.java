@@ -224,5 +224,5 @@ public class Compute extends JPanel {
 		}
 		
 	}
-
+	
 }
