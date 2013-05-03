@@ -83,10 +83,10 @@ public class Determinant extends Computable
 	private Scalar calcDet(Double[][] values, int indentLength) throws Exception
 	{
 		if (values.length<1)
-			throw new IllegalArgumentException("ERROR (Det): Matrix size needs to be at least 1, given "+values.length);
+			throw new IllegalArgumentException("Matrix size needs to be at least 1, given "+values.length);
 
 		if (values.length!=values[0].length)
-			throw new IllegalArgumentException("ERROR (Det): Matrix must have the same number of columns and rows");
+			throw new IllegalArgumentException("Matrix must have the same number of columns and rows");
 
 		//if it is just a 1x1 matrix
 		if (values.length==1)
@@ -99,8 +99,8 @@ public class Determinant extends Computable
 		if (values.length==2)
 		{
 			double det=values[0][0]*values[1][1]-values[0][1]*values[1][0];
-			steps.add("\\hspace{"+indentLength+"mm}"+values[0][0]+" \\times "+values[1][1]+" - "+values[0][1]+" \\times "+values[1][0]+" = "+det);
-			steps.add("\\hspace{"+indentLength+"mm}\\mathrm{The \\ determinant \\ is \\ "+det+"}");
+			steps.add("\\vspace{15mm}\\hspace{"+indentLength+"mm}"+values[0][0]+" \\times "+values[1][1]+" - "+values[0][1]+" \\times "+values[1][0]+" = "+det);
+			//steps.add("\\hspace{"+indentLength+"mm}\\mathrm{The \\ determinant \\ is \\ "+det+"}");
 			return new Scalar(det,answerDisplayType);
 		}
 
@@ -111,7 +111,7 @@ public class Determinant extends Computable
 		{
 			//the matrix without the first row, and the i-th column
 			Double[][] m=removeRowColumn(values,i,0);
-			steps.add("\\hspace{"+indentLength+"mm}\\mathrm{Calculate \\ the \\ determinant \\ of} "+
+			steps.add("\\vspace{20mm}\\hspace{"+indentLength+"mm}\\mathrm{" +(i+1)+ ". \\ Calculate \\ the \\ determinant \\ of} "+
 				(new MatrixDraw(new Matrix(answerDisplayType,m))).getCorrectLatex(answerDisplayType));
 
 			//calculate m's determinant
@@ -124,7 +124,7 @@ public class Determinant extends Computable
 
 			double subDet=sign*values[i][0]*d.getValue();
 			det+=subDet;
-			steps.add("\\hspace{"+indentLength+"mm}\\mathrm{Add} \\ "+sign+" * "+values[i][0]+" * "+d.getValue()+" \\ \\mathrm{to \\ the \\ overall \\ determinant.}");
+			steps.add("\\vspace{15mm}\\hspace{"+indentLength+"mm}\\mathrm{\\hspace{15mm}Add} \\ "+sign+" \\times "+values[i][0]+" \\times "+d.getValue()+" \\ \\mathrm{to \\ the \\ overall \\ determinant.}");
 		}
 
 		String detString = shortenDecimal(Double.toString(det));

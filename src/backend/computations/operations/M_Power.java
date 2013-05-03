@@ -6,7 +6,6 @@ package backend.computations.operations;
 import java.util.ArrayList;
 import java.util.List;
 
-import matrixDraw.MatrixDraw;
 import backend.blocks.Countable;
 import backend.blocks.Countable.DisplayType;
 import backend.blocks.Matrix;
