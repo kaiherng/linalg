@@ -44,10 +44,10 @@ public class Saved extends JPanel {
 		_compute = c;
 		
 		cList = new HashMap<>();
-		Matrix m = new Matrix(DisplayType.DECIMAL, new Double[][]{{1.0,2.0},{3.0,4.0}});
+		Matrix m = new Matrix(DisplayType.WHOLENUMBER, new Double[][]{{1.0,2.0},{3.0,4.0}});
 		addCountable("A", m);
 		addCountable("B", m);
-		addCountable("C", new Scalar(4.0, DisplayType.DECIMAL));
+		addCountable("C", new Scalar(4.0, DisplayType.WHOLENUMBER));
 	}
 	
 	public void setConstructPanel(Construct c){
