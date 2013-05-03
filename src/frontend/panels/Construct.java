@@ -1,7 +1,6 @@
 package frontend.panels;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Graphics;
@@ -86,11 +85,11 @@ public class Construct extends JPanel {
 		this.add(buttonPanel, BorderLayout.SOUTH);
 		
 		JButton clearButton, saveButton, scalarButton, iButton, fillButton;
-		clearButton = new Button("Clear");
-		saveButton = new Button("Save");
-		scalarButton = new Button("New Scalar");
-		iButton = new Button("Identity");
-		fillButton = new Button("Fill Matrix");
+		clearButton = new Button("Clear", CurrentConstants.BUTTON_BG, CurrentConstants.BUTTON_FG, CurrentConstants.BUTTON_HOVER_BG, CurrentConstants.BUTTON_HOVER_FG, CurrentConstants.BUTTON_PRESSED_BG, CurrentConstants.BUTTON_PRESSED_FG, CurrentConstants.BUTTON_BORDER);
+		saveButton = new Button("Save", CurrentConstants.BUTTON_BG, CurrentConstants.BUTTON_FG, CurrentConstants.BUTTON_HOVER_BG, CurrentConstants.BUTTON_HOVER_FG, CurrentConstants.BUTTON_PRESSED_BG, CurrentConstants.BUTTON_PRESSED_FG, CurrentConstants.BUTTON_BORDER);
+		scalarButton = new Button("New Scalar", CurrentConstants.BUTTON_BG, CurrentConstants.BUTTON_FG, CurrentConstants.BUTTON_HOVER_BG, CurrentConstants.BUTTON_HOVER_FG, CurrentConstants.BUTTON_PRESSED_BG, CurrentConstants.BUTTON_PRESSED_FG, CurrentConstants.BUTTON_BORDER);
+		iButton = new Button("Identity", CurrentConstants.BUTTON_BG, CurrentConstants.BUTTON_FG, CurrentConstants.BUTTON_HOVER_BG, CurrentConstants.BUTTON_HOVER_FG, CurrentConstants.BUTTON_PRESSED_BG, CurrentConstants.BUTTON_PRESSED_FG, CurrentConstants.BUTTON_BORDER);
+		fillButton = new Button("Fill Matrix", CurrentConstants.BUTTON_BG, CurrentConstants.BUTTON_FG, CurrentConstants.BUTTON_HOVER_BG, CurrentConstants.BUTTON_HOVER_FG, CurrentConstants.BUTTON_PRESSED_BG, CurrentConstants.BUTTON_PRESSED_FG, CurrentConstants.BUTTON_BORDER);
 		fillButton.setToolTipText("Fill empty cells with specified value");
 		clearButton.addActionListener(new ClearListener(this));
 		saveButton.addActionListener(new SaveListener(this));

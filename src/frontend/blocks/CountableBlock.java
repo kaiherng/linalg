@@ -1,12 +1,16 @@
 package frontend.blocks;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.GridBagLayout;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.SwingConstants;
+import javax.swing.border.LineBorder;
 
 import backend.blocks.Countable;
 import backend.blocks.Scalar;
@@ -23,6 +27,7 @@ public class CountableBlock extends JPanel {
 	String _name;
 	Countable _countable;
 	JLabel _delete, _label;
+	private JPanel _northPanel;
 	
 	/**
 	 * Name is ignored for scalars
@@ -31,7 +36,7 @@ public class CountableBlock extends JPanel {
 	 * @param saved
 	 */
 	public CountableBlock(String name, Countable c, Saved saved) {
-		this.setLayout(null);
+		this.setLayout(new BorderLayout());
 		this.setPreferredSize(CurrentConstants.COUNTABLE_BLOCK_SIZE);
 		this.addMouseListener(new Click(this));
 		_s = saved;
@@ -39,11 +44,11 @@ public class CountableBlock extends JPanel {
 		_countable = c;
 		
 		this.setBackground(CurrentConstants.COUNTABLE_BLOCK_BG);
-		
 		_delete = new JLabel("X");
 		_delete.setOpaque(false);
 		_delete.setBorder(null);
 		_delete.setForeground(CurrentConstants.COUNTABLE_BLOCK_DELETE_FG);
+		_delete.setFont(CurrentConstants.COUNTABLE_BLOCK_DELETE_FONT);
 		this.add(_delete);
 		_delete.setBounds(CurrentConstants.COUNTABLE_BLOCK_DELETE_BOUNDS);
 		
@@ -57,13 +62,13 @@ public class CountableBlock extends JPanel {
 			_name = Double.toString(s.getValue());
 		}
 		_label.setOpaque(false);
-		_label.setBorder(null);
 		_label.setForeground(CurrentConstants.COUNTABLE_BLOCK_LABEL_FG);
-		_label.setHorizontalAlignment(JLabel.CENTER);
+		_label.setHorizontalAlignment(SwingConstants.CENTER);
+		
 		this.add(_label);
 		_label.setBounds(CurrentConstants.COUNTABLE_BLOCK_LABEL_BOUNDS);
-		
 		this.setToolTipText(_name);
+		_delete.setVisible(false);
 	}
 	
 	public void setCountable(Countable c){
@@ -97,5 +102,17 @@ public class CountableBlock extends JPanel {
 				_s.addToBar(_countable, _name, _c);
 			}
 		}
+		
+		@Override
+		public void mouseEntered(MouseEvent e) {
+			_delete.setVisible(true);
+		}
+		
+		@Override
+		public void mouseExited(MouseEvent e) {
+			_delete.setVisible(false);
+			repaint();
+		}
+		
 	}
 }

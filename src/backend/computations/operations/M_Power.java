@@ -6,10 +6,10 @@ package backend.computations.operations;
 import java.util.ArrayList;
 import java.util.List;
 
-import matrixDraw.MatrixDraw;
 import backend.blocks.Countable;
 import backend.blocks.Countable.DisplayType;
 import backend.blocks.Matrix;
+import backend.blocks.Op;
 import backend.blocks.Scalar;
 import backend.computations.infrastructure.Computable;
 import backend.computations.infrastructure.Solution;
@@ -23,7 +23,7 @@ public class M_Power extends Computable {
 	private Solution _solution;
 	private Matrix _matrixArg;
 	private Scalar _scalarArg;
-	private DisplayType _displayType;
+	private List<String> _latex = new ArrayList<>();
 	
 	
 	/**
@@ -36,6 +36,9 @@ public class M_Power extends Computable {
 		if (Math.floor(scalar.getValue()) != scalar.getValue() || scalar.getValue() < 0){
 			throw new IllegalArgumentException("ERROR (M_Power.java) : expects scalar to be non-negative whole-number");
 		}
+		if (matrix.getNumCols() != matrix.getNumRows()){
+			throw new IllegalArgumentException("ERROR: Matrix Power requires a square matrix");
+		}
 		_scalarArg = scalar;
 		_matrixArg = matrix;
 		List<Countable> argList = new ArrayList<>();
@@ -43,13 +46,15 @@ public class M_Power extends Computable {
 		argList.add(scalar);
 		DisplayType answerDisplayType = resolveDisplayType(argList);
 		
-		_displayType = answerDisplayType;
 		_scalarArg.setDisplayType(answerDisplayType);
 		_matrixArg.setDisplayType(answerDisplayType);
+		Matrix toMult = matrix;
 		for (int i = 0; i < (int) scalar.getValue(); i++){
-			
+			MM_Multiply mult = new MM_Multiply(toMult,matrix);
+			_latex.addAll(mult.toLatex());
+			toMult = (Matrix) mult.getSolution().getAnswer();
 		}
-		// TODO: finish
+		_solution = new Solution(Op.M_POWER,argList,toMult,_latex);
 	}
 	
 	
@@ -71,14 +76,7 @@ public class M_Power extends Computable {
 	 * - answer
 	 */
 	public List<String> toLatex() {
-		List<String> toReturn = new ArrayList<>();
-		StringBuilder b = new StringBuilder();
-		MatrixDraw m1 = new MatrixDraw(_matrixArg);
-		b.append(m1.getCorrectLatex(_displayType));
-		b.append("$^{");
-		b.append(_scalarArg.getDisplayValue()+"}");
-		toReturn.add(b.toString());
-		return toReturn;
+		return _latex;
 	}
 
 }

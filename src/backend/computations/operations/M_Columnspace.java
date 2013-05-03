@@ -48,6 +48,8 @@ public class M_Columnspace extends Computable
 		Matrix ref=(Matrix)(refsol.getAnswer());
 		Double[][] refv=ref.getValues();
 		List<String> rr = rowreduce.toLatex();
+		rr.remove(0);
+		steps.add("\\vspace{10mm}\\mathrm{1. \\ Determine \\ the \\ row \\ reduced \\ echelon \\ form \\ of \\ the \\ matrix}");
 		for (String stp : rr){
 			steps.add("\\hspace{15mm}" + stp);
 		}
@@ -55,6 +57,7 @@ public class M_Columnspace extends Computable
 		List<Integer> isPivot=new ArrayList<>();
 		//first zero row
 		int fzr=0;
+		steps.add("\\vspace{15mm} \\mathrm{2. \\ Identify \\ pivot \\ columns }");
 		for (int i=0;i<refv.length;i++)
 		{
 			if (fzr>=refv[0].length)//beyond the last row
@@ -67,7 +70,7 @@ public class M_Columnspace extends Computable
 				{
 					fzr++;
 				}
-				steps.add("\\mathrm{Column \\ "+(i+1)+" \\ is \\ a \\ pivot \\ column.}");
+				steps.add("\\hspace{15mm} \\mathrm{Column \\ "+(i+1)+" \\ is \\ a \\ pivot \\ column.}");
 			}
 		}
 
@@ -82,7 +85,7 @@ public class M_Columnspace extends Computable
 		}
 
 		Matrix answer=new Matrix(answerDisplayType,pivots);
-		String basis="\\vspace{15mm} \\mathrm{The \\ basis \\ consists \\ of \\ }";
+		String basis="\\vspace{20mm} \\mathrm{The \\ basis \\ consists \\ of \\ }";
 		for (Double[] col:pivots)
 		{
 			Double[][] v=new Double[1][values[0].length];

@@ -4,9 +4,6 @@ import backend.blocks.*;
 import backend.blocks.Countable.DisplayType;
 import backend.computations.infrastructure.Computable;
 import backend.computations.infrastructure.Solution;
-import backend.computations.infrastructure.Step;
-import matrixDraw.*;
-
 import java.util.*;
 
 /** Matrix Rank Operation
@@ -30,6 +27,7 @@ public class M_Rank extends Computable
 	public M_Rank(Matrix matrix) throws Exception
 	{
 		steps.add("\\vspace{10mm} \\mathrm{Determining \\ Matrix \\ Rank}");
+		@SuppressWarnings("unused")
 		DisplayType answerDisplayType = matrix.getDisplayType(); // choose DisplayType to use
 
 		Double[][] values = matrix.getValues();
@@ -48,12 +46,17 @@ public class M_Rank extends Computable
 		Solution refsol=rowreduce.getSolution();
 		Matrix ref=(Matrix)(refsol.getAnswer());
 		Double[][] refv=ref.getValues();
-		steps.addAll(rowreduce.toLatex());
+		List<String> rrSteps = rowreduce.toLatex();
+		rrSteps.remove(0);
+		steps.add("\\vspace{10mm}\\mathrm{1. \\ Determine \\ the \\ row \\ reduced \\ echelon \\ form \\ of \\ the \\ matrix}");
+		for (String s : rrSteps){
+			steps.add("\\hspace{15mm}"+s);
+		}
 		//first zero row
 		int fzr=0;
 		int rank=0;
 		
-		steps.add("\\vspace{15mm} \\mathrm{Identify \\ pivot \\ columns}");
+		steps.add("\\vspace{15mm} \\mathrm{2. \\ Identify \\ pivot \\ columns}");
 		for (int i=0;i<refv.length;i++)
 		{
 			if (fzr>=refv[0].length)//beyond the last row
@@ -66,17 +69,16 @@ public class M_Rank extends Computable
 				{
 					fzr++;
 				}
-				steps.add("\\mathrm{Column \\ "+(i+1)+" \\ is \\ a \\ pivot \\ column.}");
+				steps.add("\\hspace{15mm} \\mathrm{Column \\ "+(i+1)+" \\ is \\ a \\ pivot \\ column.}");
 			}
 		}
 
 		//answer in scalar frm
 		Scalar answer=new Scalar(rank,DisplayType.WHOLENUMBER);
-		String plural="";
 		if (rank==1)
 			steps.add("\\vspace{15mm} \\mathrm{There \\ is \\ in \\ total \\ 1 \\ pivot \\ column \\ so \\ the \\ rank \\ is \\ 1}");
 		else
-			steps.add("\\vspace{15mm} \\mathrm{There \\ are \\ in \\ total} \\ "+answer.getDisplayValue()+" \\ \\mathrm{pivot \\ columns \\ so \\ the \\ rank \\ is} \\ "+answer.getDisplayValue());
+			steps.add("\\vspace{15mm} \\mathrm{There \\ are} \\ "+answer.getDisplayValue()+" \\ \\mathrm{pivot \\ columns; \\ the \\ rank \\ is} \\ "+answer.getDisplayValue());
 		List<Countable> inputs = new ArrayList<>();
 		inputs.add(matrix);
 

@@ -59,7 +59,7 @@ public class MM_PlusMinus extends Computable {
 		Double[][] aValues = matrixA.getValues();
 		Double[][] bValues = matrixB.getValues();
 		if (aValues.length != bValues.length || aValues[0].length != bValues[0].length){
-			throw new IllegalArgumentException("ERROR (Plus): Matrices must have same dimensions");
+			throw new IllegalArgumentException("Matrices must have same dimensions");
 		}
 		
 		String[][] additionStep = new String[aValues.length][aValues[0].length]; // we'll show the addition step in here
