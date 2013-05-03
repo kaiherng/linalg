@@ -17,6 +17,7 @@ public class Determinant extends Computable
   	private Solution _solution;
   	private List<String> steps=new ArrayList<>();
   	private DisplayType answerDisplayType;
+  	private boolean _hideSteps = false;
 
 	@Override
 	public Solution getSolution()
@@ -31,8 +32,13 @@ public class Determinant extends Computable
 	 */
 	public Determinant(Matrix matrix) throws Exception
 	{
-		steps.add("\\vspace{10mm} \\mathrm{Calculate \\ the \\ Determinant}");
+		
+		steps.add(" \\mathrm{\\vspace{10mm} Calculate \\ the \\ Determinant \\\\ \\vspace{10mm}");
+
 		answerDisplayType = matrix.getDisplayType();
+		MatrixDraw m = new MatrixDraw(matrix);
+		steps.add("\\vspace{10mm} \\hspace{15mm} " +m.getCorrectLatex(answerDisplayType));
+		
 		Double[][] values = matrix.getValues();
 
 		for(int i = 0; i < values.length; i++)
@@ -50,7 +56,17 @@ public class Determinant extends Computable
 		List<Countable> inputs = new ArrayList<>();
 		inputs.add(matrix);
 		
-		List<String> latex = toLatex();
+		List<String> latex;
+		if (!_hideSteps){
+			latex = toLatex();
+		}else{
+			latex = new ArrayList<>();
+			latex.add("\\mathrm{\\vspace{10mm} Calculate \\ the \\ Determinant");
+			latex.add("\\mathrm{\\vspace{10mm}  Steps \\ omitted \\ for \\ matrices  \\ larger \\ than \\ 3 \\ by \\ 3, \\ for \\ your \\ own \\ good!");
+			List<String> l = toLatex();
+			latex.add("\\vspace{10mm}"+l.get(l.size()-1));
+		}
+		
 		_solution = new Solution(Op.DETERMINANT, inputs, answer, latex);
 	}
 
@@ -88,6 +104,9 @@ public class Determinant extends Computable
 		if (values.length!=values[0].length)
 			throw new IllegalArgumentException("Matrix must have the same number of columns and rows");
 
+		if (values.length > 3){
+			_hideSteps = true;
+		}
 		//if it is just a 1x1 matrix
 		if (values.length==1)
 		{
@@ -111,7 +130,7 @@ public class Determinant extends Computable
 		{
 			//the matrix without the first row, and the i-th column
 			Double[][] m=removeRowColumn(values,i,0);
-			steps.add("\\vspace{20mm}\\hspace{"+indentLength+"mm}\\mathrm{" +(i+1)+ ". \\ Calculate \\ the \\ determinant \\ of} "+
+			steps.add("\\vspace{20mm}\\hspace{"+indentLength+"mm}\\mathrm{" +(i+1)+ ". \\ Calculate \\ the \\ determinant \\ of \\ submatrix} "+
 				(new MatrixDraw(new Matrix(answerDisplayType,m))).getCorrectLatex(answerDisplayType));
 
 			//calculate m's determinant
@@ -124,11 +143,13 @@ public class Determinant extends Computable
 
 			double subDet=sign*values[i][0]*d.getValue();
 			det+=subDet;
-			steps.add("\\vspace{15mm}\\hspace{"+indentLength+"mm}\\mathrm{\\hspace{15mm}Add} \\ "+sign+" \\times "+values[i][0]+" \\times "+d.getValue()+" \\ \\mathrm{to \\ the \\ overall \\ determinant.}");
+			steps.add("\\vspace{20mm}\\hspace{15mm}\\hspace{"+indentLength+"mm}\\mathrm{Multiply \\ result \\ with \\ diagonally \\ opposite \\ index \\ in \\ the \\ encompassing \\ matrix \\\\ and \\ with \\ appropriate \\ sign:}");
+			steps.add("\\vspace{10mm} \\hspace{"+indentLength+"mm}\\hspace{30mm}"+sign+" \\times "+values[i][0]+" \\times "+d.getValue()+" = " + (sign*values[i][0]*d.getValue()));
+			steps.add("\\vspace{10mm} \\hspace{"+indentLength+"mm}\\mathrm{\\hspace{15mm}Add \\ result \\ to \\ the \\ overall \\ determinant}");
 		}
 
 		String detString = shortenDecimal(Double.toString(det));
-		steps.add("\\hspace{"+indentLength+"mm}\\mathrm{The \\ overall \\ determinant \\ is \\ "+detString+".}");
+		steps.add("\\vspace{15mm}\\hspace{"+indentLength+"mm}\\mathrm{The \\ overall \\ determinant \\ is \\ "+detString+".}");
 		return new Scalar(det,answerDisplayType);
 	}
 
