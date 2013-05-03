@@ -39,6 +39,10 @@ public class Solution extends JPanel {
 		_ti.paintIcon(_label, g, 5, 0);
 	}
 	
+	public void clear(){
+		setTex("");
+	}
+	
 	public void setTex(String tex){
 		System.out.println(tex);
 		TeXFormula formula = new TeXFormula(tex);

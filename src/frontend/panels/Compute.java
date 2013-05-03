@@ -219,6 +219,8 @@ public class Compute extends JPanel {
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
 			_c.clearBar();
+			_stepPanel.clear();
+			_solPanel.clear();
 		}
 		
 	}
