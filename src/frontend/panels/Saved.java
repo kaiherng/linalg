@@ -39,7 +39,7 @@ public class Saved extends JPanel {
 
 	public Saved(Compute c) {
 		this.setLayout(new WrapLayout(FlowLayout.LEFT));
-		this.setPreferredSize(this.getSize());
+		//this.setPreferredSize(this.getSize());
 		this.setBorder(CurrentConstants.SAVED_BORDER);
 		_compute = c;
 		
@@ -48,6 +48,9 @@ public class Saved extends JPanel {
 		addCountable("A", m);
 		addCountable("B", m);
 		addCountable("C", new Scalar(4.0, DisplayType.WHOLENUMBER));
+		for(int i = 0 ; i < 30 ; i++){
+//			addCountable("D", m);
+		}
 	}
 	
 	public void setConstructPanel(Construct c){
