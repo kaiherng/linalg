@@ -93,7 +93,7 @@ public class MM_Multiply extends Computable {
 		List<String> latex = toLatex();
 		
 		// create the solution
-		_solution = new Solution(Op.MM_MULTIPLY,inputs,step2Matrix,latex);
+		_solution = new Solution(Op.MULTIPLY,inputs,step2Matrix,latex);
 	}
 
 

@@ -101,7 +101,7 @@ public class MS_Multiply extends Computable {
 		inputs.add(scalar);
 		
 		List<String> latex = toLatex();
-		_solution = new Solution(Op.SM_MULTIPLY,inputs,step2Matrix, latex);
+		_solution = new Solution(Op.MULTIPLY,inputs,step2Matrix, latex);
 	}
 
 

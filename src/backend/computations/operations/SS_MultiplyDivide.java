@@ -61,7 +61,7 @@ public class SS_MultiplyDivide extends Computable {
 		
 		List<String> latex = toLatex();
 		if (isTimes){
-			_solution = new Solution(Op.SS_MULTIPLY,args,_answerStep,latex);
+			_solution = new Solution(Op.MULTIPLY,args,_answerStep,latex);
 		}else{
 			_solution = new Solution(Op.SS_DIVIDE,args,_answerStep,latex);
 		}

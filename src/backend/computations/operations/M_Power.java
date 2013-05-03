@@ -54,7 +54,7 @@ public class M_Power extends Computable {
 			_latex.addAll(mult.toLatex());
 			toMult = (Matrix) mult.getSolution().getAnswer();
 		}
-		_solution = new Solution(Op.M_POWER,argList,toMult,_latex);
+		_solution = new Solution(Op.POWER,argList,toMult,_latex);
 	}
 	
 	

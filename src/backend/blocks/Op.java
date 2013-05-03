@@ -11,19 +11,18 @@ public enum Op {
 	MINUS(2,false,"MINUS"),
 	
 	//rank 1 operations
-	SS_MULTIPLY(1,false,"SS_TIMES"), MM_MULTIPLY(1,false,"MM_TIMES"), 
-	SM_MULTIPLY(1,false,"SM_MULTIPLY"), SS_DIVIDE(1,false,"SS_DIVIDE"),
+	MULTIPLY(1,false,"TIMES"),  
+	SS_DIVIDE(1,false,"SS_DIVIDE"),
 	
 	//rank 0 (unary) operations
 	DETERMINANT(0,true,"DETERMINANT"),
 	ROW_REDUCE(0,true,"ROW-REDUCE"),
 	M_COLUMNSPACE(0,true,"COLUMN-SPACE"),
 	M_INVERSE(0,true,"M-INVERSE"),
-	M_POWER(0,true,"M-POWER"),
+	POWER(0,true,"POWER"),
 	M_RANK(0,true,"M-RANK"),
 	M_TRANSPOSE(0,true,"M-TRANSPOSE"),
-	NULLSPACE(0,true,"NULL-SPACE"), 
-	S_POWER(0,true,"S-POWER");
+	NULLSPACE(0,true,"NULL-SPACE");
 	
 	// do not give rank below zero
 	
@@ -79,13 +78,9 @@ public enum Op {
 		case MINUS:
 			return "-";
 		case SS_DIVIDE:
-			return "S/S";
-		case SS_MULTIPLY:
-			return "S*S";
-		case MM_MULTIPLY:
-			return "M*M";
-		case SM_MULTIPLY:
-			return "S*M";
+			return "/";
+		case MULTIPLY: 
+			return "*";
 		case DETERMINANT:
 			return "det";
 		case ROW_REDUCE:
@@ -94,7 +89,7 @@ public enum Op {
 			return "CS";
 		case M_INVERSE:
 			return "INV";
-		case M_POWER:
+		case POWER:
 			return "^";
 		case M_RANK:
 			return "R";
@@ -102,8 +97,6 @@ public enum Op {
 			return "NS";
 		case M_TRANSPOSE:
 			return "T";
-		case S_POWER:
-			return "S^";
 		default:
 			return "?";
 		}

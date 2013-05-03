@@ -60,7 +60,7 @@ public class S_Power extends Computable {
 		_answerStep = new Scalar(answer,answerDisplayType);
 		
 		List<String> latex = toLatex();
-		_solution = new Solution(Op.S_POWER,args,_answerStep,latex);
+		_solution = new Solution(Op.POWER,args,_answerStep,latex);
 	}
 	
 	

@@ -23,7 +23,7 @@ public class ParserTest {
 	private Bracket openBracket = new Bracket(true);
 	private Bracket closeBracket = new Bracket(false);
 	private Operation plus = new Operation(Op.PLUS);
-	private Operation times = new Operation(Op.MM_MULTIPLY);
+	private Operation times = new Operation(Op.MULTIPLY);
 	
 	
 	//====================================

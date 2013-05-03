@@ -116,8 +116,8 @@ public class Parser {
 				}
 				
 				// scalar multiplication
-				case SS_MULTIPLY: {
-					return computeScalarBinaryOp(rootAsOp,op); // recursive call to compute in here		
+				case MULTIPLY: {
+					return computeMultiply(rootAsOp); // recursive call to compute in here		
 				}
 				
 				// scalar division
@@ -125,19 +125,9 @@ public class Parser {
 					return computeScalarBinaryOp(rootAsOp,op); // recursive call to compute in here
 				}
 				
-				// scalar power
-				case S_POWER: {
-					return computeScalarBinaryOp(rootAsOp,op);
-				}
-				
-				// scalar-matrix multiply
-				case SM_MULTIPLY: {
-					return computeSM_Multiply(rootAsOp); // recursive call to compute in here
-				}
-				
-				// matrix multiplication
-				case MM_MULTIPLY: {
-					return computeMatrixBinaryOp(rootAsOp,op); // recursive call to compute in here
+				// power
+				case POWER: {
+					return computePower(rootAsOp);
 				}
 				
 				// determinant
@@ -165,17 +155,11 @@ public class Parser {
 					return computeUnaryMatrixOp(rootAsOp,op);
 				}
 				
-				// matrix power
-				case M_POWER: { // recursive call to compute in here
-					return computeMPower(rootAsOp);
-				}
-				
 				// matrix inverse
 				case M_INVERSE: { // recursive call to compute in here
 					return computeUnaryMatrixOp(rootAsOp,op);
 				}
 				
-				// matrix columnspace
 				case M_COLUMNSPACE: { // recursive call to compute in here
 					return computeUnaryMatrixOp(rootAsOp,op);
 				}
@@ -195,7 +179,8 @@ public class Parser {
 		}
 	}
 	
-	
+
+
 
 
 	/** 
@@ -443,73 +428,6 @@ public class Parser {
 	//===================================
 	
 	/**
-	 * Given a MS_Multiply operator that includes its arguments, returns a ParseNode containing the Solution
-	 * 
-	 * @param op the MS_Multiply operator
-	 * @return the ParseNode containing the solution and arguments to <op>
-	 */
-	private static ParseNode computeSM_Multiply(Operation op){
-		if ((op.getFirstArg() == null || (op.getSecondArg() == null))){
-			throw new IllegalArgumentException("ERROR: SM_Multiply requires two arguments"); // should be unreachable code
-		}
-	
-		Numerical first = op.getFirstArg();     // this could return an Operation or a Countable
-		Numerical second = op.getSecondArg();
-		
-		ParseNode firstArg = compute(first);          // this will return null if passed a Countable
-		ParseNode secondArg= compute(second);
-		
-		Numerical arg1 = getNextArg(firstArg,first);  // b/c we need to actually compute, gets the Countable arguments
-		Numerical arg2 = getNextArg(secondArg,second);
-		
-		if ((arg1 instanceof Matrix && arg2 instanceof Matrix) || (arg2 instanceof Scalar && arg1 instanceof Scalar)){
-			throw new IllegalArgumentException("ERROR: Scalar multiply arguments must include one scalar and one matrix"); // should be unreachable code
-		}
-		
-		Solution answer;
-		if (arg1 instanceof Matrix){
-			MS_Multiply mult = new MS_Multiply((Matrix) arg1, (Scalar) arg2); // calculate solution
-			answer = mult.getSolution();
-		}else{
-			MS_Multiply mult = new MS_Multiply((Scalar) arg1, (Matrix) arg2); // calculate solution
-			answer = mult.getSolution();
-		}
-
-		return new ParseNode(answer,firstArg,secondArg);
-	}
-	
-	
-	/**
-	 * Computes the ParseNode for M_Power
-	 * 
-	 * @param op the M_Power operation to compute
-	 * @return the Parsenode containing the solution and the arguments to the M_Power operation
-	 */
-	private static ParseNode computeMPower(Operation op){
-		if ((op.getFirstArg() == null || (op.getSecondArg() == null))){
-			throw new IllegalArgumentException("ERROR: M_Power requires two arguments"); // should be unreachable code
-		}
-	
-		Numerical first = op.getFirstArg();     // this could return an Operation or a Countable
-		Numerical second = op.getSecondArg();
-		
-		ParseNode firstArg = compute(first);          // this will return null if passed a Countable
-		ParseNode secondArg= compute(second);
-		
-		Numerical arg1 = getNextArg(firstArg,first);  // b/c we need to actually compute, gets the Countable arguments
-		Numerical arg2 = getNextArg(secondArg,second);
-		
-		if ((arg1 instanceof Scalar) || (arg2 instanceof Matrix)){
-			throw new IllegalArgumentException("ERROR: Scalar power arguments must include one scalar and one matrix"); // should be unreachable code
-		}
-
-		M_Power pow = new M_Power((Matrix) arg1, (Scalar) arg2); // calculate solution
-		Solution answer = pow.getSolution();
-		return new ParseNode(answer,firstArg,secondArg);
-	}
-	
-	
-	/**
 	 * 
 	 * @param op
 	 * @param type
@@ -573,52 +491,6 @@ public class Parser {
 	}
 	
 	
-
-	
-	
-	/**
-	 * 
-	 * @param op
-	 * @param type
-	 * @return the ParseNode containing the solution and arguments to <op>
-	 */
-	private static ParseNode computeMatrixBinaryOp(Operation op, Op type){
-		if ((op.getFirstArg() == null || (op.getSecondArg() == null))){
-			throw new IllegalArgumentException("ERROR: " + type.getName() + "requires two arguments"); // should be unreachable code
-		}
-	
-		Numerical first = op.getFirstArg();     // this could return an Operation or a Countable
-		Numerical second = op.getSecondArg();
-		
-		ParseNode firstArg = compute(first);          // this will return null if passed a Countable
-		ParseNode secondArg= compute(second);
-		
-		Numerical arg1 = getNextArg(firstArg,first);  // b/c we need to actually compute, gets the Countable arguments
-		Numerical arg2 = getNextArg(secondArg,second);
-		
-		if (!(arg1 instanceof Matrix) || !(arg2 instanceof Matrix)){
-			throw new IllegalArgumentException("ERROR: " + type.getName()+" arguments must be matrices"); // should be unreachable code
-		}
-
-		try{
-			switch(type){
-				case MM_MULTIPLY:{
-					MM_Multiply mult = new MM_Multiply((Matrix) arg1, (Matrix) arg2); // calculate solution
-					Solution answer = mult.getSolution();	
-					return new ParseNode(answer,firstArg,secondArg);
-				}
-				default:{
-					System.err.println("ERROR: Parser.java : computeUnaryMatrix -- unrecognized op"); // should be unreachable code
-					return null;
-				}
-			}
-		} catch (Exception e) {
-			// TODO dzee, is this what I should do?
-			throw new IllegalArgumentException("ERROR: "+ e.getMessage());
-		}
-	}
-	
-	
 	/**
 	 * 
 	 * @param op
@@ -644,19 +516,9 @@ public class Parser {
 		}
 		
 		switch (type){
-			case SS_MULTIPLY:{
-				SS_MultiplyDivide multDiv = new SS_MultiplyDivide((Scalar) arg1, (Scalar) arg2,true); // calculate solution
-				Solution answer = multDiv.getSolution();					// get solution
-				return new ParseNode(answer,firstArg,secondArg);
-			}
 			case SS_DIVIDE:{
 				SS_MultiplyDivide multDiv = new SS_MultiplyDivide((Scalar) arg1, (Scalar) arg2,false); // calculate solution
 				Solution answer = multDiv.getSolution();					// get solution
-				return new ParseNode(answer,firstArg,secondArg);
-			}
-			case S_POWER:{
-				S_Power pow = new S_Power((Scalar) arg1, (Scalar) arg2);
-				Solution answer = pow.getSolution();
 				return new ParseNode(answer,firstArg,secondArg);
 			}
 			default:{
@@ -667,6 +529,78 @@ public class Parser {
 	}
 	
 	
+	/**
+	 * 
+	 * @param op
+	 * @return
+	 */
+	private static ParseNode computeMultiply(Operation op){
+		if ((op.getFirstArg() == null || (op.getSecondArg() == null))){
+			throw new IllegalArgumentException("ERROR: Multiplication requires two arguments"); // should be unreachable code
+		}
+	
+		Numerical first = op.getFirstArg();           // this could return an Operation or a Countable
+		Numerical second = op.getSecondArg();  
+		
+		ParseNode firstArg = compute(first);          // this will return null if passed a Countable
+		ParseNode secondArg= compute(second);
+		
+		Numerical arg1 = getNextArg(firstArg,first);  // b/c we need to actually compute, gets the Countable arguments
+		Numerical arg2 = getNextArg(secondArg,second);
+		
+		if (arg1 instanceof Scalar && arg2 instanceof Scalar){
+			SS_MultiplyDivide multDiv = new SS_MultiplyDivide((Scalar) arg1, (Scalar) arg2,true); // calculate solution
+			Solution answer = multDiv.getSolution();					// get solution
+			return new ParseNode(answer,firstArg,secondArg);
+		}else if(arg1 instanceof Matrix && arg2 instanceof Matrix){
+			MM_Multiply mult = new MM_Multiply((Matrix) arg1, (Matrix) arg2); // calculate solution
+			Solution answer = mult.getSolution();	
+			return new ParseNode(answer,firstArg,secondArg);
+		}else{
+			Solution answer;
+			if (arg1 instanceof Matrix){
+				MS_Multiply mult = new MS_Multiply((Matrix) arg1, (Scalar) arg2); // calculate solution
+				answer = mult.getSolution();
+			}else{
+				MS_Multiply mult = new MS_Multiply((Scalar) arg1, (Matrix) arg2); // calculate solution
+				answer = mult.getSolution();
+			}
+			return new ParseNode(answer,firstArg,secondArg);
+		}
+	}
+	
+	/**
+	 * 
+	 * @param op
+	 * @return
+	 */
+	private static ParseNode computePower(Operation op){
+		if ((op.getFirstArg() == null || (op.getSecondArg() == null))){
+			throw new IllegalArgumentException("ERROR: Power requires two arguments"); // should be unreachable code
+		}
+	
+		Numerical first = op.getFirstArg();           // this could return an Operation or a Countable
+		Numerical second = op.getSecondArg();  
+		
+		ParseNode firstArg = compute(first);          // this will return null if passed a Countable
+		ParseNode secondArg= compute(second);
+		
+		Numerical arg1 = getNextArg(firstArg,first);  // b/c we need to actually compute, gets the Countable arguments
+		Numerical arg2 = getNextArg(secondArg,second);
+		if (arg2 instanceof Matrix){
+			throw new IllegalArgumentException("ERROR: Matrices cannot be used as exponents");
+		}
+		
+		if (arg1 instanceof Scalar){
+			S_Power pow = new S_Power((Scalar) arg1, (Scalar) arg2);
+			Solution answer = pow.getSolution();
+			return new ParseNode(answer,firstArg,secondArg);
+		}else{
+			M_Power pow = new M_Power((Matrix) arg1, (Scalar) arg2); // calculate solution
+			Solution answer = pow.getSolution();
+			return new ParseNode(answer,firstArg,secondArg);
+		}
+	}
 	
 	/**
 	 * 
@@ -708,5 +642,4 @@ public class Parser {
 		}
 	}
 
-	
 }
