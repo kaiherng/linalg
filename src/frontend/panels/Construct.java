@@ -50,6 +50,7 @@ public class Construct extends JPanel {
 	Saved _save;
 	String _sizeIndicator;
 	Point _mouseLocation;
+	int _fontSize = 30;
 	
 	public Construct(Saved saved) {
 		this.setLayout(new BorderLayout());
@@ -161,6 +162,7 @@ public class Construct extends JPanel {
 		
 		if(_drawn){
 			g2.setColor(CurrentConstants.CONSTRUCT_GRID_DARK);
+			_fontSize = 30;
 			for(int i = 0; i <= _mSize.get(0); i++){
 				for(int j = 0 ; j <= _mSize.get(1); j++){
 					_grid[i][j].setLocation((i*_size) + _offset.get(0), (j*_size) + _offset.get(1));
@@ -181,7 +183,7 @@ public class Construct extends JPanel {
 						String s = _values.get(pos.toString());
 						AttributedString as = new AttributedString(s);
 						int pt = 30;
-						as.addAttribute(TextAttribute.SIZE, pt);
+						as.addAttribute(TextAttribute.SIZE, _fontSize);
 						TextLayout tl = new TextLayout(as.getIterator(), g2.getFontRenderContext());
 						
 						while(tl.getBounds().getWidth() >= _size){
@@ -189,6 +191,29 @@ public class Construct extends JPanel {
 							as.addAttribute(TextAttribute.SIZE, pt);
 							tl = new TextLayout(as.getIterator(), g2.getFontRenderContext());
 						}
+						_fontSize = Math.min(pt, _fontSize);
+						
+						//calculate center
+//						double height = tl.getBounds().getHeight();
+//						double width = tl.getBounds().getWidth();
+//						float y = (float)(_grid[i][j].getLocation().y + _size/2 + height/2);
+//						float x = (float)(_grid[i][j].getLocation().x + _size/2 - width/2);
+//						tl.draw(g2, x, y);
+					}
+				}
+			}
+			
+			for(int i = 0; i <= _mSize.get(0); i++){
+				for(int j = 0 ; j <= _mSize.get(1); j++){
+					List<Integer> pos = new ArrayList<>();
+					pos.add(i);
+					pos.add(j);
+					if(_values.containsKey(pos.toString())){
+						String s = _values.get(pos.toString());
+						AttributedString as = new AttributedString(s);
+
+						as.addAttribute(TextAttribute.SIZE, _fontSize);
+						TextLayout tl = new TextLayout(as.getIterator(), g2.getFontRenderContext());
 						
 						//calculate center
 						double height = tl.getBounds().getHeight();
