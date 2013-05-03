@@ -47,7 +47,7 @@ public class Compute extends JPanel {
 		_computeBar = new JPanel(new BorderLayout());
 		_computeBar.setBorder(CurrentConstants.COMPUTE_BAR_BORDER);
 		
-		_pages = new JPanel(new GridLayout(3, 1));
+//		_pages = new JPanel(new GridLayout(3, 1));
 		_computeBar.setBorder(CurrentConstants.COMPUTE_PAGES_BORDER);
 		
 		_ops = new JPanel(new WrapLayout(FlowLayout.LEFT));
