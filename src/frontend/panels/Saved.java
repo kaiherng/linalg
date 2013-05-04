@@ -49,7 +49,7 @@ public class Saved extends JPanel {
 		cList = new HashMap<>();
 		Matrix m = new Matrix(DisplayType.WHOLENUMBER, new Double[][]{{1.0,2.0},{3.0,4.0}});
 		addCountable(m);
-		addCountable(m);
+		addCountable("Matrix", m);
 		addCountable(new Scalar(4.0, DisplayType.WHOLENUMBER));
 		
 //		for(int i = 0 ; i < 40; i++){

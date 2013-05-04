@@ -73,7 +73,7 @@ public class CurrentConstants {
 	public static final Color COUNTABLE_BLOCK_EDITING_BG = Color.black;	//the color to highlight the block when we're editing it
 	public static final Color COUNTABLE_BLOCK_DELETE_FG = Color.white;
 	public static final Font COUNTABLE_BLOCK_DELETE_FONT = new Font(SUPER_FONT_STYLE, Font.BOLD, 11);
-	public static final Font COUNTABLE_BLOCK_LABEL_MATRIX_FONT = new Font(SUPER_FONT_STYLE, Font.BOLD, 20);
+	public static final Font COUNTABLE_BLOCK_LABEL_MATRIX_FONT = new Font(SUPER_FONT_STYLE, Font.BOLD, 16);
 	public static final Font COUNTABLE_BLOCK_LABEL_SCALAR_FONT = new Font(SUPER_FONT_STYLE, Font.BOLD, 16);
 	public static final Color COUNTABLE_BLOCK_LABEL_FG = Color.white;
 	public static final Rectangle COUNTABLE_BLOCK_DELETE_BOUNDS = new Rectangle(37,3,10,10);
