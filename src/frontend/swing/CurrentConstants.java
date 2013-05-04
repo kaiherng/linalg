@@ -70,6 +70,7 @@ public class CurrentConstants {
 	
 	public static final Dimension COUNTABLE_BLOCK_SIZE = new Dimension(50, 50);
 	public static final Color COUNTABLE_BLOCK_BG = new Color(0x3C4C78);	
+	public static final Color COUNTABLE_BLOCK_EDITING_BG = Color.black;	//the color to highlight the block when we're editing it
 	public static final Color COUNTABLE_BLOCK_DELETE_FG = Color.white;
 	public static final Font COUNTABLE_BLOCK_DELETE_FONT = new Font(SUPER_FONT_STYLE, Font.BOLD, 11);
 	public static final Font COUNTABLE_BLOCK_LABEL_MATRIX_FONT = new Font(SUPER_FONT_STYLE, Font.BOLD, 20);
@@ -103,6 +104,8 @@ public class CurrentConstants {
 	public static final Color SUPER_COMPUTE_BAR_BG = new Color(0xF2F3F5); //changing this changes the value of all the colors that affect the compute bar
 	public static final Color COMPUTE_BG = SUPER_CONTENT_AREA_BG;
 	public static final Border COMPUTE_BORDER = new EmptyBorder(0,0,0,0);	
+	public static final int COMPUTE_WRAPLAYOUT_HGAP = 5;
+	public static final int COMPUTE_WRAPLAYOUT_VGAP = 5;
 	public static final Color COMPUTE_COMPUTEBAR_BG = SUPER_COMPUTE_BAR_BG;
 	public static final Border COMPUTE_COMPUTEBAR_BORDER = new EmptyBorder(0,0,0,0);
 	public static final Color COMPUTE_OPS_BG = SUPER_CONTENT_AREA_BG;
@@ -123,6 +126,8 @@ public class CurrentConstants {
 	/** SAVED **/
 	public static final Color SAVED_BG = SUPER_CONTENT_AREA_BG;
 	public static final Border SAVED_BORDER = new EmptyBorder(0,0,0,0);
+	public static final int SAVED_WRAPLAYOUT_VGAP = 7;
+	public static final int SAVED_WRAPLAYOUT_HGAP = 7;
 	public static final Color SAVEDSCROLL_BG = SUPER_CONTENT_AREA_BG;
 	public static final Border SAVEDSCROLL_BORDER = new EmptyBorder(0,0,0,0);
 	public static final Color SAVEDSCROLL_SCROLL_BG = SUPER_CONTENT_AREA_BG;
@@ -167,6 +172,16 @@ public class CurrentConstants {
 	public static final Color BUTTON_CLEAR_PRESSED_FG = Color.BLACK;
 	public static final Border BUTTON_COMPUTE_BORDER = new EmptyBorder(0,15,0,15);
 	public static final Border BUTTON_CLEAR_BORDER = new EmptyBorder(0,20,0,20);
+	
+	/** SCROLLPANE **/
+	public static final Color SUPER_SCROLLPANE_THUMB_BG = new Color(0x6D96D1);
+	public static final Color SUPER_SCROLLPANE_TRACK_BG = new Color(0xB4C6E0);
+	public static final Color SCROLLPANE_THUMB_COLOR = SUPER_SCROLLPANE_THUMB_BG;
+	public static final Color SCROLLPANE_THUMB_DARK_SHADOW_COLOR = SUPER_SCROLLPANE_THUMB_BG;
+	public static final Color SCROLLPANE_THUMB_HIGHLIGHT_COLOR = SUPER_SCROLLPANE_THUMB_BG;
+	public static final Color SCROLLPANE_THUMB_LIGHT_SHADOW_COLOR = SUPER_SCROLLPANE_THUMB_BG;
+	public static final Color SCROLLPANE_TRACK_COLOR = SUPER_SCROLLPANE_TRACK_BG;
+	public static final Color SCROLLPANE_TRACK_HIGHLIGHT_COLOR = SUPER_SCROLLPANE_TRACK_BG;
 	
 
 }

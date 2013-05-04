@@ -2,21 +2,19 @@ package frontend.panels;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.awt.Graphics;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 
 import org.scilab.forge.jlatexmath.TeXConstants;
 import org.scilab.forge.jlatexmath.TeXFormula;
 import org.scilab.forge.jlatexmath.TeXIcon;
 
 import frontend.swing.CurrentConstants;
+import frontend.swing.ScrollPane;
 
 public class StepSolution extends JPanel {
 	
@@ -41,7 +39,7 @@ public class StepSolution extends JPanel {
 		
 		_display = new Solution();
 		_display.addMouseListener(new Listener(this));
-		JScrollPane scroll = new JScrollPane(_display);
+		ScrollPane scroll = new ScrollPane(_display);
 		scroll.setBorder(CurrentConstants.STEPSOLUTION_SCROLL_BORDER);
 		scroll.setBackground(CurrentConstants.STEPSOLUTION_SCROLL_BG);
 		

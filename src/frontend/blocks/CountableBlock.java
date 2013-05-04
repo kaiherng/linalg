@@ -86,7 +86,7 @@ public class CountableBlock extends JPanel {
 	}
 	
 	public void setEditing(){
-		this.setBackground(Color.green);
+		this.setBackground(CurrentConstants.COUNTABLE_BLOCK_EDITING_BG);
 	}
 	
 	public void doneEditing(){

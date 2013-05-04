@@ -17,6 +17,7 @@ import java.util.Map;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 
 import backend.blocks.Countable;
 import backend.blocks.Numerical;
@@ -52,7 +53,10 @@ public class Compute extends JPanel {
 		_computeBar.setBorder(CurrentConstants.COMPUTE_COMPUTEBAR_BORDER);
 		_computeBar.setBackground(CurrentConstants.COMPUTE_COMPUTEBAR_BG);
 				
-		_ops = new JPanel(new WrapLayout(FlowLayout.LEFT));
+		WrapLayout wrapLayout = new WrapLayout(FlowLayout.LEFT);
+		wrapLayout.setHgap(CurrentConstants.COMPUTE_WRAPLAYOUT_HGAP);
+		wrapLayout.setVgap(CurrentConstants.COMPUTE_WRAPLAYOUT_VGAP);
+		_ops = new JPanel(wrapLayout);
 		_ops.setBorder(CurrentConstants.COMPUTE_OPS_BORDER);
 		_ops.setBackground(CurrentConstants.COMPUTE_OPS_BG);
 		
@@ -80,8 +84,10 @@ public class Compute extends JPanel {
 		ScrollPane scrollBar = new ScrollPane(_bar);
 		scrollBar.setBorder(CurrentConstants.COMPUTE_SCROLLBAR_BORDER);
 		scrollBar.setBackground(CurrentConstants.COMPUTE_SCROLLBAR_BG);
-		
-		scrollBar.getVerticalScrollBar().setPreferredSize(new Dimension(0,0));
+		scrollBar.getHorizontalScrollBar().setUnitIncrement(20);
+
+		scrollBar.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_NEVER);
+//		scrollBar.getVerticalScrollBar().setPreferredSize(new Dimension(0,0));
 		scrollPanel.add(scrollBar, BorderLayout.CENTER);
 		_bar.setBorder(CurrentConstants.COMPUTE_BAR_BORDER);
 		_bar.setBackground(CurrentConstants.COMPUTE_BAR_BG);
