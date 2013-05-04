@@ -44,7 +44,7 @@ public class AppFrame extends JFrame {
 		SolutionScroll stepPanel = new SolutionScroll();
 		Compute computePanel = new Compute(stepSol, stepPanel.getSolPanel());
 		SavedScroll savedPanel = new SavedScroll(computePanel);
-		Construct constructPanel = new Construct(savedPanel.getSavedPanel());
+		Construct constructPanel = new Construct(savedPanel.getSavedPanel(), this);
 		savedPanel.getSavedPanel().setConstructPanel(constructPanel);
 		stepSol.setSavedPanel(savedPanel.getSavedPanel());
 		
