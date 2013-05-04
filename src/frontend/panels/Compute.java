@@ -151,8 +151,7 @@ public class Compute extends JPanel {
 			_solPanel.setSolution(traverseTree(result, list), result.getSolution().getAnswer());
 		} catch (IllegalArgumentException e){
 			System.out.println(e.getMessage());
-//			_solPanel.setTex("\\text{" + e.getMessage() + "}");
-			_stepPanel.setTex("\\text{" + e.getMessage() + "}");
+			_solPanel.setError("\\text{" + e.getMessage() + "}");
 		}
 	}
 	

@@ -119,6 +119,11 @@ public class StepSolution extends JPanel {
 		this.repaint();
 	}
 	
+	public void setError(String error){
+		clear();
+		_display.setTex(error);
+	}
+	
 	public void next(){
 		if(_stepNumber < _solList.size() - 1){
 			_stepNumber++;
