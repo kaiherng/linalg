@@ -1,8 +1,5 @@
 package frontend.swing;
 
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -10,13 +7,10 @@ import java.awt.Insets;
 import javax.swing.BorderFactory;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.JSplitPane;
 import javax.swing.JTabbedPane;
 import javax.swing.SwingUtilities;
-import javax.swing.border.MatteBorder;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
-import javax.swing.plaf.basic.BasicSplitPaneUI;
 
 import frontend.panels.Compute;
 import frontend.panels.Construct;
@@ -46,7 +40,6 @@ public class AppFrame extends JFrame {
 		setUpDesign();
 		
 		//Create Panels
-		SolutionScroll solPanel = new SolutionScroll();
 		StepSolution stepSol = new StepSolution();
 		SolutionScroll stepPanel = new SolutionScroll();
 		Compute computePanel = new Compute(stepSol, stepPanel.getSolPanel());
@@ -60,7 +53,7 @@ public class AppFrame extends JFrame {
 		savedPanel.getSavedPanel().setTopLeftPane(tabbedPaneTopLeft); //set the pane to check when adding matrices
 		JTabbedPane tabbedPaneBottomLeft = createTabbedPaneBottomLeft(savedPanel);
 		JPanel leftPanel = createLeftPanel(tabbedPaneTopLeft, tabbedPaneBottomLeft);
-		JTabbedPane tabbedPaneRight = createTabbedPaneRight(stepSol, stepPanel);
+		JTabbedPane tabbedPaneRight = createTabbedPaneRight(stepSol);
 		JPanel rightPanel = createRightPanel(tabbedPaneRight);
 		
 		//create splitPane
@@ -94,14 +87,13 @@ public class AppFrame extends JFrame {
 		return tabbedPaneBottomLeft;
 	}
 	
-	public final static JTabbedPane createTabbedPaneRight(StepSolution solPanel, SolutionScroll stepPanel) {
+	public final static JTabbedPane createTabbedPaneRight(StepSolution solPanel) {
 		JTabbedPane tabbedPaneRight = new JTabbedPane();
 		tabbedPaneRight.addTab("Solution", solPanel);
 		
-		tabbedPaneRight.setToolTipTextAt(0,"Quick solution for your computation");
-		tabbedPaneRight.addTab("Step-By-Step", stepPanel);
+		tabbedPaneRight.setToolTipTextAt(0,"View the solution for your computation");
+		tabbedPaneRight.addTab("Solution", solPanel);
 		
-		tabbedPaneRight.setToolTipTextAt(1,"View the steps to arrive at the solution");
 		return tabbedPaneRight;
 	}
 	
