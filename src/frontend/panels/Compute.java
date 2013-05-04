@@ -166,16 +166,14 @@ public class Compute extends JPanel {
 	 */
 	public List<List<String>> traverseTree(ParseNode n, List<List<String>> list){
 		if(n.getLeft() != null){
-			List<List<String>> toAdd = traverseTree(n.getLeft(), list);
-			list.get(1).addAll(toAdd.get(1));
-			list.get(0).addAll(toAdd.get(0));
+			System.out.println("left");
+			traverseTree(n.getLeft(), list);
 		}
 		if(n.getRight() != null){
-			List<List<String>> toAdd = traverseTree(n.getRight(), list);
-			list.get(1).addAll(toAdd.get(1));
-			list.get(0).addAll(toAdd.get(0));
+			System.out.println("right");
+			traverseTree(n.getRight(), list);
 		}
-		
+		System.out.println("root");
 		//put all strings in the step list into one long string
 		List<String> nList = n.getSolution().getLatex();
 		StringBuilder sb = new StringBuilder();

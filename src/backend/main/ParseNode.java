@@ -174,4 +174,15 @@ public class ParseNode {
 		return _right;
 	}
 	
+	/**
+	 * @return whether the node is a leaf node
+	 */
+	public boolean isLeaf(){
+		if(_left == null && _right == null){
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
 }
