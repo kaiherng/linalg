@@ -113,6 +113,7 @@ public class Construct extends JPanel {
 		buttonPanel.add(scalarButton);
 		buttonPanel.add(clearButton);
 		buttonPanel.add(saveButton);
+		buttonPanel.setOpaque(false);
 	}
 	
 	public void clear(){
@@ -623,13 +624,25 @@ public class Construct extends JPanel {
 				dialog.setVisible(true);
 				String s = (String) optionPane.getInputValue();
 				
+				Object selection = optionPane.getValue();
+				if(selection == null || selection.equals("Cancel")){
+					return;
+				}
+				
 //				String s = (String)JOptionPane.showInputDialog(_c, "Enter value to fill in", "Fill Matrix", JOptionPane.PLAIN_MESSAGE, null, null, null);
 				Double value;
 				if(s == null){
 					return;
 				}
+				String str;
 				try{
 					value = Double.parseDouble(s);
+					BigDecimal bd = new BigDecimal(Double.valueOf(value));
+					if(bd.intValue() - bd.doubleValue() == new Double(0)){
+						str = ((Integer) bd.intValue()).toString();
+					} else {
+						str = Double.toString(value);
+					}
 				} catch (NumberFormatException e){
 					JOptionPane.showMessageDialog(_c,
 							"Input must be a number!",
@@ -642,8 +655,7 @@ public class Construct extends JPanel {
 					for(int j = 0; j < _mSize.get(1)+1; j++){
 						String val = _values.get("[" + i  + ", " + j + "]");
 						if(val == null || val.length() == 0){
-							val = value.toString();
-							_values.put("[" + i  + ", " + j + "]", val);
+							_values.put("[" + i  + ", " + j + "]", str);
 						}
 					}
 				}
