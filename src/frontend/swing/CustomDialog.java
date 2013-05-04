@@ -7,6 +7,8 @@ import java.awt.Font;
 import java.awt.Frame;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -34,6 +36,32 @@ public class CustomDialog extends JDialog {
         _textField.setBackground(Color.LIGHT_GRAY);
         Font font = new Font("Dialog", Font.BOLD, 16);
         _textField.setFont(font);
+        
+        _textField.addKeyListener(new KeyAdapter() {
+        	
+        	@Override
+        	public void keyPressed(KeyEvent evt) {
+                if(evt.getKeyCode() == KeyEvent.VK_ENTER) {
+                	Double value;
+    				String s = _textField.getText();
+            		if(s == null){
+    					_warning.setText("Must enter a number");
+    				}
+    				try{
+    					value = Double.parseDouble(s);
+    					listener.doDialogReturn(value);
+    					dispose();
+    				} catch (NumberFormatException exception){
+    					_warning.setText("Must enter a number");
+    					return;
+    				}
+                }
+                else if (evt.getKeyCode() == KeyEvent.VK_ESCAPE) {
+                	dispose();
+                }
+                
+            }
+        });
         
         JPanel contentPanel = (JPanel) this.getContentPane();
         contentPanel.setLayout(new BorderLayout());
