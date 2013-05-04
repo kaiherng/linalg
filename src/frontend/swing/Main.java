@@ -1,4 +1,6 @@
 package frontend.swing;
+import java.awt.Color;
+
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 
@@ -27,6 +29,8 @@ public class Main {
 		
 		UIManager.put("TabbedPane.tabInsets", CurrentConstants.TAB_INSETS);  //sets padding within the tab header
 		UIManager.put("TabbedPane.tabAreaInsets", CurrentConstants.TAB_AREA_INSETS);  //sets the margin of the block of tab headers
+	
+//		UIManager.put("OptionPane.background", Color.pink);
 	}
 	
 	private static boolean _splash = false;

@@ -28,8 +28,10 @@ import java.util.List;
 import java.util.Map;
 
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JRootPane;
 
 import backend.blocks.Countable.DisplayType;
 import backend.blocks.Matrix;
@@ -549,7 +551,7 @@ public class Construct extends JPanel {
 		
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
-			String s = (String)JOptionPane.showInputDialog("Enter the value of the scalar");
+			String s = (String)JOptionPane.showInputDialog(_c, "Enter the value of the scalar", "Create New Scalar", JOptionPane.PLAIN_MESSAGE, null, null, null);
 			Double value;
 			if(s == null){
 				return;
@@ -559,8 +561,8 @@ public class Construct extends JPanel {
 			} catch (NumberFormatException e){
 				JOptionPane.showMessageDialog(_c,
 					    "Input must be a number!",
-					    "Input Error",
-					    JOptionPane.ERROR_MESSAGE);
+					    "Input Error", 
+					    JOptionPane.PLAIN_MESSAGE);
 				return;
 			}
 			_save.addCountable("scalar", new Scalar(value, DisplayType.DECIMAL));
@@ -607,21 +609,35 @@ public class Construct extends JPanel {
 		
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
-			String s = (String)JOptionPane.showInputDialog("Enter value to fill in");
-			Double value;
-			if(s == null){
-				return;
-			}
-			try{
-				value = Double.parseDouble(s);
-			} catch (NumberFormatException e){
-				JOptionPane.showMessageDialog(_c,
-					    "Input must be a number!",
-					    "Input Error",
-					    JOptionPane.ERROR_MESSAGE);
-				return;
-			}
+
 			if(_drawn){
+				Object[] options = {"Fill", "Cancel"};
+				JOptionPane optionPane = new JOptionPane("Enter value", JOptionPane.PLAIN_MESSAGE, JOptionPane.OK_CANCEL_OPTION, null, options);
+				optionPane.setBackground(Color.pink);
+				optionPane.setWantsInput(true);
+				optionPane.setInitialSelectionValue("1");
+				JDialog dialog = optionPane.createDialog("Fill Matrix");
+				dialog.setLocationRelativeTo(null);
+				optionPane.setSize(new Dimension(400,400));
+				dialog.add(optionPane);
+				dialog.setVisible(true);
+				String s = (String) optionPane.getInputValue();
+				
+//				String s = (String)JOptionPane.showInputDialog(_c, "Enter value to fill in", "Fill Matrix", JOptionPane.PLAIN_MESSAGE, null, null, null);
+				Double value;
+				if(s == null){
+					return;
+				}
+				try{
+					value = Double.parseDouble(s);
+				} catch (NumberFormatException e){
+					JOptionPane.showMessageDialog(_c,
+							"Input must be a number!",
+							"Input Error",
+							JOptionPane.PLAIN_MESSAGE);
+					return;
+				}
+
 				for(int i = 0; i < _mSize.get(0)+1; i++){
 					for(int j = 0; j < _mSize.get(1)+1; j++){
 						String val = _values.get("[" + i  + ", " + j + "]");
