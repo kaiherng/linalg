@@ -1,6 +1,7 @@
 package frontend.panels;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Graphics;
@@ -158,6 +159,7 @@ public class Construct extends JPanel {
 		return _save;
 	}
 	
+	@Override
 	public void paintComponent(Graphics g){
 		super.paintComponent(g);
 		Graphics2D g2 = (Graphics2D) g;
@@ -172,8 +174,20 @@ public class Construct extends JPanel {
 					g2.drawRect(_grid[i][j].x, _grid[i][j].y, _grid[i][j].width, _grid[i][j].height);
 				}
 			}
-			g2.setColor(CurrentConstants.CONSTRUCT_GRID_DARK);
-			g2.drawString(_sizeIndicator, _mouseLocation.x + 10, _mouseLocation.y + 30);
+//			g2.setColor(CurrentConstants.CONSTRUCT_GRID_DARK);
+//			g2.drawString(_sizeIndicator, _mouseLocation.x + CurrentConstants.CONSTRUCT_SIZEINDICATOR_XOFFSET, _mouseLocation.y + CurrentConstants.CONSTRUCT_SIZEINDICATOR_YOFFSET);
+			
+			if (_sizeIndicator.length() > 0) {
+				AttributedString as = new AttributedString(_sizeIndicator);
+				as.addAttribute(TextAttribute.SIZE, CurrentConstants.CONSTRUCT_SIZEINDICATOR_SIZE);
+				as.addAttribute(TextAttribute.FAMILY, CurrentConstants.CONSTRUCT_SIZEINDICATOR_FONT);
+				as.addAttribute(TextAttribute.WEIGHT, CurrentConstants.CONSTRUCT_SIZEINDICATOR_WEIGHT);
+				as.addAttribute(TextAttribute.FOREGROUND, CurrentConstants.CONSTRUCT_SIZEINDICATOR_FG);
+				as.addAttribute(TextAttribute.BACKGROUND, CurrentConstants.CONSTRUCT_SIZEINDICATOR_BG);
+				TextLayout tl = new TextLayout(as.getIterator(), g2.getFontRenderContext());
+				tl.draw(g2, _mouseLocation.x + CurrentConstants.CONSTRUCT_SIZEINDICATOR_XOFFSET, _mouseLocation.y + CurrentConstants.CONSTRUCT_SIZEINDICATOR_YOFFSET);
+			}
+		
 		}
 		
 		if(_drawn){
@@ -230,6 +244,7 @@ public class Construct extends JPanel {
 						AttributedString as = new AttributedString(s);
 
 						as.addAttribute(TextAttribute.SIZE, _fontSize);
+						as.addAttribute(TextAttribute.FAMILY, CurrentConstants.CONSTRUCT_FONT);
 						TextLayout tl = new TextLayout(as.getIterator(), g2.getFontRenderContext());
 						
 						//calculate center

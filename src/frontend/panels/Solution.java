@@ -26,7 +26,7 @@ public class Solution extends JPanel {
 
 	public Solution(){
 		this.setLayout(new BorderLayout());
-//		setBackground(CurrentConstants.SOLUTION_BG);
+		setBackground(CurrentConstants.SOLUTION_BG);
 		setBorder(CurrentConstants.SOLUTION_BORDER);
 		TeXFormula formula = new TeXFormula("\\text{Solutions will be displayed here}");
 		_ti = formula.createTeXIcon(TeXConstants.STYLE_DISPLAY, _size);
@@ -38,7 +38,7 @@ public class Solution extends JPanel {
 	public Solution(int size){
 		_size = size;
 		this.setLayout(new BorderLayout());
-//		setBackground(CurrentConstants.SOLUTION_BG);
+		setBackground(CurrentConstants.SOLUTION_BG);
 		setBorder(CurrentConstants.SOLUTION_BORDER);
 		TeXFormula formula = new TeXFormula("\\text{Solutions will be displayed here}");
 		_ti = formula.createTeXIcon(TeXConstants.STYLE_DISPLAY, _size);

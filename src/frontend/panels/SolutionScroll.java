@@ -22,10 +22,11 @@ public class SolutionScroll extends JPanel {
 		_sol = new Solution();
 		
 		_scroll = new ScrollPane(_sol);
+		
 		this.setPreferredSize(new Dimension(100,100));
 		this.add(_scroll, BorderLayout.CENTER);
-		_scroll.setBackground(CurrentConstants.SOLUTIONSCROLL_SCROLLPANE_BG);
-		_scroll.setBorder(CurrentConstants.SOLUTIONSCROLL_SCROLLPANE_BORDER);
+		_scroll.setBackground(CurrentConstants.SOLUTIONSCROLL_SCROLL_BG);
+		_scroll.setBorder(CurrentConstants.SOLUTIONSCROLL_SCROLL_BORDER);
 		_scroll.getVerticalScrollBar().setUnitIncrement(20);
 	}
 	

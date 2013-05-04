@@ -16,6 +16,8 @@ import org.scilab.forge.jlatexmath.TeXConstants;
 import org.scilab.forge.jlatexmath.TeXFormula;
 import org.scilab.forge.jlatexmath.TeXIcon;
 
+import frontend.swing.CurrentConstants;
+
 public class StepSolution extends JPanel {
 	
 	/**
@@ -31,6 +33,8 @@ public class StepSolution extends JPanel {
 	public StepSolution(){
 		super();
 		this.setLayout(new BorderLayout());
+		this.setBackground(CurrentConstants.STEPSOLUTION_BG);
+		this.setBorder(CurrentConstants.STEPSOLUTION_BORDER);
 		this.setPreferredSize(new Dimension(100,100));
 
 		_solList = new ArrayList<>();
@@ -38,8 +42,13 @@ public class StepSolution extends JPanel {
 		_display = new Solution();
 		_display.addMouseListener(new Listener(this));
 		JScrollPane scroll = new JScrollPane(_display);
+		scroll.setBorder(CurrentConstants.STEPSOLUTION_SCROLL_BORDER);
+		scroll.setBackground(CurrentConstants.STEPSOLUTION_SCROLL_BG);
 		
 		JPanel bottomBar = new JPanel(new BorderLayout());
+		bottomBar.setBorder(CurrentConstants.STEPSOLUTION_BOTTOMBAR_BORDER);
+		bottomBar.setBackground(CurrentConstants.STEPSOLUTION_BOTTOMBAR_BG);
+		
 		_comp = new Solution();
 		_answer = new Solution(30);
 		
@@ -52,9 +61,6 @@ public class StepSolution extends JPanel {
 		this.revalidate();
 	}
 	
-	public void paintComponent(Graphics g){
-		super.paintComponent(g);
-	}
 	
 	public void setSavedPanel(Saved savePanel){
 		_savePanel = savePanel;
