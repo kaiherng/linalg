@@ -50,7 +50,7 @@ public class Saved extends JPanel {
 		addCountable("C", new Scalar(4.0, DisplayType.WHOLENUMBER));
 		
 		for(int i = 0 ; i < 40; i++){
-//			addCountable("A", m);
+			addCountable("A", m);
 		}
 		
 	}

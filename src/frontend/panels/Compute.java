@@ -45,18 +45,21 @@ public class Compute extends JPanel {
 		_stepPanel = step;
 		
 		this.setLayout(new BorderLayout());
+		this.setBorder(CurrentConstants.COMPUTE_BORDER);
+		this.setBackground(CurrentConstants.COMPUTE_BG);
+		
 		_computeBar = new JPanel(new BorderLayout());
-		_computeBar.setBorder(CurrentConstants.COMPUTE_BAR_BORDER);
-		
-//		_pages = new JPanel(new GridLayout(3, 1));
-		_computeBar.setBorder(CurrentConstants.COMPUTE_PAGES_BORDER);
-		
+		_computeBar.setBorder(CurrentConstants.COMPUTE_COMPUTEBAR_BORDER);
+		_computeBar.setBackground(CurrentConstants.COMPUTE_COMPUTEBAR_BG);
+				
 		_ops = new JPanel(new WrapLayout(FlowLayout.LEFT));
 		_ops.setBorder(CurrentConstants.COMPUTE_OPS_BORDER);
+		_ops.setBackground(CurrentConstants.COMPUTE_OPS_BG);
 		
 		//compute bar
 		JPanel buttonPanel = new JPanel();
-		buttonPanel.setBorder(CurrentConstants.COMPUTE_BUTTON_PANEL_BORDER);
+		buttonPanel.setBorder(CurrentConstants.COMPUTE_BUTTONPANEL_BORDER);
+		buttonPanel.setBackground(CurrentConstants.COMPUTE_BUTTONPANEL_BG);
 		buttonPanel.setLayout(new BorderLayout());
 		
 		JButton computeButton = new Button("Compute", CurrentConstants.BUTTON_COMPUTE_BG, CurrentConstants.BUTTON_COMPUTE_FG, CurrentConstants.BUTTON_COMPUTE_HOVER_BG, CurrentConstants.BUTTON_COMPUTE_HOVER_FG, CurrentConstants.BUTTON_COMPUTE_PRESSED_BG, CurrentConstants.BUTTON_COMPUTE_PRESSED_FG, CurrentConstants.BUTTON_COMPUTE_BORDER);
@@ -67,15 +70,22 @@ public class Compute extends JPanel {
 		_computeBar.add(buttonPanel, BorderLayout.EAST);
 		buttonPanel.add(clearButton, BorderLayout.EAST);
 		buttonPanel.add(computeButton, BorderLayout.WEST);
+		
 		JPanel scrollPanel = new JPanel(new BorderLayout());
-		scrollPanel.setBorder(CurrentConstants.COMPUTE_BAR_SCROLLPANEL_BORDER);
-		scrollPanel.setPreferredSize(CurrentConstants.COMPUTE_BAR_SCROLLPANEL_SIZE);
+		scrollPanel.setBorder(CurrentConstants.COMPUTE_SCROLLPANEL_BORDER);
+		scrollPanel.setBackground(CurrentConstants.COMPUTE_SCROLLPANEL_BG);
+		scrollPanel.setPreferredSize(CurrentConstants.COMPUTE_SCROLLPANEL_SIZE);
+		
 		_bar = new JPanel(new FlowLayout(FlowLayout.LEFT));
 		ScrollPane scrollBar = new ScrollPane(_bar);
-		scrollBar.setBorder(CurrentConstants.COMPUTE_BAR_SCROLL_PANE_BORDER);
+		scrollBar.setBorder(CurrentConstants.COMPUTE_SCROLLBAR_BORDER);
+		scrollBar.setBackground(CurrentConstants.COMPUTE_SCROLLBAR_BG);
+		
 		scrollBar.getVerticalScrollBar().setPreferredSize(new Dimension(0,0));
 		scrollPanel.add(scrollBar, BorderLayout.CENTER);
-		_bar.setBorder(CurrentConstants.COMPUTE_BAR_SCROLLPANE_BAR_BORDER);
+		_bar.setBorder(CurrentConstants.COMPUTE_BAR_BORDER);
+		_bar.setBackground(CurrentConstants.COMPUTE_BAR_BG);
+		
 		_computeBar.add(scrollPanel, BorderLayout.CENTER);
 		
 		

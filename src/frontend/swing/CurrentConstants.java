@@ -22,6 +22,7 @@ public class CurrentConstants {
 	public static final Color INIT_FRAME_BG = new Color(0x85A8D6);
 	
 	public static final String FONT_STYLE = "Dialog";
+	public static final Color CONTENT_AREA_COLOR = new Color(0xBBCFF2);
 	
 	public static final Color FRAME_BORDER_COLOR = Color.BLACK;
 	public static final int FRAME_BORDER_WIDTH = 1;
@@ -48,7 +49,7 @@ public class CurrentConstants {
 	public static final Color TAB_SELECTED = new Color(0x22385C); //the color of the tab when its selected
 	public static final Color TAB_SELECTED_HIGHLIGHT = new Color(0x22385C); //the top and left borders of the tab when selected
 	public static final Color TAB_SELECTED_FG = Color.WHITE;
-	public static final Color TAB_CONTENT_AREA = new Color(0xBBCFF2);
+	public static final Color TAB_CONTENT_AREA = CONTENT_AREA_COLOR;
 	public static final Insets TAB_CONTENT_BORDER_INSETS = new Insets(0, 0, 0, 0); //the border of the content pane itself
 	public static final Color TAB_FG = Color.WHITE;
 	public static final Color TAB_BG = new Color(0x29477F);
@@ -87,34 +88,34 @@ public class CurrentConstants {
 	public static final Color CONSTRUCT_GRID_MEDIUM = new Color(0xBBBBBB);
 	public static final Color CONSTRUCT_GRID_LIGHT = new Color(0xCCCCCC);
 	
-	public static final Color COMPUTE_BAR_BG = new Color(0,0,0,0);
-	public static final Border COMPUTE_BAR_BORDER = new EmptyBorder(0,0,0,0);
-	public static final Color COMPUTE_OPS_BG = new Color(0xBBCFF2);
+	public static final Color SUPER_COMPUTE_BAR_BG = new Color(0xF2F3F5); //changing this changes the value of all the colors that affect the compute bar
+	public static final Color COMPUTE_BG = CONTENT_AREA_COLOR;
+	public static final Border COMPUTE_BORDER = new EmptyBorder(0,0,0,0);	
+	public static final Color COMPUTE_COMPUTEBAR_BG = SUPER_COMPUTE_BAR_BG;
+	public static final Border COMPUTE_COMPUTEBAR_BORDER = new EmptyBorder(0,0,0,0);
+	public static final Color COMPUTE_OPS_BG = CONTENT_AREA_COLOR;
 	public static final Border COMPUTE_OPS_BORDER = new EmptyBorder(0,0,0,0);
-	public static final Color COMPUTE_PAGES_BG = new Color(0x85A8D6);
-	public static final Border COMPUTE_PAGES_BORDER = new EmptyBorder(0,0,0,0);
-	public static final Color COMPUTE_BUTTON_PANEL_BG = new Color(0x4B7DBF);
-	public static final Border COMPUTE_BUTTON_PANEL_BORDER = new EmptyBorder(0,0,0,0);
-	public static final Color COMPUTE_BAR_SCROLLPANE_BAR_BG = new Color(0,0,0,0);
-	public static final Border COMPUTE_BAR_SCROLLPANE_BAR_BORDER = new EmptyBorder(0,0,0,0);
-	public static final Color COMPUTE_BAR_SCROLLPANEL_BG = new Color(0,0,0,0);
-	public static final Border COMPUTE_BAR_SCROLLPANEL_BORDER = new EmptyBorder(0,0,0,0);
-	public static final Dimension COMPUTE_BAR_SCROLLPANEL_SIZE = new Dimension(100,70);
-	public static final Color COMPUTE_BAR_SCROLL_PANE_BG = new Color(0,0,0,0);
-	public static final Border COMPUTE_BAR_SCROLL_PANE_BORDER = new EmptyBorder(0,0,0,0);	
-	
+	public static final Color COMPUTE_BUTTONPANEL_BG = SUPER_COMPUTE_BAR_BG;
+	public static final Border COMPUTE_BUTTONPANEL_BORDER = new EmptyBorder(0,0,0,0);
+	public static final Dimension COMPUTE_SCROLLPANEL_SIZE = new Dimension(100,70);
+	public static final Border COMPUTE_SCROLLPANEL_BORDER = new EmptyBorder(0,0,0,0);
+	public static final Color COMPUTE_SCROLLPANEL_BG = CONTENT_AREA_COLOR;	
+	public static final Color COMPUTE_BAR_BG = SUPER_COMPUTE_BAR_BG;
+	public static final Border COMPUTE_BAR_BORDER = new EmptyBorder(0,0,0,0);	
+	public static final Color COMPUTE_SCROLLBAR_BG = SUPER_COMPUTE_BAR_BG;
+	public static final Border COMPUTE_SCROLLBAR_BORDER = new EmptyBorder(0,0,0,0);		
 	public static final Dimension COMPUTE_BAR_OBJECT_SIZE = new Dimension(45,45);
 	public static final Color COMPUTE_BAR_OBJECT_FG = Color.WHITE;
-	public static final Color COMPUTE_BAR_OBJECT_BG = new Color(0x3A5E85);
+	public static final Color COMPUTE_BAR_OBJECT_BG = new Color(0x3C4C78);
 	
-	public static final Color SAVED_BG = new Color(0xBBCFF2);
+	public static final Color SAVED_BG = CONTENT_AREA_COLOR;
 	public static final Border SAVED_BORDER = new EmptyBorder(0,0,0,0);
-	public static final Color SAVEDSCROLL_BG = new Color(0xBBCFF2);
+	public static final Color SAVEDSCROLL_BG = CONTENT_AREA_COLOR;
 	public static final Border SAVEDSCROLL_BORDER = new EmptyBorder(0,0,0,0);
-	public static final Color SAVEDSCROLL_SCROLL_BG = new Color(0xBBCFF2);
+	public static final Color SAVEDSCROLL_SCROLL_BG = CONTENT_AREA_COLOR;
 	public static final Border SAVEDSCROLL_SCROLL_BORDER = new EmptyBorder(0,0,0,0);
 	
-	public static final Color SOLUTION_BG = new Color(0xBBCFF2);
+	public static final Color SOLUTION_BG = CONTENT_AREA_COLOR;
 	public static final Border SOLUTION_BORDER = new EmptyBorder(0,0,0,0);
 	
 	public static final Color SOLUTIONSCROLL_BG = new Color(0,0,0,0);
