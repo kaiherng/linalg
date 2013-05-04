@@ -36,7 +36,6 @@ public class Main {
 		setUpDesign();
 		final InitFrameThread initFrameThread = new InitFrameThread();
 		if(_splash){
-			
 			SwingUtilities.invokeLater(initFrameThread);
 			
 			try {
