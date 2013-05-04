@@ -2,6 +2,7 @@ package frontend.panels;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Graphics;
@@ -57,7 +58,7 @@ public class Construct extends JPanel {
 	
 	public Construct(Saved saved) {
 		this.setLayout(new BorderLayout());
-//		setBackground(CurrentConstants.CONSTRUCT_BG);
+		setBackground(CurrentConstants.CONSTRUCT_BG);
 		setBorder(CurrentConstants.CONSTRUCT_BORDER);
 		_save = saved;
 		
@@ -291,6 +292,7 @@ public class Construct extends JPanel {
 		}
 		
 		public void mouseReleased(MouseEvent e){
+			setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
 			if(_drawing = true){
 				if(_mSize.get(0) > -1 && _mSize.get(1) > -1){
 					if(_selected.size() != 2){
@@ -333,6 +335,7 @@ public class Construct extends JPanel {
 				}
 			} else if(_drawn && !_drawing){
 				//drag matrix around
+				setCursor(Cursor.getPredefinedCursor(Cursor.MOVE_CURSOR));
 				int newX = _offset.get(0) + e.getPoint().x - (_startDrag).x;
 				int newY = _offset.get(1) + e.getPoint().y - (_startDrag).y;
 				_offset.set(0, newX);

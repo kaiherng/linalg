@@ -12,7 +12,7 @@ import frontend.swing.ScrollPane;
 public class SolutionScroll extends JPanel {
 	
 	Solution _sol;
-	JScrollPane _scroll;
+	ScrollPane _scroll;
 
 	public SolutionScroll() {
 		// TODO Auto-generated constructor stub

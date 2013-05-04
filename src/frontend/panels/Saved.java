@@ -37,7 +37,10 @@ public class Saved extends JPanel {
 
 	public Saved(Compute c) {
 		super();
-		this.setLayout(new WrapLayout(FlowLayout.LEFT));
+		WrapLayout wrapLayout = new WrapLayout(FlowLayout.LEFT);
+		wrapLayout.setVgap(CurrentConstants.SAVED_WRAPLAYOUT_VGAP);
+		wrapLayout.setHgap(CurrentConstants.SAVED_WRAPLAYOUT_HGAP);
+		this.setLayout(wrapLayout);
 		//this.setPreferredSize(this.getSize());
 		this.setBackground(CurrentConstants.SAVED_BG);
 		this.setBorder(CurrentConstants.SAVED_BORDER);

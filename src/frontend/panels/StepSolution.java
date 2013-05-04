@@ -3,7 +3,6 @@ package frontend.panels;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -13,17 +12,13 @@ import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-
-import org.scilab.forge.jlatexmath.TeXConstants;
-import org.scilab.forge.jlatexmath.TeXFormula;
-import org.scilab.forge.jlatexmath.TeXIcon;
+import javax.swing.JPanel;
 
 import backend.blocks.Countable;
 
 import frontend.swing.CurrentConstants;
+import frontend.swing.ScrollPane;
 
 public class StepSolution extends JPanel {
 	
