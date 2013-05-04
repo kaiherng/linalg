@@ -30,7 +30,7 @@ public class StepSolution extends JPanel {
 	private Solution _display, _answer, _comp;
 	private List<String> _solList, _compList;
 	private int _stepNumber = 0;
-	private JScrollPane _scroll;
+	private ScrollPane _scroll;
 	private JButton _forwardButton, _backButton;
 	private Countable _ans;
 	
@@ -46,7 +46,7 @@ public class StepSolution extends JPanel {
 		//main display
 		_display = new Solution("\\text{Solutions will be displayed here}");
 //		_display.addMouseListener(new Listener(this));
-		_scroll = new JScrollPane(_display);
+		_scroll = new ScrollPane(_display);
 		_scroll.getVerticalScrollBar().setUnitIncrement(20);
 		_scroll.setBorder(CurrentConstants.STEPSOLUTION_SCROLL_BORDER);
 		_scroll.setBackground(CurrentConstants.STEPSOLUTION_SCROLL_BG);
@@ -59,7 +59,7 @@ public class StepSolution extends JPanel {
 		//bottom bar left
 		JPanel bottomBarLeft = new JPanel(new BorderLayout());
 		_comp = new Solution("");
-		JScrollPane compScroll = new JScrollPane(_comp);
+		ScrollPane compScroll = new ScrollPane(_comp);
 		bottomBarLeft.add(compScroll, BorderLayout.CENTER);
 		_forwardButton = new JButton(">");
 		_backButton = new JButton("<");
