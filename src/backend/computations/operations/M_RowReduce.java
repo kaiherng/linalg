@@ -85,7 +85,7 @@ public class M_RowReduce extends Computable
 			steps.add("");
 			steps.add("\\vspace{15mm} "+stepNumber+". \\ \\mathrm{Rearrange \\ rows \\ to:}");
 			stepNumber++;
-			steps.add("\\hspace{15mm} "+(new MatrixDraw(stepMatrix)).getCorrectLatex(matrix.getDisplayType()));
+			steps.add("\\hspace{15mm} "+MatrixDraw.getCorrectLatex(matrix.getDisplayType(),stepMatrix));
 
 		//the row to work on
 		for (int j=0;j<Math.min(moved.length,moved[0].length);j++)
@@ -111,7 +111,7 @@ public class M_RowReduce extends Computable
 				String piv = shortenDecimal(Double.toString(pivot));
 				steps.add("\\vspace{15mm}"+stepNumber+". \\ \\mathrm{Divide \\ Row \\ "+(j+1)+" \\ by} \\ "+piv);
 				stepNumber++;
-				steps.add("\\hspace{15mm} = "+(new MatrixDraw(stepMatrix)).getCorrectLatex(DisplayType.DECIMAL));
+				steps.add("\\hspace{15mm} = "+ MatrixDraw.getCorrectLatex(DisplayType.DECIMAL,stepMatrix));
 			}
 
 			//make the whole column zero except for pivot
@@ -140,7 +140,7 @@ public class M_RowReduce extends Computable
 				steps.add("\\vspace{15mm}"+stepNumber+". \\ \\mathrm{Subtract \\ Row \\ "+(l+1)+" \\ by \\ (Row} \\ "+(j+1)+" \\ \\times \\ "+
 					num+")");
 				stepNumber++;
-				steps.add("\\hspace{15mm} = "+(new MatrixDraw(stepMatrix)).getCorrectLatex(DisplayType.DECIMAL));
+				steps.add("\\hspace{15mm} = "+ MatrixDraw.getCorrectLatex(DisplayType.DECIMAL,stepMatrix));
 			}
 		}
 
@@ -178,7 +178,7 @@ public class M_RowReduce extends Computable
 
 		Matrix answer=new Matrix(DisplayType.DECIMAL,moved);
 		steps.add("\\vspace{15mm} \\mathrm{The \\ row \\ reduced \\ echelon \\ form \\ is}");
-		steps.add("\\vspace{5mm} \\hspace{15mm} "+(new MatrixDraw(answer)).getCorrectLatex(DisplayType.DECIMAL));
+		steps.add("\\vspace{5mm} \\hspace{15mm} "+MatrixDraw.getCorrectLatex(DisplayType.DECIMAL,answer));
 
 		List<Countable> inputs = new ArrayList<>();
 		inputs.add(matrix);

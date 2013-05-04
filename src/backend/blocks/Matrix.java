@@ -300,8 +300,7 @@ public class Matrix extends Countable{
 	
 	//TODO: SHOULD MOVE ACTUAL MATRIX TO LATEX METHOD HERE!!
 	public String toLatex(){
-		MatrixDraw md = new MatrixDraw(this);
-		return md.getCorrectLatex(_displayType);
+		return MatrixDraw.getCorrectLatex(_displayType,this);
 	}
 
 }

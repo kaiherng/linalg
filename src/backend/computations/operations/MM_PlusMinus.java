@@ -108,10 +108,8 @@ public class MM_PlusMinus extends Computable {
 	public List<String> toLatex() {
 		List<String> toReturn = new ArrayList<>();
 		toReturn.add("\\vspace{10mm} \\mathrm{Matrix \\ " + _opName + ":}");
-		MatrixDraw m1 = new MatrixDraw(_matrix1);
-		MatrixDraw m2 = new MatrixDraw(_matrix2);
-		String m1String = m1.getCorrectLatex(_displayType);
-		String m2String = m2.getCorrectLatex(_displayType);
+		String m1String = MatrixDraw.getCorrectLatex(_displayType,_matrix1);
+		String m2String = MatrixDraw.getCorrectLatex(_displayType,_matrix2);
 		StringBuffer b = new StringBuffer();
 		b.append(m1String);
 		b.append("$\\"+_operation+"\\ $");
@@ -119,10 +117,8 @@ public class MM_PlusMinus extends Computable {
 		toReturn.add("\\vspace{10mm} 1. \\\\ \\hspace{15mm} "+b.toString()); // first step shows "m1 + m2"
 		b.delete(0, b.length()); // empty buffer
 		
-		MatrixDraw m3 = new MatrixDraw(_step1Matrix);
-		MatrixDraw m4 = new MatrixDraw(_step2Matrix);
-		toReturn.add("\\vspace{15mm} 2. \\ \\mathrm{" + _opWord+" \\ each \\ corresponding \\ index}  \\\\ \\hspace{15mm} "+m3.getCorrectLatex(DisplayType.CUSTOM) + "\\\\");
-		toReturn.add("\\vspace{15mm} \\mathrm{Solution:} \\\\ \\hspace{15mm}"+m4.getCorrectLatex(_displayType));
+		toReturn.add("\\vspace{15mm} 2. \\ \\mathrm{" + _opWord+" \\ each \\ corresponding \\ index}  \\\\ \\hspace{15mm} "+MatrixDraw.getCorrectLatex(DisplayType.CUSTOM,_step1Matrix) + "\\\\");
+		toReturn.add("\\vspace{15mm} \\mathrm{Solution:} \\\\ \\hspace{15mm}"+MatrixDraw.getCorrectLatex(_displayType,_step2Matrix));
 		return toReturn;
 	}
 	

@@ -107,11 +107,9 @@ public class MM_Multiply extends Computable {
 	public List<String> toLatex() {
 		List<String> toReturn = new ArrayList<>();
 		toReturn.add("\\vspace{10mm} \\mathrm{Matrix \\ Multiply:}");
-		MatrixDraw m1 = new MatrixDraw(_matrixA);
-		MatrixDraw m2 = new MatrixDraw(_matrixB);
 		StringBuilder b = new StringBuilder();
-		String m1String = m1.getCorrectLatex(_displayType);
-		String m2String = m2.getCorrectLatex(_displayType);
+		String m1String = MatrixDraw.getCorrectLatex(_displayType,_matrixA);
+		String m2String = MatrixDraw.getCorrectLatex(_displayType,_matrixB);
 		b.append(m1String);
 		b.append(" $\\times$ ");
 		b.append(m2String);
@@ -137,8 +135,7 @@ public class MM_Multiply extends Computable {
 			}
 		}
 		
-		MatrixDraw m3 = new MatrixDraw(_step1Matrix);
-		toReturn.add("\\vspace{15mm} \\mathrm{Solution:} \\\\ \\hspace{15mm}"+m3.getCorrectLatex(_displayType));
+		toReturn.add("\\vspace{15mm} \\mathrm{Solution:} \\\\ \\hspace{15mm}"+MatrixDraw.getCorrectLatex(_displayType,_step1Matrix));
 		return toReturn;
 	}
 }

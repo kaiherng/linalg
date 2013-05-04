@@ -91,7 +91,7 @@ public class M_Columnspace extends Computable
 			Double[][] v=new Double[1][values[0].length];
 			v[0]=col;
 			Matrix m=new Matrix(answerDisplayType,v);
-			basis+=(new MatrixDraw(m)).getCorrectLatex(answerDisplayType)+" ";
+			basis+=MatrixDraw.getCorrectLatex(answerDisplayType,m)+" ";
 		}
 		steps.add(basis);
 

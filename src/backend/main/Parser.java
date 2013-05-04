@@ -62,21 +62,32 @@ public class Parser {
 	public static ParseNode parse(List<Numerical> input) throws IllegalArgumentException {
 		checkValidInput(input);
 		if (input.size() == 1){
-			List<String> l = new ArrayList<>();
-			if (input.get(0) instanceof Scalar){
-				l.add("\\hspace{5mm} \\mathrm{Scalar \\ Value: \\}"+((Scalar) input.get(0)).getDisplayValue()+"\\vspace{10mm}");
-			}else{
-				MatrixDraw m = new MatrixDraw((Matrix) input.get(0));
-				l.add("\\hspace{5mm} \\mathrm{Matrix:\\vspace{15mm} \\ }"+m.getCorrectLatex(((Matrix) input.get(0)).getDisplayType()));
-			}
-			return new ParseNode(new Solution(null,null,(Countable) input.get(0),l),null,null);
+			return handleSingleCountable(input);
 		}else{
-		Numerical operationTree = createSortedTree(input); 
-		ParseNode parseTree =  compute(operationTree);
-		ToComputeTreeNode toComputeRoot = new ToComputeTreeNode(null,null,null);
-		createToComputeStrings(parseTree,toComputeRoot,toComputeRoot);
-		return parseTree;
+			Numerical operationTree = createSortedTree(input); 
+			ParseNode parseTree =  compute(operationTree);
+			ToComputeTreeNode toComputeRoot = new ToComputeTreeNode(null,null,null);
+			createToComputeStrings(parseTree,toComputeRoot,toComputeRoot);
+			return parseTree;
 		}
+	}
+	
+	/**
+	 * If there is just a single Countable in the input, there is no need to parse anything
+	 * 
+	 * @param input The list of length one containing the Countable
+	 * @return A ParseNode describing how to display the Countable
+	 */
+	private static ParseNode handleSingleCountable(List<Numerical> input){
+		List<String> l = new ArrayList<>();
+		if (input.get(0) instanceof Scalar){
+			l.add("\\hspace{5mm} \\mathrm{Scalar \\ Value: \\ }"+((Scalar) input.get(0)).getDisplayValue()+"\\vspace{10mm}");
+		}else{
+			l.add("\\hspace{5mm} \\mathrm{Matrix:\\vspace{15mm} \\ }"+MatrixDraw.getCorrectLatex(((Matrix) input.get(0)).getDisplayType(),(Matrix)input.get(0)));
+		}
+		ParseNode p =  new ParseNode(new Solution(null,null,(Countable) input.get(0),l),null,null);
+		p.setComputeStringTreeNonRecursive(new ToComputeTreeNode(null,null,l.get(0)));
+		return p;
 	}
 	
 	
@@ -432,9 +443,10 @@ public class Parser {
 	//===================================
 	
 	/**
+	 * Computes a ParseNode containing the solution and arguments to a unary matrix operation
 	 * 
-	 * @param op
-	 * @param type
+	 * @param op the operation to compute
+	 * @param type the type of operation to compute
 	 * @return the ParseNode containing the solution and arguments to <op>
 	 */
 	private static ParseNode computeUnaryMatrixOp(Operation op, Op type){

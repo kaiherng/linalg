@@ -116,24 +116,22 @@ public class MS_Multiply extends Computable {
 		List<String> toReturn = new ArrayList<>();
 		toReturn.add("\\vspace{10mm} \\mathrm{Scalar \\ Matrix \\ Multiplication}");
 		toReturn.add("\\vspace{10mm} 1.");
-		MatrixDraw m1 = new MatrixDraw(_matrixArg);
 		StringBuilder b = new StringBuilder();
 		b.append("\\hspace{15mm}");
 		if (_scalarFirst){
 			b.append(_scalarArg.getDisplayValue());
 			b.append(" \\times ");
-			b.append(m1.getCorrectLatex(_displayType));
+			b.append(MatrixDraw.getCorrectLatex(_displayType,_matrixArg));
 		}else{
-			b.append(m1.getCorrectLatex(_displayType));
+			b.append(MatrixDraw.getCorrectLatex(_displayType,_matrixArg));
 			b.append(" \\times ");
 			b.append(_scalarArg.getDisplayValue());
 		}
 		toReturn.add(b.toString());
-		MatrixDraw answer = new MatrixDraw(_answer);
 		toReturn.add("\\vspace{15mm} 2. \\ \\mathrm{Mutliply \\ each \\ index \\ by \\ "+_scalarArg.getDisplayValue()+"}");
-		toReturn.add("\\hspace{15mm} \\vspace{15mm}"+answer.getCorrectLatex(DisplayType.CUSTOM));
+		toReturn.add("\\hspace{15mm} \\vspace{15mm}"+MatrixDraw.getCorrectLatex(DisplayType.CUSTOM,_answer));
 		toReturn.add("\\vspace{15mm} \\mathrm{Solution:}");
-		toReturn.add("\\hspace{15mm}\\vspace{15mm}"+answer.getCorrectLatex(_displayType));
+		toReturn.add("\\hspace{15mm}\\vspace{15mm}"+MatrixDraw.getCorrectLatex(_displayType,_answer));
 		return toReturn;
 	}
 	
