@@ -1,10 +1,8 @@
 package frontend.panels;
 
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.FlowLayout;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.geom.Rectangle2D;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -41,6 +39,7 @@ public class Saved extends JPanel {
 		super();
 		this.setLayout(new WrapLayout(FlowLayout.LEFT));
 		//this.setPreferredSize(this.getSize());
+		this.setBackground(CurrentConstants.SAVED_BG);
 		this.setBorder(CurrentConstants.SAVED_BORDER);
 		_compute = c;
 		

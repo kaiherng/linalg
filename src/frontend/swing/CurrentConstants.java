@@ -107,8 +107,12 @@ public class CurrentConstants {
 	public static final Color COMPUTE_BAR_OBJECT_FG = Color.WHITE;
 	public static final Color COMPUTE_BAR_OBJECT_BG = new Color(0x3A5E85);
 	
-	public static final Color SAVED_BG = new Color(0,0,0,0);
+	public static final Color SAVED_BG = new Color(0xBBCFF2);
 	public static final Border SAVED_BORDER = new EmptyBorder(0,0,0,0);
+	public static final Color SAVEDSCROLL_BG = new Color(0xBBCFF2);
+	public static final Border SAVEDSCROLL_BORDER = new EmptyBorder(0,0,0,0);
+	public static final Color SAVEDSCROLL_SCROLL_BG = new Color(0xBBCFF2);
+	public static final Border SAVEDSCROLL_SCROLL_BORDER = new EmptyBorder(0,0,0,0);
 	
 	public static final Color SOLUTION_BG = new Color(0xBBCFF2);
 	public static final Border SOLUTION_BORDER = new EmptyBorder(0,0,0,0);

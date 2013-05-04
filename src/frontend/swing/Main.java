@@ -29,7 +29,7 @@ public class Main {
 		UIManager.put("TabbedPane.tabAreaInsets", CurrentConstants.TAB_AREA_INSETS);  //sets the margin of the block of tab headers
 	}
 	
-	private static boolean _splash = true;
+	private static boolean _splash = false;
 	
 	public static void main(String[] args) {
 		
