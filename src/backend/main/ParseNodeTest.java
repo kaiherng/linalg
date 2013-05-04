@@ -22,7 +22,7 @@ public class ParseNodeTest {
 		n1.setLeft(n2);
 		n1.setRight(n3);
 		ParseNode p = new ParseNode(null,null,null);
-		p.setComputeStringTreeForTesting(n1);
+		p.setComputeStringTreeNonRecursive(n1);
 		try {
 			System.out.println(p.getComputeString());
 		} catch (Exception e) {

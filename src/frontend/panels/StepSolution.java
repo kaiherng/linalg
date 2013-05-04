@@ -12,11 +12,9 @@ import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
-import javax.swing.JScrollPane;
 import javax.swing.JPanel;
 
 import backend.blocks.Countable;
-
 import frontend.swing.CurrentConstants;
 import frontend.swing.ScrollPane;
 
@@ -58,8 +56,14 @@ public class StepSolution extends JPanel {
 		
 		//bottom bar left
 		JPanel bottomBarLeft = new JPanel(new BorderLayout());
+		bottomBarLeft.setBackground(CurrentConstants.STEPSOLUTION_BOTTOMBARLEFT_BG);
+		bottomBarLeft.setBorder(CurrentConstants.STEPSOLUTION_BOTTOMBARLEFT_BORDER);
 		_comp = new Solution("");
+		_comp.setBorder(CurrentConstants.STEPSOLUTION_COMP_BORDER);
+		_comp.setBackground(CurrentConstants.STEPSOLUTION_COMP_BG);
 		ScrollPane compScroll = new ScrollPane(_comp);
+		compScroll.setBackground(CurrentConstants.STEPSOLUTION_COMPSCROLL_BG);
+		compScroll.setBorder(CurrentConstants.STEPSOLUTION_COMPSCROLL_BORDER);
 		bottomBarLeft.add(compScroll, BorderLayout.CENTER);
 		_forwardButton = new JButton(">");
 		_backButton = new JButton("<");
@@ -72,7 +76,8 @@ public class StepSolution extends JPanel {
 		_answer.setMargins(0, 0);
 		_answer.addMouseListener(new AnswerListener());
 		_answer.setToolTipText("Double click to save answer");
-		_answer.setBorder(BorderFactory.createLineBorder(Color.black));
+		_answer.setBorder(CurrentConstants.STEPSOLUTION_ANSWER_BORDER);
+		_answer.setBackground(CurrentConstants.STEPSOLUTION_ANSWER_BG);
 		_answer.setPreferredSize(new Dimension(0,90));
 		
 		bottomBar.add(bottomBarLeft, BorderLayout.CENTER);

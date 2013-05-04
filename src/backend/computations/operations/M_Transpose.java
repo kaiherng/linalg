@@ -73,8 +73,8 @@ public class M_Transpose extends Computable
 			}
 			Matrix to=new Matrix(answerDisplayType,row);
 			steps.add("\\vspace{10mm} "+(i+1)+". \\\\");
-			steps.add("\\hspace{15mm} \\mathrm{Column} \\ "+(i+1)+" = "+(new MatrixDraw(from)).getCorrectLatex(answerDisplayType)+
-				" \\mathrm{becomes \\ Row} \\ "+(i+1)+" = "+(new MatrixDraw(to)).getCorrectLatex(answerDisplayType));
+			steps.add("\\hspace{15mm} \\mathrm{Column} \\ "+(i+1)+" = "+MatrixDraw.getCorrectLatex(answerDisplayType,from)+
+				" \\mathrm{becomes \\ Row} \\ "+(i+1)+" = "+MatrixDraw.getCorrectLatex(answerDisplayType,to));
 		}
 		return steps;
 	}

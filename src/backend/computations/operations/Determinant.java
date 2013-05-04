@@ -36,8 +36,7 @@ public class Determinant extends Computable
 		steps.add(" \\mathrm{\\vspace{10mm} Calculate \\ the \\ Determinant \\\\ \\vspace{10mm}");
 
 		answerDisplayType = matrix.getDisplayType();
-		MatrixDraw m = new MatrixDraw(matrix);
-		steps.add("\\vspace{10mm} \\hspace{15mm} " +m.getCorrectLatex(answerDisplayType));
+		steps.add("\\vspace{10mm} \\hspace{15mm} " +MatrixDraw.getCorrectLatex(answerDisplayType,matrix));
 		
 		Double[][] values = matrix.getValues();
 
@@ -131,7 +130,7 @@ public class Determinant extends Computable
 			//the matrix without the first row, and the i-th column
 			Double[][] m=removeRowColumn(values,i,0);
 			steps.add("\\vspace{20mm}\\hspace{"+indentLength+"mm}\\mathrm{" +(i+1)+ ". \\ Calculate \\ the \\ determinant \\ of \\ submatrix} "+
-				(new MatrixDraw(new Matrix(answerDisplayType,m))).getCorrectLatex(answerDisplayType));
+				MatrixDraw.getCorrectLatex(answerDisplayType,new Matrix(answerDisplayType,m)));
 
 			//calculate m's determinant
 			Scalar d=calcDet(m,indentLength+15);

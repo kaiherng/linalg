@@ -77,7 +77,7 @@ public class ParseNode {
 	 * 
 	 * @param root the root of the ToComputeTreeNode String tree
 	 */
-	protected void setComputeStringTreeForTesting(ToComputeTreeNode root){
+	protected void setComputeStringTreeNonRecursive(ToComputeTreeNode root){
 		_toComputeTree = root;
 	}
 	
@@ -128,8 +128,7 @@ public class ParseNode {
 	 */
 	private String getToSet(Countable c){
 		if (c instanceof Matrix){
-			MatrixDraw first = new MatrixDraw((Matrix) c);
-			return  first.getCorrectLatex(_solution.getDisplayType());
+			return  MatrixDraw.getCorrectLatex(_solution.getDisplayType(),(Matrix) c);
 		}else{
 			return ((Scalar) c).getDisplayValue();
 		}
