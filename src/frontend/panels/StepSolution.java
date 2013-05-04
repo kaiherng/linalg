@@ -1,13 +1,18 @@
 package frontend.panels;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.BorderFactory;
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -15,6 +20,8 @@ import javax.swing.JScrollPane;
 import org.scilab.forge.jlatexmath.TeXConstants;
 import org.scilab.forge.jlatexmath.TeXFormula;
 import org.scilab.forge.jlatexmath.TeXIcon;
+
+import backend.blocks.Countable;
 
 import frontend.swing.CurrentConstants;
 
@@ -28,7 +35,9 @@ public class StepSolution extends JPanel {
 	private Solution _display, _answer, _comp;
 	private List<String> _solList, _compList;
 	private int _stepNumber = 0;
-	private TeXIcon _ti;
+	private JScrollPane _scroll;
+	private JButton _forwardButton, _backButton;
+	private Countable _ans;
 	
 	public StepSolution(){
 		super();
@@ -39,24 +48,45 @@ public class StepSolution extends JPanel {
 
 		_solList = new ArrayList<>();
 		
-		_display = new Solution();
-		_display.addMouseListener(new Listener(this));
-		JScrollPane scroll = new JScrollPane(_display);
-		scroll.setBorder(CurrentConstants.STEPSOLUTION_SCROLL_BORDER);
-		scroll.setBackground(CurrentConstants.STEPSOLUTION_SCROLL_BG);
+		//main display
+		_display = new Solution("\\text{Solutions will be displayed here}");
+//		_display.addMouseListener(new Listener(this));
+		_scroll = new JScrollPane(_display);
+		_scroll.getVerticalScrollBar().setUnitIncrement(20);
+		_scroll.setBorder(CurrentConstants.STEPSOLUTION_SCROLL_BORDER);
+		_scroll.setBackground(CurrentConstants.STEPSOLUTION_SCROLL_BG);
 		
+		//bottom bar
 		JPanel bottomBar = new JPanel(new BorderLayout());
 		bottomBar.setBorder(CurrentConstants.STEPSOLUTION_BOTTOMBAR_BORDER);
 		bottomBar.setBackground(CurrentConstants.STEPSOLUTION_BOTTOMBAR_BG);
 		
-		_comp = new Solution();
-		_answer = new Solution(30);
+		//bottom bar left
+		JPanel bottomBarLeft = new JPanel(new BorderLayout());
+		_comp = new Solution("");
+		JScrollPane compScroll = new JScrollPane(_comp);
+		bottomBarLeft.add(compScroll, BorderLayout.CENTER);
+		_forwardButton = new JButton(">");
+		_backButton = new JButton("<");
+		_forwardButton.addActionListener(new ForwardBack(this, true));
+		_backButton.addActionListener(new ForwardBack(this, false));
+		bottomBarLeft.add(_forwardButton, BorderLayout.EAST);
+		bottomBarLeft.add(_backButton, BorderLayout.WEST);
 		
-		bottomBar.add(_comp, BorderLayout.CENTER);
+		_answer = new Solution(100,100);
+		_answer.setMargins(0, 0);
+		_answer.addMouseListener(new AnswerListener());
+		_answer.setToolTipText("Double click to save answer");
+		_answer.setBorder(BorderFactory.createLineBorder(Color.black));
+		_answer.setPreferredSize(new Dimension(0,90));
+		
+		bottomBar.add(bottomBarLeft, BorderLayout.CENTER);
 		bottomBar.add(_answer, BorderLayout.EAST);
 		
-		this.add(scroll, BorderLayout.CENTER);
+		this.add(_scroll, BorderLayout.CENTER);
 		this.add(bottomBar, BorderLayout.SOUTH);
+		
+		checkButtons();
 		
 		this.revalidate();
 	}
@@ -66,18 +96,25 @@ public class StepSolution extends JPanel {
 		_savePanel = savePanel;
 	}
 	
-	public TeXIcon getIcon(String s){
-		TeXFormula formula = new TeXFormula(s);
-		return formula.createTeXIcon(TeXConstants.STYLE_DISPLAY, 20);
+	public void clear(){
+		_display.setTex("");
+		_comp.setTex("");
+		_answer.setTex("");
+		_stepNumber = 0;
+		_solList.clear();
+		_ans = null;
+		checkButtons();
 	}
 	
-	public void setSolution(List<List<String>> steps, String answer){
+	public void setSolution(List<List<String>> steps, Countable answer){
 		_solList = steps.get(1);
 		_compList = steps.get(0);
 		_stepNumber = 0;
 		_display.setTex("\\text{Step " + (_stepNumber + 1) + "}\\\\" + _solList.get(0));
 		_comp.setTex(_compList.get(0));
-		_answer.setTex(answer);
+		_answer.setTex("\\text{Answer:}\\\\" + answer.toLatex());
+		_ans = answer;
+		checkButtons();
 		this.revalidate();
 		this.repaint();
 	}
@@ -86,19 +123,66 @@ public class StepSolution extends JPanel {
 		if(_stepNumber < _solList.size() - 1){
 			_stepNumber++;
 		}
+		checkButtons();
 		_display.setTex("\\text{Step " + (_stepNumber + 1) + "}\\\\" + _solList.get(_stepNumber));
 		_comp.setTex(_compList.get(_stepNumber));
+		resetScroll();
 		this.repaint();
 	}
 	
-	private class Listener extends MouseAdapter{
+	public void prev(){
+		if(_stepNumber > 0){
+			_stepNumber--;
+		}
+		checkButtons();
+		_display.setTex("\\text{Step " + (_stepNumber + 1) + "}\\\\" + _solList.get(_stepNumber));
+		_comp.setTex(_compList.get(_stepNumber));
+		resetScroll();
+		this.repaint();
+	}
+	
+	public void checkButtons(){
+		_backButton.setEnabled(true);
+		_forwardButton.setEnabled(true);
+		if(_stepNumber == 0){
+			_backButton.setEnabled(false);
+		}
+		if(_stepNumber == _solList.size()-1 || _solList.size() == 0){
+			_forwardButton.setEnabled(false);
+		}
+	}
+	
+	public void resetScroll(){
+		_scroll.getVerticalScrollBar().setValue(0);
+		_scroll.getHorizontalScrollBar().setValue(0);
+	}
+	
+	private class AnswerListener extends MouseAdapter{
+		public void mouseClicked(MouseEvent e){
+			if(_ans != null){
+				if(e.getClickCount() == 2){
+					_savePanel.addCountable(_ans);
+				}
+			}
+		}
+	}
+	
+	private class ForwardBack implements ActionListener{
 		StepSolution _ss;
-		public Listener(StepSolution ss){
+		boolean _forward;
+		
+		public ForwardBack(StepSolution ss, Boolean forward){
 			_ss = ss;
+			_forward = forward; 
 		}
 		
-		public void mouseClicked(MouseEvent e){
-			_ss.next();
+		@Override
+		public void actionPerformed(ActionEvent arg0) {
+			if(_forward){
+				_ss.next();
+			} else {
+				_ss.prev();
+			}
 		}
 	}
 	

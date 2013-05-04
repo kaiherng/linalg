@@ -223,12 +223,6 @@ public class Construct extends JPanel {
 						}
 						_fontSize = Math.min(pt, _fontSize);
 						
-						//calculate center
-//						double height = tl.getBounds().getHeight();
-//						double width = tl.getBounds().getWidth();
-//						float y = (float)(_grid[i][j].getLocation().y + _size/2 + height/2);
-//						float x = (float)(_grid[i][j].getLocation().x + _size/2 - width/2);
-//						tl.draw(g2, x, y);
 					}
 				}
 			}

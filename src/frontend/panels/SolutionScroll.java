@@ -19,7 +19,7 @@ public class SolutionScroll extends JPanel {
 		this.setLayout(new BorderLayout());
 		setBackground(CurrentConstants.SOLUTIONSCROLL_BG);
 		setBorder(CurrentConstants.SOLUTIONSCROLL_BORDER);
-		_sol = new Solution();
+		_sol = new Solution("");
 		
 		_scroll = new ScrollPane(_sol);
 		

@@ -142,7 +142,7 @@ public class Compute extends JPanel {
 			List<List<String>> list = new ArrayList<>();
 			list.add(new ArrayList<String>());
 			list.add(new ArrayList<String>());
-			_solPanel.setSolution(traverseTree(result, list), result.getSolution().getAnswer().toLatex());
+			_solPanel.setSolution(traverseTree(result, list), result.getSolution().getAnswer());
 		} catch (IllegalArgumentException e){
 			System.out.println(e.getMessage());
 //			_solPanel.setTex("\\text{" + e.getMessage() + "}");
@@ -249,8 +249,8 @@ public class Compute extends JPanel {
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
 			_c.clearBar();
-			_stepPanel.clear();
-//			_solPanel.clear();
+//			_stepPanel.clear();
+			_solPanel.clear();
 		}
 		
 	}

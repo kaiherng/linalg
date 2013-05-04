@@ -45,13 +45,13 @@ public class Saved extends JPanel {
 		
 		cList = new HashMap<>();
 		Matrix m = new Matrix(DisplayType.WHOLENUMBER, new Double[][]{{1.0,2.0},{3.0,4.0}});
-		addCountable("A", m);
-		addCountable("B", m);
-		addCountable("C", new Scalar(4.0, DisplayType.WHOLENUMBER));
+		addCountable(m);
+		addCountable(m);
+		addCountable(new Scalar(4.0, DisplayType.WHOLENUMBER));
 		
-		for(int i = 0 ; i < 40; i++){
-			addCountable("A", m);
-		}
+//		for(int i = 0 ; i < 40; i++){
+//			addCountable("A", m);
+//		}
 		
 	}
 	
@@ -60,12 +60,16 @@ public class Saved extends JPanel {
 	}
 	
 	public void addCountable(String name, Countable m){
-		CountableBlock cblock = new CountableBlock(_id, m, this);
-		cList.put(_id.toString(), cblock);
+		CountableBlock cblock = new CountableBlock(name, m, this);
+		cList.put(name, cblock);
 		this.add(cblock);
-		_id = increment(_id);
 		this.revalidate();
 		this.repaint();
+	}
+	
+	public void addCountable(Countable m){
+		addCountable(_id, m);
+		_id = increment(_id);
 	}
 	
 	public void replaceCountable(String name, Countable m){
