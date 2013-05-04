@@ -29,15 +29,17 @@ import java.util.Map;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JRootPane;
 
 import backend.blocks.Countable.DisplayType;
 import backend.blocks.Matrix;
 import backend.blocks.Scalar;
 import frontend.swing.Button;
 import frontend.swing.CurrentConstants;
+import frontend.swing.CustomDialog;
+import frontend.swing.DialogListener;
 
 public class Construct extends JPanel {
 
@@ -57,8 +59,10 @@ public class Construct extends JPanel {
 	String _sizeIndicator;
 	Point _mouseLocation;
 	int _fontSize = 30;
+	private JFrame _frame;
 	
-	public Construct(Saved saved) {
+	public Construct(Saved saved, JFrame frame) {
+		_frame = frame;
 		this.setLayout(new BorderLayout());
 		setBackground(CurrentConstants.CONSTRUCT_BG);
 		setBorder(CurrentConstants.CONSTRUCT_BORDER);
@@ -542,7 +546,7 @@ public class Construct extends JPanel {
 		}
 	}
 	
-	public class ScalarListener implements ActionListener{
+	public class ScalarListener implements ActionListener, DialogListener{
 		
 		Construct _c;
 		
@@ -551,22 +555,13 @@ public class Construct extends JPanel {
 		}
 		
 		@Override
+		public void doDialogReturn(Double d) {
+			_save.addCountable("scalar", new Scalar(d, DisplayType.DECIMAL));
+		}
+		
+		@Override
 		public void actionPerformed(ActionEvent arg0) {
-			String s = (String)JOptionPane.showInputDialog(_c, "Enter the value of the scalar", "Create New Scalar", JOptionPane.PLAIN_MESSAGE, null, null, null);
-			Double value;
-			if(s == null){
-				return;
-			}
-			try{
-				value = Double.parseDouble(s);
-			} catch (NumberFormatException e){
-				JOptionPane.showMessageDialog(_c,
-					    "Input must be a number!",
-					    "Input Error", 
-					    JOptionPane.PLAIN_MESSAGE);
-				return;
-			}
-			_save.addCountable("scalar", new Scalar(value, DisplayType.DECIMAL));
+				new CustomDialog(_frame, "create scalar", this, _c);
 		}
 	}
 	
@@ -600,12 +595,26 @@ public class Construct extends JPanel {
 		}
 	}
 	
-	public class FillListener implements ActionListener{
+	public class FillListener implements ActionListener, DialogListener{
 		
 		Construct _c;
 		
 		public FillListener(Construct c){
 			_c = c;
+		}
+		
+		@Override
+		public void doDialogReturn(Double value) {
+			for(int i = 0; i < _mSize.get(0)+1; i++){
+				for(int j = 0; j < _mSize.get(1)+1; j++){
+					String val = _values.get("[" + i  + ", " + j + "]");
+					if(val == null || val.length() == 0){
+						val = value.toString();
+						_values.put("[" + i  + ", " + j + "]", val);
+					}
+				}
+			}
+			_c.repaint();
 		}
 		
 		@Override
@@ -660,6 +669,7 @@ public class Construct extends JPanel {
 					}
 				}
 				_c.repaint();
+				new CustomDialog(_frame, "fill matrix", this, _c);
 			}
 		}
 	}
