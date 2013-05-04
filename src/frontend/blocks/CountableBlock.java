@@ -54,7 +54,11 @@ public class CountableBlock extends JPanel {
 		
 		if(c.getName().equals("MATRIX")){
 			_label = new JLabel(name);
-			_label.setFont(CurrentConstants.COUNTABLE_BLOCK_LABEL_MATRIX_FONT);
+			if(name.length() > 2){
+				_label.setFont(CurrentConstants.COUNTABLE_BLOCK_LABEL_MATRIX_FONT_SMALL);
+			} else {
+				_label.setFont(CurrentConstants.COUNTABLE_BLOCK_LABEL_MATRIX_FONT_LARGE);
+			}
 		} else if(c.getName().equals("SCALAR")){
 			Scalar s = (Scalar) c;
 			Double d = s.getValue();
