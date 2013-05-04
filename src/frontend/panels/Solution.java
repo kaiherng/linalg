@@ -30,8 +30,6 @@ public class Solution extends JPanel {
 
 	public Solution(String start){
 		this.setLayout(new BorderLayout());
-		setBackground(CurrentConstants.SOLUTION_BG);
-		setBorder(CurrentConstants.SOLUTION_BORDER);
 		setTex(start);
 		_label = new JLabel();
 		_marginX = 10;
@@ -48,8 +46,6 @@ public class Solution extends JPanel {
 		_height = height;
 		_limitSize = true;
 		this.setLayout(new BorderLayout());
-		setBackground(CurrentConstants.SOLUTION_BG);
-		setBorder(CurrentConstants.SOLUTION_BORDER);
 		setTex("");
 		_label = new JLabel();
 //		_scroll = scroll;
@@ -74,8 +70,8 @@ public class Solution extends JPanel {
 	
 	public void setTex(String tex){
 		TeXFormula formula = new TeXFormula(tex);
-		int size = 20;
-		_ti = formula.createTeXIcon(TeXConstants.STYLE_DISPLAY, 20);
+		int size = CurrentConstants.SOLUTION_TEX_SIZE;
+		_ti = formula.createTeXIcon(TeXConstants.STYLE_DISPLAY, CurrentConstants.SOLUTION_TEX_SIZE);
 		
 		if(_limitSize){
 			while(_ti.getIconHeight() > _height){

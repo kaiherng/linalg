@@ -134,8 +134,7 @@ public class CurrentConstants {
 	public static final Border SAVEDSCROLL_SCROLL_BORDER = new EmptyBorder(0,0,0,0);
 	
 	/** SOLUTION **/
-	public static final Color SOLUTION_BG = Color.white;
-	public static final Border SOLUTION_BORDER = new EmptyBorder(0,0,0,0);
+	public static final int SOLUTION_TEX_SIZE = 16;
 	
 	public static final Color SOLUTIONSCROLL_BG = Color.white;
 	public static final Border SOLUTIONSCROLL_BORDER = new EmptyBorder(0,0,0,0);
@@ -143,11 +142,19 @@ public class CurrentConstants {
 	public static final Border SOLUTIONSCROLL_SCROLL_BORDER = new EmptyBorder(0,0,0,0);
 	
 	public static final Border STEPSOLUTION_BOTTOMBAR_BORDER = new EmptyBorder(0,0,0,0);
-	public static final Color STEPSOLUTION_BOTTOMBAR_BG = Color.white;
+	public static final Color STEPSOLUTION_BOTTOMBAR_BG = SUPER_CONTENT_AREA_BG;
 	public static final Border STEPSOLUTION_BORDER = new EmptyBorder(0,0,0,0);
-	public static final Color STEPSOLUTION_BG = Color.white;
+	public static final Color STEPSOLUTION_BG = SUPER_CONTENT_AREA_BG;
 	public static final Border STEPSOLUTION_SCROLL_BORDER = new EmptyBorder(0,0,0,0);
-	public static final Color STEPSOLUTION_SCROLL_BG = Color.white;
+	public static final Color STEPSOLUTION_SCROLL_BG = SUPER_CONTENT_AREA_BG;
+	public static final Border STEPSOLUTION_BOTTOMBARLEFT_BORDER = new EmptyBorder(0,0,0,0);
+	public static final Color STEPSOLUTION_BOTTOMBARLEFT_BG = SUPER_CONTENT_AREA_BG;
+	public static final Border STEPSOLUTION_COMPSCROLL_BORDER = new EmptyBorder(0,0,0,0);
+	public static final Color STEPSOLUTION_COMPSCROLL_BG = SUPER_CONTENT_AREA_BG;
+	public static final Border STEPSOLUTION_ANSWER_BORDER = new EmptyBorder(0,0,0,0);
+	public static final Color STEPSOLUTION_ANSWER_BG = SUPER_CONTENT_AREA_BG;
+	public static final Border STEPSOLUTION_COMP_BORDER = new EmptyBorder(0,0,0,0);
+	public static final Color STEPSOLUTION_COMP_BG = SUPER_CONTENT_AREA_BG;
 	
 	/** BUTTONS **/
 	public static final Color BUTTON_BG = new Color(0x264261);
