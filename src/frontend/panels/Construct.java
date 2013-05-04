@@ -58,7 +58,7 @@ public class Construct extends JPanel {
 	
 	public Construct(Saved saved) {
 		this.setLayout(new BorderLayout());
-//		setBackground(CurrentConstants.CONSTRUCT_BG);
+		setBackground(CurrentConstants.CONSTRUCT_BG);
 		setBorder(CurrentConstants.CONSTRUCT_BORDER);
 		_save = saved;
 		

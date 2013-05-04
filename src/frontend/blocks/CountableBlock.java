@@ -117,7 +117,6 @@ public class CountableBlock extends JPanel {
 		@Override
 		public void mouseExited(MouseEvent e) {
 			_delete.setVisible(false);
-			repaint();
 		}
 		
 	}

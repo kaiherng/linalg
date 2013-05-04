@@ -84,9 +84,9 @@ public class CurrentConstants {
 	public static final Dimension OP_BLOCK_SIZE = new Dimension(60,60);
 	
 	/** CONSTRUCT **/
-	public static final Color CONSTRUCT_BG = new Color(0,0,0,0);
+	public static final Color CONSTRUCT_BG = new Color(0xF2F3F5);
 	public static final Border CONSTRUCT_BORDER = new EmptyBorder(0,0,0,0);
-	public static final Color CONSTRUCT_BUTTON_PANEL_BG = new Color(0,0,0,0);
+	public static final Color CONSTRUCT_BUTTON_PANEL_BG = new Color(0xF2F3F5);
 	public static final Border CONSTRUCT_BUTTON_PANEL_BORDER = new EmptyBorder(0,0,0,0);
 	public static final Color CONSTRUCT_GRID_DARK = Color.BLACK;
 	public static final Color CONSTRUCT_GRID_MEDIUM = new Color(0xD3DDEB);
