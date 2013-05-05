@@ -472,11 +472,13 @@ public class Construct extends JPanel {
 
 		@Override
 		public void componentResized(ComponentEvent arg0) {
+			if(!_drawn){
 			Dimension size = arg0.getComponent().getSize();
-			_grid = new Rectangle[size.width/_size - 1][size.height/_size - 1];
-			for(int i = 0; i < _grid.length; i++){
-				for(int j = 0 ; j < _grid[0].length; j++){
-					_grid[i][j] = new Rectangle(i*_size, j*_size, _size, _size);
+				_grid = new Rectangle[size.width/_size - 1][size.height/_size - 1];
+				for(int i = 0; i < _grid.length; i++){
+					for(int j = 0 ; j < _grid[0].length; j++){
+						_grid[i][j] = new Rectangle(i*_size, j*_size, _size, _size);
+					}
 				}
 			}
 		}
