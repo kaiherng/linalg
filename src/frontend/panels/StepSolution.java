@@ -1,7 +1,6 @@
 package frontend.panels;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -10,11 +9,11 @@ import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
 import backend.blocks.Countable;
+import frontend.swing.Button;
 import frontend.swing.CurrentConstants;
 import frontend.swing.ScrollPane;
 
@@ -65,8 +64,10 @@ public class StepSolution extends JPanel {
 		compScroll.setBackground(CurrentConstants.STEPSOLUTION_COMPSCROLL_BG);
 		compScroll.setBorder(CurrentConstants.STEPSOLUTION_COMPSCROLL_BORDER);
 		bottomBarLeft.add(compScroll, BorderLayout.CENTER);
-		_forwardButton = new JButton(">");
-		_backButton = new JButton("<");
+		_forwardButton = new Button("\u25ba", CurrentConstants.BUTTON_NEXT_BG, CurrentConstants.BUTTON_NEXT_FG, CurrentConstants.BUTTON_NEXT_HOVER_BG, CurrentConstants.BUTTON_NEXT_HOVER_FG, CurrentConstants.BUTTON_NEXT_PRESSED_BG, CurrentConstants.BUTTON_NEXT_PRESSED_FG, CurrentConstants.BUTTON_NEXT_BORDER);
+		_backButton = new Button("\u25c4", CurrentConstants.BUTTON_NEXT_BG, CurrentConstants.BUTTON_NEXT_FG, CurrentConstants.BUTTON_NEXT_HOVER_BG, CurrentConstants.BUTTON_NEXT_HOVER_FG, CurrentConstants.BUTTON_NEXT_PRESSED_BG, CurrentConstants.BUTTON_NEXT_PRESSED_FG, CurrentConstants.BUTTON_NEXT_BORDER);
+		_forwardButton.setFont(CurrentConstants.BUTTON_NEXT_FONT);
+		_backButton.setFont(CurrentConstants.BUTTON_NEXT_FONT);
 		_forwardButton.addActionListener(new ForwardBack(this, true));
 		_backButton.addActionListener(new ForwardBack(this, false));
 		bottomBarLeft.add(_forwardButton, BorderLayout.EAST);

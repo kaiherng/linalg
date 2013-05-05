@@ -219,6 +219,16 @@ public class CurrentConstants {
 	public static final Border BUTTON_COMPUTE_BORDER = new EmptyBorder(0,15,0,15);
 	public static final Border BUTTON_CLEAR_BORDER = new EmptyBorder(0,20,0,20);
 	
+	//for step by step next & prev buttons
+	public static final Color BUTTON_NEXT_BG = new Color(0x264261);
+	public static final Color BUTTON_NEXT_FG = Color.WHITE;
+	public static final Color BUTTON_NEXT_HOVER_BG = new Color(0x264261);
+	public static final Color BUTTON_NEXT_HOVER_FG = Color.WHITE;
+	public static final Color BUTTON_NEXT_PRESSED_BG = new Color(0x264261);
+	public static final Color BUTTON_NEXT_PRESSED_FG = Color.BLACK;
+	public static final Border BUTTON_NEXT_BORDER = new EmptyBorder(10,12,10,12);
+	public static final Font BUTTON_NEXT_FONT = new Font("Dialog", Font.BOLD, 20);
+	
 	/** SCROLLPANE **/
 	public static final Color SUPER_SCROLLPANE_THUMB_BG = new Color(0x6D96D1);
 	public static final Color SUPER_SCROLLPANE_TRACK_BG = new Color(0xB4C6E0);
