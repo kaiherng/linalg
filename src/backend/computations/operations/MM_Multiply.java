@@ -79,7 +79,7 @@ public class MM_Multiply extends Computable {
 					expanded += "("+aDisplay[i][row]+" \\ * \\ "+bDisplay[col][i]+") \\ + \\ ";
 				}
 				expanded = expanded.substring(0,expanded.length()-7);
-				expanded += " \\ = \\ "+getDisplayValue(res,answerDisplayType);
+				expanded += " \\ = \\ "+shortenDecimal(getDisplayValue(res,answerDisplayType));
 				result[col][row] = res; 
 				multStep[col][row] = expanded;
 			}

@@ -61,7 +61,7 @@ public class Determinant extends Computable
 		}else{
 			latex = new ArrayList<>();
 			latex.add("\\mathrm{\\vspace{10mm} Calculate \\ the \\ Determinant");
-			latex.add("\\mathrm{\\vspace{10mm}  Steps \\ omitted \\ for \\ matrices  \\ larger \\ than \\ 3 \\ by \\ 3, \\ for \\ your \\ own \\ good!");
+			latex.add("\\mathrm{\\vspace{10mm}  Steps \\ omitted \\ for \\ matrices  \\ larger \\ than \\ 4 \\ by \\ 4, \\ for \\ your \\ own \\ good!");
 			List<String> l = toLatex();
 			latex.add("\\vspace{10mm}"+l.get(l.size()-1));
 		}
@@ -103,7 +103,7 @@ public class Determinant extends Computable
 		if (values.length!=values[0].length)
 			throw new IllegalArgumentException("Matrix must have the same number of columns and rows");
 
-		if (values.length > 3){
+		if (values.length > 4){
 			_hideSteps = true;
 		}
 		//if it is just a 1x1 matrix
