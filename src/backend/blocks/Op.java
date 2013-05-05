@@ -21,8 +21,7 @@ public enum Op {
 	M_INVERSE(0,true,"M-INVERSE"),
 	POWER(0,true,"POWER"),
 	M_RANK(0,true,"M-RANK"),
-	M_TRANSPOSE(0,true,"M-TRANSPOSE"),
-	NULLSPACE(0,true,"NULL-SPACE");
+	M_TRANSPOSE(0,true,"M-TRANSPOSE");
 	
 	// do not give rank below zero
 	
@@ -93,8 +92,6 @@ public enum Op {
 			return "icons/power.png";
 		case M_RANK:
 			return "icons/rank.png";
-		case NULLSPACE:
-			return "icons/null.png";
 		case M_TRANSPOSE:
 			return "icons/transpose.png";
 		default:
