@@ -647,7 +647,14 @@ public class Construct extends JPanel {
 		
 		@Override
 		public void doDialogReturn(Double d) {
-			_save.addCountable("scalar", new Scalar(d, DisplayType.DECIMAL));
+			BigDecimal bd = new BigDecimal(Double.valueOf(d));
+			DisplayType dt;
+			if(!(bd.intValue() - bd.doubleValue() == new Double(0))){
+				dt = DisplayType.DECIMAL;
+			} else {
+				dt = DisplayType.WHOLENUMBER;
+			}
+			_save.addCountable("scalar", new Scalar(d, dt));
 		}
 		
 		@Override

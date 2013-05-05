@@ -118,9 +118,9 @@ public class Compute extends JPanel {
 //		binary.setBorder(BorderFactory.createLineBorder(Color.black));
 		for(Op o : Op.values()){
 			if(o.isUnary()){
-				unary.add(new OpBlock(o, o.getIcon2(), this));
+				unary.add(new OpBlock(o, o.getIconPath(), this));
 			} else {
-				binary.add(new OpBlock(o, o.getIcon2(), this));
+				binary.add(new OpBlock(o, o.getIconPath(), this));
 			}
 		}
 		brackets.add(new BracketBlock(true, this));
