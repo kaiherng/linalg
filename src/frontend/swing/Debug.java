@@ -42,10 +42,10 @@ public class Debug {
 			
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				CustomDialog customDialog = new CustomDialog(frame, "create scalar", label, null, customLayerUI);
-				customDialog.pack();
-				customDialog.setLocationRelativeTo(frame);
-				customDialog.setVisible(true);
+//				CustomDialog customDialog = new CustomDialog(frame, "create scalar", label, null, customLayerUI);
+//				customDialog.pack();
+//				customDialog.setLocationRelativeTo(frame);
+//				customDialog.setVisible(true);
 			}
 		});
 		

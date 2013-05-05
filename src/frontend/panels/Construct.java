@@ -507,7 +507,10 @@ public class Construct extends JPanel {
 		@Override
 		public void componentResized(ComponentEvent arg0) {
 			if(!_drawn){
-			Dimension size = arg0.getComponent().getSize();
+				Dimension size = arg0.getComponent().getSize();
+				if(size.height < 1 || size.width < 1){
+					return;
+				}
 				_grid = new Rectangle[size.width/_size - 1][size.height/_size - 1];
 				for(int i = 0; i < _grid.length; i++){
 					for(int j = 0 ; j < _grid[0].length; j++){
@@ -559,8 +562,46 @@ public class Construct extends JPanel {
 				_save.replaceCountable(_currentEdit, new Matrix(dt, mValues));
 				_editing = false;
 			} else {
-				_save.addCountable("A", new Matrix(dt, mValues));
+				_save.addCountable(new Matrix(dt, mValues));
 			}
+			_c.clear();
+		}
+	}
+	
+	public class SaveNameListener implements ActionListener{
+
+		Construct _c;
+		
+		public SaveNameListener(Construct c){
+			_c = c;
+		}
+		
+		@Override
+		public void actionPerformed(ActionEvent arg0) {
+			for(int i = 0; i <= _mSize.get(0); i++){
+				for(int j = 0; j <= _mSize.get(1); j++){
+					if(!_values.containsKey("[" + i + ", " + j + "]")){
+						System.out.println("incomplete matrix!");
+						return;
+					}
+				}
+			}
+			Double[][] mValues = new Double[_mSize.get(0)+1][_mSize.get(1)+1];
+			DisplayType dt = DisplayType.WHOLENUMBER;
+			for(int i = 0; i <= _mSize.get(0); i++){
+				for(int j = 0; j <= _mSize.get(1); j++){
+					Double d = Double.parseDouble(_values.get("[" + i + ", " + j + "]"));
+					mValues[i][j] = d;
+					BigDecimal bd = new BigDecimal(Double.valueOf(d));
+					if(!(bd.intValue() - bd.doubleValue() == new Double(0))){
+						dt = DisplayType.DECIMAL;
+					}
+				}
+			}
+			/**
+			 * TODO
+			 */
+//			_save.addCountable(STRING NAME, new Matrix(dt, mValues));
 			_c.clear();
 		}
 	}

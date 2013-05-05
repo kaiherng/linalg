@@ -71,6 +71,11 @@ public class Saved extends JPanel {
 	}
 	
 	public void addCountable(Countable m){
+		if(m.getName().equals("SCALAR")){
+			Scalar s = (Scalar) m;
+			addCountable(Double.toString(s.getValue()), s);
+			return;
+		}
 		addCountable(_id, m);
 		_id = increment(_id);
 	}

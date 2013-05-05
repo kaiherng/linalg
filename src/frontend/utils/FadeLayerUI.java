@@ -27,7 +27,7 @@ public class FadeLayerUI extends CustomLayerUI {
 			g2.setComposite(AlphaComposite.getInstance(
 					AlphaComposite.SRC_OVER, .5f));
 			g2.fillRect(0, 0, w, h);
-
+			
 			g2.dispose();
 		}
 		getFrame().repaint();
