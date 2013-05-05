@@ -1,5 +1,6 @@
 package frontend.swing;
 
+import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -20,11 +21,9 @@ import frontend.panels.Saved;
 import frontend.panels.SavedScroll;
 import frontend.panels.SolutionScroll;
 import frontend.panels.StepSolution;
-import frontend.utils.BlurLayerUI;
 import frontend.utils.CustomLayerUI;
 import frontend.utils.FadeLayerUI;
 import frontend.utils.ResizeAdapter;
-import frontend.utils.WhiteLayerUI;
 
 /**
  * Our JFrame
@@ -122,6 +121,7 @@ public class AppFrame extends JFrame {
 		JPanel leftPanel = new JPanel(new GridBagLayout());
 		leftPanel.setBackground(CurrentConstants.LEFT_RIGHT_PANEL_BG);
 		leftPanel.setMinimumSize(CurrentConstants.LEFT_PANEL_MIN_SIZE);
+		leftPanel.setPreferredSize(CurrentConstants.LEFT_PANEL_PREFERRED_SIZE);
 		leftPanel.setBorder(BorderFactory.createEmptyBorder());
 		
 		GridBagConstraints c = new GridBagConstraints();
