@@ -170,7 +170,7 @@ public class CurrentConstants {
 	public static final Border SAVEDSCROLL_SCROLL_BORDER = new EmptyBorder(0,0,0,0);
 	
 	/** SOLUTION **/
-	public static final int SOLUTION_TEX_SIZE = 18;
+	public static final int SOLUTION_TEX_SIZE = 20;
 	
 	public static final Color SOLUTIONSCROLL_BG = Color.white;
 	public static final Border SOLUTIONSCROLL_BORDER = new EmptyBorder(0,0,0,0);
