@@ -1,6 +1,8 @@
 package frontend.panels;
 
+import java.awt.BasicStroke;
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -9,6 +11,7 @@ import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.RenderingHints;
+import java.awt.Stroke;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ComponentEvent;
@@ -168,8 +171,10 @@ public class Construct extends JPanel {
 	public void paintComponent(Graphics g){
 		super.paintComponent(g);
 		Graphics2D g2 = (Graphics2D) g;
-		//antialiasing text
-		g2.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
+		
+		g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+		//antialiasing text (if the prev line screwed up, use this instead)
+		//g2.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
 		
 		if(_drawing){
 			g2.setColor(CurrentConstants.CONSTRUCT_GRID_LIGHT);
@@ -181,18 +186,7 @@ public class Construct extends JPanel {
 			}
 //			g2.setColor(CurrentConstants.CONSTRUCT_GRID_DARK);
 //			g2.drawString(_sizeIndicator, _mouseLocation.x + CurrentConstants.CONSTRUCT_SIZEINDICATOR_XOFFSET, _mouseLocation.y + CurrentConstants.CONSTRUCT_SIZEINDICATOR_YOFFSET);
-			
-			if (_sizeIndicator.length() > 0) {
-				AttributedString as = new AttributedString(_sizeIndicator);
-				as.addAttribute(TextAttribute.SIZE, CurrentConstants.CONSTRUCT_SIZEINDICATOR_SIZE);
-				as.addAttribute(TextAttribute.FAMILY, CurrentConstants.CONSTRUCT_SIZEINDICATOR_FONT);
-				as.addAttribute(TextAttribute.WEIGHT, CurrentConstants.CONSTRUCT_SIZEINDICATOR_WEIGHT);
-				as.addAttribute(TextAttribute.FOREGROUND, CurrentConstants.CONSTRUCT_SIZEINDICATOR_FG);
-				as.addAttribute(TextAttribute.BACKGROUND, CurrentConstants.CONSTRUCT_SIZEINDICATOR_BG);
-				TextLayout tl = new TextLayout(as.getIterator(), g2.getFontRenderContext());
-				tl.draw(g2, _mouseLocation.x + CurrentConstants.CONSTRUCT_SIZEINDICATOR_XOFFSET, _mouseLocation.y + CurrentConstants.CONSTRUCT_SIZEINDICATOR_YOFFSET);
-			}
-		
+
 		}
 		
 		if(_drawn){
@@ -255,7 +249,47 @@ public class Construct extends JPanel {
 					}
 				}
 			}
+			
 		}
+		
+
+		if (_drawing) {
+			if (_sizeIndicator.length() > 0) {
+				
+				Color prevColor = g2.getColor();
+				Stroke prevStroke = g2.getStroke();
+				Stroke newStroke = new BasicStroke(CurrentConstants.CONSTRUCT_SIZEINDICATOR_STROKESIZE);
+				g2.setColor(CurrentConstants.CONSTRUCT_SIZEINDICATOR_STROKECOLOR);
+				g2.setStroke(newStroke);
+				g2.drawRoundRect(
+						_mouseLocation.x + CurrentConstants.CONSTRUCT_SIZEINDICATOR_XOFFSET,// X position
+						_mouseLocation.y + CurrentConstants.CONSTRUCT_SIZEINDICATOR_YOFFSET - CurrentConstants.CONSTRUCT_SIZEINDICATOR_SIZE,// Y position
+	                    70, // width
+	                    30, // height
+	                    15,15);// arc Dimension
+				g2.setColor(CurrentConstants.CONSTRUCT_SIZEINDICATOR_BG);
+				g2.fillRoundRect(
+						_mouseLocation.x + CurrentConstants.CONSTRUCT_SIZEINDICATOR_XOFFSET,// X position
+						_mouseLocation.y + CurrentConstants.CONSTRUCT_SIZEINDICATOR_YOFFSET  - CurrentConstants.CONSTRUCT_SIZEINDICATOR_SIZE,// Y position
+	                    70, // width
+	                    30, // height
+	                    15,15);// arc Dimension
+				g2.setColor(prevColor);
+				g2.setStroke(prevStroke);
+				
+				AttributedString as = new AttributedString(_sizeIndicator);
+				as.addAttribute(TextAttribute.SIZE, CurrentConstants.CONSTRUCT_SIZEINDICATOR_SIZE);
+				as.addAttribute(TextAttribute.FAMILY, CurrentConstants.CONSTRUCT_SIZEINDICATOR_FONT);
+				as.addAttribute(TextAttribute.WEIGHT, CurrentConstants.CONSTRUCT_SIZEINDICATOR_WEIGHT);
+				as.addAttribute(TextAttribute.FOREGROUND, CurrentConstants.CONSTRUCT_SIZEINDICATOR_FG);
+				TextLayout tl = new TextLayout(as.getIterator(), g2.getFontRenderContext());
+				tl.draw(g2, _mouseLocation.x + CurrentConstants.CONSTRUCT_SIZEINDICATOR_XOFFSET + 15, _mouseLocation.y + CurrentConstants.CONSTRUCT_SIZEINDICATOR_YOFFSET + 5);
+				
+				
+			}
+		}
+		
+		
 	}
 	
 	public class MouseListener extends MouseAdapter{

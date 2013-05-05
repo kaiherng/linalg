@@ -97,9 +97,12 @@ public class CurrentConstants {
 	public static final int CONSTRUCT_SIZEINDICATOR_YOFFSET = 30;
 	public static final int CONSTRUCT_SIZEINDICATOR_SIZE = 15;
 	public static final String CONSTRUCT_SIZEINDICATOR_FONT = "Dialog";
-	public static final Color CONSTRUCT_SIZEINDICATOR_FG = Color.white;
+	public static final Color CONSTRUCT_SIZEINDICATOR_FG = Color.BLACK;
 	public static final float CONSTRUCT_SIZEINDICATOR_WEIGHT = TextAttribute.WEIGHT_BOLD;
-	public static final Color CONSTRUCT_SIZEINDICATOR_BG = new Color(0x0853BD);
+	public static final Color CONSTRUCT_SIZEINDICATOR_BG = new Color(0x98B7D9);
+	public static final int CONSTRUCT_SIZEINDICATOR_STROKESIZE = 2;
+	public static final Color CONSTRUCT_SIZEINDICATOR_STROKECOLOR = Color.BLACK;
+	
 	
 	/** (CONSTRUCT) CUSTOM DIALOG **/
 	public static final Border CUSTOM_DIALOG_TEXTFIELD_BORDER = new EmptyBorder(0,10,0,0);
