@@ -5,7 +5,9 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 
 import javax.swing.BorderFactory;
+import javax.swing.JComponent;
 import javax.swing.JFrame;
+import javax.swing.JLayer;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.SwingUtilities;
@@ -18,7 +20,9 @@ import frontend.panels.Saved;
 import frontend.panels.SavedScroll;
 import frontend.panels.SolutionScroll;
 import frontend.panels.StepSolution;
+import frontend.utils.CustomLayerUI;
 import frontend.utils.ResizeAdapter;
+import frontend.utils.WhiteLayerUI;
 
 /**
  * Our JFrame
@@ -27,6 +31,12 @@ import frontend.utils.ResizeAdapter;
  */
 @SuppressWarnings("serial")
 public class AppFrame extends JFrame {
+	
+	private CustomLayerUI _customLayerUI;
+	
+	public CustomLayerUI getUILayer() {
+		return _customLayerUI;
+	}
 	
 	public void setUpDesign() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -62,8 +72,16 @@ public class AppFrame extends JFrame {
 		new ResizeAdapter(splitPane, this, CurrentConstants.RESIZE_THRESHOLD, SwingUtilities.SOUTH, SwingUtilities.EAST, SwingUtilities.WEST, SwingUtilities.SOUTH_EAST, SwingUtilities.SOUTH_WEST);
 		
 		ContentPane contentPane = new ContentPane(this);
-		setContentPane(contentPane);
 		contentPane.add(splitPane);
+		
+		//this is so that we can fade the rest of the program later
+		//create a BlurLayerUI instead for blur
+		_customLayerUI = new WhiteLayerUI(this);
+		final JLayer<JComponent> jLayer = new JLayer<JComponent>(contentPane, _customLayerUI);
+		
+		this.add(jLayer);
+		
+		
 	}
 	
 	public final static JTabbedPane createTabbedPaneTopLeft(Construct constructPanel, Compute computePanel) {

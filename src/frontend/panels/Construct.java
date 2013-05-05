@@ -1,7 +1,6 @@
 package frontend.panels;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -28,14 +27,12 @@ import java.util.List;
 import java.util.Map;
 
 import javax.swing.JButton;
-import javax.swing.JDialog;
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import backend.blocks.Countable.DisplayType;
 import backend.blocks.Matrix;
 import backend.blocks.Scalar;
+import frontend.swing.AppFrame;
 import frontend.swing.Button;
 import frontend.swing.CurrentConstants;
 import frontend.swing.CustomDialog;
@@ -59,9 +56,9 @@ public class Construct extends JPanel {
 	String _sizeIndicator;
 	Point _mouseLocation;
 	int _fontSize = 30;
-	private JFrame _frame;
+	private AppFrame _frame;
 	
-	public Construct(Saved saved, JFrame frame) {
+	public Construct(Saved saved, AppFrame frame) {
 		_frame = frame;
 		this.setLayout(new BorderLayout());
 		setBackground(CurrentConstants.CONSTRUCT_BG);
@@ -261,7 +258,7 @@ public class Construct extends JPanel {
 		}
 	}
 	
-	private class MouseListener extends MouseAdapter{
+	public class MouseListener extends MouseAdapter{
 		
 		JPanel _p;
 		Point _startDrag;
@@ -364,7 +361,7 @@ public class Construct extends JPanel {
 		}
 	}
 	
-	private class KListener implements KeyListener{
+	public class KListener implements KeyListener{
 		
 		JPanel _p;
 		
@@ -563,7 +560,7 @@ public class Construct extends JPanel {
 		
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
-				new CustomDialog(_frame, "create scalar", this, _c);
+				new CustomDialog(_frame, "create scalar", this, _c, _frame.getUILayer());
 		}
 	}
 	
@@ -623,55 +620,7 @@ public class Construct extends JPanel {
 		public void actionPerformed(ActionEvent arg0) {
 
 			if(_drawn){
-				Object[] options = {"Fill", "Cancel"};
-				JOptionPane optionPane = new JOptionPane("Enter value", JOptionPane.PLAIN_MESSAGE, JOptionPane.OK_CANCEL_OPTION, null, options);
-				optionPane.setBackground(Color.pink);
-				optionPane.setWantsInput(true);
-				optionPane.setInitialSelectionValue("1");
-				JDialog dialog = optionPane.createDialog("Fill Matrix");
-				dialog.setLocationRelativeTo(null);
-				optionPane.setSize(new Dimension(400,400));
-				dialog.add(optionPane);
-				dialog.setVisible(true);
-				String s = (String) optionPane.getInputValue();
-				
-				Object selection = optionPane.getValue();
-				if(selection == null || selection.equals("Cancel")){
-					return;
-				}
-				
-//				String s = (String)JOptionPane.showInputDialog(_c, "Enter value to fill in", "Fill Matrix", JOptionPane.PLAIN_MESSAGE, null, null, null);
-				Double value;
-				if(s == null){
-					return;
-				}
-				String str;
-				try{
-					value = Double.parseDouble(s);
-					BigDecimal bd = new BigDecimal(Double.valueOf(value));
-					if(bd.intValue() - bd.doubleValue() == new Double(0)){
-						str = ((Integer) bd.intValue()).toString();
-					} else {
-						str = Double.toString(value);
-					}
-				} catch (NumberFormatException e){
-					JOptionPane.showMessageDialog(_c,
-							"Input must be a number!",
-							"Input Error",
-							JOptionPane.PLAIN_MESSAGE);
-					return;
-				}
-
-				for(int i = 0; i < _mSize.get(0)+1; i++){
-					for(int j = 0; j < _mSize.get(1)+1; j++){
-						String val = _values.get("[" + i  + ", " + j + "]");
-						if(val == null || val.length() == 0){
-							_values.put("[" + i  + ", " + j + "]", str);
-						}
-					}
-				}
-				_c.repaint();
-				new CustomDialog(_frame, "fill matrix", this, _c);
+				new CustomDialog(_frame, "fill matrix", this, _c, _frame.getUILayer());
 			}
 		}
 	}
