@@ -28,12 +28,12 @@ import java.util.Map;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import backend.blocks.Countable.DisplayType;
 import backend.blocks.Matrix;
 import backend.blocks.Scalar;
+import frontend.swing.AppFrame;
 import frontend.swing.Button;
 import frontend.swing.CurrentConstants;
 import frontend.swing.CustomDialog;
@@ -57,9 +57,9 @@ public class Construct extends JPanel {
 	String _sizeIndicator;
 	Point _mouseLocation;
 	int _fontSize = 30;
-	private JFrame _frame;
+	private AppFrame _frame;
 	
-	public Construct(Saved saved, JFrame frame) {
+	public Construct(Saved saved, AppFrame frame) {
 		_frame = frame;
 		this.setLayout(new BorderLayout());
 		setBackground(CurrentConstants.CONSTRUCT_BG);
@@ -558,7 +558,7 @@ public class Construct extends JPanel {
 		
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
-				new CustomDialog(_frame, "create scalar", this, _c);
+				new CustomDialog(_frame, "create scalar", this, _c, _frame.getUILayer());
 		}
 	}
 	
@@ -618,7 +618,7 @@ public class Construct extends JPanel {
 		public void actionPerformed(ActionEvent arg0) {
 
 			if(_drawn){
-				new CustomDialog(_frame, "fill matrix", this, _c);
+				new CustomDialog(_frame, "fill matrix", this, _c, _frame.getUILayer());
 			}
 		}
 	}

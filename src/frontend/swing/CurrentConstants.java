@@ -100,6 +100,40 @@ public class CurrentConstants {
 	public static final float CONSTRUCT_SIZEINDICATOR_WEIGHT = TextAttribute.WEIGHT_BOLD;
 	public static final Color CONSTRUCT_SIZEINDICATOR_BG = new Color(0x0853BD);
 	
+	/** (CONSTRUCT) CUSTOM DIALOG **/
+	public static final Border CUSTOM_DIALOG_TEXTFIELD_BORDER = new EmptyBorder(0,10,0,0);
+	public static final Color CUSTOM_DIALOG_TEXTFIELD_BG = new Color(0xEBEEF2);
+	public static final Font CUSTOM_DIALOG_TEXTFIELD_FONT = new Font("Dialog", Font.BOLD, 16);
+	
+	public static final Border CUSTOM_DIALOG_CONTENTPANEL_BORDER = new EmptyBorder(10,10,10,10);
+	public static final Color CUSTOM_DIALOG_CONTENTPANEL_BG = new Color(0xB7CBEB);
+	
+	public static final Border CUSTOM_DIALOG_NORTHPANEL_BORDER = new EmptyBorder(0,0,10,0);
+	public static final Color CUSTOM_DIALOG_NORTHPANEL_BG = new Color(0xB7CBEB);
+	public static final Border CUSTOM_DIALOG_MIDDLEPANEL_BORDER = new EmptyBorder(0,0,0,0);
+	public static final Color CUSTOM_DIALOG_MIDDLEPANEL_BG = new Color(0xB7CBEB);
+	public static final Border CUSTOM_DIALOG_SOUTHPANEL_BORDER = new EmptyBorder(10,0,0,0);
+	public static final Color CUSTOM_DIALOG_SOUTHPANEL_BG = new Color(0xB7CBEB);
+	
+	public static final Color CUSTOM_DIALOG_FILL_BUTTON_BG = new Color(0x264261);
+	public static final Color CUSTOM_DIALOG_FILL_BUTTON_FG = Color.WHITE;
+	public static final Color CUSTOM_DIALOG_FILL_BUTTON_HOVER_BG = new Color(0x264261);
+	public static final Color CUSTOM_DIALOG_FILL_BUTTON_HOVER_FG = Color.WHITE;
+	public static final Color CUSTOM_DIALOG_FILL_BUTTON_PRESSED_BG = new Color(0x264261);
+	public static final Color CUSTOM_DIALOG_FILL_BUTTON_PRESSED_FG = Color.BLACK;
+	public static final Border CUSTOM_DIALOG_FILL_BUTTON_BORDER = new EmptyBorder(10,12,10,12);
+	
+	public static final Color CUSTOM_DIALOG_CANCEL_BUTTON_BG = new Color(0x9AA0AB);
+	public static final Color CUSTOM_DIALOG_CANCEL_BUTTON_FG = Color.WHITE;
+	public static final Color CUSTOM_DIALOG_CANCEL_BUTTON_HOVER_BG = new Color(0x606773);
+	public static final Color CUSTOM_DIALOG_CANCEL_BUTTON_HOVER_FG = Color.WHITE;
+	public static final Color CUSTOM_DIALOG_CANCEL_BUTTON_PRESSED_BG = new Color(0x607AA3);
+	public static final Color CUSTOM_DIALOG_CANCEL_BUTTON_PRESSED_FG = Color.WHITE;
+	public static final Border CUSTOM_DIALOG_CANCEL_BUTTON_BORDER = new EmptyBorder(10,12,10,12);
+	
+	public static final Color CUSTOM_DIALOG_WARNING_FG = Color.RED;
+	
+
 	/** COMPUTE **/
 	public static final Color SUPER_COMPUTE_BAR_BG = new Color(0xF2F3F5); //changing this changes the value of all the colors that affect the compute bar
 	public static final Color COMPUTE_BG = SUPER_CONTENT_AREA_BG;
