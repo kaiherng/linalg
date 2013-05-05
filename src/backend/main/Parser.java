@@ -375,8 +375,8 @@ public class Parser {
 		
 		Numerical last = null;
 		for (Numerical numr : input){
-			if (last != null && last instanceof Operation && numr instanceof Operation // check for two nonunary operators in a row
-					&& !((Operation) numr).isUnary()){
+			if (last != null && last instanceof Operation && ((numr instanceof Operation && !((Operation) numr).isUnary()) || numr instanceof Bracket) // check for two nonunary operators in a row
+					){
 				throw new IllegalArgumentException("ERROR: Binary operation requires two operands");
 			}
 			if (last != null && last instanceof Countable && numr instanceof Countable){ // check for adjacent Countables
