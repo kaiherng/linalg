@@ -5,16 +5,20 @@ import java.awt.Component;
 import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.Image;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -173,6 +177,14 @@ public class Compute extends JPanel {
 		this.repaint();
 	}
 	
+	public void addToBar(Numerical n, String s, Image bi){
+		_numericals.put(_id, n);
+		_bar.add(new BarObject(n, s, _id, this, bi));
+		_id++;
+		this.revalidate();
+		this.repaint();
+	}
+	
 	public void removeFromBar(int id, Component c){
 		_numericals.remove(id);
 		_bar.remove(c);
@@ -267,6 +279,21 @@ public class Compute extends JPanel {
 			_id = id;
 			this.addMouseListener(this);
 		}
+		
+		public BarObject(Numerical n, String s, int id, Compute c, Image bi){
+			this.setLayout(new BorderLayout());
+			JLabel label = new JLabel(new ImageIcon(bi.getScaledInstance(40, 40, BufferedImage.SCALE_DEFAULT)));
+			label.setForeground(CurrentConstants.COMPUTE_BAR_OBJECT_FG);
+			label.setHorizontalAlignment(JLabel.CENTER);
+			this.setPreferredSize(CurrentConstants.COMPUTE_BAR_OBJECT_SIZE);
+			this.setBackground(CurrentConstants.COMPUTE_BAR_OBJECT_BG);
+			this.add(label, BorderLayout.CENTER);
+			this.setToolTipText(s);
+			_c = c;
+			_id = id;
+			this.addMouseListener(this);
+		}
+		
 		@Override
 		public void mouseClicked(MouseEvent arg0) {
 			_c.removeFromBar(_id, this);

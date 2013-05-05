@@ -1,8 +1,14 @@
 package frontend.blocks;
 
+import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.image.BufferedImage;
+import java.awt.image.VolatileImage;
 
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
@@ -17,9 +23,18 @@ public class OpBlock extends JPanel {
 	Op _op;
 	Compute _c;
 	String _text;
+	BufferedImage _bi;
 
-	public OpBlock(Op op, String text, Compute c) {
-		JLabel label = new JLabel(text);
+	public OpBlock(Op op, String iconPath, Compute c) {
+		Icon i = new ImageIcon(iconPath);
+		_bi = new BufferedImage(i.getIconWidth(), i.getIconWidth(), BufferedImage.TYPE_INT_ARGB);
+		
+		Graphics2D g = _bi.createGraphics();
+	    i.paintIcon(null,g,0,0);
+	    g.dispose();
+	    
+		Icon scaled = new ImageIcon(_bi.getScaledInstance(50,50, BufferedImage.SCALE_DEFAULT));
+		JLabel label = new JLabel(scaled);
 		label.setForeground(CurrentConstants.OP_BLOCK_FG);
 		this.setPreferredSize(CurrentConstants.OP_BLOCK_SIZE);
 		this.setBackground(CurrentConstants.OP_BLOCK_BG);
@@ -28,13 +43,13 @@ public class OpBlock extends JPanel {
 		this.setToolTipText(op.toString());
 		_op = op;
 		_c = c;
-		_text = text;
+		_text = iconPath;
 	}
 	
 	private class Click extends MouseAdapter{
 		
 		public void mouseClicked(MouseEvent e){
-			_c.addToBar(new Operation(_op), _text);
+			_c.addToBar(new Operation(_op), _text, _bi);
 		}
 	}
 }
