@@ -30,6 +30,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import backend.blocks.Countable.DisplayType;
@@ -60,6 +61,7 @@ public class Construct extends JPanel {
 	Point _mouseLocation;
 	int _fontSize = 30;
 	private AppFrame _frame;
+	private JLabel _instructionsLabel;
 	
 	public Construct(Saved saved, AppFrame frame) {
 		_frame = frame;
@@ -91,6 +93,12 @@ public class Construct extends JPanel {
 		this.requestFocus();
 		this.setFocusTraversalKeysEnabled(false);
 		
+		JPanel instructionsPanel = new JPanel();
+		_instructionsLabel = new JLabel(CurrentConstants.CONSTRUCT_INSTRUCTIONSLABEL_EMPTYTEXT);
+		instructionsPanel.add(_instructionsLabel);
+		this.add(instructionsPanel,BorderLayout.NORTH);		
+		
+		
 		JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
 		buttonPanel.setBackground(CurrentConstants.CONSTRUCT_BUTTON_PANEL_BG);
 		buttonPanel.setBorder(CurrentConstants.CONSTRUCT_BUTTON_PANEL_BORDER);
@@ -103,6 +111,10 @@ public class Construct extends JPanel {
 		iButton = new Button("Identity", CurrentConstants.BUTTON_BG, CurrentConstants.BUTTON_FG, CurrentConstants.BUTTON_HOVER_BG, CurrentConstants.BUTTON_HOVER_FG, CurrentConstants.BUTTON_PRESSED_BG, CurrentConstants.BUTTON_PRESSED_FG, CurrentConstants.BUTTON_BORDER);
 		fillButton = new Button("Fill Matrix", CurrentConstants.BUTTON_BG, CurrentConstants.BUTTON_FG, CurrentConstants.BUTTON_HOVER_BG, CurrentConstants.BUTTON_HOVER_FG, CurrentConstants.BUTTON_PRESSED_BG, CurrentConstants.BUTTON_PRESSED_FG, CurrentConstants.BUTTON_BORDER);
 		fillButton.setToolTipText("Fill empty cells with specified value");
+		iButton.setToolTipText("Makes the matrix an identity matrix");
+		scalarButton.setToolTipText("Creates a new scalar");
+		saveButton.setToolTipText("Saves the created matrix to the panel below");
+		clearButton.setToolTipText("Clears all work in this panel");
 		clearButton.addActionListener(new ClearListener(this));
 		saveButton.addActionListener(new SaveListener(this));
 		scalarButton.addActionListener(new ScalarListener(this));
@@ -338,6 +350,7 @@ public class Construct extends JPanel {
 						_selected.clear();
 						_selected.add(0);
 						_selected.add(0);
+						_instructionsLabel.setText(CurrentConstants.CONSTRUCT_INSTRUCTIONSLABEL_DRAWNTEXT);
 						_p.repaint();
 					}
 				}
@@ -559,6 +572,7 @@ public class Construct extends JPanel {
 				for(int j = 0; j <= _mSize.get(1); j++){
 					if(!_values.containsKey("[" + i + ", " + j + "]")){
 						System.out.println("incomplete matrix!");
+						_instructionsLabel.setText(CurrentConstants.CONSTRUCT_INSTRUCTIONSLABEL_INCOMPLETETEXT);
 						return;
 					}
 				}
@@ -581,6 +595,7 @@ public class Construct extends JPanel {
 			} else {
 				_save.addCountable(new Matrix(dt, mValues));
 			}
+			_instructionsLabel.setText(CurrentConstants.CONSTRUCT_INSTRUCTIONSLABEL_SAVEDTEXT);
 			_c.clear();
 		}
 	}
@@ -655,6 +670,8 @@ public class Construct extends JPanel {
 				dt = DisplayType.WHOLENUMBER;
 			}
 			_save.addCountable("scalar", new Scalar(d, dt));
+			if (!_drawn)	_instructionsLabel.setText(CurrentConstants.CONSTRUCT_INSTRUCTIONSLABEL_SAVEDSCALARTEXT);
+			else	_instructionsLabel.setText(CurrentConstants.CONSTRUCT_INSTRUCTIONSLABEL_SAVEDSCALAR_MATRIXDRAWNTEXT);
 		}
 		
 		@Override

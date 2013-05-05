@@ -105,6 +105,12 @@ public class CurrentConstants {
 	public static final int CONSTRUCT_SIZEINDICATOR_STROKESIZE = 2;
 	public static final Color CONSTRUCT_SIZEINDICATOR_STROKECOLOR = Color.BLACK;
 	
+	public static final String CONSTRUCT_INSTRUCTIONSLABEL_EMPTYTEXT = "<html>Click anywhere in this panel and drag to create a matrix, <br>or create a scalar directly by using the New Scalar button below.";
+	public static final String CONSTRUCT_INSTRUCTIONSLABEL_DRAWNTEXT = "<html>Click/tab and enter values manually in cells, <br>or use the Identity or Fill Matrix buttons.";
+	public static final String CONSTRUCT_INSTRUCTIONSLABEL_INCOMPLETETEXT = "<html><font color=red>Incomplete Matrix!</font> " + CONSTRUCT_INSTRUCTIONSLABEL_DRAWNTEXT;
+	public static final String CONSTRUCT_INSTRUCTIONSLABEL_SAVEDTEXT = "<html><font color=green>Matrix Saved!</font> " + CONSTRUCT_INSTRUCTIONSLABEL_EMPTYTEXT;
+	public static final String CONSTRUCT_INSTRUCTIONSLABEL_SAVEDSCALARTEXT = "<html><font color=green>Scalar Saved!</font> " + CONSTRUCT_INSTRUCTIONSLABEL_EMPTYTEXT;
+	public static final String CONSTRUCT_INSTRUCTIONSLABEL_SAVEDSCALAR_MATRIXDRAWNTEXT = "<html><font color=green>Scalar Saved!</font> " + CONSTRUCT_INSTRUCTIONSLABEL_DRAWNTEXT;
 	
 	/** (CONSTRUCT) CUSTOM DIALOG **/
 	public static final Border CUSTOM_DIALOG_TEXTFIELD_BORDER = new EmptyBorder(0,10,0,0);
