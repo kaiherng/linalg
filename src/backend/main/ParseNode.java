@@ -102,7 +102,7 @@ public class ParseNode {
 			return;
 		}
 		
-		toReplace.setValue(_solution.getOp().getIcon2());
+		toReplace.setValue(_solution.getOp().getString());
 		List<Countable> args = _solution.getInputs();
 		
 		String toSetArg1 = getToSet(args.get(0));

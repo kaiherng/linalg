@@ -70,7 +70,36 @@ public enum Op {
 	 * 
 	 * @return the symbol depicting this enum
 	 */
-	public String getIcon2(){
+	public String getString(){
+		switch(this){
+		case PLUS:
+			return "+";
+		case MINUS:
+			return "-";
+		case SS_DIVIDE:
+			return "/";
+		case MULTIPLY: 
+			return "*";
+		case DETERMINANT:
+			return "det";
+		case ROW_REDUCE:
+			return "RR";
+		case M_COLUMNSPACE:
+			return "CS";
+		case M_INVERSE:
+			return "inv";
+		case POWER:
+			return "^";
+		case M_RANK:
+			return "Rank";
+		case M_TRANSPOSE:
+			return "T";
+		default:
+			return "?";
+		}
+	}
+	
+	public String getIconPath(){
 		switch(this){
 		case PLUS:
 			return "icons/plus.png";
