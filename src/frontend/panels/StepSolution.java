@@ -10,8 +10,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JTabbedPane;
+import javax.swing.SwingConstants;
 
 import backend.blocks.Countable;
 import frontend.swing.Button;
@@ -31,6 +34,9 @@ public class StepSolution extends JPanel {
 	private ScrollPane _scroll;
 	private JButton _forwardButton, _backButton;
 	private Countable _ans;
+	private JPanel _bottomBar;
+	private JLabel _stepNumberLabel;
+	private JTabbedPane _tabbedPane;
 	
 	public StepSolution(){
 		super();
@@ -50,12 +56,22 @@ public class StepSolution extends JPanel {
 		_scroll.setBackground(CurrentConstants.STEPSOLUTION_SCROLL_BG);
 		
 		//bottom bar
-		JPanel bottomBar = new JPanel(new BorderLayout());
-		bottomBar.setBorder(CurrentConstants.STEPSOLUTION_BOTTOMBAR_BORDER);
-		bottomBar.setBackground(CurrentConstants.STEPSOLUTION_BOTTOMBAR_BG);
+		_bottomBar = new JPanel(new BorderLayout());
+		_bottomBar.setBorder(CurrentConstants.STEPSOLUTION_BOTTOMBAR_BORDER);
+		_bottomBar.setBackground(CurrentConstants.STEPSOLUTION_BOTTOMBAR_BG);
 		
 		//bottom bar left
 		JPanel bottomBarLeft = new JPanel(new BorderLayout());
+		
+		JPanel bottomBarLeftUp = new JPanel();
+		bottomBarLeftUp.setBorder(CurrentConstants.STEPSOLUTION_BOTTOMBARLEFTUP_BORDER);
+		bottomBarLeftUp.setBackground(CurrentConstants.STEPSOLUTION_BOTTOMBARLEFTUP_BG);
+		_stepNumberLabel = new JLabel("");
+		_stepNumberLabel.setBorder(CurrentConstants.STEPSOLUTION_STEPNUMBERLABEL_BORDER);
+		_stepNumberLabel.setBackground(CurrentConstants.STEPSOLUTION_STEPNUMBERLABEL_BG);
+		_stepNumberLabel.setForeground(CurrentConstants.STEPSOLUTION_STEPNUMBERLABEL_FG);
+		_stepNumberLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		_stepNumberLabel.setFont(CurrentConstants.STEPSOLUTION_STEPNUMBERLABEL_FONT);
 		bottomBarLeft.setBackground(CurrentConstants.STEPSOLUTION_BOTTOMBARLEFT_BG);
 		bottomBarLeft.setBorder(CurrentConstants.STEPSOLUTION_BOTTOMBARLEFT_BORDER);
 		_comp = new Solution(100,100);
@@ -72,8 +88,26 @@ public class StepSolution extends JPanel {
 		_backButton.setFont(CurrentConstants.BUTTON_NEXT_FONT);
 		_forwardButton.addActionListener(new ForwardBack(this, true));
 		_backButton.addActionListener(new ForwardBack(this, false));
-		bottomBarLeft.add(_forwardButton, BorderLayout.EAST);
-		bottomBarLeft.add(_backButton, BorderLayout.WEST);
+		bottomBarLeftUp.add(_backButton);
+		bottomBarLeftUp.add(_stepNumberLabel);
+		bottomBarLeftUp.add(_forwardButton);
+		bottomBarLeft.add(bottomBarLeftUp, BorderLayout.NORTH);
+		
+		JPanel bottomBarRight = new JPanel(new BorderLayout());
+		JPanel bottomBarRightUp = new JPanel(new BorderLayout());
+		bottomBarRightUp.setBackground(CurrentConstants.STEPSOLUTION_BOTTOMBARRIGHTUP_BG);
+		bottomBarRightUp.setBorder(CurrentConstants.STEPSOLUTION_BOTTOMBARRIGHTUP_BORDER);
+		
+		JLabel answerLabel = new JLabel("Final Answer");
+		answerLabel.setBorder(CurrentConstants.STEPSOLUTION_ANSWERLABEL_BORDER);
+		answerLabel.setBackground(CurrentConstants.STEPSOLUTION_ANSWERLABEL_BG);
+		answerLabel.setForeground(CurrentConstants.STEPSOLUTION_ANSWERLABEL_FG);
+		answerLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		answerLabel.setFont(CurrentConstants.STEPSOLUTION_ANSWERLABEL_FONT);
+
+		bottomBarRightUp.add(answerLabel);
+		bottomBarRight.add(bottomBarRightUp, BorderLayout.NORTH);
+		
 		
 		_answer = new Solution(100,100);
 		_answer.setMargins(0, 0);
@@ -82,16 +116,22 @@ public class StepSolution extends JPanel {
 		_answer.setBorder(CurrentConstants.STEPSOLUTION_ANSWER_BORDER);
 		_answer.setBackground(CurrentConstants.STEPSOLUTION_ANSWER_BG);
 		_answer.setPreferredSize(new Dimension(0,90));
+		bottomBarRight.add(_answer, BorderLayout.CENTER);
 		
-		bottomBar.add(bottomBarLeft, BorderLayout.CENTER);
-		bottomBar.add(_answer, BorderLayout.EAST);
+		_bottomBar.add(bottomBarLeft, BorderLayout.CENTER);
+		_bottomBar.add(bottomBarRight, BorderLayout.EAST);
 		
 		this.add(_scroll, BorderLayout.CENTER);
-		this.add(bottomBar, BorderLayout.SOUTH);
+		this.add(_bottomBar, BorderLayout.SOUTH);
+		_bottomBar.setVisible(false);
 		
 		checkButtons();
 		
 		this.revalidate();
+	}
+	
+	public void setTabbedPane(JTabbedPane tabbedPane) {
+		_tabbedPane = tabbedPane;
 	}
 	
 	
@@ -100,22 +140,26 @@ public class StepSolution extends JPanel {
 	}
 	
 	public void clear(){
+		_bottomBar.setVisible(false);
 		_display.setTex("");
 		_comp.setTex("");
 		_answer.setTex("");
 		_stepNumber = 0;
+		_tabbedPane.setTitleAt(0, "Solution");
 		_solList.clear();
 		_ans = null;
 		checkButtons();
 	}
 	
 	public void setSolution(List<List<String>> steps, Countable answer){
+		_bottomBar.setVisible(true);
 		_solList = steps.get(1);
 		_compList = steps.get(0);
 		_stepNumber = 0;
-		_display.setTex("\\text{Step " + (_stepNumber + 1) + "}\\\\" + _solList.get(0));
+		setStepNumbers();
+		_display.setTex(_solList.get(0));
 		_comp.setTex(_compList.get(0));
-		_answer.setTex("\\text{Answer:}\\\\" + answer.toLatex());
+		_answer.setTex(answer.toLatex());
 		_ans = answer;
 		checkButtons();
 		this.revalidate();
@@ -127,12 +171,19 @@ public class StepSolution extends JPanel {
 		_display.setTex(error);
 	}
 	
+	private void setStepNumbers() {
+		_stepNumberLabel.setText("<html>Step <font color=#BFD9F2>" + (_stepNumber + 1) + "</font> of " + _solList.size());
+		_tabbedPane.setTitleAt(0, "<html>Step <font color=#BFD9F2>" + (_stepNumber + 1) + "</font> of " + _solList.size());
+	}
+	
 	public void next(){
 		if(_stepNumber < _solList.size() - 1){
 			_stepNumber++;
+			_stepNumberLabel.setText("<html>Step <font color=#BFD9F2>" + (_stepNumber + 1) + "</font> of " + _solList.size());
 		}
 		checkButtons();
-		_display.setTex("\\text{Step " + (_stepNumber + 1) + "}\\\\" + _solList.get(_stepNumber));
+		setStepNumbers();
+		_display.setTex(_solList.get(_stepNumber));
 		_comp.setTex(_compList.get(_stepNumber));
 		resetScroll();
 		this.repaint();
@@ -143,7 +194,8 @@ public class StepSolution extends JPanel {
 			_stepNumber--;
 		}
 		checkButtons();
-		_display.setTex("\\text{Step " + (_stepNumber + 1) + "}\\\\" + _solList.get(_stepNumber));
+		setStepNumbers();
+		_display.setTex(_solList.get(_stepNumber));
 		_comp.setTex(_compList.get(_stepNumber));
 		resetScroll();
 		this.repaint();

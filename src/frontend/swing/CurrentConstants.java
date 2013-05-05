@@ -10,6 +10,7 @@ import java.awt.font.TextAttribute;
 import javax.swing.BorderFactory;
 import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
+import javax.swing.border.LineBorder;
 
 //http://colorschemedesigner.com/ 
 //Scheme ID: 3z41Tw0w0w0w0
@@ -46,7 +47,7 @@ public class CurrentConstants {
 	public static final int SPLITPANE_WIDTH = 11;
 	public static final Color LEFT_RIGHT_PANEL_BG = new Color(0x5881A3);
 	public static final Dimension LEFT_PANEL_MIN_SIZE = new Dimension(465,300); //don't change the x-value - some of the 5 buttons will disappear if its too small - 465 is just right
-	public static final Dimension RIGHT_PANEL_MIN_SIZE = new Dimension(400,300);
+	public static final Dimension RIGHT_PANEL_MIN_SIZE = new Dimension(300,300);
 	
 	public static final Font TAB_FONT = new Font(SUPER_FONT_STYLE, Font.BOLD, 12);	
 	public static final Color TAB_SELECTED = new Color(0x22385C); //the color of the tab when its selected
@@ -195,6 +196,20 @@ public class CurrentConstants {
 	public static final Border STEPSOLUTION_COMP_BORDER = new EmptyBorder(0,0,0,0);
 	public static final Color STEPSOLUTION_COMP_BG = SUPER_CONTENT_AREA_BG;
 	
+	public static final Border STEPSOLUTION_BOTTOMBARLEFTUP_BORDER = new EmptyBorder(0,0,0,0);
+	public static final Color STEPSOLUTION_BOTTOMBARLEFTUP_BG = new Color(0x264261);
+	public static final Border STEPSOLUTION_STEPNUMBERLABEL_BORDER = new EmptyBorder(0,7,0,7);
+	public static final Color STEPSOLUTION_STEPNUMBERLABEL_BG = new Color(0x264261);
+	public static final Color STEPSOLUTION_STEPNUMBERLABEL_FG = Color.WHITE;
+	public static final Font STEPSOLUTION_STEPNUMBERLABEL_FONT = new Font("Dialog", Font.BOLD, 13);
+	
+	public static final Border STEPSOLUTION_BOTTOMBARRIGHTUP_BORDER = new EmptyBorder(5,0,5,0);
+	public static final Color STEPSOLUTION_BOTTOMBARRIGHTUP_BG = new Color(0x264261);
+	public static final Border STEPSOLUTION_ANSWERLABEL_BORDER = new EmptyBorder(0,0,0,0);
+	public static final Color STEPSOLUTION_ANSWERLABEL_BG = new Color(0x264261);
+	public static final Color STEPSOLUTION_ANSWERLABEL_FG = Color.WHITE;
+	public static final Font STEPSOLUTION_ANSWERLABEL_FONT = new Font("Dialog", Font.BOLD, 13);
+	
 	/** BUTTONS **/
 	public static final Color BUTTON_BG = new Color(0x264261);
 	public static final Color BUTTON_FG = Color.WHITE;
@@ -226,8 +241,8 @@ public class CurrentConstants {
 	public static final Color BUTTON_NEXT_HOVER_FG = Color.WHITE;
 	public static final Color BUTTON_NEXT_PRESSED_BG = new Color(0x264261);
 	public static final Color BUTTON_NEXT_PRESSED_FG = Color.BLACK;
-	public static final Border BUTTON_NEXT_BORDER = new EmptyBorder(10,12,10,12);
-	public static final Font BUTTON_NEXT_FONT = new Font("Dialog", Font.BOLD, 20);
+	public static final Border BUTTON_NEXT_BORDER = new EmptyBorder(0,0,0,0);
+	public static final Font BUTTON_NEXT_FONT = new Font("Dialog", Font.BOLD, 14);
 	
 	/** SCROLLPANE **/
 	public static final Color SUPER_SCROLLPANE_THUMB_BG = new Color(0x6D96D1);

@@ -66,6 +66,7 @@ public class AppFrame extends JFrame {
 		JTabbedPane tabbedPaneBottomLeft = createTabbedPaneBottomLeft(savedPanel);
 		JPanel leftPanel = createLeftPanel(tabbedPaneTopLeft, tabbedPaneBottomLeft);
 		JTabbedPane tabbedPaneRight = createTabbedPaneRight(stepSol);
+		stepSol.setTabbedPane(tabbedPaneRight);
 		JPanel rightPanel = createRightPanel(tabbedPaneRight);
 		
 		//create splitPane
@@ -112,9 +113,7 @@ public class AppFrame extends JFrame {
 	public final static JTabbedPane createTabbedPaneRight(StepSolution solPanel) {
 		JTabbedPane tabbedPaneRight = new JTabbedPane();
 		tabbedPaneRight.addTab("Solution", solPanel);
-		
 		tabbedPaneRight.setToolTipTextAt(0,"View the solution for your computation");
-		tabbedPaneRight.addTab("Solution", solPanel);
 		
 		return tabbedPaneRight;
 	}
