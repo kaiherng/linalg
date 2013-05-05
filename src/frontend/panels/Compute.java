@@ -43,6 +43,7 @@ public class Compute extends JPanel {
 	Integer _id = 0;
 	StepSolution _solPanel;
 	Solution _stepPanel;
+	private JLabel _instructionsLabel;
 	
 	public Compute(StepSolution sol, Solution step) {
 		super();
@@ -97,6 +98,8 @@ public class Compute extends JPanel {
 		_bar.setBorder(CurrentConstants.COMPUTE_BAR_BORDER);
 		_bar.setBackground(CurrentConstants.COMPUTE_BAR_BG);
 		
+		_instructionsLabel = new JLabel("<html>Click on saved matrices below <br>and operations above to perform computations");
+		_bar.add(_instructionsLabel);
 		_computeBar.add(scrollPanel, BorderLayout.CENTER);
 		
 		
@@ -170,6 +173,9 @@ public class Compute extends JPanel {
 	}
 	
 	public void addToBar(Numerical n, String s){
+		if (_instructionsLabel.isVisible()) {
+			_instructionsLabel.setVisible(false);
+		}
 		_numericals.put(_id, n);
 		_bar.add(new BarObject(n, s, _id, this));
 		_id++;
@@ -178,6 +184,9 @@ public class Compute extends JPanel {
 	}
 	
 	public void addToBar(Numerical n, String s, Image bi){
+		if (_instructionsLabel.isVisible()) {
+			_instructionsLabel.setVisible(false);
+		}
 		_numericals.put(_id, n);
 		_bar.add(new BarObject(n, s, _id, this, bi));
 		_id++;
@@ -190,12 +199,18 @@ public class Compute extends JPanel {
 		_bar.remove(c);
 		this.revalidate();
 		this.repaint();
+		if (!_instructionsLabel.isVisible()) {
+			_instructionsLabel.setVisible(true);
+		}
 	}
 	
 	public void clearBar(){
 		_numericals.clear();
 		_bar.removeAll();
 		this.repaint();
+		System.out.println("clearing");
+		_bar.add(_instructionsLabel);
+		_instructionsLabel.setVisible(true);
 	}
 	
 	public void compute(){
