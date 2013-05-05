@@ -30,7 +30,7 @@ public class FadeLayerUI extends CustomLayerUI {
 			
 			g2.dispose();
 		}
-		getFrame().repaint();
+//		getFrame().repaint();
 	}
 }
 

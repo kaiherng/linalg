@@ -49,7 +49,7 @@ public class Construct extends JPanel {
 	private static final long serialVersionUID = -635825278434322408L;
 	Rectangle[][] _grid;
 	int _size = 50;
-	List<Integer> _offset, _mSize, _selected;
+	List<Integer> _offset, _mSize, _selected, _prevSelected;
 	Map<String, String> _values;
 	boolean _drawn;
 	boolean _drawing;
@@ -73,6 +73,7 @@ public class Construct extends JPanel {
 		_offset.add(0);
 		_offset.add(0);
 		_selected = new ArrayList<>();
+		_prevSelected = new ArrayList<>();
 		_mSize = new ArrayList<>();
 		_mSize.add(0);
 		_mSize.add(0);
@@ -432,31 +433,42 @@ public class Construct extends JPanel {
 					if(_selected.get(1) > 0){
 						_selected.set(1, _selected.get(1)-1);
 					}
-					break;
+					_p.repaint();
+					return;
 				case 40:
 					if(_selected.get(1) < _mSize.get(1)){
 						_selected.set(1, _selected.get(1)+1);
+						
 					}
-					break;
+					_p.repaint();
+					return;
 				case 37:
 					if(_selected.get(0) > 0){
 						_selected.set(0, _selected.get(0)-1);
 					}
-					break;
+					_p.repaint();
+					return;
 				case 39:
 					if(_selected.get(0) < _mSize.get(0)){
 						_selected.set(0, _selected.get(0)+1);
 					}
-					break;
+					_p.repaint();
+					return;
 				}
-				
 				
 				StringBuilder sb;
-				if(_values.containsKey(_selected.toString())){
-					sb = new StringBuilder(_values.get(_selected.toString()));
+
+				if(_selected.equals(_prevSelected)){
+					if(_values.containsKey(_selected.toString())){
+						sb = new StringBuilder(_values.get(_selected.toString()));
+					} else {
+						sb = new StringBuilder();
+					}
 				} else {
 					sb = new StringBuilder();
+					_prevSelected = new ArrayList<>(_selected);
 				}
+				
 				//numbers
 				if(keyCode >= 48 && keyCode <= 57){
 					sb.append(arg0.getKeyChar());
@@ -466,11 +478,16 @@ public class Construct extends JPanel {
 				} else if(keyCode == 110 || keyCode == 46){
 					if(sb.indexOf(".") == -1){
 						sb.append(".");
-					}
+					} 
 				//backspace
 				} else if(keyCode == 8){
 					if(sb.length() > 0){
 						sb.setLength(sb.length()-1);
+					}
+				//negative
+				} else if(keyCode == 45){
+					if(sb.length() == 0){
+						sb.append("-");
 					}
 				}
 				if(sb.length() > 8){

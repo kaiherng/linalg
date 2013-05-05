@@ -19,7 +19,7 @@ public enum Op {
 	ROW_REDUCE(0,true,"ROW-REDUCE"),
 	M_COLUMNSPACE(0,true,"COLUMN-SPACE"),
 	M_INVERSE(0,true,"M-INVERSE"),
-	POWER(0,true,"POWER"),
+	POWER(0,false,"POWER"),
 	M_RANK(0,true,"M-RANK"),
 	M_TRANSPOSE(0,true,"M-TRANSPOSE");
 	
