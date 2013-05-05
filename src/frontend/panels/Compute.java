@@ -1,10 +1,14 @@
 package frontend.panels;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.GridLayout;
+import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
@@ -14,6 +18,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -56,7 +61,7 @@ public class Compute extends JPanel {
 		WrapLayout wrapLayout = new WrapLayout(FlowLayout.LEFT);
 		wrapLayout.setHgap(CurrentConstants.COMPUTE_WRAPLAYOUT_HGAP);
 		wrapLayout.setVgap(CurrentConstants.COMPUTE_WRAPLAYOUT_VGAP);
-		_ops = new JPanel(wrapLayout);
+		_ops = new JPanel(new GridBagLayout());
 		_ops.setBorder(CurrentConstants.COMPUTE_OPS_BORDER);
 		_ops.setBackground(CurrentConstants.COMPUTE_OPS_BG);
 		
@@ -96,15 +101,72 @@ public class Compute extends JPanel {
 		
 		
 		//operations
+		JPanel unary = new JPanel(new WrapLayout(FlowLayout.LEFT));
+		JPanel binary = new JPanel(new WrapLayout(FlowLayout.LEFT));
+		JPanel brackets = new JPanel(new WrapLayout(FlowLayout.LEFT));
+		
+		JLabel unaryLabel = new JLabel("Unary Operations");
+		JLabel binaryLabel = new JLabel("Binary Operations");
+		JLabel miscLabel = new JLabel("Misc.");
+		unaryLabel.setFont(CurrentConstants.COMPUTE_LABEL_FONT);
+		binaryLabel.setFont(CurrentConstants.COMPUTE_LABEL_FONT);
+		miscLabel.setFont(CurrentConstants.COMPUTE_LABEL_FONT);
+		unary.setOpaque(false);
+		binary.setOpaque(false);
+		brackets.setOpaque(false);
+//		unary.setBorder(BorderFactory.createLineBorder(Color.black));
+//		binary.setBorder(BorderFactory.createLineBorder(Color.black));
 		for(Op o : Op.values()){
-			_ops.add(new OpBlock(o, o.getIcon2(), this));
+			if(o.isUnary()){
+				unary.add(new OpBlock(o, o.getIcon2(), this));
+			} else {
+				binary.add(new OpBlock(o, o.getIcon2(), this));
+			}
 		}
+		brackets.add(new BracketBlock(true, this));
+		brackets.add(new BracketBlock(false, this));
+		GridBagConstraints c = new GridBagConstraints();
+		c.fill = GridBagConstraints.HORIZONTAL;
+//		c.anchor = GridBagConstraints.NORTHWEST;
+		c.weighty = 0.0;
+		c.weightx = 0.1;
+		c.insets = new Insets(10, 10, 0, 0);
+		c.gridx = 0;
+		c.gridy = 0;
+		_ops.add(unaryLabel, c);
+		
+		c.gridx = 0;
+		c.gridy = 2;
+		_ops.add(binaryLabel, c);
+		
+		c.gridx = 0;
+		c.gridy = 4;
+		_ops.add(miscLabel, c);
+		
+		c.insets = new Insets(0, 0, 0, 0);
+		c.weighty = .1;
+		c.gridx = 0;
+		c.gridy = 1;
+		_ops.add(unary, c);
+		
+		c.gridx = 0;
+		c.gridy = 3;
+		_ops.add(binary, c);
+		
+		c.gridx = 0;
+		c.gridy = 5;
+		_ops.add(brackets, c);
+		
+		JPanel opsWrapper = new JPanel(new BorderLayout());
+		opsWrapper.setBorder(CurrentConstants.COMPUTE_OPS_BORDER);
+		opsWrapper.setBackground(CurrentConstants.COMPUTE_OPS_BG);
+		opsWrapper.add(_ops, BorderLayout.NORTH);
 		//Bracket
-		_ops.add(new BracketBlock(true, this));
-		_ops.add(new BracketBlock(false, this));
+//		_ops.add(new BracketBlock(true, this));
+//		_ops.add(new BracketBlock(false, this));
 				
 		this.add(_computeBar, BorderLayout.SOUTH);
-		this.add(_ops, BorderLayout.CENTER);
+		this.add(opsWrapper, BorderLayout.CENTER);
 	}
 	
 	public void addToBar(Numerical n, String s){

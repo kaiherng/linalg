@@ -102,6 +102,7 @@ public class CurrentConstants {
 	public static final Color CONSTRUCT_SIZEINDICATOR_BG = new Color(0x0853BD);
 	
 	/** COMPUTE **/
+	public static final Font COMPUTE_LABEL_FONT = new Font(SUPER_FONT_STYLE, Font.BOLD, 14);
 	public static final Color SUPER_COMPUTE_BAR_BG = new Color(0xF2F3F5); //changing this changes the value of all the colors that affect the compute bar
 	public static final Color COMPUTE_BG = SUPER_CONTENT_AREA_BG;
 	public static final Border COMPUTE_BORDER = new EmptyBorder(0,0,0,0);	
