@@ -27,7 +27,7 @@ public class CurrentConstants {
 	public static final Color INIT_FRAME_BG = new Color(0x85A8D6);
 	public static final Color FRAME_BORDER_COLOR = Color.BLACK;
 	public static final int FRAME_BORDER_WIDTH = 1;
-	public static final Dimension FRAME_MIN_SIZE = new Dimension(1000,700);
+	public static final Dimension FRAME_MIN_SIZE = new Dimension(1100,800);
 	public static final int RESIZE_THRESHOLD = 10;
 	
 	/** HEADER (ie the window bar right on top) **/
@@ -45,8 +45,8 @@ public class CurrentConstants {
 	public static final Color SPLITPANE_BG = new Color(0x1C4C75);
 	public static final int SPLITPANE_WIDTH = 11;
 	public static final Color LEFT_RIGHT_PANEL_BG = new Color(0x5881A3);
-	public static final Dimension LEFT_PANEL_MIN_SIZE = new Dimension(465,300);
-	public static final Dimension RIGHT_PANEL_MIN_SIZE = new Dimension(300,300);
+	public static final Dimension LEFT_PANEL_MIN_SIZE = new Dimension(465,300); //don't change the x-value - some of the 5 buttons will disappear if its too small - 465 is just right
+	public static final Dimension RIGHT_PANEL_MIN_SIZE = new Dimension(400,300);
 	
 	public static final Font TAB_FONT = new Font(SUPER_FONT_STYLE, Font.BOLD, 12);	
 	public static final Color TAB_SELECTED = new Color(0x22385C); //the color of the tab when its selected
@@ -97,9 +97,12 @@ public class CurrentConstants {
 	public static final int CONSTRUCT_SIZEINDICATOR_YOFFSET = 30;
 	public static final int CONSTRUCT_SIZEINDICATOR_SIZE = 15;
 	public static final String CONSTRUCT_SIZEINDICATOR_FONT = "Dialog";
-	public static final Color CONSTRUCT_SIZEINDICATOR_FG = Color.white;
+	public static final Color CONSTRUCT_SIZEINDICATOR_FG = Color.BLACK;
 	public static final float CONSTRUCT_SIZEINDICATOR_WEIGHT = TextAttribute.WEIGHT_BOLD;
-	public static final Color CONSTRUCT_SIZEINDICATOR_BG = new Color(0x0853BD);
+	public static final Color CONSTRUCT_SIZEINDICATOR_BG = new Color(0x98B7D9);
+	public static final int CONSTRUCT_SIZEINDICATOR_STROKESIZE = 2;
+	public static final Color CONSTRUCT_SIZEINDICATOR_STROKECOLOR = Color.BLACK;
+	
 	
 	/** (CONSTRUCT) CUSTOM DIALOG **/
 	public static final Border CUSTOM_DIALOG_TEXTFIELD_BORDER = new EmptyBorder(0,10,0,0);
@@ -188,7 +191,7 @@ public class CurrentConstants {
 	public static final Border STEPSOLUTION_COMPSCROLL_BORDER = new EmptyBorder(0,0,0,0);
 	public static final Color STEPSOLUTION_COMPSCROLL_BG = SUPER_CONTENT_AREA_BG;
 	public static final Border STEPSOLUTION_ANSWER_BORDER = new EmptyBorder(0,0,0,0);
-	public static final Color STEPSOLUTION_ANSWER_BG = SUPER_CONTENT_AREA_BG;
+	public static final Color STEPSOLUTION_ANSWER_BG = new Color(0x91B8E3);
 	public static final Border STEPSOLUTION_COMP_BORDER = new EmptyBorder(0,0,0,0);
 	public static final Color STEPSOLUTION_COMP_BG = SUPER_CONTENT_AREA_BG;
 	
@@ -215,6 +218,16 @@ public class CurrentConstants {
 	public static final Color BUTTON_CLEAR_PRESSED_FG = Color.BLACK;
 	public static final Border BUTTON_COMPUTE_BORDER = new EmptyBorder(0,15,0,15);
 	public static final Border BUTTON_CLEAR_BORDER = new EmptyBorder(0,20,0,20);
+	
+	//for step by step next & prev buttons
+	public static final Color BUTTON_NEXT_BG = new Color(0x264261);
+	public static final Color BUTTON_NEXT_FG = Color.WHITE;
+	public static final Color BUTTON_NEXT_HOVER_BG = new Color(0x264261);
+	public static final Color BUTTON_NEXT_HOVER_FG = Color.WHITE;
+	public static final Color BUTTON_NEXT_PRESSED_BG = new Color(0x264261);
+	public static final Color BUTTON_NEXT_PRESSED_FG = Color.BLACK;
+	public static final Border BUTTON_NEXT_BORDER = new EmptyBorder(10,12,10,12);
+	public static final Font BUTTON_NEXT_FONT = new Font("Dialog", Font.BOLD, 20);
 	
 	/** SCROLLPANE **/
 	public static final Color SUPER_SCROLLPANE_THUMB_BG = new Color(0x6D96D1);
