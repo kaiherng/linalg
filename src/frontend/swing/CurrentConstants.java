@@ -191,7 +191,7 @@ public class CurrentConstants {
 	public static final Border STEPSOLUTION_COMPSCROLL_BORDER = new EmptyBorder(0,0,0,0);
 	public static final Color STEPSOLUTION_COMPSCROLL_BG = SUPER_CONTENT_AREA_BG;
 	public static final Border STEPSOLUTION_ANSWER_BORDER = new EmptyBorder(0,0,0,0);
-	public static final Color STEPSOLUTION_ANSWER_BG = SUPER_CONTENT_AREA_BG;
+	public static final Color STEPSOLUTION_ANSWER_BG = new Color(0x91B8E3);
 	public static final Border STEPSOLUTION_COMP_BORDER = new EmptyBorder(0,0,0,0);
 	public static final Color STEPSOLUTION_COMP_BG = SUPER_CONTENT_AREA_BG;
 	
