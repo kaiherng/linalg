@@ -175,6 +175,16 @@ public class StepSolution extends JPanel {
 		}
 	}
 	
+	private class ExportListener extends MouseAdapter{
+		public void mouseClicked(MouseEvent e){
+			if(_ans != null){
+				if(e.getClickCount() == 2){
+					_savePanel.addCountable(_ans);
+				}
+			}
+		}
+	}
+	
 	private class ForwardBack implements ActionListener{
 		StepSolution _ss;
 		boolean _forward;

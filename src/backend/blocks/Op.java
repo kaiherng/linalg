@@ -73,27 +73,27 @@ public enum Op {
 	public String getIcon2(){
 		switch(this){
 		case PLUS:
-			return "+";
+			return "icons/plus.png";
 		case MINUS:
-			return "-";
+			return "icons/minus.png";
 		case SS_DIVIDE:
-			return "/";
+			return "icons/divide.png";
 		case MULTIPLY: 
-			return "*";
+			return "icons/multiply.png";
 		case DETERMINANT:
-			return "det";
+			return "icons/det.png";
 		case ROW_REDUCE:
-			return "RR";
+			return "icons/rr.png";
 		case M_COLUMNSPACE:
-			return "CS";
+			return "icons/col.png";
 		case M_INVERSE:
-			return "INV";
+			return "icons/inv.png";
 		case POWER:
-			return "^";
+			return "icons/power.png";
 		case M_RANK:
-			return "R";
+			return "icons/rank.png";
 		case M_TRANSPOSE:
-			return "T";
+			return "icons/transpose.png";
 		default:
 			return "?";
 		}

@@ -20,7 +20,9 @@ import frontend.panels.Saved;
 import frontend.panels.SavedScroll;
 import frontend.panels.SolutionScroll;
 import frontend.panels.StepSolution;
+import frontend.utils.BlurLayerUI;
 import frontend.utils.CustomLayerUI;
+import frontend.utils.FadeLayerUI;
 import frontend.utils.ResizeAdapter;
 import frontend.utils.WhiteLayerUI;
 
@@ -76,7 +78,9 @@ public class AppFrame extends JFrame {
 		
 		//this is so that we can fade the rest of the program later
 		//create a BlurLayerUI instead for blur
-		_customLayerUI = new WhiteLayerUI(this);
+//		_customLayerUI = new WhiteLayerUI(this);
+//		_customLayerUI = new BlurLayerUI(this);
+		_customLayerUI = new FadeLayerUI(this);
 		final JLayer<JComponent> jLayer = new JLayer<JComponent>(contentPane, _customLayerUI);
 		
 		this.add(jLayer);

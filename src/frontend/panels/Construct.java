@@ -642,7 +642,12 @@ public class Construct extends JPanel {
 				for(int j = 0; j < _mSize.get(1)+1; j++){
 					String val = _values.get("[" + i  + ", " + j + "]");
 					if(val == null || val.length() == 0){
-						val = value.toString();
+						BigDecimal bd = new BigDecimal(Double.valueOf(value));
+						if(bd.intValue() - bd.doubleValue() == new Double(0)){
+							val = ((Integer) bd.intValue()).toString();
+						} else {
+							val = Double.toString(value);
+						}
 						_values.put("[" + i  + ", " + j + "]", val);
 					}
 				}
