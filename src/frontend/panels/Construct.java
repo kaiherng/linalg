@@ -27,7 +27,6 @@ import java.util.List;
 import java.util.Map;
 
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import backend.blocks.Countable.DisplayType;
@@ -115,6 +114,7 @@ public class Construct extends JPanel {
 		buttonPanel.add(scalarButton);
 		buttonPanel.add(clearButton);
 		buttonPanel.add(saveButton);
+		buttonPanel.setOpaque(false);
 	}
 	
 	public void clear(){
