@@ -27,7 +27,7 @@ public class CurrentConstants {
 	public static final Color INIT_FRAME_BG = new Color(0x85A8D6);
 	public static final Color FRAME_BORDER_COLOR = Color.BLACK;
 	public static final int FRAME_BORDER_WIDTH = 1;
-	public static final Dimension FRAME_MIN_SIZE = new Dimension(1000,700);
+	public static final Dimension FRAME_MIN_SIZE = new Dimension(1100,800);
 	public static final int RESIZE_THRESHOLD = 10;
 	
 	/** HEADER (ie the window bar right on top) **/
@@ -45,8 +45,8 @@ public class CurrentConstants {
 	public static final Color SPLITPANE_BG = new Color(0x1C4C75);
 	public static final int SPLITPANE_WIDTH = 11;
 	public static final Color LEFT_RIGHT_PANEL_BG = new Color(0x5881A3);
-	public static final Dimension LEFT_PANEL_MIN_SIZE = new Dimension(465,300);
-	public static final Dimension RIGHT_PANEL_MIN_SIZE = new Dimension(300,300);
+	public static final Dimension LEFT_PANEL_MIN_SIZE = new Dimension(400,300);
+	public static final Dimension RIGHT_PANEL_MIN_SIZE = new Dimension(400,300);
 	
 	public static final Font TAB_FONT = new Font(SUPER_FONT_STYLE, Font.BOLD, 12);	
 	public static final Color TAB_SELECTED = new Color(0x22385C); //the color of the tab when its selected
