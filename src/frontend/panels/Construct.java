@@ -258,7 +258,7 @@ public class Construct extends JPanel {
 		}
 	}
 	
-	private class MouseListener extends MouseAdapter{
+	public class MouseListener extends MouseAdapter{
 		
 		JPanel _p;
 		Point _startDrag;
@@ -361,7 +361,7 @@ public class Construct extends JPanel {
 		}
 	}
 	
-	private class KListener implements KeyListener{
+	public class KListener implements KeyListener{
 		
 		JPanel _p;
 		
