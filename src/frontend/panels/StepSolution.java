@@ -142,7 +142,7 @@ public class StepSolution extends JPanel {
 	
 	public void clear(){
 		_bottomBar.setVisible(false);
-		_display.setTex("");
+		_display.setTex("\\text{Solutions will be displayed here}");
 		_comp.setTex("");
 		_answer.setTex("");
 		_stepNumber = 0;
