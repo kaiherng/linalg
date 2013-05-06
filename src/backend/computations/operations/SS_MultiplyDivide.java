@@ -36,7 +36,7 @@ public class SS_MultiplyDivide extends Computable {
 		List<Countable> args = new ArrayList<>();
 		args.add(a);
 		args.add(b);
-		DisplayType answerDisplayType = resolveDisplayType(args);
+		DisplayType answerDisplayType = DisplayType.DECIMAL;
 		Double aVal = a.getValue();
 		Double bVal = b.getValue();
 		a.setDisplayType(answerDisplayType);
