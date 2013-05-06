@@ -35,7 +35,6 @@ public class OpBlock extends JPanel {
 	    
 		Icon scaled = new ImageIcon(_bi.getScaledInstance(50,50, BufferedImage.SCALE_DEFAULT));
 		JLabel label = new JLabel(scaled);
-		label.setForeground(CurrentConstants.OP_BLOCK_FG);
 		this.setPreferredSize(CurrentConstants.OP_BLOCK_SIZE);
 		this.setBackground(CurrentConstants.OP_BLOCK_BG);
 		this.add(label);
@@ -50,6 +49,18 @@ public class OpBlock extends JPanel {
 		
 		public void mouseClicked(MouseEvent e){
 			_c.addToBar(new Operation(_op), _text, _bi);
+		}
+		
+		public void mouseEntered(MouseEvent e) {
+			setBackground(CurrentConstants.OP_BLOCK_HOVER_BG);
+		}
+		
+		public void mouseExited(MouseEvent e) {
+			setBackground(CurrentConstants.OP_BLOCK_BG);
+		}
+		
+		public void mousePressed(MouseEvent e) {
+			setBackground(CurrentConstants.OP_BLOCK_PRESSED_BG);
 		}
 	}
 }

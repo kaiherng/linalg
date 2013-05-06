@@ -314,9 +314,15 @@ public class Compute extends JPanel {
 			_c.removeFromBar(_id, this);
 		}
 		@Override
-		public void mouseEntered(MouseEvent arg0) {}
+		public void mouseEntered(MouseEvent arg0) {
+			setBackground(CurrentConstants.COMPUTE_BAR_OBJECT_HOVER_BG);
+		}
+		
 		@Override
-		public void mouseExited(MouseEvent arg0) {}
+		public void mouseExited(MouseEvent arg0) {
+			setBackground(CurrentConstants.COMPUTE_BAR_OBJECT_BG);
+		}
+		
 		@Override
 		public void mousePressed(MouseEvent arg0) {}
 		@Override

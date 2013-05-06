@@ -10,11 +10,10 @@ import java.awt.font.TextAttribute;
 import javax.swing.BorderFactory;
 import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
-import javax.swing.border.LineBorder;
 
 //http://colorschemedesigner.com/ 
 //Scheme ID: 3z41Tw0w0w0w0
-
+//For reference only - not used, i used colorpicker.com to select individual colors
 //top - left - bottom - right
 
 public class CurrentConstants {
@@ -66,12 +65,10 @@ public class CurrentConstants {
 	public static final boolean TAB_TABS_OVERLAP_BORDER = true;
 	
 	/** BLOCKS **/
-	public static final Color BRACKET_BLOCK_BG = new Color(0x3C4C78);
-	public static final Color BRACKET_BLOCK_FG = Color.white;
-	public static final Dimension BRACKET_BLOCK_SIZE = new Dimension(60,60);
 	
 	public static final Dimension COUNTABLE_BLOCK_SIZE = new Dimension(50, 50);
 	public static final Color COUNTABLE_BLOCK_BG = new Color(0x3C4C78);	
+	public static final Color COUNTABLE_BLOCK_HOVER_BG = new Color(0x223057);
 	public static final Color COUNTABLE_BLOCK_EDITING_BG = Color.black;	//the color to highlight the block when we're editing it
 	public static final Color COUNTABLE_BLOCK_DELETE_FG = Color.white;
 	public static final Font COUNTABLE_BLOCK_DELETE_FONT = new Font(SUPER_FONT_STYLE, Font.BOLD, 11);
@@ -82,9 +79,17 @@ public class CurrentConstants {
 	public static final Rectangle COUNTABLE_BLOCK_DELETE_BOUNDS = new Rectangle(37,3,10,10);
 	public static final Rectangle COUNTABLE_BLOCK_LABEL_BOUNDS = new Rectangle(0,5,40,30);
 	
-	public static final Color OP_BLOCK_FG = Color.white;
+	
 	public static final Color OP_BLOCK_BG = new Color(0x365D91);
 	public static final Dimension OP_BLOCK_SIZE = new Dimension(60,60);
+	public static final Color OP_BLOCK_HOVER_BG = new Color(0x23436E);
+	public static final Color OP_BLOCK_PRESSED_BG = new Color(0x23436E);
+	
+	public static final Color BRACKET_BLOCK_BG = new Color(0x3C4C78);
+	public static final Color BRACKET_BLOCK_FG = Color.white;
+	public static final Dimension BRACKET_BLOCK_SIZE = new Dimension(60,60);
+	public static final Color BRACKET_BLOCK_HOVER_BG = new Color(0x1D2B52);
+	public static final Color BRACKET_BLOCK_PRESSED_BG = new Color(0x1D2B52);
 	
 	/** CONSTRUCT **/
 	public static final Color CONSTRUCT_BG = new Color(0xF2F3F5);
@@ -112,6 +117,10 @@ public class CurrentConstants {
 	public static final String CONSTRUCT_INSTRUCTIONSLABEL_SAVEDTEXT = "<html><font color=green>Matrix Saved!</font> " + CONSTRUCT_INSTRUCTIONSLABEL_EMPTYTEXT;
 	public static final String CONSTRUCT_INSTRUCTIONSLABEL_SAVEDSCALARTEXT = "<html><font color=green>Scalar Saved!</font> " + CONSTRUCT_INSTRUCTIONSLABEL_EMPTYTEXT;
 	public static final String CONSTRUCT_INSTRUCTIONSLABEL_SAVEDSCALAR_MATRIXDRAWNTEXT = "<html><font color=green>Scalar Saved!</font> " + CONSTRUCT_INSTRUCTIONSLABEL_DRAWNTEXT;
+	public static final String CONSTRUCT_INSTRUCTIONSLABEL_EDITINGSAVEDTEXT = "<html>Currently editing a Saved Matrix<BR>Don't forget to save after making changes";
+	public static final String CONSTRUCT_INSTRUCTIONSLABEL_SAVEDSCALAR_EDITINGSAVEDTEXT = "<html><font color=green>Scalar Saved!</font> " + CONSTRUCT_INSTRUCTIONSLABEL_EDITINGSAVEDTEXT;
+
+	
 	
 	/** (CONSTRUCT) CUSTOM DIALOG **/
 	public static final Border CUSTOM_DIALOG_TEXTFIELD_BORDER = new EmptyBorder(0,10,0,0);
@@ -151,6 +160,7 @@ public class CurrentConstants {
 	public static final Font COMPUTE_LABEL_FONT = new Font(SUPER_FONT_STYLE, Font.BOLD, 14);
 	public static final Color SUPER_COMPUTE_BAR_BG = new Color(0xF2F3F5); //changing this changes the value of all the colors that affect the compute bar
 	public static final Color COMPUTE_BG = SUPER_CONTENT_AREA_BG;
+	
 	public static final Border COMPUTE_BORDER = new EmptyBorder(0,0,0,0);	
 	public static final int COMPUTE_WRAPLAYOUT_HGAP = 5;
 	public static final int COMPUTE_WRAPLAYOUT_VGAP = 5;
@@ -170,6 +180,7 @@ public class CurrentConstants {
 	public static final Dimension COMPUTE_BAR_OBJECT_SIZE = new Dimension(45,45);
 	public static final Color COMPUTE_BAR_OBJECT_FG = Color.WHITE;
 	public static final Color COMPUTE_BAR_OBJECT_BG = new Color(0x3C4C78);
+	public static final Color COMPUTE_BAR_OBJECT_HOVER_BG = new Color(0x26355E);
 	public static final String COMPUTE_INSTRUCTIONSLABEL_TEXT = "<html>Click on saved matrices and<br> operations to construct an equation";
 	public static final Border COMPUTE_INSTRUCTIONSLABEL_BORDER = new EmptyBorder(15,12,0,0);	
 	

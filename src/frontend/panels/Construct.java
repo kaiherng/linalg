@@ -99,7 +99,6 @@ public class Construct extends JPanel {
 		instructionsPanel.add(_instructionsLabel, BorderLayout.WEST);
 		this.add(instructionsPanel,BorderLayout.NORTH);		
 		
-		
 		JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
 		buttonPanel.setBackground(CurrentConstants.CONSTRUCT_BUTTON_PANEL_BG);
 		buttonPanel.setBorder(CurrentConstants.CONSTRUCT_BUTTON_PANEL_BORDER);
@@ -205,6 +204,7 @@ public class Construct extends JPanel {
 		_drawn = true;
 		checkButtons();
 		this.repaint();
+		_instructionsLabel.setText(CurrentConstants.CONSTRUCT_INSTRUCTIONSLABEL_EDITINGSAVEDTEXT);
 	}
 	
 	public Saved getSavedPanel(){
@@ -705,6 +705,7 @@ public class Construct extends JPanel {
 			}
 			_save.addCountable("scalar", new Scalar(d, dt));
 			if (!_drawn)	_instructionsLabel.setText(CurrentConstants.CONSTRUCT_INSTRUCTIONSLABEL_SAVEDSCALARTEXT);
+			else if (_editing)	_instructionsLabel.setText(CurrentConstants.CONSTRUCT_INSTRUCTIONSLABEL_SAVEDSCALAR_EDITINGSAVEDTEXT);
 			else	_instructionsLabel.setText(CurrentConstants.CONSTRUCT_INSTRUCTIONSLABEL_SAVEDSCALAR_MATRIXDRAWNTEXT);
 		}
 		

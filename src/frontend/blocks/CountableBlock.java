@@ -3,6 +3,7 @@ package frontend.blocks;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Cursor;
 import java.awt.GridBagLayout;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -45,6 +46,7 @@ public class CountableBlock extends JPanel {
 		
 		this.setBackground(CurrentConstants.COUNTABLE_BLOCK_BG);
 		_delete = new JLabel("X");
+
 		_delete.setOpaque(false);
 		_delete.setBorder(null);
 		_delete.setForeground(CurrentConstants.COUNTABLE_BLOCK_DELETE_FG);
@@ -105,6 +107,7 @@ public class CountableBlock extends JPanel {
 			_c = c;
 		}
 		
+		@Override
 		public void mousePressed(MouseEvent e){
 			if(_delete.getBounds().contains(e.getPoint())){
 				_s.deleteCountable(_name, _c);
@@ -116,11 +119,14 @@ public class CountableBlock extends JPanel {
 		@Override
 		public void mouseEntered(MouseEvent e) {
 			_delete.setVisible(true);
+			setBackground(CurrentConstants.COUNTABLE_BLOCK_HOVER_BG);
+	
 		}
 		
 		@Override
 		public void mouseExited(MouseEvent e) {
 			_delete.setVisible(false);
+			setBackground(CurrentConstants.COUNTABLE_BLOCK_BG);
 		}
 		
 	}

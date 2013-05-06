@@ -43,7 +43,6 @@ public class BracketBlock extends JPanel{
 		Icon scaled = new ImageIcon(_bi.getScaledInstance(50,50, BufferedImage.SCALE_DEFAULT));
 		label = new JLabel(scaled);
 		
-		label.setForeground(CurrentConstants.BRACKET_BLOCK_FG);
 		this.setPreferredSize(CurrentConstants.BRACKET_BLOCK_SIZE);
 		this.setBackground(CurrentConstants.BRACKET_BLOCK_BG);
 		this.add(label);
@@ -54,6 +53,18 @@ public class BracketBlock extends JPanel{
 		
 		public void mouseClicked(MouseEvent e){
 			_c.addToBar(new Bracket(_isOpen), _text, _bi);
+		}
+		
+		public void mouseEntered(MouseEvent e) {
+			setBackground(CurrentConstants.BRACKET_BLOCK_HOVER_BG);
+		}
+		
+		public void mouseExited(MouseEvent e) {
+			setBackground(CurrentConstants.BRACKET_BLOCK_BG);
+		}
+		
+		public void mousePressed(MouseEvent e) {
+			setBackground(CurrentConstants.BRACKET_BLOCK_PRESSED_BG);
 		}
 	}
 
