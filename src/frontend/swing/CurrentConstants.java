@@ -170,7 +170,7 @@ public class CurrentConstants {
 	public static final Dimension COMPUTE_BAR_OBJECT_SIZE = new Dimension(45,45);
 	public static final Color COMPUTE_BAR_OBJECT_FG = Color.WHITE;
 	public static final Color COMPUTE_BAR_OBJECT_BG = new Color(0x3C4C78);
-	public static final String COMPUTE_INSTRUCTIONSLABEL_TEXT = "<html>Click on operations and<br> saved matrices to perform computations";
+	public static final String COMPUTE_INSTRUCTIONSLABEL_TEXT = "<html>Click on saved matrices and<br> operations to construct an equation";
 	public static final Border COMPUTE_INSTRUCTIONSLABEL_BORDER = new EmptyBorder(15,12,0,0);	
 	
 	/** SAVED **/
