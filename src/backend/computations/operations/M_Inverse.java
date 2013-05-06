@@ -29,8 +29,6 @@ public class M_Inverse extends Computable
 	 */
 	public M_Inverse(Matrix matrix) throws Exception
 	{
-		DisplayType answerDisplayType = matrix.getDisplayType(); // choose DisplayType to use
-
 		Double[][] values = matrix.getValues();
 
 		for(int i = 0; i < values.length; i++)
@@ -58,7 +56,7 @@ public class M_Inverse extends Computable
 
 			Double[][] d=new Double[1][1];
 			d[0][0]=1/values[0][0];
-			Matrix answer=new Matrix(answerDisplayType,d);
+			Matrix answer=new Matrix(DisplayType.DECIMAL,d);
 			steps.add("$1/"+matrix.getDisplayValues()[0][0]+" = "+d[0][0]+"$");
 
 			List<Countable> inputs = new ArrayList<>();
@@ -85,7 +83,7 @@ public class M_Inverse extends Computable
 				if (i%2 != j%2)
 					sign=-1;
 				//calculate determinant
-				determinant=new Determinant(new Matrix(answerDisplayType,removeRowColumn(values,i,j)));
+				determinant=new Determinant(new Matrix(DisplayType.DECIMAL,removeRowColumn(values,i,j)));
 				Solution s=determinant.getSolution();
 				steps.add("\\mathrm{Calculate \\ the \\ determinant \\ of \\ the \\ cofactor \\ matrix \\ of \\ the \\ value \\ ("+(i+1)+","+(j+1)+") \\ as \\ follow:}");
 				steps.addAll(determinant.toLatex());
@@ -94,7 +92,7 @@ public class M_Inverse extends Computable
 		}
 
 		//calculate the transpose of the cofactor
-		M_Transpose trans=new M_Transpose(new Matrix(answerDisplayType,cofactor));
+		M_Transpose trans=new M_Transpose(new Matrix(DisplayType.DECIMAL,cofactor));
 		Solution ct=trans.getSolution();
 		steps.add("\\mathrm{Transpose \\ the \\ determinants \\ calculated:}");
 		steps.addAll(trans.toLatex());
