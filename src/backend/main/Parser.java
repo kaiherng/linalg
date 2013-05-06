@@ -82,7 +82,7 @@ public class Parser {
 	 * @param input The list of length one containing the Countable
 	 * @return A ParseNode describing how to display the Countable
 	 */
-	private static ParseNode handleSingleCountable(List<Numerical> input){
+	private static ParseNode handleSingleCountable(List<Numerical> input) {
 		List<String> l = new ArrayList<>();
 		if (input.get(0) instanceof Scalar){
 			l.add("\\hspace{5mm} \\mathrm{Scalar \\ Value: \\ }"+((Scalar) input.get(0)).getDisplayValue()+"\\vspace{10mm}");
@@ -105,7 +105,6 @@ public class Parser {
 	 * @return the same ParseNode with a stored depiction of equation state along with the same for all its descendents
 	 */
 	protected static ParseNode createToComputeStrings(ParseNode root,ToComputeTreeNode toComputeRoot, ToComputeTreeNode currNode){
-		System.out.println("Parser.java  root " + root);
 		root.setComputeStringTree(toComputeRoot, currNode);
 		
 		if (root.getLeft() != null){
@@ -232,7 +231,7 @@ public class Parser {
 	 * @param input the list of Numericals making up the input equation
 	 * @return  Numerical that is the root of the parsed tree of Operations
 	 */
-	protected static Numerical createSortedTree(List<Numerical> input){
+	protected static Numerical createSortedTree(List<Numerical> input) {
 		input = removeOuterBrackets(input);
 		
 		if (input.size() == 0){
@@ -269,7 +268,7 @@ public class Parser {
 	 * @param input the list of numericals making up the input equation
 	 * @return the index in the list of the operation that should be computed last
 	 */
-	protected static int findLeastPreferentialOp(List<Numerical> input){
+	protected static int findLeastPreferentialOp(List<Numerical> input) {
 		Numerical currentNumr;
 		int maxRank = -1;
 		int currRank;
@@ -285,7 +284,7 @@ public class Parser {
 					openBrackets--;
 				}
 			}else{
-				if (currentNumr instanceof Operation && openBrackets == 0){
+				if (currentNumr instanceof Operation && openBrackets == 0) {
 					currRank = ((Operation) currentNumr).getRank();
 					if (currRank >= maxRank){
 						if (((Operation) currentNumr).isUnary()){
@@ -317,7 +316,7 @@ public class Parser {
 	 * @param input the list of Numericals representing a computation
 	 * @return the same list except without first and last brackets if they existed as a pair
 	 */
-	protected static List<Numerical> removeOuterBrackets(List<Numerical> input){
+	protected static List<Numerical> removeOuterBrackets(List<Numerical> input) {
 		if (input.size() == 0){
 			return input;
 		}
@@ -518,8 +517,8 @@ public class Parser {
 	 * @param op the Operation to compute
 	 * @return the ParseNode containing the solution and arguments to <op>
 	 */
-	private static ParseNode computeScalarDivide(Operation op){
-		if ((op.getFirstArg() == null || (op.getSecondArg() == null))){
+	private static ParseNode computeScalarDivide(Operation op) {
+		if ((op.getFirstArg() == null || (op.getSecondArg() == null))) {
 			throw new IllegalArgumentException("ERROR: Division requires two arguments"); // should be unreachable code
 		}
 	
@@ -549,7 +548,7 @@ public class Parser {
 	 * @return A ParseNode containing the Solution and arguments to <op>
 	 */
 	private static ParseNode computeMultiply(Operation op){
-		if ((op.getFirstArg() == null || (op.getSecondArg() == null))){
+		if ((op.getFirstArg() == null || (op.getSecondArg() == null))) {
 			throw new IllegalArgumentException("ERROR: Multiplication requires two arguments"); // should be unreachable code
 		}
 	

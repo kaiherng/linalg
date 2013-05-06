@@ -51,7 +51,7 @@ public class M_Transpose extends Computable
 		inputs.add(matrix);
 
 		List<String> latex = toLatex();
-		_solution = new Solution(Op.DETERMINANT, inputs, answer, latex);
+		_solution = new Solution(Op.M_TRANSPOSE, inputs, answer, latex);
 	}
 
 	@Override
