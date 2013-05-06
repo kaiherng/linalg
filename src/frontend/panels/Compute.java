@@ -199,7 +199,7 @@ public class Compute extends JPanel {
 		_bar.remove(c);
 		this.revalidate();
 		this.repaint();
-		if (!_instructionsLabel.isVisible()) {
+		if (_numericals.size() == 0) {
 			_instructionsLabel.setVisible(true);
 		}
 	}
