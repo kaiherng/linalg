@@ -29,7 +29,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
@@ -62,6 +61,7 @@ public class Construct extends JPanel {
 	int _fontSize = 30;
 	private AppFrame _frame;
 	private JLabel _instructionsLabel;
+	private Button _clearButton, _saveButton, _scalarButton, _iButton, _fillButton;
 	
 	public Construct(Saved saved, AppFrame frame) {
 		_frame = frame;
@@ -93,9 +93,10 @@ public class Construct extends JPanel {
 		this.requestFocus();
 		this.setFocusTraversalKeysEnabled(false);
 		
-		JPanel instructionsPanel = new JPanel();
+		JPanel instructionsPanel = new JPanel(new BorderLayout());
 		_instructionsLabel = new JLabel(CurrentConstants.CONSTRUCT_INSTRUCTIONSLABEL_EMPTYTEXT);
-		instructionsPanel.add(_instructionsLabel);
+		_instructionsLabel.setBorder(CurrentConstants.CONSTRUCT_INSTRUCTIONSLABEL_BORDER);
+		instructionsPanel.add(_instructionsLabel, BorderLayout.WEST);
 		this.add(instructionsPanel,BorderLayout.NORTH);		
 		
 		
@@ -104,33 +105,61 @@ public class Construct extends JPanel {
 		buttonPanel.setBorder(CurrentConstants.CONSTRUCT_BUTTON_PANEL_BORDER);
 		this.add(buttonPanel, BorderLayout.SOUTH);
 		
-		JButton clearButton, saveButton, scalarButton, iButton, fillButton;
-		clearButton = new Button("Clear", CurrentConstants.BUTTON_BG, CurrentConstants.BUTTON_FG, CurrentConstants.BUTTON_HOVER_BG, CurrentConstants.BUTTON_HOVER_FG, CurrentConstants.BUTTON_PRESSED_BG, CurrentConstants.BUTTON_PRESSED_FG, CurrentConstants.BUTTON_BORDER);
-		saveButton = new Button("Save", CurrentConstants.BUTTON_BG, CurrentConstants.BUTTON_FG, CurrentConstants.BUTTON_HOVER_BG, CurrentConstants.BUTTON_HOVER_FG, CurrentConstants.BUTTON_PRESSED_BG, CurrentConstants.BUTTON_PRESSED_FG, CurrentConstants.BUTTON_BORDER);
-		scalarButton = new Button("New Scalar", CurrentConstants.BUTTON_BG, CurrentConstants.BUTTON_FG, CurrentConstants.BUTTON_HOVER_BG, CurrentConstants.BUTTON_HOVER_FG, CurrentConstants.BUTTON_PRESSED_BG, CurrentConstants.BUTTON_PRESSED_FG, CurrentConstants.BUTTON_BORDER);
-		iButton = new Button("Identity", CurrentConstants.BUTTON_BG, CurrentConstants.BUTTON_FG, CurrentConstants.BUTTON_HOVER_BG, CurrentConstants.BUTTON_HOVER_FG, CurrentConstants.BUTTON_PRESSED_BG, CurrentConstants.BUTTON_PRESSED_FG, CurrentConstants.BUTTON_BORDER);
-		fillButton = new Button("Fill Matrix", CurrentConstants.BUTTON_BG, CurrentConstants.BUTTON_FG, CurrentConstants.BUTTON_HOVER_BG, CurrentConstants.BUTTON_HOVER_FG, CurrentConstants.BUTTON_PRESSED_BG, CurrentConstants.BUTTON_PRESSED_FG, CurrentConstants.BUTTON_BORDER);
-		fillButton.setToolTipText("Fill empty cells with specified value");
-		iButton.setToolTipText("Makes the matrix an identity matrix");
-		scalarButton.setToolTipText("Creates a new scalar");
-		saveButton.setToolTipText("Saves the created matrix to the panel below");
-		clearButton.setToolTipText("Clears all work in this panel");
-		clearButton.addActionListener(new ClearListener(this));
-		saveButton.addActionListener(new SaveListener(this));
-		scalarButton.addActionListener(new ScalarListener(this));
-		iButton.addActionListener(new IdentityListener(this));
-		fillButton.addActionListener(new FillListener(this));
-		clearButton.setFocusable(false);
-		saveButton.setFocusable(false);
-		scalarButton.setFocusable(false);
-		iButton.setFocusable(false);
-		fillButton.setFocusable(false);
-		buttonPanel.add(fillButton);
-		buttonPanel.add(iButton);
-		buttonPanel.add(scalarButton);
-		buttonPanel.add(clearButton);
-		buttonPanel.add(saveButton);
+		_clearButton = new Button("Clear", CurrentConstants.BUTTON_BG, CurrentConstants.BUTTON_FG, CurrentConstants.BUTTON_HOVER_BG, CurrentConstants.BUTTON_HOVER_FG, CurrentConstants.BUTTON_PRESSED_BG, CurrentConstants.BUTTON_PRESSED_FG, CurrentConstants.BUTTON_BORDER);
+		_saveButton = new Button("Save", CurrentConstants.BUTTON_BG, CurrentConstants.BUTTON_FG, CurrentConstants.BUTTON_HOVER_BG, CurrentConstants.BUTTON_HOVER_FG, CurrentConstants.BUTTON_PRESSED_BG, CurrentConstants.BUTTON_PRESSED_FG, CurrentConstants.BUTTON_BORDER);
+		_scalarButton = new Button("New Scalar", CurrentConstants.BUTTON_BG, CurrentConstants.BUTTON_FG, CurrentConstants.BUTTON_HOVER_BG, CurrentConstants.BUTTON_HOVER_FG, CurrentConstants.BUTTON_PRESSED_BG, CurrentConstants.BUTTON_PRESSED_FG, CurrentConstants.BUTTON_BORDER);
+		_iButton = new Button("Identity", CurrentConstants.BUTTON_BG, CurrentConstants.BUTTON_FG, CurrentConstants.BUTTON_HOVER_BG, CurrentConstants.BUTTON_HOVER_FG, CurrentConstants.BUTTON_PRESSED_BG, CurrentConstants.BUTTON_PRESSED_FG, CurrentConstants.BUTTON_BORDER);
+		_fillButton = new Button("Fill Matrix", CurrentConstants.BUTTON_BG, CurrentConstants.BUTTON_FG, CurrentConstants.BUTTON_HOVER_BG, CurrentConstants.BUTTON_HOVER_FG, CurrentConstants.BUTTON_PRESSED_BG, CurrentConstants.BUTTON_PRESSED_FG, CurrentConstants.BUTTON_BORDER);
+		_fillButton.setToolTipText("Fill empty cells with specified value");
+		_iButton.setToolTipText("Makes the matrix an identity matrix");
+		_scalarButton.setToolTipText("Creates a new scalar");
+		_saveButton.setToolTipText("Saves the created matrix to the panel below");
+		_clearButton.setToolTipText("Clears all work in this panel");
+		_clearButton.addActionListener(new ClearListener(this));
+		_saveButton.addActionListener(new SaveListener(this));
+		_scalarButton.addActionListener(new ScalarListener(this));
+		_iButton.addActionListener(new IdentityListener(this));
+		_fillButton.addActionListener(new FillListener(this));
+		_clearButton.setFocusable(false);
+		_saveButton.setFocusable(false);
+		_scalarButton.setFocusable(false);
+		_iButton.setFocusable(false);
+		_fillButton.setFocusable(false);
+		buttonPanel.add(_fillButton);
+		buttonPanel.add(_iButton);
+		buttonPanel.add(_scalarButton);
+		buttonPanel.add(_clearButton);
+		buttonPanel.add(_saveButton);
 		buttonPanel.setOpaque(false);
+		checkButtons();
+	}
+	
+	private void checkButtons() {
+		 
+		if (!_drawn) {
+			_clearButton.setEnabled(false);
+			_iButton.setEnabled(false);
+			_saveButton.setEnabled(false);
+			_fillButton.setEnabled(false);
+			_scalarButton.setEnabled(true);
+		}
+		else {
+			_clearButton.setEnabled(true);
+			if (_mSize.get(0) == _mSize.get(1)) {
+				_iButton.setEnabled(true);
+			}
+			_saveButton.setEnabled(true);
+			for(int i = 0; i <= _mSize.get(0); i++){
+				for(int j = 0; j <= _mSize.get(1); j++){
+					if(!_values.containsKey("[" + i + ", " + j + "]")){
+						_saveButton.setEnabled(false);
+					}
+				}
+			}
+			
+			_fillButton.setEnabled(true);
+			_scalarButton.setEnabled(true);
+		}
 	}
 	
 	public void clear(){
@@ -144,6 +173,7 @@ public class Construct extends JPanel {
 		_values.clear();
 		_offset.clear();
 		_save.clear();
+		checkButtons();
 		this.repaint();
 	}
 	
@@ -169,10 +199,11 @@ public class Construct extends JPanel {
 		_offset.clear();
 		_mSize.add(values.length-1);
 		_mSize.add(values[0].length-1);
-		_offset.add(10);
-		_offset.add(10);
+		_offset.add(15);
+		_offset.add(50);
 		_drawing = false;
 		_drawn = true;
+		checkButtons();
 		this.repaint();
 	}
 	
@@ -357,6 +388,7 @@ public class Construct extends JPanel {
 			}
 			_drawing = false;
 			_p.repaint();
+			checkButtons();
 		}
 		
 		public void mouseDragged(MouseEvent e){
@@ -512,6 +544,7 @@ public class Construct extends JPanel {
 					_values.put(_selected.toString(), sb.toString());
 				}
 			}
+			checkButtons();
 			_p.repaint();
 		}
 
@@ -649,6 +682,7 @@ public class Construct extends JPanel {
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
 			_c.clear();
+			_instructionsLabel.setText(CurrentConstants.CONSTRUCT_INSTRUCTIONSLABEL_EMPTYTEXT);
 		}
 	}
 	
@@ -706,6 +740,7 @@ public class Construct extends JPanel {
 					}
 				}
 				_c.repaint();
+				checkButtons();
 			}
 		}
 	}
@@ -735,6 +770,7 @@ public class Construct extends JPanel {
 				}
 			}
 			_c.repaint();
+			checkButtons();
 		}
 		
 		@Override

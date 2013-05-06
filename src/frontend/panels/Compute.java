@@ -17,7 +17,6 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -98,8 +97,9 @@ public class Compute extends JPanel {
 		_bar.setBorder(CurrentConstants.COMPUTE_BAR_BORDER);
 		_bar.setBackground(CurrentConstants.COMPUTE_BAR_BG);
 		
-		_instructionsLabel = new JLabel("<html>Click on saved matrices below <br>and operations above to perform computations");
-		_bar.add(_instructionsLabel);
+		_instructionsLabel = new JLabel(CurrentConstants.COMPUTE_INSTRUCTIONSLABEL_TEXT);
+		_instructionsLabel.setBorder(CurrentConstants.COMPUTE_INSTRUCTIONSLABEL_BORDER);
+		_bar.add(_instructionsLabel,BorderLayout.CENTER);
 		_computeBar.add(scrollPanel, BorderLayout.CENTER);
 		
 		

@@ -105,8 +105,9 @@ public class CurrentConstants {
 	public static final int CONSTRUCT_SIZEINDICATOR_STROKESIZE = 2;
 	public static final Color CONSTRUCT_SIZEINDICATOR_STROKECOLOR = Color.BLACK;
 	
-	public static final String CONSTRUCT_INSTRUCTIONSLABEL_EMPTYTEXT = "<html>Click anywhere in this panel and drag to create a matrix, <br>or create a scalar directly by using the New Scalar button below.";
-	public static final String CONSTRUCT_INSTRUCTIONSLABEL_DRAWNTEXT = "<html>Click/tab and enter values manually in cells, <br>or use the Identity or Fill Matrix buttons.";
+	public static final Border CONSTRUCT_INSTRUCTIONSLABEL_BORDER = new EmptyBorder(5,10,5,0);
+	public static final String CONSTRUCT_INSTRUCTIONSLABEL_EMPTYTEXT = "<html>Click  and drag to create a matrix, <br>or create a scalar using the New Scalar button";
+	public static final String CONSTRUCT_INSTRUCTIONSLABEL_DRAWNTEXT = "<html>Manually enter values in cells, <br>or use the Identity or Fill Matrix buttons";
 	public static final String CONSTRUCT_INSTRUCTIONSLABEL_INCOMPLETETEXT = "<html><font color=red>Incomplete Matrix!</font> " + CONSTRUCT_INSTRUCTIONSLABEL_DRAWNTEXT;
 	public static final String CONSTRUCT_INSTRUCTIONSLABEL_SAVEDTEXT = "<html><font color=green>Matrix Saved!</font> " + CONSTRUCT_INSTRUCTIONSLABEL_EMPTYTEXT;
 	public static final String CONSTRUCT_INSTRUCTIONSLABEL_SAVEDSCALARTEXT = "<html><font color=green>Scalar Saved!</font> " + CONSTRUCT_INSTRUCTIONSLABEL_EMPTYTEXT;
@@ -169,6 +170,8 @@ public class CurrentConstants {
 	public static final Dimension COMPUTE_BAR_OBJECT_SIZE = new Dimension(45,45);
 	public static final Color COMPUTE_BAR_OBJECT_FG = Color.WHITE;
 	public static final Color COMPUTE_BAR_OBJECT_BG = new Color(0x3C4C78);
+	public static final String COMPUTE_INSTRUCTIONSLABEL_TEXT = "<html>Click on operations and<br> saved matrices to perform computations";
+	public static final Border COMPUTE_INSTRUCTIONSLABEL_BORDER = new EmptyBorder(15,12,0,0);	
 	
 	/** SAVED **/
 	public static final Color SAVED_BG = SUPER_CONTENT_AREA_BG;
