@@ -61,8 +61,12 @@ public class Parser {
 	 */
 	public static ParseNode parse(List<Numerical> input) throws IllegalArgumentException {
 		checkValidInput(input);
-		if (input.size() == 1){
-			return handleSingleCountable(input);
+		if (input.size() == 1 || removeOuterBrackets(input).size() == 1){
+			if (input.size() ==1){
+				return handleSingleCountable(input);
+			}else{
+				return handleSingleCountable(removeOuterBrackets(input));
+			}
 		}else{
 			Numerical operationTree = createSortedTree(input); 
 			ParseNode parseTree =  compute(operationTree);
@@ -101,6 +105,7 @@ public class Parser {
 	 * @return the same ParseNode with a stored depiction of equation state along with the same for all its descendents
 	 */
 	protected static ParseNode createToComputeStrings(ParseNode root,ToComputeTreeNode toComputeRoot, ToComputeTreeNode currNode){
+		System.out.println("Parser.java  root " + root);
 		root.setComputeStringTree(toComputeRoot, currNode);
 		
 		if (root.getLeft() != null){
@@ -375,8 +380,9 @@ public class Parser {
 		
 		Numerical last = null;
 		for (Numerical numr : input){
-			if (last != null && last instanceof Operation && ((numr instanceof Operation && !((Operation) numr).isUnary()) || numr instanceof Bracket) // check for two nonunary operators in a row
-					){
+			if (last != null && last instanceof Operation 
+					&& ((numr instanceof Operation && !((Operation) numr).isUnary()) || (numr instanceof Bracket && !((Bracket) numr).isOpen()))){ // check for two nonunary operators in a row
+					
 				throw new IllegalArgumentException("ERROR: Binary operation requires two operands");
 			}
 			if (last != null && last instanceof Countable && numr instanceof Countable){ // check for adjacent Countables
