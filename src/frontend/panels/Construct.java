@@ -429,13 +429,12 @@ public class Construct extends JPanel {
 				} else if(newX > _p.getWidth() - (1+_mSize.get(0))*_size){
 					_offset.set(0, _p.getWidth() - (1+_mSize.get(0))*_size);
 				}
-				if(newY < 0){
-					_offset.set(1, 0);
+				if(newY < _instructionsLabel.getHeight()){
+					_offset.set(1, _instructionsLabel.getHeight());
 				} else if(newY > _p.getHeight() - (1+_mSize.get(1))*_size){
 					_offset.set(1, _p.getHeight() - (1+_mSize.get(1))*_size);
 				}
 				_startDrag = e.getPoint();
-				//_p.revalidate();
 				_p.repaint();
 			}
 		}
@@ -503,46 +502,54 @@ public class Construct extends JPanel {
 				
 				StringBuilder sb;
 
-				if(_selected.equals(_prevSelected)){
-					if(_values.containsKey(_selected.toString())){
-						sb = new StringBuilder(_values.get(_selected.toString()));
-					} else {
-						sb = new StringBuilder();
-					}
-				} else {
-					sb = new StringBuilder();
-					_prevSelected = new ArrayList<>(_selected);
-				}
 				
+				String add = "";
 				//numbers
 				if(keyCode >= 48 && keyCode <= 57){
-					sb.append(arg0.getKeyChar());
+					add = Character.toString(arg0.getKeyChar());
 				} else if(keyCode >= 96 && keyCode <= 105){
-					sb.append(arg0.getKeyChar());
-				//period
-				} else if(keyCode == 110 || keyCode == 46){
-					if(sb.indexOf(".") == -1){
-						sb.append(".");
-					} 
-				//backspace
-				} else if(keyCode == 8){
-					if(sb.length() > 0){
-						sb.setLength(sb.length()-1);
+					add = Character.toString((arg0.getKeyChar()));
+				}
+				
+				if(!add.equals("") || keyCode == 0 || keyCode == 45 || keyCode == 110 || keyCode == 46 || keyCode == 8 || keyCode == 109){
+					if(_selected.equals(_prevSelected)){
+						if(_values.containsKey(_selected.toString())){
+							sb = new StringBuilder(_values.get(_selected.toString()));
+						} else {
+							sb = new StringBuilder();
+						}
+					} else {
+						sb = new StringBuilder();
+						_prevSelected = new ArrayList<>(_selected);
 					}
-				//negative
-				} else if(keyCode == 45){
+					
+					if(keyCode == 8){
+						if(sb.length() > 0){
+							sb.setLength(sb.length()-1);
+						}
+					//negative
+					} else if(keyCode == 45 || keyCode == 109){
+						if(sb.length() == 0){
+							sb.append("-");
+						}
+					} else if(keyCode == 110 || keyCode == 46){
+						if(sb.indexOf(".") == -1){
+							add = ".";
+						} 
+					}
+					
+					sb.append(add);
+					
+					if(sb.length() > 8){
+						sb.setLength(8);
+					}
 					if(sb.length() == 0){
-						sb.append("-");
+						_values.remove(_selected.toString());
+					} else {
+						_values.put(_selected.toString(), sb.toString());
 					}
 				}
-				if(sb.length() > 8){
-					sb.setLength(8);
-				}
-				if(sb.length() == 0){
-					_values.remove(_selected.toString());
-				} else {
-					_values.put(_selected.toString(), sb.toString());
-				}
+				
 			}
 			checkButtons();
 			_p.repaint();
@@ -756,6 +763,9 @@ public class Construct extends JPanel {
 		
 		@Override
 		public void doDialogReturn(Double value) {
+			if(value > 10000){
+				return;
+			}
 			for(int i = 0; i < _mSize.get(0)+1; i++){
 				for(int j = 0; j < _mSize.get(1)+1; j++){
 					String val = _values.get("[" + i  + ", " + j + "]");

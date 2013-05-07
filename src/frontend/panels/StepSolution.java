@@ -85,6 +85,7 @@ public class StepSolution extends JPanel {
 		bottomBarLeft.setBorder(CurrentConstants.STEPSOLUTION_BOTTOMBARLEFT_BORDER);
 		_comp = new Solution(80,80);
 		_comp.setMargins(10, 10);
+		_comp.setUpperLimit(30);
 		_comp.setBorder(CurrentConstants.STEPSOLUTION_COMP_BORDER);
 		_comp.setBackground(CurrentConstants.STEPSOLUTION_COMP_BG);
 		ScrollPane compScroll = new ScrollPane(_comp);
