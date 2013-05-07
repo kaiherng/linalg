@@ -62,7 +62,7 @@ public class M_Inverse extends Computable
 			List<Countable> inputs = new ArrayList<>();
 			inputs.add(matrix);
 
-			_solution = new Solution(Op.DETERMINANT, inputs, answer, null);
+			_solution = new Solution(Op.M_INVERSE, inputs, answer, null);
 			return;
 		}
 
