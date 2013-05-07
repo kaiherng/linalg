@@ -233,6 +233,7 @@ public class Compute extends JPanel {
 			List<List<String>> list = new ArrayList<>();
 			list.add(new ArrayList<String>());
 			list.add(new ArrayList<String>());
+			list.add(new ArrayList<String>());
 			_solPanel.setSolution(traverseTree(result, list), result.getSolution().getAnswer());
 		} catch (IllegalArgumentException e){
 			System.out.println(e.getMessage());
@@ -258,11 +259,18 @@ public class Compute extends JPanel {
 		//put all strings in the step list into one long string
 		List<String> nList = n.getSolution().getLatex();
 		StringBuilder sb = new StringBuilder();
+		//used for pdf output;
+		StringBuilder output = new StringBuilder();
 		for(String s : nList){
 			sb.append(s);
 			sb.append("\\\\");
+			s = s.replaceAll("\\\\vspace\\{\\d\\dmm\\}", "");
+			s = s.replaceAll("\\\\hspace\\{\\d\\dmm\\}", "");
+			s = s.replaceAll("\\$", "");
+			output.append("$" + s + "$\\\\\n");
 		}
 		list.get(1).add(sb.toString());
+		list.get(2).add(output.toString());
 		
 		//add the computeString to list 0
 		try {

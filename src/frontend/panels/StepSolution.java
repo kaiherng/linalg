@@ -6,12 +6,21 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JLabel;
+import javax.swing.JMenuItem;
 import javax.swing.JPanel;
+import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.SwingConstants;
@@ -29,7 +38,7 @@ public class StepSolution extends JPanel {
 	private static final long serialVersionUID = 1780266591415441861L;
 	private Saved _savePanel;
 	private Solution _display, _answer, _comp;
-	private List<String> _solList, _compList;
+	private List<String> _solList, _compList, _exportList;
 	private int _stepNumber = 0;
 	private ScrollPane _scroll;
 	private JButton _forwardButton, _backButton;
@@ -112,7 +121,7 @@ public class StepSolution extends JPanel {
 		
 		_answer = new Solution(90, 90);
 		_answer.setMargins(5, 5);
-		_answer.addMouseListener(new AnswerListener());
+		_answer.addMouseListener(new AnswerListener(this));
 		_answer.setToolTipText("Double click to save answer");
 		_answer.setBorder(CurrentConstants.STEPSOLUTION_ANSWER_BORDER);
 		_answer.setBackground(CurrentConstants.STEPSOLUTION_ANSWER_BG);
@@ -133,6 +142,36 @@ public class StepSolution extends JPanel {
 	
 	public void setTabbedPane(JTabbedPane tabbedPane) {
 		_tabbedPane = tabbedPane;
+	}
+	
+	public void exportPDF(File file){
+		if(_solList.size() != 0){
+			StringBuilder sb = new StringBuilder();
+			sb.append("\\documentclass[12pt,letterpaper]{article}\n");
+			sb.append("\\usepackage{amsmath,amsthm,amsfonts,amssymb,amscd}\n");
+			sb.append("\\setlength{\\parindent}{0.0in}");
+			sb.append("\\begin{document}\n");
+//			sb.append("\\begin{align}\n");
+			for(String ls : _exportList){
+				sb.append(ls + "\n");
+			}
+//			sb.append("\\end{align}\n");
+			sb.append("\\end{document}");
+			
+			FileWriter fw;
+			try {
+				fw = new FileWriter(file.getAbsoluteFile());
+				BufferedWriter bw = new BufferedWriter(fw);
+				bw.write(sb.toString());
+				bw.close();
+				fw.close();
+				Runtime.getRuntime().exec("pdflatex " + "--output-directory " + file.getParent() + " " + file.getAbsolutePath());
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
 	}
 	
 	
@@ -156,6 +195,7 @@ public class StepSolution extends JPanel {
 		_bottomBar.setVisible(true);
 		_solList = steps.get(1);
 		_compList = steps.get(0);
+		_exportList = steps.get(2);
 		_stepNumber = 0;
 		setStepNumbers();
 		_display.setTex(_solList.get(0));
@@ -219,12 +259,32 @@ public class StepSolution extends JPanel {
 	}
 	
 	private class AnswerListener extends MouseAdapter{
+		
+		JPanel _p;
+		
+		public AnswerListener(JPanel p){
+			p = _p;
+		}
+		
 		public void mouseClicked(MouseEvent e){
 			if(_ans != null){
 				if(e.getClickCount() == 2){
 					_savePanel.addCountable(_ans);
+				} else if(e.getClickCount() == 3){
+					JFileChooser fc = new JFileChooser();
+					int ret = fc.showSaveDialog(_p);
+					if(ret == JFileChooser.APPROVE_OPTION){
+						File file;
+						if(!fc.getSelectedFile().getAbsolutePath().endsWith(".tex")){
+						    file = new File(fc.getSelectedFile() + ".tex");
+						} else {
+							file = fc.getSelectedFile();
+						}
+						exportPDF(file);
+					}
 				}
 			}
+
 		}
 	}
 	

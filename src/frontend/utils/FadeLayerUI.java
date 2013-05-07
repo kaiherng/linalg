@@ -29,8 +29,9 @@ public class FadeLayerUI extends CustomLayerUI {
 			g2.fillRect(0, 0, w, h);
 			
 			g2.dispose();
+			getFrame().repaint();
 		}
-		getFrame().repaint();
+//		getFrame().repaint();
 	}
 }
 

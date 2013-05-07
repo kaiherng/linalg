@@ -27,6 +27,7 @@ public class Solution extends JPanel {
 	int _marginX;
 	int _marginY;
 	boolean _limitSize = false;
+	int _upperLimit = -1;
 
 	public Solution(String start){
 		this.setLayout(new BorderLayout());
@@ -69,6 +70,10 @@ public class Solution extends JPanel {
 		this.repaint();
 	}
 	
+	public void setUpperLimit(int x){
+		_upperLimit = x;
+	}
+	
 	public void setTex(String tex){
 		TeXFormula formula = new TeXFormula(tex);
 		int size = CurrentConstants.SOLUTION_TEX_SIZE;
@@ -82,6 +87,11 @@ public class Solution extends JPanel {
 			while(_ti.getIconHeight() < _height){
 				size += 1;
 				_ti = formula.createTeXIcon(TeXConstants.STYLE_DISPLAY, size);
+				if(_upperLimit != -1){
+					if(size > _upperLimit){
+						break;
+					}
+				}
 			}
 		}
 //		_scroll.resetScroll();
