@@ -108,7 +108,7 @@ public class Compute extends JPanel {
 		JPanel binary = new JPanel(new WrapLayout(FlowLayout.LEFT));
 		JPanel brackets = new JPanel(new WrapLayout(FlowLayout.LEFT));
 		
-		JLabel unaryLabel = new JLabel("Unary Operations");
+		JLabel unaryLabel = new JLabel("Unary Operations (Should preceed matrix)");
 		JLabel binaryLabel = new JLabel("Binary Operations");
 		JLabel miscLabel = new JLabel("Misc.");
 		unaryLabel.setFont(CurrentConstants.COMPUTE_LABEL_FONT);
@@ -294,6 +294,7 @@ public class Compute extends JPanel {
 			JLabel label = new JLabel(s);
 			label.setForeground(CurrentConstants.COMPUTE_BAR_OBJECT_FG);
 			label.setHorizontalAlignment(JLabel.CENTER);
+			label.setPreferredSize(CurrentConstants.COMPUTE_BAR_OBJECT_SIZE);
 			this.setPreferredSize(CurrentConstants.COMPUTE_BAR_OBJECT_SIZE);
 			this.setBackground(CurrentConstants.COMPUTE_BAR_OBJECT_BG);
 			this.add(label, BorderLayout.CENTER);
