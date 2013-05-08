@@ -45,7 +45,7 @@ public class CurrentConstants {
 	public static final Color SPLITPANE_BG = new Color(0x1C4C75);
 	public static final int SPLITPANE_WIDTH = 11;
 	public static final Color LEFT_RIGHT_PANEL_BG = new Color(0x5881A3);
-	public static final Dimension LEFT_PANEL_MIN_SIZE = new Dimension(465,300); //don't change the x-value - some of the 5 buttons will disappear if its too small - 465 is just right
+	public static final Dimension LEFT_PANEL_MIN_SIZE = new Dimension(550,300); //don't change the x-value - some of the 5 buttons will disappear if its too small - 465 is just right
 	public static final Dimension LEFT_PANEL_PREFERRED_SIZE = new Dimension(600,500); //this is the initial size of the left panel
 	public static final Dimension RIGHT_PANEL_MIN_SIZE = new Dimension(400,300);
 	
@@ -167,7 +167,7 @@ public class CurrentConstants {
 	public static final Color COMPUTE_COMPUTEBAR_BG = SUPER_COMPUTE_BAR_BG;
 	public static final Border COMPUTE_COMPUTEBAR_BORDER = new EmptyBorder(0,0,0,0);
 	public static final Color COMPUTE_OPS_BG = SUPER_CONTENT_AREA_BG;
-	public static final Border COMPUTE_OPS_BORDER = new EmptyBorder(0,0,0,0);
+	public static final Border COMPUTE_OPS_BORDER = new EmptyBorder(0,3,0,0);
 	public static final Color COMPUTE_BUTTONPANEL_BG = SUPER_COMPUTE_BAR_BG;
 	public static final Border COMPUTE_BUTTONPANEL_BORDER = new EmptyBorder(0,0,0,0);
 	public static final Dimension COMPUTE_SCROLLPANEL_SIZE = new Dimension(100,70);
@@ -194,6 +194,30 @@ public class CurrentConstants {
 	public static final Color SAVEDSCROLL_SCROLL_BG = SUPER_CONTENT_AREA_BG;
 	public static final Border SAVEDSCROLL_SCROLL_BORDER = new EmptyBorder(0,0,0,0);
 	
+	public static final Color SAVE_BUTTON_BG = new Color(0x315E8F);
+	public static final Color SAVE_BUTTON_FG = Color.WHITE;
+	public static final Color SAVE_BUTTON_HOVER_BG = new Color(0x214873);
+	public static final Color SAVE_BUTTON_HOVER_FG = Color.WHITE;
+	public static final Color SAVE_BUTTON_PRESSED_BG = new Color(0x214873);
+	public static final Color SAVE_BUTTON_PRESSED_FG = Color.BLACK;
+	public static final Border SAVE_BUTTON_BORDER = new EmptyBorder(8,12,8,12);
+	
+	public static final Color SAVEAS_BUTTON_BG = new Color(0x3C5775);
+	public static final Color SAVEAS_BUTTON_FG = Color.WHITE;
+	public static final Color SAVEAS_BUTTON_HOVER_BG = new Color(0x284059);
+	public static final Color SAVEAS_BUTTON_HOVER_FG = Color.WHITE;
+	public static final Color SAVEAS_BUTTON_PRESSED_BG = new Color(0x284059);
+	public static final Color SAVEAS_BUTTON_PRESSED_FG = Color.BLACK;
+	public static final Border SAVEAS_BUTTON_BORDER = new EmptyBorder(8,12,8,12);
+	
+	public static final Color EXPORT_BUTTON_BG = new Color(0x4A5D70);
+	public static final Color EXPORT_BUTTON_FG = Color.WHITE;
+	public static final Color EXPORT_BUTTON_HOVER_BG = new Color(0x303F4F);
+	public static final Color EXPORT_BUTTON_HOVER_FG = Color.WHITE;
+	public static final Color EXPORT_BUTTON_PRESSED_BG = new Color(0x303F4F);
+	public static final Color EXPORT_BUTTON_PRESSED_FG = Color.BLACK;
+	public static final Border EXPORT_BUTTON_BORDER = new EmptyBorder(8,12,8,12);
+	
 	/** SOLUTION **/
 	public static final int SOLUTION_TEX_SIZE = 20;
 	
@@ -214,6 +238,7 @@ public class CurrentConstants {
 	public static final Color STEPSOLUTION_COMPSCROLL_BG = SUPER_CONTENT_AREA_BG;
 	public static final Border STEPSOLUTION_ANSWER_BORDER = new EmptyBorder(0,0,0,0);
 	public static final Color STEPSOLUTION_ANSWER_BG = new Color(0x91B8E3);
+	public static final Color STEPSOLUTION_ANSWER_HOVER_BG = new Color(0x5080B5);
 	public static final Border STEPSOLUTION_COMP_BORDER = new EmptyBorder(0,0,0,0);
 	public static final Color STEPSOLUTION_COMP_BG = SUPER_CONTENT_AREA_BG;
 	
@@ -228,6 +253,7 @@ public class CurrentConstants {
 	public static final Color STEPSOLUTION_BOTTOMBARRIGHTUP_BG = new Color(0x264261);
 	public static final Border STEPSOLUTION_ANSWERLABEL_BORDER = new EmptyBorder(0,0,0,0);
 	public static final Color STEPSOLUTION_ANSWERLABEL_BG = new Color(0x264261);
+	public static final Color STEPSOLUTION_ANSWERLABEL_HOVER_BG = new Color(0x597594);
 	public static final Color STEPSOLUTION_ANSWERLABEL_FG = Color.WHITE;
 	public static final Font STEPSOLUTION_ANSWERLABEL_FONT = new Font("Dialog", Font.BOLD, 13);
 	

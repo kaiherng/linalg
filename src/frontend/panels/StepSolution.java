@@ -1,6 +1,8 @@
 package frontend.panels;
 
 import java.awt.BorderLayout;
+import java.awt.CardLayout;
+import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -12,23 +14,22 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
-import javax.swing.JMenuItem;
 import javax.swing.JPanel;
-import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.SwingConstants;
 
 import backend.blocks.Countable;
+import frontend.swing.AppFrame;
 import frontend.swing.Button;
 import frontend.swing.CurrentConstants;
+import frontend.swing.DialogStringListener;
 import frontend.swing.ScrollPane;
+import frontend.swing.StringDialog;
 
 public class StepSolution extends JPanel {
 	
@@ -46,9 +47,12 @@ public class StepSolution extends JPanel {
 	private JPanel _bottomBar;
 	private JLabel _stepNumberLabel;
 	private JTabbedPane _tabbedPane;
+	private JPanel _cards, _buttons;
+	private AppFrame _frame;
 	
-	public StepSolution(){
+	public StepSolution(AppFrame frame){
 		super();
+		_frame = frame;
 		this.setLayout(new BorderLayout());
 		this.setBackground(CurrentConstants.STEPSOLUTION_BG);
 		this.setBorder(CurrentConstants.STEPSOLUTION_BORDER);
@@ -105,29 +109,78 @@ public class StepSolution extends JPanel {
 		bottomBarLeft.add(bottomBarLeftUp, BorderLayout.NORTH);
 		
 		JPanel bottomBarRight = new JPanel(new BorderLayout());
-		JPanel bottomBarRightUp = new JPanel(new BorderLayout());
+		final JPanel bottomBarRightUp = new JPanel(new BorderLayout());
 		bottomBarRightUp.setBackground(CurrentConstants.STEPSOLUTION_BOTTOMBARRIGHTUP_BG);
 		bottomBarRightUp.setBorder(CurrentConstants.STEPSOLUTION_BOTTOMBARRIGHTUP_BORDER);
 		
-		JLabel answerLabel = new JLabel("Final Answer");
+		final JLabel answerLabel = new JLabel("Final Answer");
 		answerLabel.setBorder(CurrentConstants.STEPSOLUTION_ANSWERLABEL_BORDER);
 		answerLabel.setBackground(CurrentConstants.STEPSOLUTION_ANSWERLABEL_BG);
 		answerLabel.setForeground(CurrentConstants.STEPSOLUTION_ANSWERLABEL_FG);
 		answerLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		answerLabel.setFont(CurrentConstants.STEPSOLUTION_ANSWERLABEL_FONT);
+		
 
 		bottomBarRightUp.add(answerLabel);
 		bottomBarRight.add(bottomBarRightUp, BorderLayout.NORTH);
-		
-		
+
 		_answer = new Solution(90, 90);
 		_answer.setMargins(5, 5);
-		_answer.addMouseListener(new AnswerListener(this));
 		_answer.setToolTipText("Double click to save answer");
 		_answer.setBorder(CurrentConstants.STEPSOLUTION_ANSWER_BORDER);
 		_answer.setBackground(CurrentConstants.STEPSOLUTION_ANSWER_BG);
 		_answer.setPreferredSize(new Dimension(0,90));
-		bottomBarRight.add(_answer, BorderLayout.CENTER);
+		
+		_buttons = new JPanel(new BorderLayout());
+		_buttons.setBorder(CurrentConstants.STEPSOLUTION_ANSWER_BORDER);
+		_buttons.setBackground(CurrentConstants.STEPSOLUTION_ANSWER_BG);
+		
+		
+		Button saveButton = new Button("Save", CurrentConstants.SAVE_BUTTON_BG, CurrentConstants.SAVE_BUTTON_FG, CurrentConstants.SAVE_BUTTON_HOVER_BG, CurrentConstants.SAVE_BUTTON_HOVER_FG, CurrentConstants.SAVE_BUTTON_PRESSED_BG, CurrentConstants.SAVE_BUTTON_PRESSED_FG, CurrentConstants.SAVE_BUTTON_BORDER);
+		saveButton.addActionListener(new ActionListener() {
+			
+			public void actionPerformed(ActionEvent e) {
+				if(_ans != null){
+					_savePanel.addCountable(_ans);
+					CardLayout cl = (CardLayout) (_cards.getLayout());
+					cl.first(_cards);
+				}
+			}
+		});
+		_buttons.add(saveButton, BorderLayout.NORTH);
+		
+		Button saveAsButton = new Button("Save As", CurrentConstants.SAVEAS_BUTTON_BG, CurrentConstants.SAVEAS_BUTTON_FG, CurrentConstants.SAVEAS_BUTTON_HOVER_BG, CurrentConstants.SAVEAS_BUTTON_HOVER_FG, CurrentConstants.SAVEAS_BUTTON_PRESSED_BG, CurrentConstants.SAVEAS_BUTTON_PRESSED_FG, CurrentConstants.SAVEAS_BUTTON_BORDER);
+		saveAsButton.addActionListener(new SaveAsListener());
+		_buttons.add(saveAsButton, BorderLayout.CENTER);
+		
+		Button exportButton = new Button("Export to PDF", CurrentConstants.EXPORT_BUTTON_BG, CurrentConstants.EXPORT_BUTTON_FG, CurrentConstants.EXPORT_BUTTON_HOVER_BG, CurrentConstants.EXPORT_BUTTON_HOVER_FG, CurrentConstants.EXPORT_BUTTON_PRESSED_BG, CurrentConstants.EXPORT_BUTTON_PRESSED_FG, CurrentConstants.EXPORT_BUTTON_BORDER);
+		exportButton.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent e) {
+				if(_ans != null){
+					JFileChooser fc = new JFileChooser();
+					int ret = fc.showSaveDialog(_buttons);
+					if(ret == JFileChooser.APPROVE_OPTION){
+						File file;
+						if(!fc.getSelectedFile().getAbsolutePath().endsWith(".tex")){
+						    file = new File(fc.getSelectedFile() + ".tex");
+						} else {
+							file = fc.getSelectedFile();
+						}
+						exportPDF(file);
+						CardLayout cl = (CardLayout) (_cards.getLayout());
+						cl.first(_cards);
+					}
+				}
+			}
+		});
+		_buttons.add(exportButton, BorderLayout.SOUTH);
+		
+		_cards = new JPanel(new CardLayout());
+		_cards.add(_answer, "ANSWER");
+		
+		_cards.add(_buttons, "BUTTONS");
+		
+		bottomBarRight.add(_cards, BorderLayout.PAGE_END);
 		
 		_bottomBar.add(bottomBarLeft, BorderLayout.CENTER);
 		_bottomBar.add(bottomBarRight, BorderLayout.EAST);
@@ -137,6 +190,36 @@ public class StepSolution extends JPanel {
 		_bottomBar.setVisible(false);
 		
 		checkButtons();
+		
+		answerLabel.addMouseListener(new MouseAdapter() {
+			
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				if (_ans != null) {
+					answerLabel.setBackground(CurrentConstants.STEPSOLUTION_ANSWERLABEL_HOVER_BG);
+					bottomBarRightUp.setBackground(CurrentConstants.STEPSOLUTION_ANSWERLABEL_HOVER_BG);
+					setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+				}
+			}
+			
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				if (_ans != null) {
+					CardLayout cl = (CardLayout) (_cards.getLayout());
+					cl.next(_cards);
+				}
+			}
+			
+			@Override
+			public void mouseExited(MouseEvent e) {
+				if (_ans != null) {
+					answerLabel.setBackground(CurrentConstants.STEPSOLUTION_ANSWERLABEL_BG);
+					bottomBarRightUp.setBackground(CurrentConstants.STEPSOLUTION_ANSWERLABEL_BG);
+					setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+				}
+			}
+			
+		});
 		
 		this.revalidate();
 	}
@@ -259,36 +342,39 @@ public class StepSolution extends JPanel {
 		_scroll.getHorizontalScrollBar().setValue(0);
 	}
 	
-	private class AnswerListener extends MouseAdapter{
+	
+	@SuppressWarnings("unused")
+	private class ButtonListener extends MouseAdapter{
 		
-		JPanel _p;
-		
-		public AnswerListener(JPanel p){
-			p = _p;
-		}
-		
-		public void mouseClicked(MouseEvent e){
-			if(_ans != null){
-				if(e.getClickCount() == 2){
-					_savePanel.addCountable(_ans);
-				} else if(e.getClickCount() == 3){
-					JFileChooser fc = new JFileChooser();
-					int ret = fc.showSaveDialog(_p);
-					if(ret == JFileChooser.APPROVE_OPTION){
-						File file;
-						if(!fc.getSelectedFile().getAbsolutePath().endsWith(".tex")){
-						    file = new File(fc.getSelectedFile() + ".tex");
-						} else {
-							file = fc.getSelectedFile();
-						}
-						exportPDF(file);
-					}
-				}
-			}
-
+		@Override
+		public void mouseExited(MouseEvent e) {
+			CardLayout cl = (CardLayout) (_cards.getLayout());
+			cl.first(_cards);
 		}
 	}
 	
+	private class SaveAsListener implements DialogStringListener, ActionListener{
+		
+		public SaveAsListener() {
+			
+		}
+		
+		@Override
+		public void doDialogReturn(String s) {
+			_savePanel.addCountable(s, _ans);
+			CardLayout cl = (CardLayout) (_cards.getLayout());
+			cl.first(_cards);
+		}
+		
+		@Override
+		public void actionPerformed(ActionEvent arg0) {
+			new StringDialog(_frame, this, StepSolution.this, _frame.getUILayer());
+		}
+		
+	}
+
+	
+	@SuppressWarnings("unused")
 	private class ExportListener extends MouseAdapter{
 		public void mouseClicked(MouseEvent e){
 			if(_ans != null){

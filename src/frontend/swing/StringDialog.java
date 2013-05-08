@@ -18,12 +18,12 @@ import javax.swing.JTextField;
 import frontend.utils.CustomLayerUI;
 
 @SuppressWarnings("serial")
-public class CustomDialog extends JDialog {
+public class StringDialog extends JDialog {
 	
     private JTextField _textField = new JTextField(5);
     private JLabel _warning = new JLabel(" ");
 
-    public CustomDialog(JFrame frame, String instruction, final DialogListener listener, Component enclosingComponent, final CustomLayerUI customLayerUI) {
+    public StringDialog(JFrame frame, final DialogStringListener listener, Component enclosingComponent, final CustomLayerUI customLayerUI) {
         super(frame, true);
         setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
         setUndecorated(true);
@@ -38,20 +38,16 @@ public class CustomDialog extends JDialog {
         	@Override
         	public void keyPressed(KeyEvent evt) {
                 if(evt.getKeyCode() == KeyEvent.VK_ENTER) {
-                	Double value;
     				String s = _textField.getText();
             		if(s == null){
-    					_warning.setText("Must enter a number");
-    				}
-    				try{
-    					value = Double.parseDouble(s);
-    					listener.doDialogReturn(value);
-    					customLayerUI.setActive(false);
-    					dispose();
-    				} catch (NumberFormatException exception){
-    					_warning.setText("Must enter a number");
-    					return;
-    				}
+    					_warning.setText("Must enter something");
+    				} //Note: we are not checking for the types of characters entered here! No sanitization at all!!!
+            		else {
+            			listener.doDialogReturn(s);
+            			customLayerUI.setActive(false);
+                    	dispose();
+            		}
+            		
                 }
                 else if (evt.getKeyCode() == KeyEvent.VK_ESCAPE) {
                 	customLayerUI.setActive(false);
@@ -69,7 +65,7 @@ public class CustomDialog extends JDialog {
         JPanel northPanel = new JPanel(new BorderLayout());
         northPanel.setBorder(CurrentConstants.CUSTOM_DIALOG_NORTHPANEL_BORDER);
         northPanel.setBackground(CurrentConstants.CUSTOM_DIALOG_NORTHPANEL_BG);
-        northPanel.add(new JLabel("Enter value to " + instruction + ":"), BorderLayout.WEST);
+        northPanel.add(new JLabel("Matrix Name:"), BorderLayout.WEST);
         
         contentPanel.add(northPanel);
         
@@ -82,28 +78,20 @@ public class CustomDialog extends JDialog {
         	
         	@Override
         	public void mouseClicked(MouseEvent e) {
-        		Double value;
 				String s = _textField.getText();
         		if(s == null){
-					_warning.setText("Must enter a number");
-				}
-				try{
-					value = Double.parseDouble(s);
-					listener.doDialogReturn(value);
-					customLayerUI.setActive(false);
-					dispose();
-				} catch (NumberFormatException exception){
-					_warning.setText("Must enter a number");
-					return;
-				}
-				
+					_warning.setText("Must enter something");
+				} //Note: we are not checking for the types of characters entered here! No sanitization at all!!!
+        		else {
+        			listener.doDialogReturn(s);
+        			customLayerUI.setActive(false);
+                	dispose();
+        		}
         	}
         	
         });
                 
         Button cancelButton = new Button("CANCEL", CurrentConstants.CUSTOM_DIALOG_CANCEL_BUTTON_BG, CurrentConstants.CUSTOM_DIALOG_CANCEL_BUTTON_FG, CurrentConstants.CUSTOM_DIALOG_CANCEL_BUTTON_HOVER_BG, CurrentConstants.CUSTOM_DIALOG_CANCEL_BUTTON_HOVER_FG, CurrentConstants.CUSTOM_DIALOG_CANCEL_BUTTON_PRESSED_BG, CurrentConstants.CUSTOM_DIALOG_CANCEL_BUTTON_PRESSED_FG, CurrentConstants.CUSTOM_DIALOG_CANCEL_BUTTON_BORDER);
-
-        
         cancelButton.addMouseListener(new MouseAdapter() {
         	
         	@Override

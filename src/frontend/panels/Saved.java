@@ -1,6 +1,5 @@
 package frontend.panels;
 
-import java.awt.Color;
 import java.awt.Component;
 import java.awt.FlowLayout;
 import java.util.HashMap;

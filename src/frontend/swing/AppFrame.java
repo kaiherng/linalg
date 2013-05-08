@@ -51,7 +51,7 @@ public class AppFrame extends JFrame {
 		setUpDesign();
 		
 		//Create Panels
-		StepSolution stepSol = new StepSolution();
+		StepSolution stepSol = new StepSolution(this);
 		SolutionScroll stepPanel = new SolutionScroll();
 		Compute computePanel = new Compute(stepSol, stepPanel.getSolPanel());
 		SavedScroll savedPanel = new SavedScroll(computePanel);

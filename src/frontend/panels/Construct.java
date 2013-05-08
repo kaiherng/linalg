@@ -40,6 +40,8 @@ import frontend.swing.Button;
 import frontend.swing.CurrentConstants;
 import frontend.swing.CustomDialog;
 import frontend.swing.DialogListener;
+import frontend.swing.DialogStringListener;
+import frontend.swing.StringDialog;
 
 public class Construct extends JPanel {
 
@@ -61,7 +63,7 @@ public class Construct extends JPanel {
 	int _fontSize = 30;
 	private AppFrame _frame;
 	private JLabel _instructionsLabel;
-	private Button _clearButton, _saveButton, _scalarButton, _iButton, _fillButton;
+	private Button _clearButton, _saveButton, _scalarButton, _iButton, _fillButton, _saveAsButton;
 	
 	public Construct(Saved saved, AppFrame frame) {
 		_frame = frame;
@@ -106,6 +108,7 @@ public class Construct extends JPanel {
 		
 		_clearButton = new Button("Clear", CurrentConstants.BUTTON_BG, CurrentConstants.BUTTON_FG, CurrentConstants.BUTTON_HOVER_BG, CurrentConstants.BUTTON_HOVER_FG, CurrentConstants.BUTTON_PRESSED_BG, CurrentConstants.BUTTON_PRESSED_FG, CurrentConstants.BUTTON_BORDER);
 		_saveButton = new Button("Save", CurrentConstants.BUTTON_BG, CurrentConstants.BUTTON_FG, CurrentConstants.BUTTON_HOVER_BG, CurrentConstants.BUTTON_HOVER_FG, CurrentConstants.BUTTON_PRESSED_BG, CurrentConstants.BUTTON_PRESSED_FG, CurrentConstants.BUTTON_BORDER);
+		_saveAsButton = new Button("Save As", CurrentConstants.BUTTON_BG, CurrentConstants.BUTTON_FG, CurrentConstants.BUTTON_HOVER_BG, CurrentConstants.BUTTON_HOVER_FG, CurrentConstants.BUTTON_PRESSED_BG, CurrentConstants.BUTTON_PRESSED_FG, CurrentConstants.BUTTON_BORDER);
 		_scalarButton = new Button("New Scalar", CurrentConstants.BUTTON_BG, CurrentConstants.BUTTON_FG, CurrentConstants.BUTTON_HOVER_BG, CurrentConstants.BUTTON_HOVER_FG, CurrentConstants.BUTTON_PRESSED_BG, CurrentConstants.BUTTON_PRESSED_FG, CurrentConstants.BUTTON_BORDER);
 		_iButton = new Button("Identity", CurrentConstants.BUTTON_BG, CurrentConstants.BUTTON_FG, CurrentConstants.BUTTON_HOVER_BG, CurrentConstants.BUTTON_HOVER_FG, CurrentConstants.BUTTON_PRESSED_BG, CurrentConstants.BUTTON_PRESSED_FG, CurrentConstants.BUTTON_BORDER);
 		_fillButton = new Button("Fill Matrix", CurrentConstants.BUTTON_BG, CurrentConstants.BUTTON_FG, CurrentConstants.BUTTON_HOVER_BG, CurrentConstants.BUTTON_HOVER_FG, CurrentConstants.BUTTON_PRESSED_BG, CurrentConstants.BUTTON_PRESSED_FG, CurrentConstants.BUTTON_BORDER);
@@ -113,9 +116,11 @@ public class Construct extends JPanel {
 		_iButton.setToolTipText("Makes the matrix an identity matrix");
 		_scalarButton.setToolTipText("Creates a new scalar");
 		_saveButton.setToolTipText("Saves the created matrix to the panel below");
+		_saveAsButton.setToolTipText("Specify a name for this matrix to be saved to the panel below");
 		_clearButton.setToolTipText("Clears all work in this panel");
 		_clearButton.addActionListener(new ClearListener(this));
 		_saveButton.addActionListener(new SaveListener(this));
+		_saveAsButton.addActionListener(new SaveNameListener(this));
 		_scalarButton.addActionListener(new ScalarListener(this));
 		_iButton.addActionListener(new IdentityListener(this));
 		_fillButton.addActionListener(new FillListener(this));
@@ -129,6 +134,7 @@ public class Construct extends JPanel {
 		buttonPanel.add(_scalarButton);
 		buttonPanel.add(_clearButton);
 		buttonPanel.add(_saveButton);
+		buttonPanel.add(_saveAsButton);
 		buttonPanel.setOpaque(false);
 		checkButtons();
 	}
@@ -139,6 +145,7 @@ public class Construct extends JPanel {
 			_clearButton.setEnabled(false);
 			_iButton.setEnabled(false);
 			_saveButton.setEnabled(false);
+			_saveAsButton.setEnabled(false);
 			_fillButton.setEnabled(false);
 			_scalarButton.setEnabled(true);
 		}
@@ -147,11 +154,13 @@ public class Construct extends JPanel {
 			if (_mSize.get(0) == _mSize.get(1)) {
 				_iButton.setEnabled(true);
 			}
+			_saveAsButton.setEnabled(true);
 			_saveButton.setEnabled(true);
 			for(int i = 0; i <= _mSize.get(0); i++){
 				for(int j = 0; j <= _mSize.get(1); j++){
 					if(!_values.containsKey("[" + i + ", " + j + "]")){
 						_saveButton.setEnabled(false);
+						_saveAsButton.setEnabled(false);
 					}
 				}
 			}
@@ -640,7 +649,7 @@ public class Construct extends JPanel {
 		}
 	}
 	
-	public class SaveNameListener implements ActionListener{
+	public class SaveNameListener implements ActionListener, DialogStringListener{
 
 		Construct _c;
 		
@@ -649,11 +658,12 @@ public class Construct extends JPanel {
 		}
 		
 		@Override
-		public void actionPerformed(ActionEvent arg0) {
+		public void doDialogReturn(String s) {
 			for(int i = 0; i <= _mSize.get(0); i++){
 				for(int j = 0; j <= _mSize.get(1); j++){
 					if(!_values.containsKey("[" + i + ", " + j + "]")){
 						System.out.println("incomplete matrix!");
+						_instructionsLabel.setText(CurrentConstants.CONSTRUCT_INSTRUCTIONSLABEL_INCOMPLETETEXT);
 						return;
 					}
 				}
@@ -670,11 +680,14 @@ public class Construct extends JPanel {
 					}
 				}
 			}
-			/**
-			 * TODO
-			 */
-//			_save.addCountable(STRING NAME, new Matrix(dt, mValues));
+			_save.addCountable(s, new Matrix(dt, mValues));
+			_instructionsLabel.setText(CurrentConstants.CONSTRUCT_INSTRUCTIONSLABEL_SAVEDTEXT);
 			_c.clear();
+		}
+		
+		@Override
+		public void actionPerformed(ActionEvent arg0) {
+			new StringDialog(_frame, this, _c, _frame.getUILayer());
 		}
 	}
 	
@@ -718,7 +731,7 @@ public class Construct extends JPanel {
 		
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
-				new CustomDialog(_frame, "create scalar", this, _c, _frame.getUILayer());
+			new CustomDialog(_frame, "create scalar", this, _c, _frame.getUILayer());
 		}
 	}
 	
