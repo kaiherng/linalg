@@ -220,7 +220,7 @@ public class CurrentConstants {
 	public static final Border EXPORT_BUTTON_BORDER = new EmptyBorder(8,12,8,12);
 	
 	/** SOLUTION **/
-	public static final int SOLUTION_TEX_SIZE = 16;
+	public static final int SOLUTION_TEX_SIZE = 15;
 	
 	public static final Color SOLUTIONSCROLL_BG = Color.white;
 	public static final Border SOLUTIONSCROLL_BORDER = new EmptyBorder(0,0,0,0);
