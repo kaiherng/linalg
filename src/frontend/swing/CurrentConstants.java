@@ -27,7 +27,7 @@ public class CurrentConstants {
 	public static final Color INIT_FRAME_BG = new Color(0x93B7E6);
 	public static final Color FRAME_BORDER_COLOR = Color.BLACK;
 	public static final int FRAME_BORDER_WIDTH = 1;
-	public static final Dimension FRAME_MIN_SIZE = new Dimension(950,600);
+	public static final Dimension FRAME_MIN_SIZE = new Dimension(1000,600);
 	public static final int RESIZE_THRESHOLD = 10;
 	
 	/** HEADER (ie the window bar right on top) **/
