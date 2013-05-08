@@ -39,7 +39,7 @@ public class StringDialog extends JDialog {
         	public void keyPressed(KeyEvent evt) {
                 if(evt.getKeyCode() == KeyEvent.VK_ENTER) {
     				String s = _textField.getText();
-            		if(s == null){
+            		if(s.length() == 0){
     					_warning.setText("Must enter something");
     				} //Note: we are not checking for the types of characters entered here! No sanitization at all!!!
             		else {
@@ -79,7 +79,7 @@ public class StringDialog extends JDialog {
         	@Override
         	public void mouseClicked(MouseEvent e) {
 				String s = _textField.getText();
-        		if(s == null){
+        		if(s.length() == 0){
 					_warning.setText("Must enter something");
 				} //Note: we are not checking for the types of characters entered here! No sanitization at all!!!
         		else {

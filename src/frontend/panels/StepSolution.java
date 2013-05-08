@@ -131,6 +131,27 @@ public class StepSolution extends JPanel {
 		_answer.setBackground(CurrentConstants.STEPSOLUTION_ANSWER_BG);
 		_answer.setPreferredSize(new Dimension(0,90));
 		
+		_answer.addMouseListener(new MouseAdapter() {
+			
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+				_answer.setBackground(CurrentConstants.STEPSOLUTION_ANSWER_HOVER_BG);
+			}
+			
+			public void mouseClicked(MouseEvent e) {
+				CardLayout cl = (CardLayout) (_cards.getLayout());
+				cl.last(_cards);
+			}
+			
+			@Override
+			public void mouseExited(MouseEvent e) {
+				setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+				_answer.setBackground(CurrentConstants.STEPSOLUTION_ANSWER_BG);
+			}
+			
+		});
+		
 		_buttons = new JPanel(new BorderLayout());
 		_buttons.setBorder(CurrentConstants.STEPSOLUTION_ANSWER_BORDER);
 		_buttons.setBackground(CurrentConstants.STEPSOLUTION_ANSWER_BG);
