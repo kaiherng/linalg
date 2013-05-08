@@ -36,7 +36,7 @@ public class Solution extends JPanel {
 		_marginX = 10;
 		_marginY = 10;
 //		_scroll = scroll;
-		_size = 20;
+		_size = 12;
 		this.add(_label, BorderLayout.CENTER);
 	}
 	
