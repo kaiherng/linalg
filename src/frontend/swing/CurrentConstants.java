@@ -24,14 +24,14 @@ public class CurrentConstants {
 	
 	/** INIT FRAME AND APP FRAME **/
 	public static final Dimension INIT_FRAME_SIZE = new Dimension(500,300);
-	public static final Color INIT_FRAME_BG = new Color(0x85A8D6);
+	public static final Color INIT_FRAME_BG = new Color(0x93B7E6);
 	public static final Color FRAME_BORDER_COLOR = Color.BLACK;
 	public static final int FRAME_BORDER_WIDTH = 1;
 	public static final Dimension FRAME_MIN_SIZE = new Dimension(1100,800);
 	public static final int RESIZE_THRESHOLD = 10;
 	
 	/** HEADER (ie the window bar right on top) **/
-	public static final Color HEADER_BG = new Color(0x1C4C75);
+	public static final Color HEADER_BG = new Color(0x103A5E);
 	public static final Color HEADER_TITLE_COLOR = Color.WHITE;
 	public static final Font HEADER_TITLE_FONT = new Font(SUPER_FONT_STYLE, Font.BOLD, 11);
 	public static final Font HEADER_MAX_BUTTON_FONT = new Font(SUPER_FONT_STYLE, Font.BOLD, 14);
@@ -45,7 +45,7 @@ public class CurrentConstants {
 	public static final Color SPLITPANE_BG = new Color(0x1C4C75);
 	public static final int SPLITPANE_WIDTH = 11;
 	public static final int SPLITPANE_BORDER_WIDTH = 0;
-	public static final Color LEFT_RIGHT_PANEL_BG = new Color(0x5881A3);
+	public static final Color LEFT_RIGHT_PANEL_BG = new Color(0x6E96B5);
 	public static final Dimension LEFT_PANEL_MIN_SIZE = new Dimension(550,300); //don't change the x-value - some of the 5 buttons will disappear if its too small - 465 is just right
 	public static final Dimension LEFT_PANEL_PREFERRED_SIZE = new Dimension(600,500); //this is the initial size of the left panel
 	public static final Dimension RIGHT_PANEL_MIN_SIZE = new Dimension(400,300);
@@ -83,8 +83,8 @@ public class CurrentConstants {
 	
 	public static final Color OP_BLOCK_BG = new Color(0x365D91);
 	public static final Dimension OP_BLOCK_SIZE = new Dimension(60,60);
-	public static final Color OP_BLOCK_HOVER_BG = new Color(0x23436E);
-	public static final Color OP_BLOCK_PRESSED_BG = new Color(0x23436E);
+	public static final Color OP_BLOCK_HOVER_BG = new Color(0x1C3A63);
+	public static final Color OP_BLOCK_PRESSED_BG = new Color(0x1C3A63);
 	
 	public static final Color BRACKET_BLOCK_BG = new Color(0x3C4C78);
 	public static final Color BRACKET_BLOCK_FG = Color.white;
@@ -269,31 +269,31 @@ public class CurrentConstants {
 	
 	public static final Color BUTTON_COMPUTE_BG = new Color(0x264261);
 	public static final Color BUTTON_COMPUTE_FG = Color.WHITE;
-	public static final Color BUTTON_COMPUTE_HOVER_BG = new Color(0x376394);
+	public static final Color BUTTON_COMPUTE_HOVER_BG = new Color(0x152D47);
 	public static final Color BUTTON_COMPUTE_HOVER_FG = Color.WHITE;
-	public static final Color BUTTON_COMPUTE_PRESSED_BG = Color.PINK;
-	public static final Color BUTTON_COMPUTE_PRESSED_FG = Color.BLACK;
+	public static final Color BUTTON_COMPUTE_PRESSED_BG = new Color(0x152D47);
+	public static final Color BUTTON_COMPUTE_PRESSED_FG = Color.WHITE;
 	public static final Color BUTTON_CLEAR_BG = new Color(0x4F6178);
 	public static final Color BUTTON_CLEAR_FG = Color.WHITE;
-	public static final Color BUTTON_CLEAR_HOVER_BG = new Color(0x768599);
+	public static final Color BUTTON_CLEAR_HOVER_BG = new Color(0x384454);
 	public static final Color BUTTON_CLEAR_HOVER_FG = Color.WHITE;
-	public static final Color BUTTON_CLEAR_PRESSED_BG = new Color(0x768599);
-	public static final Color BUTTON_CLEAR_PRESSED_FG = Color.BLACK;
+	public static final Color BUTTON_CLEAR_PRESSED_BG = new Color(0x384454);
+	public static final Color BUTTON_CLEAR_PRESSED_FG = Color.WHITE;
 	public static final Border BUTTON_COMPUTE_BORDER = new EmptyBorder(0,15,0,15);
 	public static final Border BUTTON_CLEAR_BORDER = new EmptyBorder(0,20,0,20);
 	
 	//for step by step next & prev buttons
 	public static final Color BUTTON_NEXT_BG = new Color(0x264261);
-	public static final Color BUTTON_NEXT_FG = Color.WHITE;
+	public static final Color BUTTON_NEXT_FG = new Color(0xA1BED6);
 	public static final Color BUTTON_NEXT_HOVER_BG = new Color(0x264261);
 	public static final Color BUTTON_NEXT_HOVER_FG = Color.WHITE;
 	public static final Color BUTTON_NEXT_PRESSED_BG = new Color(0x264261);
 	public static final Color BUTTON_NEXT_PRESSED_FG = Color.BLACK;
-	public static final Border BUTTON_NEXT_BORDER = new EmptyBorder(0,0,0,0);
-	public static final Font BUTTON_NEXT_FONT = new Font("Dialog", Font.BOLD, 14);
+	public static final Border BUTTON_NEXT_BORDER = new EmptyBorder(-2,0,0,0);
+	public static final Font BUTTON_NEXT_FONT = new Font("Dialog", Font.BOLD, 16);
 	
 	/** SCROLLPANE **/
-	public static final Color SUPER_SCROLLPANE_THUMB_BG = new Color(0x6D96D1);
+	public static final Color SUPER_SCROLLPANE_THUMB_BG = new Color(0x2F5FA3);
 	public static final Color SUPER_SCROLLPANE_TRACK_BG = new Color(0xB4C6E0);
 	public static final Color SCROLLPANE_THUMB_COLOR = SUPER_SCROLLPANE_THUMB_BG;
 	public static final Color SCROLLPANE_THUMB_DARK_SHADOW_COLOR = SUPER_SCROLLPANE_THUMB_BG;

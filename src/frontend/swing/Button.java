@@ -22,6 +22,7 @@ public class Button extends JButton {
 	
 	public Button(final String label, final Color bgColor, final Color fgColor, final Color hoverBgColor, final Color hoverFgColor, final Color pressedBgColor, final Color pressedFgColor, final Border border) {
 		super(label);
+		
 		setBackground(bgColor);
 		setForeground(fgColor);
 		setBorder(border);
