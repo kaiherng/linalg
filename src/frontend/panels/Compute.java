@@ -208,7 +208,6 @@ public class Compute extends JPanel {
 		_numericals.clear();
 		_bar.removeAll();
 		this.repaint();
-		System.out.println("clearing");
 		_bar.add(_instructionsLabel);
 		_instructionsLabel.setVisible(true);
 	}
@@ -267,7 +266,7 @@ public class Compute extends JPanel {
 			s = s.replaceAll("\\\\vspace\\{\\d\\dmm\\}", "");
 			s = s.replaceAll("\\\\hspace\\{\\d\\dmm\\}", "");
 			s = s.replaceAll("\\$", "");
-			output.append("$" + s + "$\\\\\n");
+			output.append("$" + s + "$\\\\\\\\\n");
 		}
 		list.get(1).add(sb.toString());
 		list.get(2).add(output.toString());

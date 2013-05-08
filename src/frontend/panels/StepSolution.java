@@ -276,8 +276,8 @@ public class StepSolution extends JPanel {
 					int ret = fc.showSaveDialog(_p);
 					if(ret == JFileChooser.APPROVE_OPTION){
 						File file;
-						if(!fc.getSelectedFile().getAbsolutePath().endsWith(".tex")){
-						    file = new File(fc.getSelectedFile() + ".tex");
+						if(!fc.getSelectedFile().getAbsolutePath().endsWith(".pdf")){
+						    file = new File(fc.getSelectedFile() + ".pdf");
 						} else {
 							file = fc.getSelectedFile();
 						}
