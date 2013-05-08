@@ -46,7 +46,7 @@ public class CurrentConstants {
 	public static final int SPLITPANE_WIDTH = 11;
 	public static final int SPLITPANE_BORDER_WIDTH = 0;
 	public static final Color LEFT_RIGHT_PANEL_BG = new Color(0x6E96B5);
-	public static final Dimension LEFT_PANEL_MIN_SIZE = new Dimension(550,300); //don't change the x-value - some of the 5 buttons will disappear if its too small - 465 is just right
+	public static final Dimension LEFT_PANEL_MIN_SIZE = new Dimension(460,300); //don't change the x-value - some of the 5 buttons will disappear if its too small - 465 is just right
 	public static final Dimension LEFT_PANEL_PREFERRED_SIZE = new Dimension(600,500); //this is the initial size of the left panel
 	public static final Dimension RIGHT_PANEL_MIN_SIZE = new Dimension(400,300);
 	
@@ -265,7 +265,8 @@ public class CurrentConstants {
 	public static final Color BUTTON_HOVER_FG = Color.WHITE;
 	public static final Color BUTTON_PRESSED_BG = new Color(0x264261);
 	public static final Color BUTTON_PRESSED_FG = Color.BLACK;
-	public static final Border BUTTON_BORDER = new EmptyBorder(10,12,10,12);
+	public static final Border BUTTON_BORDER = new EmptyBorder(9,7,9,7);
+	public static final Font BUTTON_FONT = new Font("Dialog", Font.BOLD, 11);
 	
 	public static final Color BUTTON_COMPUTE_BG = new Color(0x264261);
 	public static final Color BUTTON_COMPUTE_FG = Color.WHITE;
