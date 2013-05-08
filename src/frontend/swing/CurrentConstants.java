@@ -182,7 +182,7 @@ public class CurrentConstants {
 	public static final Color COMPUTE_BAR_OBJECT_FG = Color.WHITE;
 	public static final Color COMPUTE_BAR_OBJECT_BG = new Color(0x3C4C78);
 	public static final Color COMPUTE_BAR_OBJECT_HOVER_BG = new Color(0x26355E);
-	public static final String COMPUTE_INSTRUCTIONSLABEL_TEXT = "<html>Click on saved matrices and<br> operations to construct an equation";
+	public static final String COMPUTE_INSTRUCTIONSLABEL_TEXT = "<html>Click on saved matrices and<br>operations to compute solution";
 	public static final Border COMPUTE_INSTRUCTIONSLABEL_BORDER = new EmptyBorder(15,12,0,0);	
 	
 	/** SAVED **/
