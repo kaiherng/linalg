@@ -44,6 +44,7 @@ public class CurrentConstants {
 	/** SPLIT PANES AND TABS **/
 	public static final Color SPLITPANE_BG = new Color(0x1C4C75);
 	public static final int SPLITPANE_WIDTH = 11;
+	public static final int SPLITPANE_BORDER_WIDTH = 0;
 	public static final Color LEFT_RIGHT_PANEL_BG = new Color(0x5881A3);
 	public static final Dimension LEFT_PANEL_MIN_SIZE = new Dimension(550,300); //don't change the x-value - some of the 5 buttons will disappear if its too small - 465 is just right
 	public static final Dimension LEFT_PANEL_PREFERRED_SIZE = new Dimension(600,500); //this is the initial size of the left panel

@@ -31,7 +31,7 @@ public class Main {
 	
 	}
 	
-	private static boolean _splash = false;
+	private static boolean _splash = true;
 	
 	public static void main(String[] args) {
 		

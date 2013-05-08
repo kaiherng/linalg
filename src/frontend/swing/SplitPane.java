@@ -20,7 +20,7 @@ public class SplitPane extends JSplitPane {
 		super(JSplitPane.HORIZONTAL_SPLIT, leftPanel, rightPanel);
 		
 		BasicSplitPaneUI ui = (BasicSplitPaneUI) getUI();
-		setBorder(new MatteBorder(CurrentConstants.FRAME_BORDER_WIDTH,0,0,0,CurrentConstants.FRAME_BORDER_COLOR));
+		setBorder(new MatteBorder(CurrentConstants.SPLITPANE_BORDER_WIDTH,0,0,0,CurrentConstants.FRAME_BORDER_COLOR));
 		ui.getDivider().setBorder(BorderFactory.createLineBorder(CurrentConstants.SPLITPANE_BG, 10)); //this int doesn't matter - its just to overlap the ugly dotted resize line in middle of splitpane
 		ui.getDivider().setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
 	}
