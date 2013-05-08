@@ -94,6 +94,7 @@ public class Solution extends JPanel {
 				}
 			}
 		}
+		System.out.println(size);
 //		_scroll.resetScroll();
 		this.setPreferredSize(new Dimension(_ti.getIconWidth()+_marginX, _ti.getIconHeight()+_marginX));
 		this.revalidate();
