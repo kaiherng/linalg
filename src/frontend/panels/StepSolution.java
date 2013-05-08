@@ -389,7 +389,7 @@ public class StepSolution extends JPanel {
 		
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
-			new StringDialog(_frame, this, StepSolution.this, _frame.getUILayer());
+			if (!_ans.getName().equals("SCALAR"))	new StringDialog(_frame, this, StepSolution.this, _frame.getUILayer());
 		}
 		
 	}
