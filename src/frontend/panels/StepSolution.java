@@ -124,12 +124,12 @@ public class StepSolution extends JPanel {
 		bottomBarRightUp.add(answerLabel);
 		bottomBarRight.add(bottomBarRightUp, BorderLayout.NORTH);
 
-		_answer = new Solution(90, 90);
+		_answer = new Solution(90, 100);
 		_answer.setMargins(5, 5);
 		_answer.setToolTipText("Click to save/export answer");
 		_answer.setBorder(CurrentConstants.STEPSOLUTION_ANSWER_BORDER);
 		_answer.setBackground(CurrentConstants.STEPSOLUTION_ANSWER_BG);
-		_answer.setPreferredSize(new Dimension(0,90));
+		_answer.setPreferredSize(new Dimension(0,100));
 		
 		_answer.addMouseListener(new MouseAdapter() {
 			
