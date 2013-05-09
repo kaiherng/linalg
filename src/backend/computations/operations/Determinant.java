@@ -60,7 +60,7 @@ public class Determinant extends Computable
 			latex = toLatex();
 		}else{
 			latex = new ArrayList<>();
-			latex.add("\\mathrm{\\vspace{10mm} Calculate \\ the \\ Determinant");
+			latex.add("\\mathrm{\\vspace{10mm} Calculate \\ the \\ Determinant}");
 			latex.add("\\mathrm{\\vspace{10mm}  Steps \\ omitted \\ for \\ matrices  \\ larger \\ than \\ 4 \\ by \\ 4, \\ for \\ your \\ own \\ good!");
 			List<String> l = toLatex();
 			latex.add("\\vspace{10mm}"+l.get(l.size()-1));

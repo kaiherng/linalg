@@ -76,7 +76,7 @@ public class MM_Multiply extends Computable {
 						throw new IllegalArgumentException("ERROR: Matrix should not contain null indices");
 					}
 					res += aValues[i][row] * bValues[col][i];
-					expanded += "("+aDisplay[i][row]+" \\ * \\ "+bDisplay[col][i]+") \\ + \\ ";
+					expanded += "("+shortenDecimal(aDisplay[i][row])+" \\ * \\ "+shortenDecimal(bDisplay[col][i])+") \\ + \\ ";
 				}
 				expanded = expanded.substring(0,expanded.length()-7);
 				expanded += " \\ = \\ "+shortenDecimal(getDisplayValue(res,answerDisplayType));
