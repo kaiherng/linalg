@@ -87,7 +87,7 @@ public class StepSolution extends JPanel {
 		_stepNumberLabel.setFont(CurrentConstants.STEPSOLUTION_STEPNUMBERLABEL_FONT);
 		bottomBarLeft.setBackground(CurrentConstants.STEPSOLUTION_BOTTOMBARLEFT_BG);
 		bottomBarLeft.setBorder(CurrentConstants.STEPSOLUTION_BOTTOMBARLEFT_BORDER);
-		_comp = new Solution(75,80);
+		_comp = new Solution(75,-1);
 		_comp.setMargins(5, 5);
 		_comp.setUpperLimit(30);
 		_comp.setBorder(CurrentConstants.STEPSOLUTION_COMP_BORDER);

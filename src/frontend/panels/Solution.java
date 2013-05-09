@@ -22,8 +22,8 @@ public class Solution extends JPanel {
 	TeXIcon _ti;
 	JLabel _label;
 	SolutionScroll _scroll;
-	int _size;
-	int _height;
+	int _height = -1;
+	int _width = -1;
 	int _marginX;
 	int _marginY;
 	boolean _limitSize = false;
@@ -36,7 +36,6 @@ public class Solution extends JPanel {
 		_marginX = 10;
 		_marginY = 10;
 //		_scroll = scroll;
-		_size = 12;
 		this.add(_label, BorderLayout.CENTER);
 	}
 	
@@ -46,6 +45,7 @@ public class Solution extends JPanel {
 	 */
 	public Solution(int height, int width){
 		_height = height;
+		_width = width;
 		_limitSize = true;
 		this.setLayout(new BorderLayout());
 		setTex("");
@@ -78,12 +78,13 @@ public class Solution extends JPanel {
 		TeXFormula formula = new TeXFormula(tex);
 		int size = CurrentConstants.SOLUTION_TEX_SIZE;
 		_ti = formula.createTeXIcon(TeXConstants.STYLE_DISPLAY, CurrentConstants.SOLUTION_TEX_SIZE);
-		
+		System.out.println("Width: " + _ti.getIconWidth() + " : " + _width);
 		if(_limitSize){
 			while(_ti.getIconHeight() > _height){
 				size -= 1;
 				_ti = formula.createTeXIcon(TeXConstants.STYLE_DISPLAY, size);
 			}
+			System.out.println("Width: " + _ti.getIconWidth() + " : " + _width);
 			while(_ti.getIconHeight() < _height){
 				size += 1;
 				_ti = formula.createTeXIcon(TeXConstants.STYLE_DISPLAY, size);
@@ -93,8 +94,15 @@ public class Solution extends JPanel {
 					}
 				}
 			}
+			if(_width != -1){
+				while(_ti.getIconWidth() > _width){
+					size -= 1;
+					_ti = formula.createTeXIcon(TeXConstants.STYLE_DISPLAY, size);
+					System.out.println("limit");
+				}
+			}
 		}
-		System.out.println(size);
+//		System.out.println(size);
 //		_scroll.resetScroll();
 		this.setPreferredSize(new Dimension(_ti.getIconWidth()+_marginX, _ti.getIconHeight()+_marginX));
 		this.revalidate();
