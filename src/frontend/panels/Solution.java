@@ -78,13 +78,11 @@ public class Solution extends JPanel {
 		TeXFormula formula = new TeXFormula(tex);
 		int size = CurrentConstants.SOLUTION_TEX_SIZE;
 		_ti = formula.createTeXIcon(TeXConstants.STYLE_DISPLAY, CurrentConstants.SOLUTION_TEX_SIZE);
-		System.out.println("Width: " + _ti.getIconWidth() + " : " + _width);
 		if(_limitSize){
 			while(_ti.getIconHeight() > _height){
 				size -= 1;
 				_ti = formula.createTeXIcon(TeXConstants.STYLE_DISPLAY, size);
 			}
-			System.out.println("Width: " + _ti.getIconWidth() + " : " + _width);
 			while(_ti.getIconHeight() < _height){
 				size += 1;
 				_ti = formula.createTeXIcon(TeXConstants.STYLE_DISPLAY, size);
