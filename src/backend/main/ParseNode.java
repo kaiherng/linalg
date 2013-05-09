@@ -109,11 +109,11 @@ public class ParseNode {
 		
 		if (args.size() == 2){ // was it a unary or binary operator?
 			String toSetArg2 = getToSet(args.get(1));
-			toReplace.setLeft(new ToComputeTreeNode(null,null,"("+toSetArg1));
-			toReplace.setRight(new ToComputeTreeNode(null,null,toSetArg2+")"));
+			toReplace.setLeft(new ToComputeTreeNode(null,null,"{("+toSetArg1));
+			toReplace.setRight(new ToComputeTreeNode(null,null,toSetArg2+")}"));
 			_toComputeTree = copyTree(root);
-			toReplace.setLeft(new ToComputeTreeNode(null,null,toSetArg1));
-			toReplace.setRight(new ToComputeTreeNode(null,null,toSetArg2));
+			toReplace.setLeft(new ToComputeTreeNode(null,null,""+toSetArg1 ));
+			toReplace.setRight(new ToComputeTreeNode(null,null,toSetArg2+""));
 		}else{
 			toReplace.setValue("("+_solution.getOp().getString());
 			toReplace.setLeft(null);

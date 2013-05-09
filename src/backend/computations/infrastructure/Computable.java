@@ -110,8 +110,8 @@ public abstract class Computable{
 	/**
 	 * Shortens a decimal if it is too long
 	 * 
-	 * @param num
-	 * @return
+	 * @param num a string number
+	 * @return the number with all but the first five digits truncated
 	 */
 	public String shortenDecimal(String num){
 		// truncate long decimals
