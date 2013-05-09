@@ -107,12 +107,13 @@ public class Parser {
 	protected static ParseNode createToComputeStrings(ParseNode root,ToComputeTreeNode toComputeRoot, ToComputeTreeNode currNode){
 		root.setComputeStringTree(toComputeRoot, currNode);
 		
-		if (root.getLeft() != null){
-			createToComputeStrings(root.getLeft(),toComputeRoot,currNode.getLeft());
-		}
 		if (root.getRight() != null){
 			createToComputeStrings(root.getRight(),toComputeRoot,currNode.getRight());
 		}
+		if (root.getLeft() != null){
+			createToComputeStrings(root.getLeft(),toComputeRoot,currNode.getLeft());
+		}
+
 		return root;
 	}
 	
