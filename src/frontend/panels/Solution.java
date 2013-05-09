@@ -96,7 +96,6 @@ public class Solution extends JPanel {
 				while(_ti.getIconWidth() > _width){
 					size -= 1;
 					_ti = formula.createTeXIcon(TeXConstants.STYLE_DISPLAY, size);
-					System.out.println("limit");
 				}
 			}
 		}
