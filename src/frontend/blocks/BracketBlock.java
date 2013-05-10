@@ -14,8 +14,14 @@ import backend.blocks.Bracket;
 import frontend.panels.Compute;
 import frontend.swing.CurrentConstants;
 
+/**
+ * Creates a bracket icon in the compute panel
+ * @author jypoon
+ *
+ */
 public class BracketBlock extends JPanel{
 
+	private static final long serialVersionUID = -5045109929119734971L;
 	boolean _isOpen;
 	Compute _c;
 	String _text;

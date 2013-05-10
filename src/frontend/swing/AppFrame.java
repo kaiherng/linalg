@@ -18,7 +18,6 @@ import frontend.panels.Compute;
 import frontend.panels.Construct;
 import frontend.panels.Saved;
 import frontend.panels.SavedScroll;
-import frontend.panels.SolutionScroll;
 import frontend.panels.StepSolution;
 import frontend.utils.CustomLayerUI;
 import frontend.utils.FadeLayerUI;
@@ -51,8 +50,7 @@ public class AppFrame extends JFrame {
 		
 		//Create Panels
 		StepSolution stepSol = new StepSolution(this);
-		SolutionScroll stepPanel = new SolutionScroll();
-		Compute computePanel = new Compute(stepSol, stepPanel.getSolPanel());
+		Compute computePanel = new Compute(stepSol);
 		SavedScroll savedPanel = new SavedScroll(computePanel);
 		Construct constructPanel = new Construct(savedPanel.getSavedPanel(), this);
 		savedPanel.getSavedPanel().setConstructPanel(constructPanel);

@@ -43,11 +43,14 @@ import frontend.swing.DialogListener;
 import frontend.swing.DialogStringListener;
 import frontend.swing.StringDialog;
 
+/**
+ * Draws construction panel and all its components
+ * @author jypoon
+ *
+ */
+
 public class Construct extends JPanel {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -635825278434322408L;
 	Rectangle[][] _grid;
 	int _size = 50;
@@ -139,6 +142,9 @@ public class Construct extends JPanel {
 		checkButtons();
 	}
 	
+	/**
+	 * Checks to see if buttons should be enabled or not
+	 */
 	private void checkButtons() {
 		 
 		if (!_drawn) {
@@ -170,6 +176,9 @@ public class Construct extends JPanel {
 		}
 	}
 	
+	/**
+	 * Clears drawing canvas
+	 */
 	public void clear(){
 		_editing = false;
 		_drawn = false;
@@ -185,6 +194,11 @@ public class Construct extends JPanel {
 		this.repaint();
 	}
 	
+	/**
+	 * Draws a matrix into the canvas for editing
+	 * @param m
+	 * @param s
+	 */
 	public void editMatrix(Matrix m, String s){
 		clear();
 		Double[][] values = m.getValues();
@@ -216,6 +230,10 @@ public class Construct extends JPanel {
 		_instructionsLabel.setText(CurrentConstants.CONSTRUCT_INSTRUCTIONSLABEL_EDITINGSAVEDTEXT);
 	}
 	
+	/**
+	 * Returns the saved panel associated with this panel
+	 * @return
+	 */
 	public Saved getSavedPanel(){
 		return _save;
 	}
@@ -229,6 +247,7 @@ public class Construct extends JPanel {
 		//antialiasing text (if the prev line screwed up, use this instead)
 		//g2.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
 		
+		//draws guide grid
 		if(_drawing){
 			g2.setColor(CurrentConstants.CONSTRUCT_GRID_LIGHT);
 			for(int i = 0; i < _grid.length; i++){
@@ -242,6 +261,7 @@ public class Construct extends JPanel {
 
 		}
 		
+		//draws actual drawn grid
 		if(_drawn){
 			g2.setColor(CurrentConstants.CONSTRUCT_GRID_DARK);
 			_fontSize = 30;
@@ -280,6 +300,7 @@ public class Construct extends JPanel {
 			}
 			
 			
+			//draws values
 			for(int i = 0; i <= _mSize.get(0); i++){
 				for(int j = 0 ; j <= _mSize.get(1); j++){
 					List<Integer> pos = new ArrayList<>();
@@ -305,7 +326,8 @@ public class Construct extends JPanel {
 			
 		}
 		
-
+		
+		//draws size indicator
 		if (_drawing) {
 			if (_sizeIndicator.length() > 0) {
 				
@@ -345,6 +367,11 @@ public class Construct extends JPanel {
 		
 	}
 	
+	/**
+	 * Listener for general mouse action
+	 * @author jypoon
+	 *
+	 */
 	public class MouseListener extends MouseAdapter{
 		
 		JPanel _p;
@@ -402,6 +429,7 @@ public class Construct extends JPanel {
 		
 		public void mouseDragged(MouseEvent e){
 			_p.requestFocus();
+			//drawing matrix
 			if(_drawing){
 				_mouseLocation = e.getPoint();
 				int newX = (int) Math.floor((e.getX()-_offset.get(0))/_size);
@@ -449,6 +477,11 @@ public class Construct extends JPanel {
 		}
 	}
 	
+	/**
+	 * General key listener for panel
+	 * @author jypoon
+	 *
+	 */
 	public class KListener implements KeyListener{
 		
 		JPanel _p;
@@ -569,6 +602,11 @@ public class Construct extends JPanel {
 		
 	}
 	
+	/**
+	 * Window resize listener
+	 * @author jypoon
+	 *
+	 */
 	public class CompListener implements ComponentListener {
 		
 		@Override
@@ -607,6 +645,11 @@ public class Construct extends JPanel {
 		
 	}
 	
+	/**
+	 * Save button listener
+	 * @author jypoon
+	 *
+	 */
 	public class SaveListener implements ActionListener{
 
 		Construct _c;
@@ -649,6 +692,11 @@ public class Construct extends JPanel {
 		}
 	}
 	
+	/**
+	 * Save As button listener
+	 * @author jypoon
+	 *
+	 */
 	public class SaveNameListener implements ActionListener, DialogStringListener{
 
 		Construct _c;
@@ -691,6 +739,11 @@ public class Construct extends JPanel {
 		}
 	}
 	
+	/**
+	 * Clear button listener
+	 * @author jypoon
+	 *
+	 */
 	public class ClearListener implements ActionListener{
 		
 		Construct _c;
@@ -706,6 +759,11 @@ public class Construct extends JPanel {
 		}
 	}
 	
+	/**
+	 * New Scalar button listener
+	 * @author jypoon
+	 *
+	 */
 	public class ScalarListener implements ActionListener, DialogListener{
 		
 		Construct _c;
@@ -735,6 +793,11 @@ public class Construct extends JPanel {
 		}
 	}
 	
+	/**
+	 * Create identity listener
+	 * @author jypoon
+	 *
+	 */
 	public class IdentityListener implements ActionListener{
 		
 		Construct _c;
@@ -766,6 +829,11 @@ public class Construct extends JPanel {
 		}
 	}
 	
+	/**
+	 * Fill matrix button listener
+	 * @author jypoon
+	 *
+	 */
 	public class FillListener implements ActionListener, DialogListener{
 		
 		Construct _c;

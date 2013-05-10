@@ -35,20 +35,27 @@ import frontend.swing.CurrentConstants;
 import frontend.swing.ScrollPane;
 import frontend.utils.WrapLayout;
 
+/**
+ * Draws compute panel and all its components, such as icons
+ * and labels
+ * 
+ * @author jypoon
+ *
+ */
+
 public class Compute extends JPanel {
 
+	private static final long serialVersionUID = 2340669331278360261L;
 	Map<Integer, Numerical> _numericals;
 	JPanel _computeBar, _ops, _bar;
 	Integer _id = 0;
 	StepSolution _solPanel;
-	Solution _stepPanel;
 	private JLabel _instructionsLabel;
 	
-	public Compute(StepSolution sol, Solution step) {
+	public Compute(StepSolution sol) {
 		super();
 		_numericals = new LinkedHashMap<>();
 		_solPanel = sol;
-		_stepPanel = step;
 		
 		this.setLayout(new BorderLayout());
 		this.setBorder(CurrentConstants.COMPUTE_BORDER);
@@ -117,8 +124,6 @@ public class Compute extends JPanel {
 		unary.setOpaque(false);
 		binary.setOpaque(false);
 		brackets.setOpaque(false);
-//		unary.setBorder(BorderFactory.createLineBorder(Color.black));
-//		binary.setBorder(BorderFactory.createLineBorder(Color.black));
 		for(Op o : Op.values()){
 			if(o.isUnary()){
 				unary.add(new OpBlock(o, o.getIconPath(), this));
@@ -130,7 +135,6 @@ public class Compute extends JPanel {
 		brackets.add(new BracketBlock(false, this));
 		GridBagConstraints c = new GridBagConstraints();
 		c.fill = GridBagConstraints.HORIZONTAL;
-//		c.anchor = GridBagConstraints.NORTHWEST;
 		c.weighty = 0.0;
 		c.weightx = 0.1;
 		c.insets = new Insets(10, 10, 0, 0);
@@ -164,14 +168,16 @@ public class Compute extends JPanel {
 		opsWrapper.setBorder(CurrentConstants.COMPUTE_OPS_BORDER);
 		opsWrapper.setBackground(CurrentConstants.COMPUTE_OPS_BG);
 		opsWrapper.add(_ops, BorderLayout.NORTH);
-		//Bracket
-//		_ops.add(new BracketBlock(true, this));
-//		_ops.add(new BracketBlock(false, this));
 				
 		this.add(_computeBar, BorderLayout.SOUTH);
 		this.add(opsWrapper, BorderLayout.CENTER);
 	}
 	
+	/**
+	 * Adds a numerical into the compute bar
+	 * @param n Numerical to add
+	 * @param s Name of numerical
+	 */
 	public void addToBar(Numerical n, String s){
 		if (_instructionsLabel.isVisible()) {
 			_instructionsLabel.setVisible(false);
@@ -183,6 +189,12 @@ public class Compute extends JPanel {
 		this.repaint();
 	}
 	
+	/**
+	 * Adds a numerical into the compute bar with an image
+	 * @param n numerical
+	 * @param s string
+	 * @param bi image
+	 */
 	public void addToBar(Numerical n, String s, Image bi){
 		if (_instructionsLabel.isVisible()) {
 			_instructionsLabel.setVisible(false);
@@ -194,6 +206,11 @@ public class Compute extends JPanel {
 		this.repaint();
 	}
 	
+	/**
+	 * Removes numerical from bar
+	 * @param id id of numerical
+	 * @param c component which represents the numerical
+	 */
 	public void removeFromBar(int id, Component c){
 		_numericals.remove(id);
 		_bar.remove(c);
@@ -204,6 +221,9 @@ public class Compute extends JPanel {
 		}
 	}
 	
+	/**
+	 * Clears the compute bar, brings up instruction label
+	 */
 	public void clearBar(){
 		_numericals.clear();
 		_bar.removeAll();
@@ -212,6 +232,10 @@ public class Compute extends JPanel {
 		_instructionsLabel.setVisible(true);
 	}
 	
+	/**
+	 * Computs whats in the compute bar and sets the solution
+	 * displayed in the solution panel
+	 */
 	public void compute(){
 		List<Numerical> l = new ArrayList<>();
 		for(Numerical n : _numericals.values()){
@@ -221,7 +245,6 @@ public class Compute extends JPanel {
 			ParseNode result = Parser.parse(l);
 			if(result == null){
 				String s = "\\text{No solution found}";
-				_stepPanel.setTex(s);
 				//_solPanel.setTex(s);
 				return;
 			}
@@ -236,7 +259,7 @@ public class Compute extends JPanel {
 			_solPanel.setSolution(traverseTree(result, list), result.getSolution().getAnswer());
 		} catch (IllegalArgumentException e){
 			System.out.println(e.getMessage());
-			_solPanel.setError("\\text{" + e.getMessage() + "}");
+//			_solPanel.setError("\\text{" + e.getMessage() + "}");
 		}
 	}
 	
@@ -244,6 +267,7 @@ public class Compute extends JPanel {
 	 * Solutions are stored in a list of list of strings
 	 * list 0 is for the computeString
 	 * list 1 is for the concatenated steps strings
+	 * list 2 is for latex export string
 	 * @param n
 	 * @param list
 	 * @return
@@ -280,6 +304,11 @@ public class Compute extends JPanel {
 		return list;
 	}
 	
+	/**
+	 * Represents objects in the compute bar logically and graphically
+	 * @author jypoon
+	 *
+	 */
 	private class BarObject extends JPanel implements MouseListener{
 		
 		/**
@@ -288,6 +317,13 @@ public class Compute extends JPanel {
 		private static final long serialVersionUID = 3647938517413519896L;
 		private Compute _c;
 		private Integer _id;
+		/**
+		 * Create bar object with given string
+		 * @param n
+		 * @param s
+		 * @param id
+		 * @param c
+		 */
 		public BarObject(Numerical n, String s, int id, Compute c){
 			this.setLayout(new BorderLayout());
 			JLabel label = new JLabel(s);
@@ -303,6 +339,14 @@ public class Compute extends JPanel {
 			this.addMouseListener(this);
 		}
 		
+		/**
+		 * Create bar object with given string and image icon
+		 * @param n
+		 * @param s
+		 * @param id
+		 * @param c
+		 * @param bi
+		 */
 		public BarObject(Numerical n, String s, int id, Compute c, Image bi){
 			this.setLayout(new BorderLayout());
 			JLabel label = new JLabel(new ImageIcon(bi.getScaledInstance(40, 40, BufferedImage.SCALE_DEFAULT)));
@@ -337,6 +381,11 @@ public class Compute extends JPanel {
 		public void mouseReleased(MouseEvent arg0) {}
 	}
 	
+	/**
+	 * Compute button listener
+	 * @author jypoon
+	 *
+	 */
 	private class SolButtonListener implements ActionListener{
 		
 		Compute _c;
@@ -352,6 +401,11 @@ public class Compute extends JPanel {
 		
 	}
 	
+	/**
+	 * Clear button listener
+	 * @author jypoon
+	 *
+	 */
 	private class ClearButtonListener implements ActionListener{
 		
 		Compute _c;

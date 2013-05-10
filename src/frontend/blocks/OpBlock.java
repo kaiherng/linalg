@@ -18,13 +18,26 @@ import backend.computations.operations.Multiply;
 import frontend.panels.Compute;
 import frontend.swing.CurrentConstants;
 
+/**
+ * Represents an operation in the compute panel, this is created for each op enum
+ * @author jypoon
+ *
+ */
+
 public class OpBlock extends JPanel {
 	
+	private static final long serialVersionUID = 5844085158536047903L;
 	Op _op;
 	Compute _c;
 	String _text;
 	BufferedImage _bi;
 
+	/**
+	 * Created with an op enum, icon path and also the compute panel
+	 * @param op
+	 * @param iconPath
+	 * @param c
+	 */
 	public OpBlock(Op op, String iconPath, Compute c) {
 		Icon i = new ImageIcon(iconPath);
 		_bi = new BufferedImage(i.getIconWidth(), i.getIconWidth(), BufferedImage.TYPE_INT_ARGB);

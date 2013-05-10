@@ -31,11 +31,17 @@ import frontend.swing.DialogStringListener;
 import frontend.swing.ScrollPane;
 import frontend.swing.StringDialog;
 
+/**
+ * Combination of three solution panels as well as buttons to help navigate
+ * around the solution. There is the display panel which shows the actual step by step,
+ * the comp panel which shows where in the computation the display panel is showing
+ * and the answer panel which shows the answer to the computation
+ * @author jypoon
+ *
+ */
+
 public class StepSolution extends JPanel {
 	
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1780266591415441861L;
 	private Saved _savePanel;
 	private Solution _display, _answer, _comp;
@@ -62,7 +68,6 @@ public class StepSolution extends JPanel {
 		
 		//main display
 		_display = new Solution("\\text{Solutions will be displayed here}");
-//		_display.addMouseListener(new Listener(this));
 		_scroll = new ScrollPane(_display);
 		_scroll.getVerticalScrollBar().setUnitIncrement(20);
 		_scroll.setBorder(CurrentConstants.STEPSOLUTION_SCROLL_BORDER);
@@ -249,6 +254,11 @@ public class StepSolution extends JPanel {
 		_tabbedPane = tabbedPane;
 	}
 	
+	/**
+	 * Exports the solution into a latex string. This is in beta and requires
+	 * that pdfLatex is in the PATH directory
+	 * @param file
+	 */
 	public void exportPDF(File file){
 		if(_solList.size() != 0){
 			StringBuilder sb = new StringBuilder();
@@ -256,11 +266,9 @@ public class StepSolution extends JPanel {
 			sb.append("\\usepackage{amsmath,amsthm,amsfonts,amssymb,amscd}\n");
 			sb.append("\\setlength{\\parindent}{0.0in}");
 			sb.append("\\begin{document}\n");
-//			sb.append("\\begin{align}\n");
 			for(String ls : _exportList){
 				sb.append(ls + "\n");
 			}
-//			sb.append("\\end{align}\n");
 			sb.append("\\end{document}");
 			
 			FileWriter fw;
@@ -284,6 +292,9 @@ public class StepSolution extends JPanel {
 		_savePanel = savePanel;
 	}
 	
+	/**
+	 * Clears all things that are currently displayed in the solution panels
+	 */
 	public void clear(){
 		_bottomBar.setVisible(false);
 		_display.setTex("\\text{Solutions will be displayed here}");
@@ -296,6 +307,13 @@ public class StepSolution extends JPanel {
 		checkButtons();
 	}
 	
+	/**
+	 * Sets the display on all three of the panels, the steps variable is a list
+	 * of lists. list 0 is the computation list, list 1 are the steps and list 2 
+	 * is the exportable latex string. 
+	 * @param steps
+	 * @param answer
+	 */
 	public void setSolution(List<List<String>> steps, Countable answer){
 		_bottomBar.setVisible(true);
 		_solList = steps.get(1);
@@ -312,16 +330,26 @@ public class StepSolution extends JPanel {
 		this.repaint();
 	}
 	
+	/**
+	 * Displays and error in the display panel
+	 * @param error
+	 */
 	public void setError(String error){
 		clear();
 		_display.setTex(error);
 	}
 	
+	/**
+	 * Sets the step number displayed in the bar
+	 */
 	private void setStepNumbers() {
 		_stepNumberLabel.setText("<html>Step <font color=#BFD9F2>" + (_stepNumber + 1) + "</font> of " + _solList.size());
 		_tabbedPane.setTitleAt(0, "<html>Step <font color=#BFD9F2>" + (_stepNumber + 1) + "</font> of " + _solList.size());
 	}
 	
+	/**
+	 * Moves forward to next possible step
+	 */
 	public void next(){
 		if(_stepNumber < _solList.size() - 1){
 			_stepNumber++;
@@ -335,6 +363,9 @@ public class StepSolution extends JPanel {
 		this.repaint();
 	}
 	
+	/**
+	 * Moves backwards to previous possible step
+	 */
 	public void prev(){
 		if(_stepNumber > 0){
 			_stepNumber--;
@@ -347,6 +378,9 @@ public class StepSolution extends JPanel {
 		this.repaint();
 	}
 	
+	/**
+	 * Checks buttons to see if any of them should be disabled
+	 */
 	public void checkButtons(){
 		_backButton.setEnabled(true);
 		_forwardButton.setEnabled(true);
@@ -358,22 +392,19 @@ public class StepSolution extends JPanel {
 		}
 	}
 	
+	/**
+	 * Resets scrollbars back to the top left position
+	 */
 	public void resetScroll(){
 		_scroll.getVerticalScrollBar().setValue(0);
 		_scroll.getHorizontalScrollBar().setValue(0);
 	}
 	
-	
-	@SuppressWarnings("unused")
-	private class ButtonListener extends MouseAdapter{
-		
-		@Override
-		public void mouseExited(MouseEvent e) {
-			CardLayout cl = (CardLayout) (_cards.getLayout());
-			cl.first(_cards);
-		}
-	}
-	
+	/**
+	 * Listener for save as button
+	 * @author jypoon
+	 *
+	 */
 	private class SaveAsListener implements DialogStringListener, ActionListener{
 		
 		public SaveAsListener() {
@@ -394,18 +425,11 @@ public class StepSolution extends JPanel {
 		
 	}
 
-	
-	@SuppressWarnings("unused")
-	private class ExportListener extends MouseAdapter{
-		public void mouseClicked(MouseEvent e){
-			if(_ans != null){
-				if(e.getClickCount() == 2){
-					_savePanel.addCountable(_ans);
-				}
-			}
-		}
-	}
-	
+	/**
+	 * Listener for forward and back button
+	 * @author jypoon
+	 *
+	 */
 	private class ForwardBack implements ActionListener{
 		StepSolution _ss;
 		boolean _forward;

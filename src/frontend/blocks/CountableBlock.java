@@ -19,11 +19,14 @@ import backend.blocks.Scalar;
 import frontend.panels.Saved;
 import frontend.swing.CurrentConstants;
 
+/**
+ * Represents any saved countable whether is is a matrix or a scalar
+ * @author jypoon
+ *
+ */
+
 public class CountableBlock extends JPanel {
 	
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 6148169854145080375L;
 	Saved _s;
 	String _name;
@@ -83,18 +86,32 @@ public class CountableBlock extends JPanel {
 		_delete.setVisible(false);
 	}
 	
+	/**
+	 * Sets the countable stored
+	 * @param c
+	 */
 	public void setCountable(Countable c){
 		_countable = c;
 	}
 	
+	/**
+	 * Returns the countable stored
+	 * @return
+	 */
 	public Countable getCountable(){
 		return _countable;
 	}
 	
+	/**
+	 * Sets the color scheme to show that it is currently being edited
+	 */
 	public void setEditing(){
 		this.setBackground(CurrentConstants.COUNTABLE_BLOCK_EDITING_BG);
 	}
 	
+	/**
+	 * Reverts to original color scheme
+	 */
 	public void doneEditing(){
 		this.setBackground(CurrentConstants.COUNTABLE_BLOCK_BG);
 	}
