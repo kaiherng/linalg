@@ -10,10 +10,7 @@ import javax.swing.JButton;
 import javax.swing.border.Border;
 
 /**
- * Tutorial to create custom button UI: http://stackoverflow.com/questions/5751311/creating-a-custom-button-in-java-with-jbutton/5755124#5755124
- * 
- * Note: At this point, the pressed color doesn't work -it's probably overriden somewhere else?
- * 
+ * Custom button class
  * @author kloh
  *
  */

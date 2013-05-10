@@ -11,11 +11,11 @@ import javax.swing.BorderFactory;
 import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 
-//http://colorschemedesigner.com/ 
-//Scheme ID: 3z41Tw0w0w0w0
-//For reference only - not used, i used colorpicker.com to select individual colors
-//top - left - bottom - right
-
+/**
+ * Dimensions, borders, colors -- all the constants belong to this class! Name is self-explanatory to which it refers to
+ * @author Kai
+ *
+ */
 public class CurrentConstants {
 	
 	

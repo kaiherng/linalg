@@ -16,6 +16,11 @@ import javax.swing.JPanel;
 import frontend.utils.CustomLayerUI;
 import frontend.utils.WhiteLayerUI;
 
+/**
+ * Not used in the actual program. This is for debugging if and when we need to test look and feel of swing components
+ * @author Kai
+ *
+ */
 public class Debug {
 	
 	public static void main(String[] args) {

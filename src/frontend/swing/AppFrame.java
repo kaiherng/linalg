@@ -24,7 +24,7 @@ import frontend.utils.FadeLayerUI;
 import frontend.utils.ResizeAdapter;
 
 /**
- * Our JFrame
+ * The JFrame of the program 
  * @author kloh
  *
  */
@@ -37,6 +37,9 @@ public class AppFrame extends JFrame {
 		return _customLayerUI;
 	}
 	
+	/**
+	 * Basic UI set up for Jframe
+	 */
 	public void setUpDesign() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setUndecorated(true);
@@ -44,6 +47,9 @@ public class AppFrame extends JFrame {
 		setLocationRelativeTo(null);
 	}
 
+	/**
+	 * Constructs AppFame
+	 */
 	public AppFrame() {
 		super("Linear Algebra Calculator");
 		setUpDesign();
@@ -73,8 +79,7 @@ public class AppFrame extends JFrame {
 		ContentPane contentPane = new ContentPane(this);
 		contentPane.add(splitPane);
 		
-		//this is so that we can fade the rest of the program later
-		//create a BlurLayerUI instead for blur
+		//uncomment to choose the appropriate effect when JDialog shows
 //		_customLayerUI = new WhiteLayerUI(this);
 //		_customLayerUI = new BlurLayerUI(this);
 		_customLayerUI = new FadeLayerUI(this);
@@ -85,6 +90,12 @@ public class AppFrame extends JFrame {
 		
 	}
 	
+	/**
+	 * Creates a tabbed pane on the top left of the frame (compute, construct)
+	 * @param constructPanel 
+	 * @param computePanel
+	 * @return the created pane
+	 */
 	public final static JTabbedPane createTabbedPaneTopLeft(Construct constructPanel, Compute computePanel) {
 		JTabbedPane tabbedPaneTopLeft = new JTabbedPane();
 		
@@ -99,6 +110,11 @@ public class AppFrame extends JFrame {
 		return tabbedPaneTopLeft;
 	}
 	
+	/**
+	 * Create a tabbed pane on the bottom left of the frame (Save pane)
+	 * @param savedPanel
+	 * @return The created pane
+	 */
 	public final static JTabbedPane createTabbedPaneBottomLeft(SavedScroll savedPanel) {
 		JTabbedPane tabbedPaneBottomLeft = new JTabbedPane();
 		tabbedPaneBottomLeft.addTab("Saved Matrices", savedPanel);
@@ -106,6 +122,11 @@ public class AppFrame extends JFrame {
 		return tabbedPaneBottomLeft;
 	}
 	
+	/**
+	 * Create a tabbed pane on the right of the frame (Solution pane)
+	 * @param solPanel
+	 * @return the created pane
+	 */
 	public final static JTabbedPane createTabbedPaneRight(StepSolution solPanel) {
 		JTabbedPane tabbedPaneRight = new JTabbedPane();
 		tabbedPaneRight.addTab("Solution", solPanel);
@@ -114,6 +135,12 @@ public class AppFrame extends JFrame {
 		return tabbedPaneRight;
 	}
 	
+	/**
+	 * Creates the left panel (that's draggable in the JSplitPane)
+	 * @param tabbedPaneTopLeft
+	 * @param tabbedPaneBottomLeft
+	 * @return the created left panel
+	 */
 	public final static JPanel createLeftPanel(JTabbedPane tabbedPaneTopLeft, JTabbedPane tabbedPaneBottomLeft) {
 		JPanel leftPanel = new JPanel(new GridBagLayout());
 		leftPanel.setBackground(CurrentConstants.LEFT_RIGHT_PANEL_BG);
@@ -143,6 +170,11 @@ public class AppFrame extends JFrame {
 		return leftPanel;
 	}
 	
+	/**
+	 * Create the right panel that's draggable in the JSplitPane
+	 * @param tabbedPaneRight 
+	 * @return the created pane
+	 */
 	public final static JPanel createRightPanel(JTabbedPane tabbedPaneRight) {
 		JPanel rightPanel = new JPanel(new GridBagLayout());
 		rightPanel.setBackground(CurrentConstants.LEFT_RIGHT_PANEL_BG);
@@ -161,7 +193,6 @@ public class AppFrame extends JFrame {
 		return rightPanel;
 	}
 
-	
 	private static class TopLeftTabListener implements ChangeListener{
 		Saved _s;
 		public TopLeftTabListener(Saved s){

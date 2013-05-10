@@ -17,6 +17,11 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 
+/**
+ * A JFrame that has a shadow (taken from Stackoverflow). NOT USED in this program
+ * @author Kai
+ *
+ */
 public class ShadowFrame {
 
     private JFrame frame;

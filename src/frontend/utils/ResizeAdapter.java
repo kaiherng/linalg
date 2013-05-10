@@ -14,6 +14,11 @@ import java.awt.event.MouseEvent;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 
+/**
+ * Use this to make components resizable (since our frame is undecorated)
+ * @author Kai
+ *
+ */
 public class ResizeAdapter extends MouseAdapter{
 
 	private int _resizing = 0;
@@ -24,6 +29,13 @@ public class ResizeAdapter extends MouseAdapter{
     private Rectangle _prevBounds;
     private int[] _resizeSides;
 
+    /**
+     * Makes the component resizable
+     * @param component the swing component we want to resize
+     * @param frame the jframe
+     * @param threshold the threshold to the edges that detects intent to resize
+     * @param resizeSides swing constants that indicate which side(s) should be resizable
+     */
     public ResizeAdapter(Component component, JFrame frame, int threshold, int... resizeSides) {
         super();
         component.addMouseListener(this);

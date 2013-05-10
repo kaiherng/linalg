@@ -4,6 +4,11 @@ import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.plaf.LayerUI;
 
+/**
+ * Extend to make cool-looking effects when the JDialog is open
+ * @author Kai
+ *
+ */
 @SuppressWarnings("serial")
 public abstract class CustomLayerUI extends LayerUI<JComponent>{
 

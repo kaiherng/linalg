@@ -4,17 +4,20 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.FlowLayout;
-import java.awt.Font;
 import java.awt.Point;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 
-import javax.swing.BorderFactory;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+/**
+ * We're using an undecorated frame, so we need to make our own title bar.
+ * @author Kai
+ *
+ */
 @SuppressWarnings("serial")
 public class HeaderPanel extends JPanel implements MouseListener, MouseMotionListener {
 
@@ -53,6 +56,10 @@ public class HeaderPanel extends JPanel implements MouseListener, MouseMotionLis
 		add(eastPanel,BorderLayout.EAST);
 	}
 	
+	/**
+	 * Creates the button to minimize the frame
+	 * @return
+	 */
 	public JLabel createMinButton() {
 		JLabel maxButton = new JLabel("_");
 		maxButton.setToolTipText("Minimize");
@@ -80,6 +87,10 @@ public class HeaderPanel extends JPanel implements MouseListener, MouseMotionLis
 		return maxButton;
 	}
 	
+	/**
+	 * Creates the button to maximize the frame
+	 * @return
+	 */
 	public JLabel createMaxButton() {
 		JLabel maxButton = new JLabel("\u25FB");
 		maxButton.setToolTipText("Maximize");
@@ -112,6 +123,10 @@ public class HeaderPanel extends JPanel implements MouseListener, MouseMotionLis
 		return maxButton;
 	}
 	
+	/**
+	 * Creates the close button
+	 * @return
+	 */
 	public JLabel createCloseButton() {
 		JLabel closeButton = new JLabel("X");
 		closeButton.setFont(CurrentConstants.HEADER_CLOSE_BUTTON_FONT);

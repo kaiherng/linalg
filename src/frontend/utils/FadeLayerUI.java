@@ -6,8 +6,12 @@ import java.awt.Graphics2D;
 
 import javax.swing.JComponent;
 import javax.swing.JFrame;
-import javax.swing.plaf.LayerUI;
 
+/**
+ * Fades out (to black) the rest of the frame when the JDialog is open
+ * @author Kai
+ *
+ */
 @SuppressWarnings("serial")
 public class FadeLayerUI extends CustomLayerUI {
 

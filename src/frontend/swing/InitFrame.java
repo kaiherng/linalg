@@ -15,6 +15,11 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
+/**
+ * Our very cool splash screen
+ * @author Kai
+ *
+ */
 @SuppressWarnings("serial")
 public class InitFrame extends JFrame {
 	

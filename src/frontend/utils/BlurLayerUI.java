@@ -9,8 +9,13 @@ import java.awt.image.Kernel;
 
 import javax.swing.JComponent;
 import javax.swing.JFrame;
-import javax.swing.plaf.LayerUI;
 
+/**
+ * For blurring the frame when a JDialog is open
+ * @author Kai
+ *
+ */
+@SuppressWarnings("serial")
 public class BlurLayerUI extends CustomLayerUI {
 
 	private BufferedImage _mOffscreenImage;

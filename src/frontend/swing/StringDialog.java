@@ -17,6 +17,11 @@ import javax.swing.JTextField;
 
 import frontend.utils.CustomLayerUI;
 
+/**
+ * A cool JDialog for string input
+ * @author Kai
+ *
+ */
 @SuppressWarnings("serial")
 public class StringDialog extends JDialog {
 	

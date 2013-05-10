@@ -1,6 +1,10 @@
 package frontend.swing;
 
-
+/**
+ * Thread that takes care of the splash screen
+ * @author Kai
+ *
+ */
 public class InitFrameThread implements Runnable {
 	
 	private InitFrame _initFrame;

@@ -129,6 +129,7 @@ public class StepSolution extends JPanel {
 		bottomBarRightUp.add(answerLabel);
 		bottomBarRight.add(bottomBarRightUp, BorderLayout.NORTH);
 
+		//creating the UI for saving/export the answer
 		_answer = new Solution(90, 100);
 		_answer.setMargins(5, 5);
 		_answer.setToolTipText("Click to save/export answer");

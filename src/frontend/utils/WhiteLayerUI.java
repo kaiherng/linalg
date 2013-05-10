@@ -8,6 +8,11 @@ import java.awt.Graphics2D;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 
+/**
+ * Fades out the rest of the jframe (to white) when the JDialog is open
+ * @author Kai
+ *
+ */
 @SuppressWarnings("serial")
 public class WhiteLayerUI extends CustomLayerUI {
 

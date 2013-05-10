@@ -24,14 +24,11 @@ public class Main {
 		UIManager.put("TabbedPane.background", CurrentConstants.TAB_BG);  
 		UIManager.put("TabbedPane.light", CurrentConstants.TAB_LIGHT);  
 		UIManager.put("TabbedPane.tabsOverlapBorder", CurrentConstants.TAB_TABS_OVERLAP_BORDER);
-		
 		UIManager.put("TabbedPane.tabInsets", CurrentConstants.TAB_INSETS);  //sets padding within the tab header
 		UIManager.put("TabbedPane.tabAreaInsets", CurrentConstants.TAB_AREA_INSETS);  //sets the margin of the block of tab headers
-	
-	
 	}
 	
-	private static boolean _splash = true;
+	private static boolean _splash = true; //change this to toggle splash screen on/off
 	
 	public static void main(String[] args) {
 		

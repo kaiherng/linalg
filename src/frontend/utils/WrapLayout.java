@@ -12,6 +12,7 @@ import javax.swing.SwingUtilities;
 /**
  *  FlowLayout subclass that fully supports wrapping of components.
  */
+@SuppressWarnings("serial")
 public class WrapLayout extends FlowLayout
 {
 	private Dimension preferredLayoutSize;
@@ -58,7 +59,7 @@ public class WrapLayout extends FlowLayout
 	* Returns the preferred dimensions for this layout given the
 	* <i>visible</i> components in the specified target container.
 	* @param target the component which needs to be laid out
-�	* @return the preferred dimensions to lay out the
+�ｽ	* @return the preferred dimensions to lay out the
 	* subcomponents of the specified container
 	*/
 	@Override
